@@ -43,7 +43,7 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_EN.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "es";
@@ -108,14 +108,15 @@
     firefox
     powertop
     nixpkgs-fmt
-    gnome.gnome-keyring
     git
     btop
-    cudatoolkit #nvidia-smi
+    cudatoolkit # nvidia-smi
     iftop
-    pciutils #lspci
-    jetbrains-mono
+    pciutils # lspci
+    nil # Nix language server
   ];
+
+  fonts.fonts = with pkgs; [ jetbrains-mono ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -153,6 +154,7 @@
 
   services.flatpak.enable = true;
 
+  services.gnome.gnome-keyring.enable = true;
   security.pam.services.gdm.enableGnomeKeyring = true;
 }
 
