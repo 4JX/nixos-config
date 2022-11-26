@@ -12,6 +12,7 @@ in
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      <home-manager/nixos>
       /home/infinity/Documents/GitHub/nixos-hardware/lenovo/legion/16ach6h
       ./variables.nix
       ./system
@@ -77,14 +78,15 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${cfg.user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
+
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

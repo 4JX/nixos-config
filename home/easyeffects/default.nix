@@ -5,7 +5,12 @@ let
   cfg = config.cfg;
 in
 {
-  users.users.${cfg.user}.packages = [ easyeffects_v7 ];
+  home-manager.users.${cfg.user} = { pkgs, ... }: {
+    home.packages = [ easyeffects_v7 ];
+
+    xdg.configFile."easyeffects/output/Legion 5 Pro.json".source = ./L5P.json;
+    xdg.configFile."easyeffects/output/DT880.json".source = ./DT880.json;
+  };
 
   # For easyeffects to work correctly this needs to be enabled
   programs.dconf.enable = true;

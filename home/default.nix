@@ -4,16 +4,23 @@ let
   cfg = config.cfg;
 in
 {
-  imports = [ ./easyeffects.nix ];
+  imports = [ ./easyeffects ];
 
-  users.users.${cfg.user}.packages = with pkgs; [
-    firefox
-    kate
-    kitty
-    keepassxc
-    vscodium
-    github-desktop
-    spotify
-    ark
-  ];
+  home-manager.useGlobalPkgs = true;
+
+  home-manager.users.${cfg.user} = { pkgs, ... }: {
+
+    home.packages = with pkgs; [
+      firefox
+      kate
+      kitty
+      keepassxc
+      vscodium
+      github-desktop
+      spotify
+      ark
+    ];
+
+    home.stateVersion = "22.11";
+  };
 }
