@@ -10,15 +10,17 @@ in
 
   home-manager.users.${cfg.user} = { pkgs, ... }: {
 
+    imports = [ ./vscodium ./firefox ];
+
     home.packages = with pkgs; [
-      firefox
+      #firefox
       kate
       kitty
       keepassxc
-      vscodium
       github-desktop
       spotify
       ark
+      gh # Github CLI
     ];
 
     home.stateVersion = "22.11";

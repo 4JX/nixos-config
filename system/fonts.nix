@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-  fonts.fonts = with pkgs; [ jetbrains-mono ];
+  fonts.fonts = with pkgs; [ jetbrains-mono nerdfonts twemoji-color-font ];
 }
