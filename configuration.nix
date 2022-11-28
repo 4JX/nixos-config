@@ -103,6 +103,12 @@ in
     pciutils # lspci
     nil # Nix language server
     killall
+    exa
+    bat
+
+    # CLion deps
+    cmake
+    gcc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
