@@ -30,6 +30,7 @@ in
       peek
       qbittorrent
       scrcpy
+      arandr
     ];
 
     home.stateVersion = "22.11";
