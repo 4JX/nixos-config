@@ -1,6 +1,5 @@
 {
   security.rtkit.enable = true;
-  # TODO: Make pipewire not resample everything to 48Khz
   services.pipewire = {
     enable = true;
     alsa = {
@@ -8,5 +7,12 @@
       support32Bit = true;
     };
     pulse.enable = true;
+    config.pipewire = {
+      # 44100 48000 88200 96000 176400 192000 352800 384000
+      "context.properties" = {
+        "default.clock.allowed-rates" = [ 44100 48000 88200 96000 176400 192000 352800 384000 ];
+      };
+    };
   };
+
 }
