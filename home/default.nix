@@ -30,6 +30,7 @@ in
       peek
       qbittorrent
       scrcpy
+      tor-browser-bundle-bin
       arandr
     ];
 
