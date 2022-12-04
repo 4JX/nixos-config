@@ -5,6 +5,6 @@
     ./flatpak.nix
     ./gnome-keyring.nix
     ./fonts.nix
-    ./multiple-displays
+    ./specialisations
   ];
 }
