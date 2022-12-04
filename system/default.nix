@@ -7,5 +7,6 @@
     ./fonts.nix
     ./specialisations
     ./display-calibration
+    ./power-management
   ];
 }
