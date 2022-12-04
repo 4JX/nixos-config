@@ -6,5 +6,6 @@
     ./gnome-keyring.nix
     ./fonts.nix
     ./specialisations
+    ./display-calibration
   ];
 }
