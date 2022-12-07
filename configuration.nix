@@ -16,7 +16,6 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       <home-manager/nixos>
-      <nixos-hardware/lenovo/legion/16ach6h>
       ./variables.nix
       ./system
       ./home
