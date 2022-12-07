@@ -47,6 +47,7 @@ in
       };
       timeout = 5;
     };
+    supportedFilesystems = [ "ntfs" ];
   };
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -114,10 +115,9 @@ in
     killall
     exa
     bat
-
-    # CLion deps
     cmake
     gcc
+    efibootmgr
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
