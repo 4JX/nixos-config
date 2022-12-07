@@ -4,7 +4,7 @@ let
   cfg = config.cfg;
 in
 {
-  imports = [ ./easyeffects ./shell ./kitty.nix ];
+  imports = [ ./easyeffects ./shell ./kitty.nix ./syncthing.nix ];
 
   home-manager.useGlobalPkgs = true;
 
@@ -32,6 +32,9 @@ in
       scrcpy
       tor-browser-bundle-bin
       arandr
+      libreoffice
+      obsidian
+      nixos-option
     ];
 
     home.stateVersion = "22.11";
