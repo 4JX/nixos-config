@@ -5,6 +5,9 @@
 { config, pkgs, lib, ... }:
 
 let
+  unstableTarball =
+    fetchTarball
+      "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
   cfg = config.cfg;
 in
 {
@@ -18,6 +21,14 @@ in
       ./system
       ./home
     ];
+
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      unstable = import unstableTarball {
+        config = config.nixpkgs.config;
+      };
+    };
+  };
 
   # Use the grub bootloader.
   boot = {
