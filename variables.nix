@@ -53,7 +53,7 @@ let
 in
 {
   options.cfg = {
-    user = lib.mkOption {
+    primaryUser = lib.mkOption {
       default = "infinity";
       type = lib.types.str;
     };
@@ -64,5 +64,7 @@ in
     };
   };
 
-
+  config._module.args = {
+    primaryUser = config.cfg.primaryUser;
+  };
 }

@@ -1,14 +1,11 @@
-{ pkgs, config, ... }:
+{ pkgs, primaryUser, ... }:
 
-let
-  cfg = config.cfg;
-in
 {
   imports = [ ./easyeffects ./shell ./kitty.nix ./syncthing.nix ];
 
   home-manager.useGlobalPkgs = true;
 
-  home-manager.users.${cfg.user} = { pkgs, config, ... }: {
+  home-manager.users.${primaryUser} = { pkgs, ... }: {
 
     imports = [
       ./vscodium

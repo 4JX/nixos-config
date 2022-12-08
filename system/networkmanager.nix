@@ -1,10 +1,9 @@
-{ config, ... }:
+{ primaryUser, ... }:
 
-let
-  cfg = config.cfg;
-in
+
+
 {
   networking.networkmanager.enable = true;
 
-  users.users.${cfg.user}.extraGroups = [ "networkmanager" ];
+  users.users.${primaryUser}.extraGroups = [ "networkmanager" ];
 }
