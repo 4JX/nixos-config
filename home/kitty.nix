@@ -1,11 +1,10 @@
-{ pkgs, config, ... }:
+{ pkgs, config, primaryUser, ... }:
 
 let
-  cfg = config.cfg;
-  theme = cfg.theme;
+  theme = config.cfg.theme;
 in
 {
-  home-manager.users.${cfg.user} = { pkgs, config, ... }: {
+  home-manager.users.${primaryUser} = { pkgs, ... }: {
 
     programs.kitty = {
       enable = true;

@@ -1,7 +1,5 @@
-{ pkgs, config, ... }:
-let
-  cfg = config.cfg;
-in
+{ pkgs, primaryUser, ... }:
+
 {
   imports = [ ./virtualisation.nix ];
 
@@ -28,7 +26,7 @@ in
 
     sharedMemoryFiles = {
       looking-glass = {
-        user = cfg.user;
+        user = primaryUser;
         group = "qemu-libvirtd";
         mode = "666";
       };
@@ -67,7 +65,7 @@ in
 
   environment.etc."SSDT1.dat".source = ./SSDT1.dat;
 
-  home-manager.users.${cfg.user} = { pkgs, config, ... }: {
+  home-manager.users.${primaryUser} = { pkgs, ... }: {
     xdg.configFile."looking-glass/client.ini".source = ./lg-config.ini;
   };
 }

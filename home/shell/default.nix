@@ -1,14 +1,10 @@
-{ pkgs, config, ... }:
+{ pkgs, config, primaryUser, ... }:
 
-
-let
-  cfg = config.cfg;
-in
 {
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
 
-  home-manager.users.${cfg.user} = { pkgs, ... }: {
+  home-manager.users.${primaryUser} = { pkgs, ... }: {
     imports = [ ./zsh.nix ./starship.nix ];
   };
 }
