@@ -7,6 +7,11 @@
     ./display
   ];
 
+  ncfg.hardware.display = {
+    colord-kde.enable = true;
+    enableHighRefreshRate = true;
+  };
+
   # NixOS harware has nice defaults, need more than that
   services.xserver.videoDrivers = lib.mkForce [ ];
 

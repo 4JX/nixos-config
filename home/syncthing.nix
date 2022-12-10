@@ -1,60 +1,48 @@
-{ primaryUser, ... }:
+{ primaryUser, config, lib, ... }:
 
+let
+  cfg = config.ncfg.home.programs.networking.syncthing;
+in
 {
-  services.syncthing = {
-    enable = true;
-    user = primaryUser;
-    dataDir = "/home/${primaryUser}"; # configDir is set automatically from dataDir
-    openDefaultPorts = true;
-    group = "users";
-    overrideFolders = true;
-    overrideDevices = true;
-
-    devices = {
-      "Phone" = {
-        id = "HBDDQGH-L3HLJKF-CPJTNNR-C5JEULN-JSBNQUQ-UH7FPOO-NQRCPXC-GXJDJAT";
-      };
+  options.ncfg.home.programs.networking.syncthing = {
+    enable = lib.mkEnableOption "Enable Syncthing";
+    devices = lib.mkOption {
+      default = { };
+      type = lib.types.attrs;
     };
-
-    folders = {
-      "Keepass DB" = {
-        id = "Keepass DB";
-        path = "/home/${primaryUser}/Documents/Keepass DB";
-        devices = [ "Phone" ];
-        versioning = {
-          type = "staggered";
-          params = {
-            cleanInterval = "3600";
-            maxAge = "15768000";
-          };
-        };
-      };
-      "Phone" = {
-        id = "ayfdf-jbgsg";
-        path = "/home/${primaryUser}/Documents/Phone/lmi/Backups/Syncthing";
-        devices = [ "Phone" ];
-        versioning = {
-          type = "simple";
-          params = {
-            keep = "3";
-          };
-        };
-        type = "receiveonly";
-      };
+    folders = lib.mkOption {
+      default = { };
+      type = lib.types.attrs;
     };
   };
 
-  home-manager.users.${primaryUser} = { pkgs, ... }: {
+  config = lib.mkIf cfg.enable {
+    services.syncthing = {
+      enable = true;
+      user = primaryUser;
+      dataDir = "/home/${primaryUser}"; # configDir is set automatically from dataDir
+      openDefaultPorts = true;
+      group = "users";
+      overrideFolders = true;
+      overrideDevices = true;
 
-    home.packages = with pkgs; [
-      # Not working, https://github.com/NixOS/nixpkgs/issues/199596
-      syncthingtray
-    ];
+      devices = cfg.devices;
+      folders = cfg.folders;
 
-    # services.syncthing.tray = {
-    #   package = pkgs.syncthingtray;
-    #   enable = true;
-    #   command = "${pkgs.syncthingtray} --wait";
-    # };
+    };
+
+    home-manager.users.${primaryUser} = { pkgs, ... }: {
+
+      home.packages = with pkgs; [
+        # Not working, https://github.com/NixOS/nixpkgs/issues/199596
+        syncthingtray
+      ];
+
+      # services.syncthing.tray = {
+      #   package = pkgs.syncthingtray;
+      #   enable = true;
+      #   command = "${pkgs.syncthingtray} --wait";
+      # };
+    };
   };
 }

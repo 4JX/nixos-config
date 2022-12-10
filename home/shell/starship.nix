@@ -1,22 +1,40 @@
+{ config, lib, primaryUser, ... }:
+
+let
+  cfg = config.ncfg.home.programs.shell.starship;
+in
 {
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
+  options.ncfg.home.programs.shell.starship = {
+    enable = lib.mkEnableOption "Enable Starship";
+    enableZshIntegration = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+    };
+  };
 
-    settings = {
+  config = lib.mkIf cfg.enable {
+    home-manager.users.${primaryUser} = { pkgs, ... }: {
 
-      character = {
-        success_symbol = "[»](bold green)";
-        error_symbol = "[×](bold red) ";
-      };
+      programs.starship = {
+        enable = true;
+        enableZshIntegration = cfg.enableZshIntegration;
 
-      git_status = {
-        ahead = "↑";
-        behind = "↓";
-        diverged = "↕";
-        modified = "!";
-        staged = "±";
-        renamed = "→";
+        settings = {
+
+          character = {
+            success_symbol = "[»](bold green)";
+            error_symbol = "[×](bold red) ";
+          };
+
+          git_status = {
+            ahead = "↑";
+            behind = "↓";
+            diverged = "↕";
+            modified = "!";
+            staged = "±";
+            renamed = "→";
+          };
+        };
       };
     };
   };

@@ -52,7 +52,7 @@ let
   };
 in
 {
-  options.cfg = {
+  options.ncfg.vars = {
     primaryUser = lib.mkOption {
       default = "infinity";
       type = lib.types.str;
@@ -65,6 +65,6 @@ in
   };
 
   config._module.args = {
-    primaryUser = config.cfg.primaryUser;
+    primaryUser = config.ncfg.vars.primaryUser;
   };
 }
