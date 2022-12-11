@@ -8,15 +8,12 @@
     ./syncthing.nix
     ./vscodium
     ./firefox
+    ./steam
   ];
 
   home-manager.useGlobalPkgs = true;
 
   home-manager.users.${primaryUser} = { pkgs, ... }: {
-
-    imports = [
-
-    ];
 
     home.packages = with pkgs; [
       kate
@@ -51,11 +48,13 @@
         "DT880" = ./easyeffects/DT880.json;
       };
     };
+
     editors.vscodium = {
       enable = true;
       mutableExtensionsDir = true;
       useVSCodeMarketplace = true;
     };
+
     browsers.firefox = {
       enable = true;
       arkenfox = {
@@ -66,6 +65,7 @@
         };
       };
     };
+
     shell = {
       zsh = {
         enable = true;
@@ -84,6 +84,7 @@
       };
       kitty.enable = true;
     };
+
     networking.syncthing = {
       enable = true;
       devices = {
@@ -117,6 +118,11 @@
           type = "receiveonly";
         };
       };
+    };
+
+    games.steam = {
+      enable = true;
+      enableProtonGE = true;
     };
   };
 }
