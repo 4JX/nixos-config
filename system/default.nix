@@ -1,12 +1,20 @@
+{ pkgs, ... }:
+
 {
   imports = [
     ./hardware
-    ./networkmanager.nix
-    ./pipewire.nix
-    ./flatpak.nix
-    ./gnome-keyring.nix
-    ./fonts.nix
     ./specialisations
-    ./power-management
   ];
+
+  ncfg.system = {
+    flatpak.enable = true;
+    fonts = with pkgs; [ jetbrains-mono nerdfonts twemoji-color-font ];
+    pipewire = {
+      enable = true;
+      extraRates = true;
+    };
+    power-management.enable = true;
+    gnome-keyring.enable = true;
+    networkmanager.enable = true;
+  };
 }
