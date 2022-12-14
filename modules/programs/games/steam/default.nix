@@ -1,10 +1,10 @@
 { lib, config, pkgs, ... }:
 
 let
-  cfg = config.ncfg.home.programs.games.steam;
+  cfg = config.ncfg.programs.games.steam;
 in
 {
-  options.ncfg.home.programs.games.steam = {
+  options.ncfg.programs.games.steam = {
     enable = lib.mkEnableOption "Enable Steam";
     enableProtonGE = lib.mkEnableOption "Enable GloriousEggroll's fork of proton";
   };

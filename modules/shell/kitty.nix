@@ -2,10 +2,10 @@
 
 let
   theme = config.ncfg.vars.theme;
-  cfg = config.ncfg.home.programs.shell.kitty;
+  cfg = config.ncfg.shell.kitty;
 in
 {
-  options.ncfg.home.programs.shell.kitty = {
+  options.ncfg.shell.kitty = {
     enable = lib.mkEnableOption "Enable Kitty";
   };
 

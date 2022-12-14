@@ -1,7 +1,7 @@
 { pkgs, lib, config, primaryUser, ... }:
 
 let
-  cfg = config.ncfg.home.programs.browsers.firefox;
+  cfg = config.ncfg.programs.browsers.firefox;
   arkenfox_user = builtins.readFile (pkgs.fetchzip
     {
       url = "https://github.com/arkenfox/user.js/archive/refs/tags/${cfg.arkenfox.firefox_version}.tar.gz";
@@ -20,7 +20,7 @@ let
 
 in
 {
-  options.ncfg.home.programs.browsers.firefox = {
+  options.ncfg.programs.browsers.firefox = {
     enable = lib.mkEnableOption "Enable Firefox";
     arkenfox = {
       firefox_version = lib.mkOption {

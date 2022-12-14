@@ -13,6 +13,7 @@
       ./variables.nix
       ./system
       ./home
+      ./modules
     ];
 
   nixpkgs = {

@@ -1,10 +1,10 @@
 { primaryUser, config, lib, ... }:
 
 let
-  cfg = config.ncfg.home.programs.networking.syncthing;
+  cfg = config.ncfg.programs.networking.syncthing;
 in
 {
-  options.ncfg.home.programs.networking.syncthing = {
+  options.ncfg.programs.networking.syncthing = {
     enable = lib.mkEnableOption "Enable Syncthing";
     devices = lib.mkOption {
       default = { };
