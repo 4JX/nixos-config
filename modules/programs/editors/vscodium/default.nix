@@ -1,10 +1,10 @@
 { pkgs, config, lib, primaryUser, ... }:
 
 let
-  cfg = config.ncfg.home.programs.editors.vscodium;
+  cfg = config.ncfg.programs.editors.vscodium;
 in
 {
-  options.ncfg.home.programs.editors.vscodium = {
+  options.ncfg.programs.editors.vscodium = {
     enable = lib.mkEnableOption "Enable VSCodium";
 
     mutableExtensionsDir = lib.mkOption {

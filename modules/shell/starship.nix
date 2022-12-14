@@ -1,10 +1,10 @@
 { config, lib, primaryUser, ... }:
 
 let
-  cfg = config.ncfg.home.programs.shell.starship;
+  cfg = config.ncfg.shell.starship;
 in
 {
-  options.ncfg.home.programs.shell.starship = {
+  options.ncfg.shell.starship = {
     enable = lib.mkEnableOption "Enable Starship";
     enableZshIntegration = lib.mkOption {
       default = false;

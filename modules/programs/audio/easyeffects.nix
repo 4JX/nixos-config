@@ -1,9 +1,9 @@
 { config, primaryUser, lib, ... }:
 let
-  cfg = config.ncfg.home.programs.audio.easyeffects;
+  cfg = config.ncfg.programs.audio.easyeffects;
 in
 {
-  options.ncfg.home.programs.audio.easyeffects = {
+  options.ncfg.programs.audio.easyeffects = {
     enable = lib.mkEnableOption "Enable Easyeffects";
 
     outputPresets = lib.mkOption {
