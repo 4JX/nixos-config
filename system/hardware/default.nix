@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 
 {
 
@@ -12,10 +12,10 @@
     enableHighRefreshRate = true;
   };
 
-  # NixOS harware has nice defaults, need more than that
-  services.xserver.videoDrivers = lib.mkForce [ ];
+  # Add config on top of nixos-hardware
+  services.xserver.videoDrivers = [ "nvidia" ];
 
-  services.xserver.drivers = [
+  services.xserver.drivers = lib.optionals config.hardware.nvidia.prime.offload.enable [
     {
       driverName = "amdgpu";
       name = "amdgpu";
