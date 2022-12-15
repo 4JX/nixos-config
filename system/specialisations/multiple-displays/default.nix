@@ -11,7 +11,7 @@
   };
   hardware.opengl.enable = true;
   hardware.nvidia = {
-    powerManagement.enable = true;
+    powerManagement.enable = lib.mkForce false;
     modesetting.enable = true;
     prime = {
       offload.enable = lib.mkForce false;
