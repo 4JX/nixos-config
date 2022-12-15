@@ -96,6 +96,10 @@
         enable = true;
         enableProtonGE = true;
       };
+
+      misc = {
+        openrgb.enable = true;
+      };
     };
 
     shell = {
