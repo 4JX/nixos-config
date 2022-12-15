@@ -6,6 +6,7 @@
     ./browsers
     ./editors
     ./games
+    ./misc
     ./networking
   ];
 }
