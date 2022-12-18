@@ -14,7 +14,10 @@
         enable = true;
         extraRates = true;
       };
-      power-management.enable = true;
+      power-management = {
+        enable = true;
+        blacklistAmdPstate = true;
+      };
       gnome-keyring.enable = true;
       networkmanager.enable = true;
     };
