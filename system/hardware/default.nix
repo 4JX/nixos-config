@@ -7,11 +7,6 @@
     ./display
   ];
 
-  ncfg.hardware.display = {
-    colord-kde.enable = true;
-    enableHighRefreshRate = true;
-  };
-
   # Add config on top of nixos-hardware
   services.xserver.videoDrivers = [ "nvidia" ];
 
