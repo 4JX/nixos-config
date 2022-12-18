@@ -1,5 +1,8 @@
 { lib, pkgs, config, ... }:
 
+let
+  offloadEnabled = config.hardware.nvidia.prime.offload.enable;
+in
 {
 
   imports = [
@@ -10,7 +13,12 @@
   # Add config on top of nixos-hardware
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  services.xserver.drivers = lib.optionals config.hardware.nvidia.prime.offload.enable [
+  hardware.nvidia.powerManagement = lib.mkIf offloadEnabled {
+    enable = true;
+    finegrained = true;
+  };
+
+  services.xserver.drivers = lib.optionals offloadEnabled [
     {
       driverName = "amdgpu";
       name = "amdgpu";

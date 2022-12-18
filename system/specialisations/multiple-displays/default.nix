@@ -17,8 +17,9 @@
       offload.enable = lib.mkForce false;
       sync.enable = true;
 
-      nvidiaBusId = "PCI:1:0:0";
-      amdgpuBusId = "PCI:6:0:0";
+      # Set by nixos-hardware, left here for troubleshooting
+      # nvidiaBusId = "PCI:1:0:0";
+      # amdgpuBusId = "PCI:6:0:0";
     };
   };
 }
