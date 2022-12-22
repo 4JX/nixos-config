@@ -14,7 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${primaryUser} = { pkgs, ... }: {
-      home.packages = [ pkgs.easyeffects_v7 ];
+      home.packages = [ pkgs.unstable.easyeffects ];
 
       xdg.configFile =
         lib.mapAttrs' (name: value: { name = "easyeffects/output/${name}.json"; value = { source = value; }; }) cfg.outputPresets;

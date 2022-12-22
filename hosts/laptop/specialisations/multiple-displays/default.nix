@@ -9,6 +9,7 @@
     displayManager.setupCommands = lib.readFile ./layout.sh;
     videoDrivers = lib.mkForce [ "nvidia" ];
   };
+
   hardware.opengl.enable = true;
   hardware.nvidia = {
     powerManagement.enable = lib.mkForce false;
