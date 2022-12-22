@@ -6,17 +6,12 @@ in
 {
 
   imports = [
-    <nixos-hardware/lenovo/legion/16ach6h>
+    # <nixos-hardware/lenovo/legion/16ach6h/hybrid>
+    /home/infinity/Documents/GitHub/nixos-hardware/lenovo/legion/16ach6h
     ./display
   ];
 
   # Add config on top of nixos-hardware
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  hardware.nvidia.powerManagement = lib.mkIf offloadEnabled {
-    enable = true;
-    finegrained = true;
-  };
 
   services.xserver.drivers = lib.optionals offloadEnabled [
     {
