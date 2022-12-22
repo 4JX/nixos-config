@@ -10,5 +10,8 @@ in
     description = lib.mdDoc "List of primary font paths.";
   };
 
-  config.fonts.fonts = cfg.fonts;
+  config.fonts = {
+    fonts = cfg.fonts;
+    enableDefaultFonts = true;
+  };
 }
