@@ -1,8 +1,6 @@
 { pkgs, primaryUser, ... }:
 
 {
-  home-manager.useGlobalPkgs = true;
-
   home-manager.users.${primaryUser} = { pkgs, ... }: {
 
     home.packages = with pkgs; [
@@ -25,6 +23,7 @@
       libreoffice
       obsidian
       nixos-option
+      meld
     ];
 
     home.stateVersion = "22.11";

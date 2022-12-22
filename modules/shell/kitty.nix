@@ -1,7 +1,6 @@
-{ pkgs, config, primaryUser, lib, ... }:
+{ pkgs, config, primaryUser, lib, theme, ... }:
 
 let
-  theme = config.ncfg.vars.theme;
   cfg = config.ncfg.shell.kitty;
 in
 {

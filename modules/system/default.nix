@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./colord-kde.nix
     ./flatpak.nix
     ./fonts.nix
     ./gnome-keyring.nix

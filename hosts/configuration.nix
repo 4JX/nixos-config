@@ -1,46 +1,12 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, lib, primaryUser, ... }:
+{ config, pkgs, lib, primaryUser, hostName, ... }:
 
 {
   imports =
     [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      <home-manager/nixos>
-      ./variables.nix
-      ./system
-      ./home
-      ./modules
+      ../modules
     ];
 
-  nixpkgs = {
-    overlays = [ (import ./pkgs) ];
-  };
-
-  # Use the grub bootloader.
-  boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
-    blacklistedKernelModules = [ "nouveau" ];
-    loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
-      grub = {
-        enable = true;
-        devices = [ "nodev" ];
-        efiSupport = true;
-        useOSProber = true;
-      };
-      timeout = 5;
-    };
-    supportedFilesystems = [ "ntfs" ];
-  };
-
-  networking.hostName = "nixos"; # Define your hostname.
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
@@ -56,16 +22,18 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+
+    # Enable the Plasma 5 Desktop Environment.
+    displayManager.sddm.enable = true;
+    desktopManager.plasma5.enable = true;
+
+    # Configure keymap in X11
+    layout = "es";
+  };
 
 
-  # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
-
-  # Configure keymap in X11
-  services.xserver.layout = "es";
   # services.xserver.xkbOptions = {
   #   "eurosign:e";
   #   "caps:escape" # map caps to escape.
@@ -74,18 +42,11 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${primaryUser} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
-
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -105,6 +66,7 @@
     cmake
     gcc
     efibootmgr
+    nixos-option
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
