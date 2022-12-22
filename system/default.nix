@@ -24,7 +24,6 @@
 
     hardware.display = {
       colord-kde.enable = true;
-      enableHighRefreshRate = true;
     };
   };
 }
