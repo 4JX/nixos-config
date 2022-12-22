@@ -22,7 +22,7 @@
 
   # Use the grub bootloader.
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_0;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
     blacklistedKernelModules = [ "nouveau" ];
     loader = {
       efi = {
@@ -74,9 +74,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound.
-  # sound.enable = true;
-
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
@@ -109,16 +106,6 @@
     gcc
     efibootmgr
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
