@@ -4,10 +4,17 @@ let
   system = "x86_64-linux"; # System architecture
 
   overlay = final: prev: {
-    unstable = inputs.nixpkgs-unstable.legacyPackages.${prev.system};
+    unstable = import inputs.nixpkgs-unstable {
+      inherit system;
+
+      config.allowUnfree = true;
+    };
 
     inherit (inputs.nixpkgs-tlpui.legacyPackages.${prev.system})
       tlpui;
+
+    inherit (inputs.nixpkgs-auto-cpufreq.legacyPackages.${prev.system})
+      auto-cpufreq;
   };
 
   pkgs = import nixpkgs {

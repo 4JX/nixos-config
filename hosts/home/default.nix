@@ -22,7 +22,6 @@
       arandr
       libreoffice
       obsidian
-      nixos-option
       meld
     ];
 
