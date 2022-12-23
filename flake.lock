@@ -53,6 +53,17 @@
         "type": "github"
       }
     },
+    "nixpkgs-auto-cpufreq": {
+      "locked": {
+        "narHash": "sha256-GmYmjO+cG5Jylx72F104Op7pGCpQnwTXZMAoKB8DXrU=",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/de3ec7b577e5d6114b7631efb50c998e88798e22.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/de3ec7b577e5d6114b7631efb50c998e88798e22.tar.gz"
+      }
+    },
     "nixpkgs-tlpui": {
       "locked": {
         "narHash": "sha256-HzHNvOSnMNm+k0oCBrEDPHbXxsw3OyRlYq7vIrE9VMM=",
@@ -85,6 +96,7 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-auto-cpufreq": "nixpkgs-auto-cpufreq",
         "nixpkgs-tlpui": "nixpkgs-tlpui",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }

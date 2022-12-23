@@ -67,6 +67,7 @@
     gcc
     efibootmgr
     nixos-option
+    nvtop
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
