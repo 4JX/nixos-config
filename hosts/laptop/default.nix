@@ -46,7 +46,8 @@ in
       };
       power-management = {
         enable = true;
-        blacklistAmdPstate = true;
+        blacklistAmdPstate = false;
+        auto-cpufreq.configPath = ./auto-cpufreq.conf;
       };
       gnome-keyring.enable = true;
       networkmanager.enable = true;
