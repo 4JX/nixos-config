@@ -7,7 +7,7 @@
     ./fonts.nix
     ./gnome-keyring.nix
     ./pipewire.nix
-    ./power-management
+    ./power-management.nix
     ./networkmanager.nix
   ];
 }
