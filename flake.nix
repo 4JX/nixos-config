@@ -23,6 +23,11 @@
     nixpkgs-auto-cpufreq = {
       url = "https://github.com/NixOS/nixpkgs/archive/de3ec7b577e5d6114b7631efb50c998e88798e22.tar.gz";
     };
+
+    legion-kb-rgb = {
+      url = "github:4JX/L5P-Keyboard-RGB/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, ... }:
