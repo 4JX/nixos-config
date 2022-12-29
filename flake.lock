@@ -1,5 +1,75 @@
 {
   "nodes": {
+    "crane": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "legion-kb-rgb",
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1672095661,
+        "narHash": "sha256-7NTsdCn3qsvU7A+1/7tY8pxbq0DYy1pFYNpzN6he9lI=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "98894bb39b03bfb379c5e10523cd61160e1ac782",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668681692,
+        "narHash": "sha256-Ht91NGdewz8IQLtWZ9LCeNXMSXHUss+9COoqu6JLmXU=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "009399224d5e398d03b22badca40a37ac85412a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -19,6 +89,38 @@
         "owner": "nix-community",
         "ref": "release-22.11",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "legion-kb-rgb": {
+      "inputs": {
+        "crane": "crane",
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+<<<<<<< Updated upstream
+        "lastModified": 1672341209,
+        "narHash": "sha256-MtmEECXO+PcLXTMVxpGFkMjoPg1AJ9e+q7sWxC9xt5k=",
+        "owner": "4JX",
+        "repo": "L5P-Keyboard-RGB",
+        "rev": "948c85120ed0d1dc0ea1a85c4d680949892bc964",
+=======
+        "lastModified": 1672418782,
+        "narHash": "sha256-8mlmA9vSx3NM6AiBKZSPrnwbZdKJrLuFO8PwkSldcww=",
+        "owner": "4JX",
+        "repo": "L5P-Keyboard-RGB",
+        "rev": "dfc37c0dd8e272d7235872022b59148abc682bb7",
+>>>>>>> Stashed changes
+        "type": "github"
+      },
+      "original": {
+        "owner": "4JX",
+        "ref": "nix",
+        "repo": "L5P-Keyboard-RGB",
         "type": "github"
       }
     },
@@ -94,11 +196,64 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "legion-kb-rgb": "legion-kb-rgb",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-auto-cpufreq": "nixpkgs-auto-cpufreq",
         "nixpkgs-tlpui": "nixpkgs-tlpui",
         "nixpkgs-unstable": "nixpkgs-unstable"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "flake-utils": [
+          "legion-kb-rgb",
+          "crane",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "legion-kb-rgb",
+          "crane",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1670034122,
+        "narHash": "sha256-EqmuOKucPWtMvCZtHraHr3Q3bgVszq1x2PoZtQkUuEk=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "a0d5773275ecd4f141d792d3a0376277c0fc0b65",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
+      "inputs": {
+        "flake-utils": [
+          "legion-kb-rgb",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "legion-kb-rgb",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1672280602,
+        "narHash": "sha256-aBO2MgTv8Pj24j+q0BKFHV5XmAuAn6+iw7AVNW4wUxc=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "ede977678e5d0164316998487e686d0790744cd7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "utils": {

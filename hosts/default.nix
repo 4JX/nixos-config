@@ -15,6 +15,12 @@ let
 
     inherit (inputs.nixpkgs-auto-cpufreq.legacyPackages.${prev.system})
       auto-cpufreq;
+
+<<<<<<< Updated upstream
+    legion-kb-rgb = inputs.legion-kb-rgb.packages.${prev.system}.default;
+=======
+    legion-kb-rgb = inputs.legion-kb-rgb.packages.${prev.system}.wrapped;
+>>>>>>> Stashed changes
   };
 
   pkgs = import nixpkgs {

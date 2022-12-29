@@ -69,4 +69,10 @@ in
       '';
     }
   ];
+
+  home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      legion-kb-rgb
+    ];
+  };
 }
