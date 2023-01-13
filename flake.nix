@@ -25,7 +25,7 @@
     };
 
     legion-kb-rgb = {
-      url = "github:4JX/L5P-Keyboard-RGB/nix";
+      url = "github:4JX/L5P-Keyboard-RGB/gui-but-better";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
