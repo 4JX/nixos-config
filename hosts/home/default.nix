@@ -18,7 +18,7 @@
       peek
       qbittorrent
       scrcpy
-      tor-browser-bundle-bin
+      unstable.tor-browser-bundle-bin
       arandr
       libreoffice
       obsidian
@@ -47,8 +47,8 @@
       browsers.firefox = {
         enable = true;
         arkenfox = {
-          firefox_version = "107.0";
-          sha256 = "4d92a802bcc02ee08d58d06adee9f4f75791dee44b022e7dcff019eb85e0dc14";
+          firefoxVersion = "108.0";
+          sha256 = "sha256-YsQbH6bqp2I52meYf0X0DQpwLlDdu5pK9XHMT/9RqOg=";
           overrides = {
             "keyword.enabled" = true;
           };

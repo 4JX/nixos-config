@@ -4,7 +4,7 @@ let
   cfg = config.ncfg.programs.browsers.firefox;
   arkenfox_user = builtins.readFile (pkgs.fetchzip
     {
-      url = "https://github.com/arkenfox/user.js/archive/refs/tags/${cfg.arkenfox.firefox_version}.tar.gz";
+      url = "https://github.com/arkenfox/user.js/archive/refs/tags/${cfg.arkenfox.firefoxVersion}.tar.gz";
       sha256 = cfg.arkenfox.sha256;
     } + /user.js);
 
@@ -23,12 +23,10 @@ in
   options.ncfg.programs.browsers.firefox = {
     enable = lib.mkEnableOption "Enable Firefox";
     arkenfox = {
-      firefox_version = lib.mkOption {
-        default = "107.0";
+      firefoxVersion = lib.mkOption {
         type = lib.types.strMatching "[0-9]{1,3}\.[0-9]";
       };
       sha256 = lib.mkOption {
-        default = "4d92a802bcc02ee08d58d06adee9f4f75791dee44b022e7dcff019eb85e0dc14";
         type = lib.types.str;
       };
       overrides = lib.mkOption {
