@@ -53,21 +53,25 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    nixpkgs-fmt
     git
     btop
     cudatoolkit # nvidia-smi
     iftop
     pciutils # lspci
-    nil # Nix language server
     killall
     exa
     bat
     cmake
     gcc
     efibootmgr
-    nixos-option
     nvtop
+
+    # Nix stuffs
+    nil # Nix language server
+    nixpkgs-fmt
+    nixos-option
+    deadnix
+    statix
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
