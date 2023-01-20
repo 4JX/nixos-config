@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, config, ... }:
 with lib;
 let
   cfg = config.ncfg.virtualisation;
@@ -65,7 +65,7 @@ in
 
   config = {
     systemd.tmpfiles.rules =
-      mapAttrsToList (tmpfileEntry) cfg.sharedMemoryFiles;
+      mapAttrsToList tmpfileEntry cfg.sharedMemoryFiles;
 
     boot.kernelParams = mkIf cfg.hugepages.enable [
       "default_hugepagesz=${cfg.hugepages.defaultPageSize}"

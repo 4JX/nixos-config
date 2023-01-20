@@ -15,7 +15,7 @@ in
 
     pciIds = lib.mkOption {
       default = [ ];
-      type = lib.types.listOf (lib.types.string);
+      type = lib.types.listOf lib.types.string;
       description = "The list of PCI IDs the vfio driver should use";
     };
   };

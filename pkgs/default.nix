@@ -1,4 +1,4 @@
-final: prev:
+_final: prev:
 
 {
   # https://github.com/NixOS/nixpkgs/issues/73323

@@ -9,7 +9,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${primaryUser} = _: {
       programs.direnv.enable = true;
       programs.direnv.nix-direnv.enable = true;
     };

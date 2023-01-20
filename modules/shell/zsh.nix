@@ -24,7 +24,7 @@ in
         enable = true;
         enableAutosuggestions = true;
 
-        shellAliases = cfg.shellAliases;
+        inherit (cfg) shellAliases;
 
         plugins = [
           {

@@ -1,4 +1,4 @@
-{ pkgs, config, primaryUser, lib, theme, ... }:
+{ config, primaryUser, lib, theme, ... }:
 
 let
   cfg = config.ncfg.shell.kitty;
@@ -23,7 +23,7 @@ in
           enable_audio_bell = false;
 
           # Theme
-          background = theme.ui.background;
+          inherit (theme.ui) background;
 
           # Black
           color0 = theme.ansi.black;

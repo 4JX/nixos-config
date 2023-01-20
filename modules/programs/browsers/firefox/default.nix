@@ -5,7 +5,7 @@ let
   arkenfox_user = builtins.readFile (pkgs.fetchzip
     {
       url = "https://github.com/arkenfox/user.js/archive/refs/tags/${cfg.arkenfox.firefoxVersion}.tar.gz";
-      sha256 = cfg.arkenfox.sha256;
+      inherit (cfg.arkenfox) sha256;
     } + /user.js);
 
   final = ''

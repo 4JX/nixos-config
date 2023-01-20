@@ -26,8 +26,8 @@ in
       overrideFolders = true;
       overrideDevices = true;
 
-      devices = cfg.devices;
-      folders = cfg.folders;
+      inherit (cfg) devices;
+      inherit (cfg) folders;
 
     };
 

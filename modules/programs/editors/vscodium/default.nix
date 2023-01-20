@@ -1,4 +1,4 @@
-{ pkgs, config, lib, primaryUser, ... }:
+{ config, lib, primaryUser, ... }:
 
 let
   cfg = config.ncfg.programs.editors.vscodium;
@@ -27,7 +27,7 @@ in
         package = pkgs.vscodium;
 
         # Extensions are managed through Settings Sync
-        mutableExtensionsDir = cfg.mutableExtensionsDir;
+        inherit (cfg) mutableExtensionsDir;
       };
 
       # Use the VSCode marketplace
