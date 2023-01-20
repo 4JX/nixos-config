@@ -30,16 +30,14 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, ... }:
     let
       primaryUser = "infinity";
     in
     {
-      nixosConfigurations = (
-        import ./hosts {
+      nixosConfigurations = import ./hosts {
           inherit inputs nixpkgs home-manager nixos-hardware primaryUser;
-        }
-      );
+        };
     };
 }
     

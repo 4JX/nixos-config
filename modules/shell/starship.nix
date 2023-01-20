@@ -13,11 +13,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${primaryUser} = _: {
 
       programs.starship = {
         enable = true;
-        enableZshIntegration = cfg.enableZshIntegration;
+        inherit (cfg) enableZshIntegration;
 
         settings = {
 

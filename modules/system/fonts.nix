@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 
 let
   cfg = config.ncfg.system;
@@ -11,7 +11,7 @@ in
   };
 
   config.fonts = {
-    fonts = cfg.fonts;
+    inherit (cfg) fonts;
     enableDefaultFonts = true;
   };
 }

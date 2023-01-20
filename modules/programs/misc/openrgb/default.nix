@@ -1,4 +1,4 @@
-{ config, pkgs, lib, primaryUser, ... }:
+{ config, lib, primaryUser, ... }:
 
 let
   cfg = config.ncfg.programs.misc.openrgb;

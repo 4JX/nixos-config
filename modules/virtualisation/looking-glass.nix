@@ -19,7 +19,7 @@ in
     environment.systemPackages = with pkgs; [
       # Use B6-rc1
       (looking-glass-client.overrideAttrs
-        (final: prev: rec {
+        (_final: prev: rec {
           pname = "looking-glass-client";
           version = "B6-rc1";
 
@@ -35,7 +35,7 @@ in
         }))
     ];
 
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${primaryUser} = _: {
       xdg.configFile."looking-glass/client.ini".text = ''
         [input]
         # Right Control, see https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h

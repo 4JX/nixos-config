@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl }:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "proton-ge-custom";

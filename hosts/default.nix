@@ -3,7 +3,7 @@
 let
   system = "x86_64-linux"; # System architecture
 
-  overlay = final: prev: {
+  overlay = _final: prev: {
     unstable = import inputs.nixpkgs-unstable {
       inherit system;
 
@@ -26,7 +26,7 @@ let
     overlays = [ (import ../pkgs) overlay ];
   };
 
-  lib = nixpkgs.lib;
+  inherit (nixpkgs) lib;
 in
 {
   nixos = lib.nixosSystem {
