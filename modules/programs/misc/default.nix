@@ -1,5 +1,8 @@
 { ... }:
 
 {
-  imports = [ ./openrgb ];
+  imports = [
+    ./openrgb
+    ./act.nix
+  ];
 }

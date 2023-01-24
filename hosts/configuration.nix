@@ -65,6 +65,8 @@
     gcc
     efibootmgr
     nvtop
+    (inxi.override
+      { withRecommends = true; }) # inxi -Fazy
 
     # Nix stuffs
     nil # Nix language server
