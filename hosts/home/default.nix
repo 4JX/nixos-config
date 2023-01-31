@@ -97,7 +97,7 @@
 
       misc = {
         openrgb.enable = true;
-        act.enable = true;
+        act.enable = false;
       };
     };
 
