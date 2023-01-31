@@ -39,7 +39,9 @@ in
   ncfg = {
     system = {
       flatpak.enable = true;
-      fonts = with pkgs; [ jetbrains-mono nerdfonts twemoji-color-font ];
+      fonts = {
+        enableCommonFonts = true;
+      };
       pipewire = {
         enable = true;
         extraRates = true;
