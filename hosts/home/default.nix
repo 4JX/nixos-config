@@ -22,7 +22,6 @@
       arandr
       libreoffice
       obsidian
-      meld
     ];
 
     home.stateVersion = "22.11";
@@ -38,10 +37,14 @@
         };
       };
 
-      editors.vscodium = {
-        enable = true;
-        mutableExtensionsDir = true;
-        useVSCodeMarketplace = true;
+      editors = {
+        vscodium = {
+          enable = true;
+          mutableExtensionsDir = true;
+          useVSCodeMarketplace = true;
+        };
+
+        android-studio.enable = true;
       };
 
       browsers.firefox = {
