@@ -1,5 +1,8 @@
 { ... }:
 
 {
-  imports = [ ./vscodium ];
+  imports = [
+    ./vscodium
+    ./android-studio.nix
+  ];
 }
