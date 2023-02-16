@@ -17,22 +17,7 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [
-      # Use B6-rc1
-      (looking-glass-client.overrideAttrs
-        (_final: prev: rec {
-          pname = "looking-glass-client";
-          version = "B6-rc1";
-
-          src = fetchFromGitHub {
-            owner = "gnif";
-            repo = "LookingGlass";
-            rev = version;
-            sha256 = "sha256-FZjwLY2XtPGhwc/GyAAH2jvFOp61lSqXqXjz0UBr7uw=";
-            fetchSubmodules = true;
-          };
-
-          buildInputs = with pkgs; prev.buildInputs ++ [ pipewire libpulseaudio libsamplerate ];
-        }))
+      looking-glass-client
     ];
 
     home-manager.users.${primaryUser} = _: {
