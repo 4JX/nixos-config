@@ -99,6 +99,7 @@
       games.steam = {
         enable = true;
         enableProtonGE = true;
+        enableGamemoderun = true;
       };
 
       misc = {
