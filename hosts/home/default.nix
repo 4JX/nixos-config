@@ -1,6 +1,8 @@
 { pkgs, primaryUser, ... }:
 
 {
+  hardware.ckb-next.enable = true;
+
   home-manager.users.${primaryUser} = { pkgs, ... }: {
 
     home.packages = with pkgs; [
@@ -22,6 +24,7 @@
       arandr
       libreoffice
       obsidian
+      node2nix
     ];
 
     home.stateVersion = "22.11";

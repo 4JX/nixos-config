@@ -16,6 +16,9 @@ let
     inherit (inputs.nixpkgs-auto-cpufreq.legacyPackages.${prev.system})
       auto-cpufreq;
 
+    inherit (inputs.nixpkgs-looking-glass.legacyPackages.${prev.system})
+      looking-glass-client;
+
     legion-kb-rgb = inputs.legion-kb-rgb.packages.${prev.system}.wrapped;
   };
 
