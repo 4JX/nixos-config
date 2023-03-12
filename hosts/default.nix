@@ -1,4 +1,4 @@
-{ inputs, nixpkgs, home-manager, nixos-hardware, primaryUser, ... }:
+{ inputs, nixpkgs, home-manager, nixos-hardware, hyprland, primaryUser, ... }:
 
 let
   system = "x86_64-linux"; # System architecture
@@ -48,8 +48,11 @@ in
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        imports = [ ./home ];
+        imports = [
+          ./home
+        ];
       }
+      hyprland.nixosModules.default
       ./configuration.nix
       ./laptop
     ];

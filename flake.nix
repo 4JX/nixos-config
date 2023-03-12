@@ -13,6 +13,8 @@
 
     nixos-hardware.url = "github:4JX/nixos-hardware";
 
+    hyprland.url = "github:hyprwm/Hyprland";
+
     # -- Extra packages --
     # TLPUI
     nixpkgs-tlpui = {
@@ -35,13 +37,13 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, hyprland, ... }:
     let
       primaryUser = "infinity";
     in
     {
       nixosConfigurations = import ./hosts {
-        inherit inputs nixpkgs home-manager nixos-hardware primaryUser;
+        inherit inputs nixpkgs home-manager nixos-hardware hyprland primaryUser;
       };
     };
 }
