@@ -53,8 +53,8 @@
       browsers.firefox = {
         enable = true;
         arkenfox = {
-          firefoxVersion = "108.0";
-          sha256 = "sha256-YsQbH6bqp2I52meYf0X0DQpwLlDdu5pK9XHMT/9RqOg=";
+          # firefoxVersion = "108.0";
+          sha256 = "sha256-pPJH69y29aV1fc3lrlPl5pMLB5ntem+DcAR3rx3gvDE=";
           overrides = {
             "keyword.enabled" = true;
           };
@@ -98,8 +98,6 @@
 
       games.steam = {
         enable = true;
-        enableProtonGE = true;
-        enableGamemoderun = true;
       };
 
       misc = {
