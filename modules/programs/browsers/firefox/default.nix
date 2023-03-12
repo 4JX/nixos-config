@@ -25,6 +25,7 @@ in
     arkenfox = {
       firefoxVersion = lib.mkOption {
         type = lib.types.strMatching "[0-9]{1,3}\.[0-9]";
+        default = builtins.elemAt (builtins.match "([0-9]+\.[0-9]+)\.*" pkgs.firefox.version) 0;
       };
       sha256 = lib.mkOption {
         type = lib.types.str;
