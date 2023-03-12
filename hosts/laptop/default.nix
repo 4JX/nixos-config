@@ -54,6 +54,7 @@ in
       gnome-keyring.enable = true;
       networkmanager.enable = true;
       colord-kde.enable = true;
+      hyprland.enable = true;
     };
   };
 
