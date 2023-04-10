@@ -56,6 +56,10 @@ in
       colord-kde.enable = true;
       hyprland.enable = true;
     };
+
+    shell.zsh.shellAliases = with pkgs; {
+      turn-off-keyboard = "sudo ${legion-kb-rgb}/bin/legion-kb-rgb set --effect Static -c 0,0,0,0,0,0,0,0,0,0,0,0";
+    };
   };
 
   # Add config on top of nixos-hardware
