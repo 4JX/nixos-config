@@ -98,6 +98,10 @@
 
       games.steam = {
         enable = true;
+        extraCompatPackages = with pkgs; [
+          proton-ge-custom
+          proton-ge-custom-621
+        ];
       };
 
       misc = {
