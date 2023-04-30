@@ -1,4 +1,4 @@
-{ config, lib, primaryUser, ... }:
+{ config, lib, primaryUser, pkgs, ... }:
 
 let
   cfg = config.ncfg.programs.misc.openrgb;
@@ -9,7 +9,8 @@ in
   config = lib.mkIf cfg.enable {
     boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
 
-    services.udev.extraRules = builtins.readFile ./60-openrgb.rules;
+    # Automagically extract and apply the built udev rules
+    services.udev.packages = [ pkgs.openrgb ];
 
     home-manager.users.${primaryUser} = { pkgs, ... }: {
       home.packages = with pkgs; [ openrgb ];
