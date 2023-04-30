@@ -25,6 +25,8 @@
       libreoffice
       obsidian
       node2nix
+      cyberchef
+      element-desktop
     ];
 
     home.stateVersion = "22.11";

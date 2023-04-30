@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./openrgb
+    ./openrgb.nix
     ./act.nix
   ];
 }
