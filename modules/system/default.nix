@@ -5,7 +5,7 @@
     ./hyprland
     ./colord-kde.nix
     ./flatpak.nix
-    ./fonts.nix
+    ./fonts
     ./gnome-keyring.nix
     ./networkmanager.nix
     ./pipewire.nix
