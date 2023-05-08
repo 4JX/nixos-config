@@ -34,6 +34,7 @@
       cyberchef
       element-desktop
       figma-linux
+      quassel
     ];
 
     home.stateVersion = "22.11";
@@ -63,7 +64,7 @@
         enable = true;
         arkenfox = {
           # firefoxVersion = "108.0";
-          sha256 = "sha256-pPJH69y29aV1fc3lrlPl5pMLB5ntem+DcAR3rx3gvDE=";
+          sha256 = "sha256-EutseXvFnDkYq95GWiGrTFqI4fqybvsPQlVV0Wy5tFU=";
           overrides = {
             "keyword.enabled" = true;
           };
