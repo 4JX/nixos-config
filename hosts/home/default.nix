@@ -20,7 +20,6 @@
       gh # Github CLI
       jetbrains.clion
       android-studio
-      mpv
       handbrake
       vokoscreen-ng
       peek
@@ -117,6 +116,10 @@
       misc = {
         openrgb.enable = true;
         act.enable = false;
+      };
+
+      video = {
+        mpv.enable = true;
       };
     };
 
