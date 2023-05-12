@@ -26,11 +26,6 @@
       url = "https://github.com/NixOS/nixpkgs/archive/de3ec7b577e5d6114b7631efb50c998e88798e22.tar.gz";
     };
 
-    # looking-glass B6
-    nixpkgs-looking-glass = {
-      url = "https://github.com/NixOS/nixpkgs/archive/9fa5c1f0a85f83dfa928528a33a28f063ae3858d.tar.gz";
-    };
-
     legion-kb-rgb = {
       url = "github:4JX/L5P-Keyboard-RGB/gui-but-better";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, primaryUser, hostName, ... }:
+{ config, pkgs, primaryUser, hostName, ... }:
 
 let
   offloadEnabled = config.hardware.nvidia.prime.offload.enable;
