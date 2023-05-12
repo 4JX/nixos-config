@@ -5,6 +5,7 @@
 
 let
   cfg = config.ncfg.programs.video.mpv;
+
   externalFiles = {
     "shaders/SSimSuperRes.glsl" = {
       source = pkgs.fetchurl {
@@ -18,16 +19,31 @@ let
         sha256 = "sha256-uIbPX59nIHeHC9wa1Mv1nQartUusOgXaEHQyA95BST8=";
       };
     };
+    "shaders/" = {
+      source = p.anime4k;
+      recursive = true;
+    };
     "fonts/uosc_icons.otf" = {
       source = with pkgs.unstable.mpvScripts; "${uosc}/share/fonts/uosc_icons.otf";
     };
     "fonts/uosc_textures.ttf" = {
       source = with pkgs.unstable.mpvScripts; "${uosc}/share/fonts/uosc_textures.ttf";
     };
+    "script-opts/thumbfast.conf" = {
+      source = ./thumbfast.conf;
+    };
+    "script-opts/evafast.conf" = {
+      source = ./evafast.conf;
+    };
   };
+
+  scriptsUnstable = with pkgs.unstable.mpvScripts; [ uosc autoload ];
+  scriptsCustom = with p.mpvScripts; [ thumbfast betterChapters pauseWhenMinimize ]; # evafast
+
   # Escape character is "%"
   webSources = [ "HorribleSubs" "Erai%-raws" "SubsPlease" ];
   miniEncodeSources = [ "ASW" "DKB" "Judas" "Cleo" "Cerberus" "Reaktor" "Ember" "Nep%_Blanc" "Akihito" ];
+
   # Case insensitive filename match
   debandCond = names: builtins.concatStringsSep " or " (builtins.map (x: ''string.match(string.lower(p.filename), string.lower("${x}"))~=nil'') names);
 in
@@ -110,8 +126,9 @@ in
             };
         };
 
-        scripts = with pkgs.unstable; [ mpvScripts.uosc p.mpvScripts.thumbfast ];
+        scripts = scriptsUnstable ++ scriptsCustom;
 
+        bindings = (import ./an4k-bindings.nix { inherit p; });
       };
 
       xdg.configFile =
