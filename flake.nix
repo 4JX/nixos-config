@@ -16,16 +16,6 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     # -- Extra packages --
-    # TLPUI
-    nixpkgs-tlpui = {
-      url = "https://github.com/NixOS/nixpkgs/archive/55cf28e91d51df77932da6c12dbf1b98ffa697b0.tar.gz";
-    };
-
-    # auto-cpufreq 1.9.6
-    nixpkgs-auto-cpufreq = {
-      url = "https://github.com/NixOS/nixpkgs/archive/de3ec7b577e5d6114b7631efb50c998e88798e22.tar.gz";
-    };
-
     legion-kb-rgb = {
       url = "github:4JX/L5P-Keyboard-RGB/gui-but-better";
       inputs.nixpkgs.follows = "nixpkgs";

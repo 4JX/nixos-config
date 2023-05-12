@@ -189,28 +189,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-auto-cpufreq": {
-      "locked": {
-        "narHash": "sha256-GmYmjO+cG5Jylx72F104Op7pGCpQnwTXZMAoKB8DXrU=",
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/de3ec7b577e5d6114b7631efb50c998e88798e22.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/de3ec7b577e5d6114b7631efb50c998e88798e22.tar.gz"
-      }
-    },
-    "nixpkgs-tlpui": {
-      "locked": {
-        "narHash": "sha256-HzHNvOSnMNm+k0oCBrEDPHbXxsw3OyRlYq7vIrE9VMM=",
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/55cf28e91d51df77932da6c12dbf1b98ffa697b0.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/55cf28e91d51df77932da6c12dbf1b98ffa697b0.tar.gz"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1681036984,
@@ -250,9 +228,6 @@
         "legion-kb-rgb": "legion-kb-rgb",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-auto-cpufreq": "nixpkgs-auto-cpufreq",
-        "nixpkgs-looking-glass": "nixpkgs-looking-glass",
-        "nixpkgs-tlpui": "nixpkgs-tlpui",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
     },

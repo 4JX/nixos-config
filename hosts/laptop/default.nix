@@ -1,4 +1,4 @@
-{ config, pkgs, primaryUser, hostName, ... }:
+{ config, pkgs, primaryUser, hostName, p, ... }:
 
 let
   offloadEnabled = config.hardware.nvidia.prime.offload.enable;
@@ -57,8 +57,8 @@ in
       hyprland.enable = true;
     };
 
-    shell.zsh.shellAliases = with pkgs; {
-      turn-off-keyboard = "sudo ${legion-kb-rgb}/bin/legion-kb-rgb set --effect Static -c 0,0,0,0,0,0,0,0,0,0,0,0";
+    shell.zsh.shellAliases = {
+      turn-off-keyboard = "sudo ${p.legion-kb-rgb}/bin/legion-kb-rgb set --effect Static -c 0,0,0,0,0,0,0,0,0,0,0,0";
     };
   };
 
@@ -78,8 +78,8 @@ in
   ];
 
   home-manager.users.${primaryUser} = { pkgs, ... }: {
-    home.packages = with pkgs; [
-      legion-kb-rgb
+    home.packages = [
+      p.legion-kb-rgb
     ];
   };
 }

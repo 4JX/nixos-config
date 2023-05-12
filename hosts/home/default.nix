@@ -1,4 +1,4 @@
-{ pkgs, primaryUser, ... }:
+{ pkgs, primaryUser, p, ... }:
 
 {
   hardware.ckb-next.enable = true;
@@ -107,7 +107,7 @@
 
       games.steam = {
         enable = true;
-        extraCompatPackages = with pkgs; [
+        extraCompatPackages = with p; [
           proton-ge-custom
           proton-ge-custom-621
         ];

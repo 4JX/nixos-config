@@ -3,6 +3,18 @@
 let
   system = "x86_64-linux"; # System architecture
 
+  # An instance of Nixpkgs used solely for instatiating the custom packages with callPackage
+  pkgsCall = import nixpkgs {
+    inherit system;
+
+    config.allowUnfree = true;
+  };
+
+  # Collection of custom packages
+  p = {
+    legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
+  } // (pkgsCall.callPackage ../pkgs { });
+
   overlay = _final: prev: {
     unstable = import inputs.nixpkgs-unstable {
       inherit system;
@@ -10,20 +22,15 @@ let
       config.allowUnfree = true;
     };
 
-    inherit (inputs.nixpkgs-tlpui.legacyPackages.${prev.system})
-      tlpui;
-
-    inherit (inputs.nixpkgs-auto-cpufreq.legacyPackages.${prev.system})
-      auto-cpufreq;
-
-    legion-kb-rgb = inputs.legion-kb-rgb.packages.${prev.system}.wrapped;
+    # Needed for services.auto-cpufreq.enable
+    inherit (p) auto-cpufreq;
   };
 
   pkgs = import nixpkgs {
     inherit system;
 
     config.allowUnfree = true;
-    overlays = [ (import ../pkgs) overlay ];
+    overlays = [ overlay ];
   };
 
   inherit (nixpkgs) lib;
@@ -34,7 +41,7 @@ in
 
     specialArgs =
       {
-        inherit primaryUser;
+        inherit primaryUser p;
         hostName = "nixos";
         theme = import ./theme.nix;
       };
