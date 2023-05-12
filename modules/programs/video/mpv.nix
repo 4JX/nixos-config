@@ -1,4 +1,4 @@
-{ config, lib, primaryUser, pkgs, ... }:
+{ config, lib, primaryUser, pkgs, p, ... }:
 
 # https://thewiki.moe/tutorials/mpv/
 # https://kokomins.wordpress.com/2019/10/14/mpv-config-guide/
@@ -110,7 +110,7 @@ in
             };
         };
 
-        scripts = with pkgs.unstable; [ mpvScripts.uosc ];
+        scripts = with pkgs.unstable; [ mpvScripts.uosc p.mpvScripts.thumbfast ];
 
       };
 
