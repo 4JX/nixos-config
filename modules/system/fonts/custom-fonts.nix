@@ -1,4 +1,4 @@
-{ lib, stdenv, pkgs }:
+{ stdenv, pkgs }:
 
 
 stdenv.mkDerivation {

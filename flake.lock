@@ -200,17 +200,6 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/de3ec7b577e5d6114b7631efb50c998e88798e22.tar.gz"
       }
     },
-    "nixpkgs-looking-glass": {
-      "locked": {
-        "narHash": "sha256-Rx9O6YDED5OTrpjkDV4royRyqzJPcVJHSBFxed5tKLk=",
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/9fa5c1f0a85f83dfa928528a33a28f063ae3858d.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/9fa5c1f0a85f83dfa928528a33a28f063ae3858d.tar.gz"
-      }
-    },
     "nixpkgs-tlpui": {
       "locked": {
         "narHash": "sha256-HzHNvOSnMNm+k0oCBrEDPHbXxsw3OyRlYq7vIrE9VMM=",

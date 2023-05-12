@@ -17,7 +17,7 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [
-      looking-glass-client
+      unstable.looking-glass-client
     ];
 
     home-manager.users.${primaryUser} = _: {

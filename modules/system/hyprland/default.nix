@@ -1,4 +1,4 @@
-{ lib, config, pkgs, primaryUser, ... }:
+{ lib, config, primaryUser, ... }:
 
 let
   cfg = config.ncfg.system.hyprland;
