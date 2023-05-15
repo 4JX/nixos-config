@@ -1,28 +1,14 @@
 { config, lib, primaryUser, pkgs, p, ... }:
 
 # https://thewiki.moe/tutorials/mpv/
+# https://thewiki.moe/guides/playback/
 # https://kokomins.wordpress.com/2019/10/14/mpv-config-guide/
+# https://artoriuz.github.io/blog/mpv_upscaling.html
 
 let
   cfg = config.ncfg.programs.video.mpv;
 
   externalFiles = {
-    "shaders/SSimSuperRes.glsl" = {
-      source = pkgs.fetchurl {
-        url = "https://gist.githubusercontent.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b/raw/15d93440d0a24fc4b8770070be6a9fa2af6f200b/SSimSuperRes.glsl";
-        sha256 = "sha256-qLJxFYQMYARSUEEbN14BiAACFyWK13butRckyXgVRg8=";
-      };
-    };
-    "shaders/KrigBilateral.glsl" = {
-      source = pkgs.fetchurl {
-        url = "https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/7c151e0af2281ae6657809be1f3c5efe0e325c38/KrigBilateral.glsl";
-        sha256 = "sha256-uIbPX59nIHeHC9wa1Mv1nQartUusOgXaEHQyA95BST8=";
-      };
-    };
-    "shaders/" = {
-      source = p.anime4k;
-      recursive = true;
-    };
     "fonts/uosc_icons.otf" = {
       source = with pkgs.unstable.mpvScripts; "${uosc}/share/fonts/uosc_icons.otf";
     };
@@ -35,10 +21,13 @@ let
     "script-opts/evafast.conf" = {
       source = ./evafast.conf;
     };
+    "script-opts/uosc.conf" = {
+      source = ./uosc.conf;
+    };
   };
 
-  scriptsUnstable = with pkgs.unstable.mpvScripts; [ uosc autoload ];
-  scriptsCustom = with p.mpvScripts; [ thumbfast betterChapters pauseWhenMinimize ]; # evafast
+  scriptsUnstable = with pkgs.unstable.mpvScripts; [ uosc ]; # autoload
+  scriptsCustom = with p.mpv.mpvScripts; [ thumbfast betterChapters pauseWhenMinimize ]; # evafast
 
   # Escape character is "%"
   webSources = [ "HorribleSubs" "Erai%-raws" "SubsPlease" ];
@@ -57,44 +46,58 @@ in
       programs.mpv = {
         enable = cfg.enable;
         config = {
-          #### General
-          profile = "gpu-hq"; # Better scaling than default
-          # gpu-api = "vulkan"; # Maybe better performance (Default: 3D311, Other: opengl)
-          vo = "gpu"; # General purpose, customizable, GPU-accelerated video output driver. It supports extended scaling methods, dithering, color management, custom shaders, HDR, and more.
-          # script-opts=ytdl_hook;-ytdl_path=yt;-dlp.exe
-          cursor-autohide-fs-only = true;
-          cursor-autohide = 100;
-          fullscreen = "yes"; #Set to no if you don't want to start in fullscreen
-          # target-prim = "dci-p3";
-
           #### UI
+          fullscreen = "yes"; # Start in fullscreen by default
           keep-open = "yes"; # Do not close the program when finishing the last video (Default: no, Other: always (don't terminate or go to the next file))
           reset-on-next-file = "pause"; # Don't carry over the "pause" state when skipping files
-
           # window-scale=1 # Scale the floating window by this factor with respect to the video resolution
           save-position-on-quit = true;
-          # autofit-larger = "1920x1080"; # Max window size. Can also be a % ("50%") relative to screen size.
-          # autofit-smaller = "858x480"; # Min window size. Can also be a % ("50%") relative to screen size.
+          autofit-larger = "75%"; # Max window size. Can also be a % ("50%") relative to screen size.
+          autofit-smaller = "858x480"; # Min window size. Can also be a % ("50%") relative to screen size.
+
+          cursor-autohide-fs-only = true; # Hide the cursor only in fullscreen
+          cursor-autohide = 100; # Quickly hide the cursor
 
           osd-duration = 500; # Hide OSD text after x ms.
-          # osd-font = "JetBrainsMono Nerd Font";
+          osd-font = "JetBrainsMono Nerd Font";
+
           # UOSC specific
           osc = "no"; # Disable the on screen controls
           osd-bar = "no"; # uosc provides its own seeking/volume indicators
-          border = "no"; # uosc will draw its own window controls if the window border is disabled
+          # border = "no"; # uosc will draw its own window controls if the window border is disabled
 
           #### Video
-          dither-depth = "auto";
+          # https://github.com/mpv-player/mpv/blob/c3f93f5fdd33ada85e700bf8bad7d70f6739eed4/etc/builtin.conf#L43
+          profile = "gpu-hq"; # Better scaling than default
+
+          # Defaults to "no", generally not needed but can be set to "auto" to use nvenc (faster but power hungry if not plugged in)
+          # hwdec="no"
+
+          # Best performance of the bunch (Default: 3D311, Other: opengl)
+          gpu-api = "vulkan";
+          fbo-format = "rgba16hf";
+
+          # GPU-accelerated video output driver. gpu-next also exists but is somewhat questionable ATM.
+          vo = "gpu";
+
+          dither-depth = "auto"; # Leave software dither enabled just in case
+
+          # icc-profile-auto = true; # Probably not really needed since the entire screen is calibrated through a profile
+          # target-prim = "dci-p3"; # Cap the colors at the specified gamut to fix oversaturation
+
 
           #### Shaders
-
-          # SSimSuperRes -> General rescaler
-          # KrigBilateral -> High quality chroma upscaler
-          glsl-shaders = [ "~~/shaders/SSimSuperResMitchell.glsl" "~~/shaders/KrigBilateral.glsl" ];
-          scale = "ewa_lanczossharp"; # Chroma upscale. (Default (gpu-hq): spline36)
-          # dscale = "mitchell"; # Chroma downscale. (Default (gpu-hq): mitchell)
-          # cscale = "spline36"; # Luma upscale (Less sensitive than chroma). (Default (gpu-hq): spline36)
-
+          # Defaults for everyday use, heavier shaders are left to bindings
+          glsl-shaders = with p.mpv.shaders; builtins.concatStringsSep ":" [
+            SSimSuperRes # Luma upscaler
+            SSimDownscaler # Luma downscaler
+            KrigBilateral # Chroma up+down
+          ];
+          scale = "ewa_lanczossharp"; # Luma upscale. (Default (gpu-hq): spline36)
+          dscale = "lanczos"; # Overkill, spline36/mitchell would be fine. Luma downscale. (Default (gpu-hq): mitchell)
+          cscale = "spline36"; # Chroma upscale (Less sensitive than chroma). (Default (gpu-hq): spline36)
+          linear-downscaling = "no"; # Overrides the gpu-hq option, needed for SSimDownscaler
+          correct-downscaling = "yes";
 
           #### Screenshots
           screenshot-format = "png";
@@ -116,23 +119,23 @@ in
         profiles = {
           "Web" = {
             profile-cond = debandCond webSources;
-            deband = "yes";
+            deband = "yes"; # Deband applied by default with gpu-hq, just in case
           };
 
           "Mini-Encode" =
             {
               profile-cond = debandCond miniEncodeSources;
-              deband = "yes";
+              deband = "yes"; # Deband applied by default with gpu-hq, just in case
             };
         };
 
         scripts = scriptsUnstable ++ scriptsCustom;
 
-        bindings = (import ./an4k-bindings.nix { inherit p; });
+        bindings = (import ./bindings.nix { inherit p; });
       };
 
       xdg.configFile =
-        lib.mapAttrs' (name: value: { name = "mpv/${name}"; value = value; }) externalFiles;
+        lib.mapAttrs' (name: value: { name = "mpv/${name}"; inherit value; }) externalFiles;
 
     };
   };

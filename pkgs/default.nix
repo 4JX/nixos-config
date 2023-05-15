@@ -6,4 +6,4 @@
   proton-ge-custom = pkgs.callPackage ./proton-ge-custom.nix { };
   proton-ge-custom-621 = pkgs.callPackage ./proton-ge-custom-6.21-2.nix { };
 }
-  // (lib.recursiveUpdate (pkgs.callPackage ./mpv { }) (pkgs.callPackage ./pull-requests { }))
+  // (lib.recursiveUpdate ({ mpv = pkgs.callPackage ./mpv { }; }) (pkgs.callPackage ./pull-requests { }))
