@@ -1,6 +1,6 @@
 { pname, rev, filename, url, sha256, meta }:
 
-{ lib, pkgs, stdenvNoCC, ... }:
+{ pkgs, stdenvNoCC, ... }:
 
 stdenvNoCC.mkDerivation {
   inherit pname;

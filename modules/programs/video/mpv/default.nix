@@ -42,9 +42,9 @@ in
   config = lib.mkIf cfg.enable {
 
 
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${primaryUser} = _: {
       programs.mpv = {
-        enable = cfg.enable;
+        inherit (cfg) enable;
         config = {
           #### UI
           fullscreen = "yes"; # Start in fullscreen by default
@@ -131,7 +131,7 @@ in
 
         scripts = scriptsUnstable ++ scriptsCustom;
 
-        bindings = (import ./bindings.nix { inherit p; });
+        bindings = import ./bindings.nix { inherit p; };
       };
 
       xdg.configFile =

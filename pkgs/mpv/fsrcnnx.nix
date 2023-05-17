@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchurl, variant ? "8-0-4-1", pkgs }:
+{ lib, stdenvNoCC, fetchurl, pkgs }:
 
 
 # let

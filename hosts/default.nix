@@ -1,4 +1,4 @@
-{ inputs, nixpkgs, home-manager, nixos-hardware, hyprland, primaryUser, ... }:
+{ inputs, home-manager, nixos-hardware, hyprland, primaryUser, ... }:
 
 let
   system = "x86_64-linux"; # System architecture
@@ -15,7 +15,35 @@ let
     legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
   } // (pkgsCall.callPackage ../pkgs { });
 
-  overlay = _final: prev: {
+  # Allow patching nixpkgs
+  # https://github.com/NixOS/nixpkgs/pull/142273#issuecomment-948225922
+  # https://ertt.ca/nix/patch-nixpkgs/
+  # https://github.com/NixOS/nix/issues/3920#issuecomment-681187597
+  remoteNixpkgsPatches = [
+    #   {
+    #     meta.description = "PRCHANGE";
+    #     url = "https://github.com/NixOS/nixpkgs/pull/PRNUMBER.diff";
+    #     sha256 = "SHA256";
+    #   }
+  ];
+
+  localNixpkgsPatches = [
+    # ./patches/force-modesetting.diff
+  ];
+
+  originPkgs = inputs.nixpkgs.legacyPackages.${system};
+
+  nixpkgs = originPkgs.applyPatches {
+    name = "nixpkgs-patched";
+    src = inputs.nixpkgs;
+    patches = map originPkgs.fetchpatch remoteNixpkgsPatches ++ localNixpkgsPatches;
+  };
+
+  nixosSystem = import (nixpkgs + "/nixos/lib/eval-config.nix");
+  # Uncomment to use a Nixpkgs without (remote/local)NixpkgsPatches
+  # nixosSystem = inputs.nixpkgs.lib.nixosSystem;
+
+  overlay = _final: _prev: {
     unstable = import inputs.nixpkgs-unstable {
       inherit system;
 
@@ -33,10 +61,10 @@ let
     overlays = [ overlay ];
   };
 
-  inherit (nixpkgs) lib;
+  # inherit (nixpkgs) lib;
 in
 {
-  nixos = lib.nixosSystem {
+  nixos = nixosSystem {
     inherit system pkgs;
 
     specialArgs =

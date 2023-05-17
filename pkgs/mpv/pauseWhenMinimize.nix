@@ -2,7 +2,7 @@
 
 stdenvNoCC.mkDerivation {
   pname = "mpv-pause-when-minimize";
-  version = pkgs.mpv-unwrapped.version;
+  inherit (pkgs.mpv-unwrapped) version;
 
   src = "${pkgs.mpv-unwrapped.src.outPath}/TOOLS/lua/pause-when-minimize.lua";
 
