@@ -1,0 +1,15 @@
+diff --git a/nixos/modules/hardware/video/nvidia.nix b/nixos/modules/hardware/video/nvidia.nix
+index 9ccc3bfc5a708..cbc50fbb3fc38 100644
+--- a/nixos/modules/hardware/video/nvidia.nix
++++ b/nixos/modules/hardware/video/nvidia.nix
+@@ -194,7 +194,9 @@ in
+   };
+ 
+   config = let
+-      igpuDriver = if pCfg.intelBusId != "" then "modesetting" else "amdgpu";
++      # Force use the modesetting driver
++      # igpuDriver = if pCfg.intelBusId != "" then "modesetting" else "amdgpu";
++      igpuDriver = "modesetting";
+       igpuBusId = if pCfg.intelBusId != "" then pCfg.intelBusId else pCfg.amdgpuBusId;
+   in mkIf enabled {
+     assertions = [

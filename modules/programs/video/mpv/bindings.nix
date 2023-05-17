@@ -2,7 +2,7 @@
 
 
 let
-  shaders = p.mpv.shaders;
+  inherit (p.mpv) shaders;
 
   setShader = { files, message }: ''no-osd change-list glsl-shaders set "${builtins.concatStringsSep ":" files}"; show-text "${message}"'';
 in

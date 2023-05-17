@@ -11,7 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:4JX/nixos-hardware";
+    nixos-hardware.url = "github:4JX/nixos-hardware/use-amdgpu";
 
     hyprland.url = "github:hyprwm/Hyprland";
 

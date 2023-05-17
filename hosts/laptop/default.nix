@@ -1,4 +1,4 @@
-{ config, pkgs, primaryUser, hostName, p, ... }:
+{ config, pkgs, primaryUser, hostName, lib, p, ... }:
 
 let
   offloadEnabled = config.hardware.nvidia.prime.offload.enable;
@@ -77,7 +77,7 @@ in
     }
   ];
 
-  home-manager.users.${primaryUser} = { pkgs, ... }: {
+  home-manager.users.${primaryUser} = _: {
     home.packages = [
       p.legion-kb-rgb
     ];
