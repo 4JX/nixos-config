@@ -39,6 +39,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    
+    nixpkgs-ext.url = "github:4JX/nixpkgs/asasdad";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 

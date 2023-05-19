@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./gnome
     ./programs
     ./shell
     ./system
