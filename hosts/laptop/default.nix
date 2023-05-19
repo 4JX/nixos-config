@@ -1,4 +1,4 @@
-{ config, pkgs, primaryUser, hostName, lib, p, ... }:
+{ config, pkgs, primaryUser, machineName, lib, ... }:
 
 let
   offloadEnabled = config.hardware.nvidia.prime.offload.enable;
@@ -9,6 +9,7 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./specialisations
+      ./ncfg.nix
     ];
 
   # Use the grub bootloader.
@@ -31,36 +32,36 @@ in
     supportedFilesystems = [ "ntfs" ];
   };
 
-  networking.hostName = hostName;
+  networking.hostName = machineName;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-
-  ncfg = {
-    system = {
-      flatpak.enable = true;
-      fonts = {
-        enableCommonFonts = true;
-      };
-      pipewire = {
-        enable = true;
-        extraRates = true;
-      };
-      power-management = {
-        enable = true;
-        blacklistAmdPstate = false;
-        auto-cpufreq.configPath = ./auto-cpufreq.conf;
-      };
-      gnome-keyring.enable = true;
-      networkmanager.enable = true;
-      colord-kde.enable = true;
-      hyprland.enable = true;
-    };
-
-    shell.zsh.shellAliases = {
-      turn-off-keyboard = "sudo ${p.legion-kb-rgb}/bin/legion-kb-rgb set --effect Static -c 0,0,0,0,0,0,0,0,0,0,0,0";
-    };
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.${primaryUser} = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
+
+  # Enable the X11 windowing system.
+  services.xserver = {
+    enable = true;
+
+    # Enable the Plasma 5 Desktop Environment.
+    displayManager.sddm.enable = true;
+    desktopManager.plasma5.enable = true;
+
+    # Configure keymap in X11
+    layout = "es";
+
+    # Enable touchpad support (enabled default in most desktopManager).
+    libinput.enable = true;
+  };
+
+  # services.xserver.xkbOptions = {
+  #   "eurosign:e";
+  #   "caps:escape" # map caps to escape.
+  # };
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
 
   # Add config on top of nixos-hardware
   services.xserver.drivers = lib.optionals offloadEnabled [
@@ -77,9 +78,11 @@ in
     }
   ];
 
-  home-manager.users.${primaryUser} = _: {
-    home.packages = [
-      p.legion-kb-rgb
-    ];
-  };
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "22.05"; # Did you read the comment?
 }

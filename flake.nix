@@ -1,5 +1,41 @@
 {
-  description = "";
+  description = "Personal NixOS configuration";
+
+  outputs = inputs:
+    let
+      machines = builtins.mapAttrs
+        (machineName: machineConfig:
+          let
+            inherit (import machineConfig inputs) cfg nixosSystem nixpkgs;
+          in
+
+          nixosSystem (cfg // {
+            specialArgs = {
+              inherit machineName;
+            } // (cfg.specialArgs or { });
+
+            modules = cfg.modules ++ [
+              ./modules
+              (_: {
+
+                # Resolve <nixpkgs> and other references to the flake input
+                # https://ayats.org/blog/channels-to-flakes/
+                environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
+                nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
+                nix.registry.nixpkgs.flake = nixpkgs;
+
+                # Needed for all configs to run on flakes
+                nix.settings.experimental-features = [ "nix-command" "flakes" ];
+              })
+            ];
+          })
+        );
+    in
+    {
+      nixosConfigurations = machines {
+        nixos = ./hosts/laptop.nix;
+      };
+    };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
@@ -21,15 +57,5 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, hyprland, ... }:
-    let
-      primaryUser = "infinity";
-    in
-    {
-      nixosConfigurations = import ./hosts {
-        inherit inputs nixpkgs home-manager nixos-hardware hyprland primaryUser;
-      };
-    };
 }
     

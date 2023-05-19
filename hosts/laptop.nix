@@ -1,7 +1,11 @@
-{ inputs, home-manager, nixos-hardware, hyprland, primaryUser, ... }:
+inputs@{ nixpkgs, home-manager, nixos-hardware, hyprland, ... }:
 
 let
+  primaryUser = "infinity";
+
   system = "x86_64-linux"; # System architecture
+
+  myLib = import ../lib { };
 
   # An instance of Nixpkgs used solely for instatiating the custom packages with callPackage
   pkgsCall = import nixpkgs {
@@ -15,33 +19,6 @@ let
     legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
   } // (pkgsCall.callPackage ../pkgs { });
 
-  # Allow patching nixpkgs
-  # https://github.com/NixOS/nixpkgs/pull/142273#issuecomment-948225922
-  # https://ertt.ca/nix/patch-nixpkgs/
-  # https://github.com/NixOS/nix/issues/3920#issuecomment-681187597
-  remoteNixpkgsPatches = [
-    #   {
-    #     meta.description = "PRCHANGE";
-    #     url = "https://github.com/NixOS/nixpkgs/pull/PRNUMBER.diff";
-    #     sha256 = "SHA256";
-    #   }
-  ];
-
-  localNixpkgsPatches = [
-    # ./patches/force-modesetting.diff
-  ];
-
-  originPkgs = inputs.nixpkgs.legacyPackages.${system};
-
-  nixpkgs = originPkgs.applyPatches {
-    name = "nixpkgs-patched";
-    src = inputs.nixpkgs;
-    patches = map originPkgs.fetchpatch remoteNixpkgsPatches ++ localNixpkgsPatches;
-  };
-
-  nixosSystem = import (nixpkgs + "/nixos/lib/eval-config.nix");
-  # Uncomment to use a Nixpkgs without (remote/local)NixpkgsPatches
-  # nixosSystem = inputs.nixpkgs.lib.nixosSystem;
 
   overlay = _final: _prev: {
     unstable = import inputs.nixpkgs-unstable {
@@ -54,7 +31,22 @@ let
     inherit (p) auto-cpufreq;
   };
 
-  pkgs = import nixpkgs {
+  patched = myLib.patchNixpkgs {
+    inherit nixpkgs system;
+    remoteNixpkgsPatches = [
+      #   {
+      #     meta.description = "PRCHANGE";
+      #     url = "https://github.com/NixOS/nixpkgs/pull/PRNUMBER.diff";
+      #     sha256 = "SHA256";
+      #   }
+    ];
+
+    localNixpkgsPatches = [
+      # ./patches/force-modesetting.diff
+    ];
+  };
+
+  pkgs = import patched.nixpkgs {
     inherit system;
 
     config.allowUnfree = true;
@@ -64,14 +56,15 @@ let
   # inherit (nixpkgs) lib;
 in
 {
-  nixos = nixosSystem {
+  inherit (patched) nixpkgs nixosSystem;
+
+  cfg = {
     inherit system pkgs;
 
     specialArgs =
       {
         inherit primaryUser p;
-        hostName = "nixos";
-        theme = import ./theme.nix;
+        theme = import ../theme.nix;
       };
 
     modules = [
@@ -81,11 +74,11 @@ in
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         imports = [
-          ./home
+          ../home
         ];
       }
       hyprland.nixosModules.default
-      ./configuration.nix
+      ./common.nix
       ./laptop
     ];
   };
