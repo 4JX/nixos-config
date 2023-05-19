@@ -45,8 +45,8 @@ in
     enable = true;
 
     # Enable the Plasma 5 Desktop Environment.
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
+    # displayManager.sddm.enable = true;
+    # desktopManager.plasma5.enable = true;
 
     # Configure keymap in X11
     layout = "es";

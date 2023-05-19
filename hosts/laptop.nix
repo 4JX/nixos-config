@@ -17,6 +17,12 @@ let
   # Collection of custom packages
   p = {
     legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
+
+    gnomeext = import  inputs.nixpkgs-ext {
+      inherit system;
+
+      config.allowUnfree = true;
+    };
   } // (pkgsCall.callPackage ../pkgs { });
 
 
@@ -81,6 +87,10 @@ in
         imports = [
           ../home
         ];
+
+        home-manager.extraSpecialArgs = {
+          inherit primaryUser;
+        };
       }
       hyprland.nixosModules.default
       ./common.nix

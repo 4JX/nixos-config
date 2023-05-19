@@ -2,6 +2,11 @@
 
 Also scattered throughout the code via comments
 
+### TODO
+
+- Pull `gnomeExtensions.easyeffects-preset-selector` from unstable when it lands https://nixpk.gs/pr-tracker.html?pr=233642
+- Patch the desktop icons (gtk4/normal) extensions and comment on https://github.com/NixOS/nixpkgs/issues/154944 https://gitlab.com/smedius/desktop-icons-ng/-/issues/22
+
 ### Misc
 
 <https://blog.nobbz.dev/posts/2022-09-17-callpackage-a-tool-for-the-lazy/>
