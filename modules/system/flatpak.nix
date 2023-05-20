@@ -14,21 +14,25 @@ in
       xdg.portal.enable = true;
 
       # https://github.com/NixOS/nixpkgs/issues/119433
-      # https://github.com/accelbread/config-flake/blob/951dfc729df4c95d44d7662ecc9cd7d6853d8285/nixos/common/flatpak-fonts.nix
+      # https://github.com/accelbread/config-flake/blob/744196b43b93626025e5a2789c8700a5ec371aad/nix/nixosModules/bind-fonts-icons.nix#L9
       system.fsPackages = [ pkgs.bindfs ];
-      fileSystems = lib.mapAttrs
-        (_: v: v // {
-          fsType = "fuse.bindfs";
-          options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
-        })
+      fileSystems =
+        let
+          mkRoSymBind = path: {
+            device = path;
+            fsType = "fuse.bindfs";
+            options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
+          };
+          aggregatedFonts = pkgs.buildEnv {
+            name = "system-fonts";
+            paths = config.fonts.fonts;
+            pathsToLink = [ "/share/fonts" ];
+          };
+        in
         {
-          "/usr/share/icons".device = "/run/current-system/sw/share/icons";
-          "/usr/share/fonts".device = pkgs.buildEnv
-            {
-              name = "system-fonts";
-              paths = config.fonts.fonts;
-              pathsToLink = [ "/share/fonts" ];
-            } + "/share/fonts";
+          # Create an FHS mount to support flatpak host icons/fonts
+          "/usr/share/icons" = mkRoSymBind (config.system.path + "/share/icons");
+          "/usr/share/fonts" = mkRoSymBind (aggregatedFonts + "/share/fonts");
         };
     };
 }
