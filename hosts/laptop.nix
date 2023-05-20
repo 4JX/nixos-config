@@ -51,6 +51,11 @@ let
 
     config.allowUnfree = true;
     overlays = [ overlay ];
+
+    #! TODO: Remove once 23.05 lands, offending program is Obsidian
+    config.permittedInsecurePackages = [
+      "electron-21.4.0"
+    ];
   };
 
   # inherit (nixpkgs) lib;

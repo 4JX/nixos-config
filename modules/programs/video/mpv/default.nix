@@ -26,8 +26,8 @@ let
     };
   };
 
-  scriptsUnstable = with pkgs.unstable.mpvScripts; [ uosc ]; # autoload
-  scriptsCustom = with p.mpv.mpvScripts; [ thumbfast betterChapters pauseWhenMinimize ]; # evafast
+  scriptsUnstable = with pkgs.unstable.mpvScripts; [ uosc thumbfast ]; # autoload
+  scriptsCustom = with p.mpv.mpvScripts; [ betterChapters pauseWhenMinimize ]; # evafast
 
   # Escape character is "%"
   webSources = [ "HorribleSubs" "Erai%-raws" "SubsPlease" ];

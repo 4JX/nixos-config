@@ -9,13 +9,6 @@ let
     { };
 in
 {
-  # https://github.com/NixOS/nixpkgs/pull/231474
-  mpv.mpvScripts.thumbfast = nixpkgsPR {
-    rev = "86eb0d9a05db24b40585dc9f7c0fe7d5f2f09877";
-    path = "pkgs/applications/video/mpv/scripts/thumbfast.nix";
-    sha256 = "sha256-uBBEsOsSlTnNat2FdHHMskA++riIqgicKAoDQJsyNK8=";
-  };
-
   # auto-cpufreq 1.9.6
   # https://github.com/NixOS/nixpkgs/pull/226458
   auto-cpufreq = nixpkgsPR {
