@@ -25,7 +25,7 @@
       peek
       qbittorrent
       scrcpy
-      unstable.tor-browser-bundle-bin
+      tor-browser-bundle-bin
       arandr
       libreoffice
       obsidian

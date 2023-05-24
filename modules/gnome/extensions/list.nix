@@ -77,9 +77,9 @@ with pkgs.gnomeExtensions; [
     package = ideapad-controls;
     dconfSettings = { };
   }
-] ++ (with pkgs.unstable.gnomeExtensions; [
+
   {
     package = gesture-improvements;
     dconfSettings = { };
   }
-])
+]

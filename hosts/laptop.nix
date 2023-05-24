@@ -18,7 +18,7 @@ let
   p = {
     legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
 
-    gnomeext = import  inputs.nixpkgs-ext {
+    gnomeext = import inputs.nixpkgs-ext {
       inherit system;
 
       config.allowUnfree = true;
@@ -27,12 +27,6 @@ let
 
 
   overlay = _final: _prev: {
-    unstable = import inputs.nixpkgs-unstable {
-      inherit system;
-
-      config.allowUnfree = true;
-    };
-
     # Needed for services.auto-cpufreq.enable
     inherit (p) auto-cpufreq;
   };
@@ -58,9 +52,10 @@ let
     config.allowUnfree = true;
     overlays = [ overlay ];
 
-    #! TODO: Remove once 23.05 lands, offending program is Obsidian
+    #! TODO: Remove these as soon as possible
     config.permittedInsecurePackages = [
-      "electron-21.4.0"
+      # Github-desktop
+      "openssl-1.1.1t"
     ];
   };
 
