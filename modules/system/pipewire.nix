@@ -19,12 +19,13 @@ in
         support32Bit = true;
       };
       pulse.enable = true;
-      config.pipewire = {
-        # 44100 48000 88200 96000 176400 192000 352800 384000
-        "context.properties" = lib.mkIf cfg.extraRates {
-          "default.clock.allowed-rates" = [ 44100 48000 88200 96000 176400 192000 352800 384000 ];
-        };
-      };
     };
+
+    environment.etc."pipewire/pipewire.conf.d/user.conf".text = lib.mkIf cfg.extraRates (builtins.toJSON {
+      # 44100 48000 88200 96000 176400 192000 352800 384000
+      "context.properties" = {
+        "default.clock.allowed-rates" = [ 44100 48000 88200 96000 176400 192000 352800 384000 ];
+      };
+    });
   };
 }

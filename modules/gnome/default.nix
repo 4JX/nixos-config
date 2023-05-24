@@ -2,7 +2,7 @@
 let
   cfg = config.ncfg.gnome;
   # https://github.com/NixOS/nixpkgs/blob/nixos-22.11/pkgs/data/themes/orchis-theme/default.nix#L9
-  orchis = pkgs.unstable.orchis-theme.override {
+  orchis = pkgs.orchis-theme.override {
     tweaks = [ ];
   };
 in

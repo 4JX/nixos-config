@@ -10,10 +10,10 @@ let
 
   externalFiles = {
     "fonts/uosc_icons.otf" = {
-      source = with pkgs.unstable.mpvScripts; "${uosc}/share/fonts/uosc_icons.otf";
+      source = with pkgs.mpvScripts; "${uosc}/share/fonts/uosc_icons.otf";
     };
     "fonts/uosc_textures.ttf" = {
-      source = with pkgs.unstable.mpvScripts; "${uosc}/share/fonts/uosc_textures.ttf";
+      source = with pkgs.mpvScripts; "${uosc}/share/fonts/uosc_textures.ttf";
     };
     "script-opts/thumbfast.conf" = {
       source = ./thumbfast.conf;
@@ -26,7 +26,7 @@ let
     };
   };
 
-  scriptsUnstable = with pkgs.unstable.mpvScripts; [ uosc thumbfast ]; # autoload
+  scriptsPkgs = with pkgs.mpvScripts; [ uosc thumbfast ]; # autoload
   scriptsCustom = with p.mpv.mpvScripts; [ betterChapters pauseWhenMinimize ]; # evafast
 
   # Escape character is "%"
@@ -129,7 +129,7 @@ in
             };
         };
 
-        scripts = scriptsUnstable ++ scriptsCustom;
+        scripts = scriptsPkgs ++ scriptsCustom;
 
         bindings = import ./bindings.nix { inherit p; };
       };

@@ -18,6 +18,7 @@ in
     # Make zsh the default if enabled
     users.defaultUserShell = pkgs.zsh;
     environment.shells = with pkgs; [ zsh ];
+    programs.zsh.enable = true;
 
     home-manager.users.${primaryUser} = { pkgs, ... }: {
       programs.zsh = {

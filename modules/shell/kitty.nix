@@ -14,7 +14,7 @@ in
         enable = true;
         font = {
           package = pkgs.nerdfonts;
-          name = "JetbrainsMono Nerd Font";
+          name = "JetbrainsMono NFu";
         };
 
         settings = {
