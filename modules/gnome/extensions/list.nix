@@ -82,4 +82,9 @@ with pkgs.gnomeExtensions; [
     package = gesture-improvements;
     dconfSettings = { };
   }
+
+  {
+    package = easyeffects-preset-selector;
+    dconfSettings = { };
+  }
 ]

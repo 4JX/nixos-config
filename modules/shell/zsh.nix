@@ -34,6 +34,16 @@ in
             src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
           }
           {
+            name = "zsh-nix-shell";
+            file = "nix-shell.plugin.zsh";
+            src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
+          }
+          {
+            name = "nix-zsh-shell-completions";
+            file = "nix-zsh-completions.plugin.zsh";
+            src = "${pkgs.nix-zsh-completions}/share/zsh/site-functions";
+          }
+          {
             name = "zsh-colored-man-pages";
             file = "colored-man-pages.plugin.zsh";
             src = pkgs.fetchFromGitHub {
@@ -43,16 +53,16 @@ in
               sha256 = "sha256-087bNmB5gDUKoSriHIjXOVZiUG5+Dy9qv3D69E8GBhs=";
             };
           }
-          {
-            name = "zsh-nix-shell";
-            file = "nix-shell.plugin.zsh";
-            src = pkgs.fetchFromGitHub {
-              owner = "chisui";
-              repo = "zsh-nix-shell";
-              rev = "v0.5.0";
-              sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
-            };
-          }
+          # {
+          #   name = "zsh-nix-shell";
+          #   file = "nix-shell.plugin.zsh";
+          #   src = pkgs.fetchFromGitHub {
+          #     owner = "chisui";
+          #     repo = "zsh-nix-shell";
+          #     rev = "v0.5.0";
+          #     sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
+          #   };
+          # }
         ];
       };
     };

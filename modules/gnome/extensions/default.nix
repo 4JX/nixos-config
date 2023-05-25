@@ -18,15 +18,19 @@
       home.packages =
         with pkgs; [
           gnome-extension-manager
-          # (unstable.gnomeExtensions.gtk4-desktop-icons-ng-ding.overrideAttrs (_: {
-          #   postPatch = ''
-          #     for file in app/*.js; do
-          #       substituteInPlace $file --replace "gjs" "${gjs}/bin/gjs"
-          #     done
-          #   '';
+          # (gnomeExtensions.gtk4-desktop-icons-ng-ding.overrideAttrs (_: {
+          #   patches = [
+          #     (substituteAll {
+          #       inherit gjs util-linux xdg-utils;
+          #       util_linux = util-linux;
+          #       xdg_utils = xdg-utils;
+          #       src = ./desktopicons.patch;
+          #       nautilus_gsettings_path = "${glib.getSchemaPath gnome.nautilus}";
+          #     })
+          #   ];
           # }))
-          p.gnomeext.gnomeExtensions.easyeffects-preset-selector
-          # gnomeExtensions.easyeffects-preset-selector
+          (p.gnomeext.gnomeExtensions.gtk4-desktop-icons-ng-ding.override
+            { version = "40"; sha256 = "sha256-CwqkIaGHTLu602ZtQPERsdt0HfHUa161G+JcMAtuH7Y="; })
         ] ++ builtins.map (e: e.package) extensions;
 
       # Use dconf watch / to record changes

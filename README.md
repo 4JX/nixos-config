@@ -4,8 +4,13 @@ Also scattered throughout the code via comments
 
 ### TODO
 
-- Pull `gnomeExtensions.easyeffects-preset-selector` from unstable when it lands https://nixpk.gs/pr-tracker.html?pr=233642
-- Patch the desktop icons (gtk4/normal) extensions and comment on https://github.com/NixOS/nixpkgs/issues/154944 https://gitlab.com/smedius/desktop-icons-ng/-/issues/22
+- Patch the desktop icons (gtk4/normal) extensions and comment on <https://github.com/NixOS/nixpkgs/issues/154944> <https://gitlab.com/smedius/desktop-icons-ng/-/issues/22>
+Fix trayIndicator
+May 25 01:41:21 nixos .gnome-shell-wr[2918]: JS ERROR: GLib.SpawnError: Failed to execute child process “/bin/bash” (No such file or directory)
+                                             _isUsingQt@/etc/profiles/per-user/infinity/share/gnome-shell/extensions/trayIconsReloaded@selfmade.pl/AppManager.js:140:36
+                                             _openApplication@/etc/profiles/per-user/infinity/share/gnome-shell/extensions/trayIconsReloaded@selfmade.pl/AppManager.js:110:13
+                                             leftClick@/etc/profiles/per-user/infinity/share/gnome-shell/extensions/trayIconsReloaded@selfmade.pl/AppManager.js:20:18
+                                             addIcon/<@/etc/profiles/per-user/infinity/share/gnome-shell/extensions/trayIconsReloaded@selfmade.pl/TrayIndicator.js:85:24
 
 ### Misc
 

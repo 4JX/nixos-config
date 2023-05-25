@@ -18,7 +18,7 @@ let
   p = {
     legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
 
-    gnomeext = import inputs.nixpkgs-ext {
+    gnomeext = import inputs.nixpkgs-gnomeext {
       inherit system;
 
       config.allowUnfree = true;
