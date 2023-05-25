@@ -40,7 +40,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-ext.url = "github:4JX/nixpkgs/asasdad";
+    nixpkgs-gnomeext.url = "github:4JX/nixpkgs/gnomeext";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";

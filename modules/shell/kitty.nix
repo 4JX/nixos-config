@@ -13,8 +13,8 @@ in
       programs.kitty = {
         enable = true;
         font = {
-          package = pkgs.nerdfonts;
-          name = "JetbrainsMono NFu";
+          package = pkgs.jetbrains-mono;
+          name = "JetBrains Mono";
         };
 
         settings = {
