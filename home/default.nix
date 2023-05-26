@@ -62,8 +62,8 @@
       browsers.firefox = {
         enable = true;
         arkenfox = {
-          # firefoxVersion = "108.0";
-          sha256 = "sha256-EutseXvFnDkYq95GWiGrTFqI4fqybvsPQlVV0Wy5tFU=";
+          firefoxVersion = "112.0";
+          sha256 = "sha256-k4PF8FWN6U+//UmZX4UxzBWbfAgEwQznLVsaFV/fVKo=";
           overrides = {
             "keyword.enabled" = true;
           };
