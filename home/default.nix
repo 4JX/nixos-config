@@ -44,6 +44,8 @@
       audio.easyeffects = {
         enable = true;
         outputPresets = {
+          # https://github.com/wwmm/easyeffects/wiki/Community-Presets
+          # Based on https://gist.github.com/sebastian-de/648555c1233fdc6688c0a224fc2fca7e
           "Legion 5 Pro" = ./easyeffects/L5P.json;
           "DT880" = ./easyeffects/DT880.json;
         };
