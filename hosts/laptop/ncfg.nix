@@ -15,7 +15,8 @@
       };
       power-management = {
         enable = true;
-        blacklistAmdPstate = false;
+        # Pstate is not quite there yet energy saving wise
+        blacklistAmdPstate = true;
         auto-cpufreq.configPath = ./auto-cpufreq.conf;
       };
       gnome-keyring.enable = true;
