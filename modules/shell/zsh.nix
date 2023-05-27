@@ -25,6 +25,15 @@ in
         enable = true;
         enableAutosuggestions = true;
 
+        # https://github.com/nix-community/home-manager/issues/3965
+        # https://github.com/NixOS/nixpkgs/blob/fd40cef8d797670e203a27a91e4b8e6decf0b90c/nixos/modules/programs/zsh/zsh.nix#L149-L160
+        # https://github.com/nix-community/home-manager/blob/78ceec68f29ed56d6118617e9f0f588bf164067f/modules/programs/zsh.nix#L290-L306
+        # When using enable = true in both nixpkgs and home-manager zsh slows down a bunch
+        # Disable "initialising" completion in home-manager since it is already enabled by default
+        # in nixpkgs with programs.zsh.enableCompletion (which affects enableCompletion)
+        # This also removes the automatic addition of nix-zsh-completions, but it's added back anyways
+        enableCompletion = false;
+
         inherit (cfg) shellAliases;
 
         plugins = [

@@ -4,13 +4,8 @@ Also scattered throughout the code via comments
 
 ### TODO
 
-- Patch the desktop icons (gtk4/normal) extensions and comment on <https://github.com/NixOS/nixpkgs/issues/154944> <https://gitlab.com/smedius/desktop-icons-ng/-/issues/22>
 Fix trayIndicator
 May 25 01:41:21 nixos .gnome-shell-wr[2918]: JS ERROR: GLib.SpawnError: Failed to execute child process “/bin/bash” (No such file or directory)
-                                             _isUsingQt@/etc/profiles/per-user/infinity/share/gnome-shell/extensions/trayIconsReloaded@selfmade.pl/AppManager.js:140:36
-                                             _openApplication@/etc/profiles/per-user/infinity/share/gnome-shell/extensions/trayIconsReloaded@selfmade.pl/AppManager.js:110:13
-                                             leftClick@/etc/profiles/per-user/infinity/share/gnome-shell/extensions/trayIconsReloaded@selfmade.pl/AppManager.js:20:18
-                                             addIcon/<@/etc/profiles/per-user/infinity/share/gnome-shell/extensions/trayIconsReloaded@selfmade.pl/TrayIndicator.js:85:24
 
 ### Misc
 
@@ -59,3 +54,9 @@ Specifically not finding other apps:
 
 <https://github.com/NixOS/nixpkgs/issues/119433>
 <https://github.com/accelbread/config-flake/blob/744196b43b93626025e5a2789c8700a5ec371aad/nix/nixosModules/bind-fonts-icons.nix#L9>
+
+### ZSH is slow to start
+
+When using enable = true in both nixpkgs and home-manager zsh slows down a bunch due to duplicate calls to `compinit`
+
+<https://github.com/nix-community/home-manager/issues/3965>
