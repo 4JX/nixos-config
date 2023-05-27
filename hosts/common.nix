@@ -40,6 +40,7 @@
     nixos-option
     deadnix
     statix
+    nix-tree # Scan current system / derivations for what-why-how depends
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
