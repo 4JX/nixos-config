@@ -7,7 +7,7 @@ let
 
   myLib = import ../lib { };
 
-  # An instance of Nixpkgs used solely for instatiating the custom packages with callPackage
+  # An instance of Nixpkgs used solely for instantiating the custom packages with callPackage
   pkgsCall = import nixpkgs {
     inherit system;
 

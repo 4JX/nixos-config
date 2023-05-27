@@ -33,6 +33,9 @@
     nvtop
     (inxi.override
       { withRecommends = true; }) # inxi -Fazy
+    ripgrep # Faster grep
+    ripgrep-all # Wrapper arround ripgrep for convenience universal searching across a ton of filetypes
+    fd # Better find
 
     # Nix stuffs
     nil # Nix language server

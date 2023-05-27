@@ -19,7 +19,7 @@ with pkgs.gnomeExtensions; [
       panel-element-positions = ''
         {"0":[{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}
       '';
-      panel-lenghths = ''{"0":"MIDDLE"}'';
+      panel-lengths = ''{"0":100}'';
 
       # Keep running apps for each workspace separate
       isolate-workspaces = true;
@@ -34,9 +34,9 @@ with pkgs.gnomeExtensions; [
   {
     package = arcmenu;
     dconfSettings = {
-      # Menu visual appereance
+      # Menu visual appearance
       menu-height = 800;
-      right-panel-widt = 350;
+      left-panel-width = 350;
       right-panel-width = 250;
 
       # Pinned apps
@@ -86,5 +86,16 @@ with pkgs.gnomeExtensions; [
   {
     package = easyeffects-preset-selector;
     dconfSettings = { };
+  }
+
+  {
+    package = just-perfection;
+    dconfSettings = {
+      # Wrap around workspaces
+      workspace-wrap-around = true;
+
+      # When starting GNOME, start in (0-Desktop, 1-Overview)
+      startup-status = 0;
+    };
   }
 ]
