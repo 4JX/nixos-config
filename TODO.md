@@ -1,10 +1,12 @@
 # TODO
 
-- Fix trayIndicator
+- Fix trayIndicator when executing steam
 
 ```log
 May 25 01:41:21 nixos .gnome-shell-wr[2918]: JS ERROR: GLib.SpawnError: Failed to execute child process “/bin/bash” (No such file or directory)
 ````
+
+- Change extension source <https://nixpk.gs/pr-tracker.html?pr=233903>
 
 ## Pstate
 

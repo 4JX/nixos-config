@@ -3,7 +3,7 @@
 
 # let
 #   variants = [ "8-0-4-1" "8-0-4-1_Lineart" "16-0-4-1" ];
-#   insetallString = variant: (file: "install -Dm644 ${file} $out/${file}") "FSRCNNX_x2_${variant}.glsl";
+#   installString = variant: (file: "install -Dm644 ${file} $out/${file}") "FSRCNNX_x2_${variant}.glsl";
 # in
 stdenvNoCC.mkDerivation rec {
   pname = "fsrcnnx";

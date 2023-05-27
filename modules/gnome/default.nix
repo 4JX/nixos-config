@@ -33,7 +33,7 @@ in
       gnome-characters
       yelp # Gnome help stuff
       gnome-contacts
-      gnome-shell-extensions # Superseeded by gnome-extension-manager, not actually doing anything
+      gnome-shell-extensions # Superseded by gnome-extension-manager, not actually doing anything
       gnome-software # Software store, useless in NixOS
     ]);
 
