@@ -2,11 +2,6 @@
 
 Also scattered throughout the code via comments
 
-### TODO
-
-Fix trayIndicator
-May 25 01:41:21 nixos .gnome-shell-wr[2918]: JS ERROR: GLib.SpawnError: Failed to execute child process “/bin/bash” (No such file or directory)
-
 ### Misc
 
 <https://blog.nobbz.dev/posts/2022-09-17-callpackage-a-tool-for-the-lazy/>
