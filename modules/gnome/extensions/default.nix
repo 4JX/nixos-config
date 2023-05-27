@@ -18,6 +18,7 @@
       home.packages =
         with pkgs; [
           gnome-extension-manager
+          dconf2nix
           # (gnomeExtensions.gtk4-desktop-icons-ng-ding.overrideAttrs (_: {
           #   patches = [
           #     (substituteAll {
