@@ -1,5 +1,7 @@
 { lib, ... }:
 
+# https://github.com/NixOS/nixos-hardware/blob/master/lenovo/legion/16ach6h/nvidia/default.nix
+
 {
   system.nixos.tags = [ "external-display" ];
   services.xserver.exportConfiguration = true;
@@ -11,16 +13,24 @@
   };
 
   hardware.opengl.enable = true;
-  hardware.nvidia = {
-    powerManagement.enable = lib.mkForce false;
-    modesetting.enable = true;
-    prime = {
-      offload.enable = lib.mkForce false;
-      sync.enable = true;
+  hardware = {
+    nvidia = {
+      powerManagement.enable = lib.mkForce false;
+      modesetting.enable = true;
+      prime = {
+        offload.enable = lib.mkForce false;
+        sync.enable = true;
 
-      # Set by nixos-hardware, left here for troubleshooting
-      # nvidiaBusId = "PCI:1:0:0";
-      # amdgpuBusId = "PCI:6:0:0";
+        # Set by nixos-hardware, left here for troubleshooting
+        # nvidiaBusId = "PCI:1:0:0";
+        # amdgpuBusId = "PCI:6:0:0";
+      };
+    };
+
+    # These options are nixos-hardware specific, not from nixpkgs
+    amdgpu = {
+      amdvlk = false;
+      opencl = false;
     };
   };
 }
