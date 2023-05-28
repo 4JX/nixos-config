@@ -42,13 +42,13 @@
 
     nixpkgs-gnomeext.url = "github:4JX/nixpkgs/gnomeext";
 
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       # url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nixos-hardware.url = "github:4JX/nixos-hardware/use-amdgpu";
 
     hyprland.url = "github:hyprwm/Hyprland";
 

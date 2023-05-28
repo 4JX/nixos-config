@@ -165,16 +165,15 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1685212998,
-        "narHash": "sha256-iiG/kDkiyR0mV7Zt4QYAMaG9W9FS4vUOGFQqTbXN1YU=",
-        "owner": "4JX",
+        "lastModified": 1684899633,
+        "narHash": "sha256-NtwerXX8UFsoNy6k+DukJMriWtEjQtMU/Urbff2O2Dg=",
+        "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "49bf00e877490ec1aac7cdbb4e923065ea6f89a4",
+        "rev": "4cc688ee711159b9bcb5a367be44007934e1a49d",
         "type": "github"
       },
       "original": {
-        "owner": "4JX",
-        "ref": "use-amdgpu",
+        "owner": "nixos",
         "repo": "nixos-hardware",
         "type": "github"
       }
