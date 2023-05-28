@@ -10,6 +10,6 @@
     ./networkmanager.nix
     ./pipewire.nix
     ./power-management.nix
-
+    ./systemd.nix
   ];
 }
