@@ -10,7 +10,10 @@ in
       ./hardware-configuration.nix
       ./specialisations
       ./ncfg.nix
+      ./xorg.nix
     ];
+
+  services.xserver.exportConfiguration = true;
 
   # Use the grub bootloader.
   boot = {
@@ -64,19 +67,19 @@ in
   services.printing.enable = true;
 
   # Add config on top of nixos-hardware
-  services.xserver.drivers = lib.optionals offloadEnabled [
-    {
-      driverName = "amdgpu";
-      name = "amdgpu";
-      modules = with pkgs; [ xorg.xf86videoamdgpu ];
-      display = true;
-      deviceSection = ''
-        Option "VariableRefresh" "true"
-        Option "TearFree" "1"
-        Option "DRI" "3"
-      '';
-    }
-  ];
+  # services.xserver.drivers = lib.optionals offloadEnabled [
+  #   {
+  #     driverName = "amdgpu";
+  #     name = "amdgpu";
+  #     modules = with pkgs; [ xorg.xf86videoamdgpu ];
+  #     display = true;
+  #     deviceSection = ''
+  #       Option "VariableRefresh" "true"
+  #       Option "TearFree" "1"
+  #       Option "DRI" "3"
+  #     '';
+  #   }
+  # ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
