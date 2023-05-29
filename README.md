@@ -4,6 +4,8 @@ Also scattered throughout the code via comments
 
 ### Misc
 
+<https://noogle.dev/>
+
 <https://blog.nobbz.dev/posts/2022-09-17-callpackage-a-tool-for-the-lazy/>
 
 ### PR Tracker
@@ -38,6 +40,7 @@ Also scattered throughout the code via comments
 
 Specifically not finding other apps:
 
+- <https://github.com/NixOS/nixpkgs/pull/233642>
 - <https://github.com/NixOS/nixpkgs/blob/7bb8f05f12ca3cff9da72b56caa2f7472d5732bc/pkgs/desktops/gnome-3/extensions/gsconnect/default.nix#L21>
 - <https://nixos.org/manual/nixpkgs/stable/#ssec-gnome-common-issues-unwrappable-package-gsettings-c>
 
@@ -48,6 +51,7 @@ Specifically not finding other apps:
 ### Flatpak access to fonts
 
 <https://github.com/NixOS/nixpkgs/issues/119433>
+
 <https://github.com/accelbread/config-flake/blob/744196b43b93626025e5a2789c8700a5ec371aad/nix/nixosModules/bind-fonts-icons.nix#L9>
 
 ### ZSH is slow to start
@@ -55,3 +59,9 @@ Specifically not finding other apps:
 When using enable = true in both nixpkgs and home-manager zsh slows down a bunch due to duplicate calls to `compinit`
 
 <https://github.com/nix-community/home-manager/issues/3965>
+
+### Fix home-manager's home.sessionVariables not being sourced on DE's
+
+<https://rycee.gitlab.io/home-manager/index.html#_why_are_the_session_variables_not_set>
+<https://github.com/hpfr/system/blob/a108a5ebf3ffcee75565176243936de6fd736142/profiles/system/base.nix#L12-L16>
+<https://github.com/nix-community/home-manager/issues/1011>
