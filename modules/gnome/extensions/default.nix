@@ -1,4 +1,4 @@
-{ primaryUser, p, ... }:
+{ primaryUser, ... }:
 
 {
   home-manager.users.${primaryUser} = { pkgs, lib, ... }:
@@ -30,8 +30,6 @@
           #     })
           #   ];
           # }))
-          (p.gnomeext.gnomeExtensions.gtk4-desktop-icons-ng-ding.override
-            { version = "40"; sha256 = "sha256-CwqkIaGHTLu602ZtQPERsdt0HfHUa161G+JcMAtuH7Y="; })
         ] ++ builtins.map (e: e.package) extensions;
 
       # Use dconf watch / to record changes
