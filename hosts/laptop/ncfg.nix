@@ -23,6 +23,12 @@
       networkmanager.enable = true;
       colord-kde.enable = true;
       hyprland.enable = true;
+      security = {
+        usbguard = {
+          enable = true;
+          rules = builtins.readFile ./usbguard-rules.conf;
+        };
+      };
     };
 
     shell.zsh.shellAliases = {
