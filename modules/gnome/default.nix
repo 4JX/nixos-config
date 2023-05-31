@@ -79,6 +79,14 @@ in
         };
       };
 
+      qt = {
+        enable = true;
+        platformTheme = "gnome";
+        style = {
+          package = pkgs.adwaita-qt6;
+          name = "adwaita-dark";
+        };
+      };
 
       home.packages = with pkgs; [
         gnome-extension-manager
