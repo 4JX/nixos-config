@@ -2,10 +2,11 @@
 
 {
   imports = [
+    ./fonts
     ./hyprland
+    ./security
     ./colord-kde.nix
     ./flatpak.nix
-    ./fonts
     ./gnome-keyring.nix
     ./networkmanager.nix
     ./pipewire.nix
