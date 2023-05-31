@@ -125,11 +125,47 @@ with pkgs.gnomeExtensions; [
 
       # When starting GNOME, start in (0-Desktop, 1-Overview)
       startup-status = 0;
+
+      # Remove "Window is ready" popups
+      window-demands-attention-focus = true;
     };
   }
 
   {
     package = gtk4-desktop-icons-ng-ding;
     dconfSettings = { };
+  }
+
+  {
+    package = caffeine;
+    dconfSettings = { };
+  }
+
+  {
+    package = pano;
+    dconfSettings = {
+      # Remove audio and notification cues on copy
+      send-notification-on-copy = false;
+      play-audio-on-copy = false;
+
+      # Do not generate link previews for copied links
+      link-previews = false;
+    };
+  }
+
+  {
+    package = removable-drive-menu;
+    dconfSettings = { };
+  }
+
+  {
+    package = vitals;
+    dconfSettings = {
+      show-voltage = false;
+      show-fan = false;
+      show-battery = true;
+
+      hot-sensors = [ "_battery_rate_" ];
+    };
   }
 ]
