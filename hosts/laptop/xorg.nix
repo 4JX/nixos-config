@@ -16,10 +16,12 @@ let
   nvidiaBusId = "PCI:1:0:0";
 in
 
-# Adapted from https://github.com/NixOS/nixpkgs/blob/0491659cd060c6eace115483318f53c8419f9909/nixos/modules/hardware/video/nvidia.nix#L330-L358
+# Adapted from https://github.com/NixOS/nixpkgs/blob/0491659cd060c6eace115483318f53c8419f9909/nixos/modules/hardware/video/nvidia.nix#L330-L362
 with lib; {
   # Disabled from loading in nixos-hardware but not put anywhere afterwards
   boot.kernelModules = [ "amdgpu" ];
+
+  services.xserver.exportConfiguration = true;
 
   services.xserver.drivers = lib.mkForce
     [
@@ -55,4 +57,8 @@ with lib; {
         ;
       }
     ];
+
+  services.xserver.serverLayoutSection = optionalString syncCfg.enable (lib.mkForce ''
+    Inactive "Device-${igpuDriver}[0]"
+  '');
 }

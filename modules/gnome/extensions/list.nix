@@ -3,32 +3,36 @@
 # To consider
 # https://extensions.gnome.org/extension/2992/ideapad/
 
-let
-  versionReminder = (pkg: targetVer: lib.assertMsg ((builtins.compareVersions pkg.version targetVer) < 0) "${pkg.name} is up to date enough to remove the override");
-in
-assert versionReminder pkgs.gnomeExtensions.gtk4-desktop-icons-ng-ding "40";
-assert versionReminder pkgs.gnomeExtensions.muteunmute "11";
+# let
+#   versionReminder = (pkg: targetVer: lib.assertMsg ((builtins.compareVersions pkg.version targetVer) < 0) "${pkg.name} is up to date enough to remove the override");
+# in
+# assert versionReminder pkgs.gnomeExtensions.gtk4-desktop-icons-ng-ding "40";
+# assert versionReminder pkgs.gnomeExtensions.muteunmute "11";
 
 let
   inherit (lib.hm.gvariant) mkTuple;
-  fixMetadata = pkg: sha256: (pkg.overrideAttrs (old: {
-    # Replace the metadata back to its original one
-    # https://github.com/NixOS/nixpkgs/blob/e10802309bf9ae351eb27002c85cfdeb1be3b262/pkgs/desktops/gnome/extensions/buildGnomeExtension.nix#L36
-    installPhase =
-      let
-        oldMeta = (pkgs.fetchzip
-          {
-            url = old.src.url;
-            stripRoot = false;
-            inherit sha256;
-          } + /metadata.json);
-      in
-      ''
-        cp --remove-destination ${oldMeta} metadata.json
+  # fixMetadata = pkg: sha256: (pkg.overrideAttrs (old: {
+  #   # Replace the metadata back to its original one
+  #   # To be used as
+  #   # package = fixMetadata
+  #   #   (muteunmute.override { version = "11"; sha256 = "sha256-suYwbYkoWI9OlwqlN9yeQFOGhPbd6RHSG0JnteqxKkU="; })
+  #   #   "sha256-YKMLso8xrn+6CCbF0MGy9GbTb7nSNeHTVmRdkdbSgxM=";
+  #   # https://github.com/NixOS/nixpkgs/blob/e10802309bf9ae351eb27002c85cfdeb1be3b262/pkgs/desktops/gnome/extensions/buildGnomeExtension.nix#L36
+  #   installPhase =
+  #     let
+  #       oldMeta = (pkgs.fetchzip
+  #         {
+  #           url = old.src.url;
+  #           stripRoot = false;
+  #           inherit sha256;
+  #         } + /metadata.json);
+  #     in
+  #     ''
+  #       cp --remove-destination ${oldMeta} metadata.json
 
-        ${old.installPhase}
-      '';
-  }));
+  #       ${old.installPhase}
+  #     '';
+  # }));
 in
 with pkgs.gnomeExtensions; [
   {
@@ -93,9 +97,7 @@ with pkgs.gnomeExtensions; [
   }
 
   {
-    package = fixMetadata
-      (muteunmute.override { version = "11"; sha256 = "sha256-suYwbYkoWI9OlwqlN9yeQFOGhPbd6RHSG0JnteqxKkU="; })
-      "sha256-YKMLso8xrn+6CCbF0MGy9GbTb7nSNeHTVmRdkdbSgxM=";
+    package = muteunmute;
     dconfSettings = { };
   }
 
@@ -127,11 +129,7 @@ with pkgs.gnomeExtensions; [
   }
 
   {
-    package = fixMetadata
-      (gtk4-desktop-icons-ng-ding.override
-        { version = "40"; sha256 = "sha256-CwqkIaGHTLu602ZtQPERsdt0HfHUa161G+JcMAtuH7Y="; })
-      "sha256-JMukkri136Cy5FMLW9PyPPTBbCTq8mv9uE7E1KTwon0=";
-
+    package = gtk4-desktop-icons-ng-ding;
     dconfSettings = { };
   }
 ]

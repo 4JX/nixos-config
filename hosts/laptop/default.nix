@@ -13,8 +13,6 @@ in
       ./xorg.nix
     ];
 
-  services.xserver.exportConfiguration = true;
-
   # Use the grub bootloader.
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_6_3;

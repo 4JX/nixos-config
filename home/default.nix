@@ -129,7 +129,7 @@
       zsh = {
         enable = true;
         shellAliases = with pkgs; {
-          update-config = "sudo nixos-rebuild switch";
+          update-config = "nixos-rebuild --use-remote-sudo switch";
           scrcpy = "${scrcpy}/bin/scrcpy --bit-rate 32M --encoder 'OMX.qcom.video.encoder.avc' --window-title 'Phone' --stay-awake --turn-screen-off";
           discordrpc = "ln -sf {app/com.discordapp.Discord,$XDG_RUNTIME_DIR}/discord-ipc-0";
           enable-conservation-mode = "echo 1 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode";
