@@ -139,7 +139,7 @@ in
 
         scripts = scriptsPkgs ++ scriptsCustom;
 
-        bindings = import ./bindings.nix { inherit p; };
+        bindings = import ./bindings.nix { inherit p pkgs; };
       };
 
       xdg.configFile =

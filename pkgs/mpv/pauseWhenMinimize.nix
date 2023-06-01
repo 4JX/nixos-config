@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     description = "Pauses the player video when minimizing, and unpauses it when brought up again.";
-    homepage = "https://gist.github.com/Hakkin/4f978a5c87c31f7fe3ae";
+    homepage = "https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/pause-when-minimize.lua";
     license = licenses.gpl2Plus;
     # mantainers = ;
   };
