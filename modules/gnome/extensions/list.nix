@@ -88,7 +88,11 @@ with pkgs.gnomeExtensions; [
   }
 
   {
-    package = tray-icons-reloaded;
+    package = (tray-icons-reloaded.overrideAttrs (old: {
+      postPatch = ''
+        substituteInPlace "AppManager.js" --replace "/bin/bash" "${pkgs.bash}/bin/bash"
+      '';
+    }));
     dconfSettings = {
       icon-size = 22;
       # Make the icons be close together while using Dash to Dock
@@ -150,6 +154,9 @@ with pkgs.gnomeExtensions; [
 
       # Do not generate link previews for copied links
       link-previews = false;
+
+      # Window title(?) based excludes
+      exclusion-list = [ "Bitwarden" "1Password" "KeePassXC" "secrets" "org.gnome.World.Secrets" "Tor Browser" ];
     };
   }
 

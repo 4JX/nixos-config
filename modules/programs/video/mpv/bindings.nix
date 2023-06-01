@@ -5,6 +5,11 @@ let
   inherit (p.mpv) shaders;
 
   setShader = { files, message }: ''no-osd change-list glsl-shaders set "${builtins.concatStringsSep ":" files}"; show-text "${message}"'';
+
+  # editActiveRatio = package: filename: (pkgs.writeText filename (builtins.replaceStrings [ "1.300" ] [ "1.000" ] (builtins.readFile (package + "/" + filename))));
+  # fsrcnnx_1x = with shaders; {
+  #   x2_16 = editActiveRatio fsrcnnx "FSRCNNX_x2_16-0-4-1.glsl";
+  # };
 in
 with shaders; {
   # curl -sL https://raw.githubusercontent.com/bloc97/Anime4K/master/md/GLSL_Instructions_Linux.md | grep '^CTRL' | sed -r -e '/^$/d' -e 's|~~/shaders/|${anime4k}/|g' -e 's|;\$|:$|g' -e "s| |\" = ''|" -e 's|^|    "|' -e "s|$|'';|"
