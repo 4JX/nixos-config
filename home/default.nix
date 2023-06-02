@@ -144,6 +144,13 @@
       kitty.enable = true;
       direnv.enable = true;
     };
+
+    misc = {
+      screenshot-ocr = {
+        enable = true;
+        languages = [ "eng" "spa" ];
+      };
+    };
   };
 }
 
