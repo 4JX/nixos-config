@@ -34,6 +34,7 @@
       element-desktop
       figma-linux
       quassel
+      p.portmaster
     ];
 
     home.stateVersion = "22.11";
