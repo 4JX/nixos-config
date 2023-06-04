@@ -52,6 +52,10 @@ with pkgs.gnomeExtensions; [
 
       # Keep running apps for each workspace separate
       isolate-workspaces = true;
+
+      # Needed for blur-my-shell to properly work
+      trans-use-custom-opacity = true;
+      trans-panel-opacity = 0.0;
     };
   }
 
@@ -84,7 +88,9 @@ with pkgs.gnomeExtensions; [
 
   {
     package = blur-my-shell;
-    dconfSettings = { };
+    dconfSettings = {
+      "panel/static-blur" = false;
+    };
   }
 
   {
