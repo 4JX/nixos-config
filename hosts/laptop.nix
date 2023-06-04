@@ -55,7 +55,7 @@ let
     #! TODO: Remove these as soon as possible
     config.permittedInsecurePackages = [
       # Github-desktop
-      "openssl-1.1.1t"
+      "openssl-1.1.1u"
     ];
   };
 
