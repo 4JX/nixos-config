@@ -20,7 +20,7 @@
       gh # Github CLI
       jetbrains.clion
       android-studio
-      handbrake
+      # handbrake
       vokoscreen-ng
       peek
       qbittorrent
