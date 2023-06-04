@@ -13,7 +13,17 @@ in
       description = "Blacklist the amd_pstate driver";
     };
 
+    power-profiles-daemon = {
+      enable = lib.mkEnableOption "Enable power-profiles-daemon";
+    };
+
+    tlp = {
+      enable = lib.mkEnableOption "Enable tlp";
+    };
+
     auto-cpufreq = {
+      enable = lib.mkEnableOption "Enable auto-cpufreq";
+
       configPath = lib.mkOption {
         type = lib.types.path;
         description = "Path of the auto-cpufreq config file";
@@ -22,14 +32,40 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ powertop tlp ];
+    services.power-profiles-daemon.enable = true;
+
+    services.udev.extraRules =
+      # Loosely based on https://gitlab.com/EikoTsukida/power-profiles-automation
+      # Can also consider a "low battery" trigger https://superuser.com/questions/1500635/udev-rule-for-hibernate-on-low-battery-not-working
+      let
+        mkPPDCommand = profile: pkgs.writeShellApplication {
+          name = "power-profiles-daemon_${profile}";
+          runtimeInputs = with pkgs; [ power-profiles-daemon ];
+
+          text = ''
+            powerprofilesctl set ${profile}
+          '';
+        };
+
+        powerSaver = mkPPDCommand "power-saver";
+        performance = mkPPDCommand "performance";
+      in
+      lib.optionalString cfg.power-profiles-daemon.enable ''
+        # On battery
+        SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="0",RUN+="${lib.getExe powerSaver}"
+
+         # Charging
+        SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="1",RUN+="${lib.getExe performance}"
+      '';
+
+    environment.systemPackages = with pkgs; [ powertop ] ++ lib.optionals cfg.tlp.enable [ tlp ];
+
     # powerManagement.powertop.enable = true;
 
-    services.tlp.enable = true;
-    services.power-profiles-daemon.enable = false;
+    services.tlp.enable = cfg.tlp.enable;
 
     # https://github.com/AdnanHodzic/auto-cpufreq/issues/464
-    services.auto-cpufreq.enable = true;
+    services.auto-cpufreq.enable = cfg.auto-cpufreq.enable;
     environment.etc."auto-cpufreq.conf" = lib.mkIf (cfg.auto-cpufreq.configPath != null) {
       source = cfg.auto-cpufreq.configPath;
     };

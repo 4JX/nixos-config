@@ -15,9 +15,17 @@
       };
       power-management = {
         enable = true;
-        # Pstate is not quite there yet energy saving wise
-        blacklistAmdPstate = true;
-        auto-cpufreq.configPath = ./auto-cpufreq.conf;
+
+        blacklistAmdPstate = false;
+
+        power-profiles-daemon.enable = true;
+
+        tlp.enable = false;
+
+        auto-cpufreq = {
+          enable = false;
+          configPath = ./auto-cpufreq.conf;
+        };
       };
       gnome-keyring.enable = true;
       networkmanager.enable = true;
