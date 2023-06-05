@@ -40,7 +40,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-gnomeext.url = "github:4JX/nixpkgs/gnomeext";
+    nixpkgs-gnomeext.url = "github:4JX/nixpkgs/gnomeExt-compile-schemas";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
