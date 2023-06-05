@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, p, ... }:
 
 # To consider
 # https://extensions.gnome.org/extension/2992/ideapad/
@@ -34,7 +34,8 @@ let
   #     '';
   # }));
 in
-with pkgs.gnomeExtensions; [
+# with pkgs.gnomeExtensions; [
+with builtins.trace "Using forked GNOME extension source, remove as soon as PR is merged" p.gnomeext.gnomeExtensions; [
   {
     package = user-themes;
     dconfSettings = {
@@ -180,5 +181,10 @@ with pkgs.gnomeExtensions; [
 
       hot-sensors = [ "_battery_rate_" ];
     };
+  }
+
+  {
+    package = extension-list;
+    dconfSettings = { };
   }
 ]

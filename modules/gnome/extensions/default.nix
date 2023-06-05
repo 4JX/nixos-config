@@ -1,9 +1,9 @@
-{ primaryUser, ... }:
+{ primaryUser, p, ... }:
 
 {
   home-manager.users.${primaryUser} = { pkgs, lib, ... }:
     let
-      extensions = import ./list.nix { inherit pkgs lib; };
+      extensions = import ./list.nix { inherit pkgs lib p; };
       mapDconfSettings =
         builtins.map
           (e:
