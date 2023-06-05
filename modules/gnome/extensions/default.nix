@@ -41,7 +41,11 @@
           disabled-extensions = [ ];
 
           # `gnome-extensions list` for a list
-          enabled-extensions = builtins.map (e: e.package.extensionUuid) extensions;
+          enabled-extensions =
+            let
+              enabled = builtins.filter (e: !(e.disable or false)) extensions;
+            in
+            builtins.map (e: e.package.extensionUuid) enabled;
         };
       } // recursiveMergeAttrs mapDconfSettings;
     };

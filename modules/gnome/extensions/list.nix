@@ -47,7 +47,7 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
     package = dash-to-panel;
     dconfSettings = {
       panel-element-positions = ''
-        {"0":[{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}
+        {"0":[{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}
       '';
       panel-lengths = ''{"0":100}'';
 
@@ -115,7 +115,10 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
 
   {
     package = ideapad-controls;
-    dconfSettings = { };
+    dconfSettings = {
+      # Show inside the quick settings menu
+      tray-location = false;
+    };
   }
 
   {
@@ -125,6 +128,7 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
 
   {
     package = easyeffects-preset-selector;
+    disable = true;
     dconfSettings = { };
   }
 
@@ -184,7 +188,60 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
   }
 
   {
-    package = extension-list;
-    dconfSettings = { };
+    package = aylurs-widgets.overrideAttrs (old:
+      {
+        src = pkgs.fetchFromGitHub
+          # {
+          #   owner = "Aylur";
+          #   repo = "gnome-extensions";
+          #   rev = "69d51b3ed531b042df206436c78d70a613a2312d";
+          #   hash = "sha256-rUX6WaIh+Z6Pdz5mxLBXII7nwOzJkROf7Zg8rk1V4Bo=";
+          # } + "/widgets@aylur";
+          {
+            owner = "4JX";
+            repo = "gnome-extensions";
+            rev = "f291689797f2abd289f707f9370c284cdf749549";
+            hash = "sha256-3w4WkO0nrCs8t+m7IhooHiHPpuzt10UaMg3KiLXjLA4=";
+          } + "/widgets@aylur";
+      });
+    dconfSettings = {
+      background-clock = false;
+      dash-board = false;
+      workspace-indicator = false;
+      battery-bar = false;
+
+      # Notification indicator
+      notification-indicator-position = 1; # Center
+
+      # Media player
+      # Move player controls to the right
+      media-player-position = 2;
+      media-player-max-width = 200;
+      media-player-controls-position = 2;
+
+      # Date menu
+      date-menu-show-system-levels = false;
+      date-menu-hide-notifications = true;
+      date-menu-show-media = false;
+
+      # OSD
+      stylish-osd-position = 7; # Bottom center
+      stylish-osd-vertical = false;
+      stylish-osd-width = 400;
+      stylish-osd-height = 50;
+      stylish-osd-margin-y = 80; # Vertical offset
+      stylish-osd-roundness = 100;
+      stylish-osd-padding = 6;
+      stylish-osd-icon-size = 26;
+
+      # Quick settings
+      quick-settings-style = 1; # "Normal"
+      quick-settings-show-media = false;
+      quick-settings-media-cover-width = 50;
+      quick-settings-media-cover-height = 50;
+      quick-settings-show-notifications = false;
+      quick-settings-show-system-levels = false;
+      quick-settings-show-airplane = true;
+    };
   }
 ]

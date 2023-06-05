@@ -196,11 +196,11 @@
     },
     "nixpkgs-gnomeext": {
       "locked": {
-        "lastModified": 1685895872,
-        "narHash": "sha256-PvgXnM5kFQ93sFAlQJSdpXTX6T8rdgTuuLxeSS1MQVU=",
+        "lastModified": 1686006468,
+        "narHash": "sha256-u6iQib4lzSaflGepQsMEjgjGcANhovu6MtcKpL630dY=",
         "owner": "4JX",
         "repo": "nixpkgs",
-        "rev": "e997a185341961e333234489787e646ba055de55",
+        "rev": "72dcb85a129018e2f80ac5ebe81b0f9d1364aae5",
         "type": "github"
       },
       "original": {
