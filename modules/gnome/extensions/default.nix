@@ -1,4 +1,4 @@
-{ primaryUser, p, ... }:
+{ primaryUser, p, myLib, ... }:
 
 {
   home-manager.users.${primaryUser} = { pkgs, lib, ... }:
@@ -12,7 +12,6 @@
             }
           )
           extensions;
-      recursiveMergeAttrs = lib.fold lib.recursiveUpdate { };
     in
     {
       home.packages =
@@ -47,7 +46,7 @@
             in
             builtins.map (e: e.package.extensionUuid) enabled;
         };
-      } // recursiveMergeAttrs mapDconfSettings;
+      } // myLib.recursiveMergeAttrs mapDconfSettings;
     };
 
   users.users.${primaryUser} = {
