@@ -8,6 +8,9 @@
       flatpak.enable = true;
       fonts = {
         enableCommonFonts = true;
+        custom = [
+          p.fonts.apple-fonts.otf-apple
+        ];
       };
       pipewire = {
         enable = true;
