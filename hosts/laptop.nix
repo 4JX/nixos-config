@@ -5,14 +5,14 @@ let
 
   system = "x86_64-linux"; # System architecture
 
-  myLib = import ../lib { };
-
   # An instance of Nixpkgs used solely for instantiating the custom packages with callPackage
   pkgsCall = import nixpkgs {
     inherit system;
 
     config.allowUnfree = true;
   };
+
+  myLib = pkgsCall.callPackage ../lib { };
 
   # Collection of custom packages
   p = {
@@ -23,7 +23,7 @@ let
 
       config.allowUnfree = true;
     };
-  } // (pkgsCall.callPackage ../pkgs { });
+  } // (pkgsCall.callPackage ../pkgs { inherit myLib; });
 
 
   overlay = _final: _prev: {
@@ -69,7 +69,7 @@ in
 
     specialArgs =
       {
-        inherit primaryUser p;
+        inherit primaryUser p myLib;
         theme = import ../theme.nix;
       };
 
