@@ -108,6 +108,12 @@ in
             # Dark mode
             color-scheme = "prefer-dark";
             show-battery-percentage = true;
+
+            # Font stuff
+            font-name = "SF Pro 10";
+            document-font-name = "SF Pro 11";
+            monospace-font-name = "JetBrains Mono 10";
+            titlebar-font = "SF Pro Display Bold 11";
           };
 
           "org/gnome/shell" = {
