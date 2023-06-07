@@ -65,3 +65,21 @@ When using enable = true in both nixpkgs and home-manager zsh slows down a bunch
 <https://rycee.gitlab.io/home-manager/index.html#_why_are_the_session_variables_not_set>
 <https://github.com/hpfr/system/blob/a108a5ebf3ffcee75565176243936de6fd736142/profiles/system/base.nix#L12-L16>
 <https://github.com/nix-community/home-manager/issues/1011>
+
+## _Non Nix specific_
+
+### AMD Pstate EPP
+
+As of 06-06-2023 partly controlled by `power-profiles-daemon`
+
+Interesting options to play with can be found in
+
+```sh
+/sys/devices/system/cpu/cpu{num}/cpufreq/
+```
+
+Kernel 6.4 apparently brings a new guided mode, should see how that behaves
+
+### Power profiles daemon
+
+`powerprofilesctl` - `launch` is an interesting subcommand
