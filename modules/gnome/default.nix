@@ -1,10 +1,10 @@
 { config, primaryUser, lib, pkgs, p, ... }:
 let
   cfg = config.ncfg.gnome;
-  # https://github.com/NixOS/nixpkgs/blob/nixos-22.11/pkgs/data/themes/orchis-theme/default.nix#L9
-  orchis = pkgs.orchis-theme.override {
-    tweaks = [ ];
-  };
+  # # https://github.com/NixOS/nixpkgs/blob/nixos-22.11/pkgs/data/themes/orchis-theme/default.nix#L9
+  # orchis = pkgs.orchis-theme.override {
+  #   tweaks = [ ];
+  # };
 in
 {
   imports = [ ./extensions ];
@@ -44,10 +44,21 @@ in
     ];
 
     home-manager.users.${primaryUser} = { pkgs, ... }: {
-      xdg.configFile."gtk-4.0" = {
-        source = orchis + /share/themes/Orchis-Dark/gtk-4.0;
-        recursive = true;
-      };
+      xdg.configFile =
+        let
+          themePath = p.mono-gtk-theme + /share/themes/MonoThemeDark/gtk-4.0;
+        in
+        {
+          "gtk-4.0/gtk.css" = {
+            source = "${themePath}/gtk.css";
+          };
+          "gtk-4.0/gtk-dark.css" = {
+            source = "${themePath}/gtk-dark.css";
+          };
+          "gtk-4.0/assets" = {
+            source = "${themePath}/assets";
+          };
+        };
 
       gtk = {
         enable = true;
@@ -58,9 +69,8 @@ in
         };
 
         theme = {
-          # Orchis-Yellow-Dark-Compact
-          name = "Orchis-Dark";
-          package = orchis;
+          name = "MonoThemeDark";
+          package = p.mono-gtk-theme;
         };
 
         cursorTheme = {
