@@ -39,7 +39,7 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
   {
     package = user-themes;
     dconfSettings = {
-      name = "Orchis-Dark";
+      name = "MonoThemeDark";
     };
   }
 
@@ -47,7 +47,7 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
     package = dash-to-panel;
     dconfSettings = {
       panel-element-positions = ''
-        {"0":[{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}
+        {"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}
       '';
       panel-lengths = ''{"0":100}'';
 
@@ -68,6 +68,10 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
   {
     package = arcmenu;
     dconfSettings = {
+      # Set icon as squares thing
+      arc-menu-icon = 71;
+      custom-menu-button-icon-size = 32.0;
+
       # Menu visual appearance
       menu-height = 800;
       left-panel-width = 350;
@@ -148,6 +152,7 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
 
   {
     package = gtk4-desktop-icons-ng-ding;
+    disable = true;
     dconfSettings = { };
   }
 
@@ -200,8 +205,8 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
           {
             owner = "4JX";
             repo = "gnome-extensions";
-            rev = "f291689797f2abd289f707f9370c284cdf749549";
-            hash = "sha256-3w4WkO0nrCs8t+m7IhooHiHPpuzt10UaMg3KiLXjLA4=";
+            rev = "aa3af014daf0237ce7ea3afc8102e8540c7c316c";
+            hash = "sha256-eJe+7dGjuZZau4pD6uxKr1i8NHZHKllaSOpGW0lL5rk=";
           } + "/widgets@aylur";
       });
     dconfSettings = {
@@ -209,6 +214,7 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
       dash-board = false;
       workspace-indicator = false;
       battery-bar = false;
+      quick-settings-tweaks = false;
 
       # Notification indicator
       notification-indicator-position = 1; # Center
@@ -233,15 +239,18 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
       stylish-osd-roundness = 100;
       stylish-osd-padding = 6;
       stylish-osd-icon-size = 26;
+    };
+  }
 
-      # Quick settings
-      quick-settings-style = 1; # "Normal"
-      quick-settings-show-media = false;
-      quick-settings-media-cover-width = 50;
-      quick-settings-media-cover-height = 50;
-      quick-settings-show-notifications = false;
-      quick-settings-show-system-levels = false;
-      quick-settings-show-airplane = true;
+  {
+    package = quick-settings-audio-panel;
+    dconfSettings = { };
+  }
+
+  {
+    package = gsconnect;
+    dconfSettings = {
+      panel-position = "top";
     };
   }
 ]
