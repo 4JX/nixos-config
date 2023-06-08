@@ -45,6 +45,7 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
 
   {
     package = dash-to-panel;
+    disable = true;
     dconfSettings = {
       panel-element-positions = ''
         {"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}
@@ -56,7 +57,22 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
 
       # Needed for blur-my-shell to properly work
       trans-use-custom-opacity = true;
-      trans-panel-opacity = 0.0;
+      trans-panel-opacity = 0.1;
+    };
+  }
+
+  {
+    package = app-icons-taskbar;
+    dconfSettings = {
+      position-in-panel = "CENTER";
+      panel-location = "BOTTOM";
+
+      main-panel-height = mkTuple [ true 52 ];
+      icon-size = 40;
+      indicator-location = "BOTTOM";
+
+      window-previews-show-timeout = 0;
+      window-previews-hide-timeout = 0;
     };
   }
 
@@ -147,6 +163,10 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
 
       # Remove "Window is ready" popups
       window-demands-attention-focus = true;
+
+      # Move the clock stuff to a more classic opinion
+      clock-menu-position = 1; # Right
+      clock-menu-position-offset = 10; # After quick settings and power menu from Aylur's
     };
   }
 
@@ -229,6 +249,7 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
       date-menu-show-system-levels = false;
       date-menu-hide-notifications = true;
       date-menu-show-media = false;
+      date-menu-date-format = "%H:%M | %d %b";
 
       # OSD
       stylish-osd-position = 7; # Bottom center

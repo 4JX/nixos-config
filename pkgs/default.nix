@@ -9,6 +9,7 @@ myLib.recursiveMergeAttrs
       vimix-cursor-theme = pkgs.callPackage ./vimix-cursors.nix { };
       portmaster = pkgs.callPackage ./portmaster.nix { };
       mono-gtk-theme = pkgs.callPackage ./mono-gtk-theme.nix { };
+      gnome-x11-gesture-daemon = pkgs.callPackage ./gnome-x11-gesture-daemon.nix { };
     }
 
     (pkgs.callPackage ./pull-requests { })
