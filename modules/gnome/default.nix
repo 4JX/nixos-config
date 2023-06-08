@@ -43,7 +43,7 @@ in
       gnome.dconf-editor
     ];
 
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${primaryUser} = { pkgs, lib, ... }: {
       xdg.configFile =
         let
           themePath = p.mono-gtk-theme + /share/themes/MonoThemeDark/gtk-4.0;
@@ -135,8 +135,36 @@ in
             # Right click based on area rather than some second finger tap method
             click-method = "areas";
           };
+
+          "org/gnome/settings-daemon/plugins/color" =
+            with lib.hm.gvariant; {
+              night-light-enabled = true;
+              # Manual schedule, as opposed to Sunset->Sunrise
+              night-light-schedule-automatic = false;
+              night-light-schedule-from = 23.0; # 11PM
+              night-light-schedule-to = 9.0; # 9AM
+              night-light-temperature = mkUint32 3700;
+            };
         };
     };
-  };
 
+    # Stuff needed for X11 gestures in tandem with the gesture improvements extension
+    users.users.${primaryUser} = {
+      extraGroups = [ "input" ];
+    };
+
+    # https://github.com/harshadgavali/gnome-x11-gesture-daemon/blob/main/gesture_improvements_gesture_daemon.service
+    systemd.user.services."gesture_improvements_gesture_daemon" = {
+      # [Unit]
+      requires = [ "dbus.service" ];
+      description = "gesture improvements Gesture Daemon";
+      startLimitIntervalSec = 0;
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${p.gnome-x11-gesture-daemon}/bin/gesture_improvements_gesture_daemon";
+        Restart = "always";
+        RestartSec = "1s";
+      };
+    };
+  };
 }
