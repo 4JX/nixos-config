@@ -34,8 +34,7 @@ let
   #     '';
   # }));
 in
-# with pkgs.gnomeExtensions; [
-with builtins.trace "Using forked GNOME extension source, remove as soon as PR is merged" p.gnomeext.gnomeExtensions; [
+with pkgs.gnomeExtensions; [
   {
     package = user-themes;
     dconfSettings = {
@@ -166,7 +165,7 @@ with builtins.trace "Using forked GNOME extension source, remove as soon as PR i
 
       # Move the clock stuff to a more classic opinion
       clock-menu-position = 1; # Right
-      clock-menu-position-offset = 10; # After quick settings and power menu from Aylur's
+      clock-menu-position-offset = 11; # After quick settings and power menu from Aylur's
     };
   }
 
