@@ -17,12 +17,6 @@ let
   # Collection of custom packages
   p = {
     legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
-
-    gnomeext = import inputs.nixpkgs-gnomeext {
-      inherit system;
-
-      config.allowUnfree = true;
-    };
   } // (pkgsCall.callPackage ../pkgs { inherit myLib; });
 
 

@@ -23,7 +23,6 @@
       # handbrake
       vokoscreen-ng
       peek
-      qbittorrent
       scrcpy
       tor-browser-bundle-bin
       arandr
@@ -73,37 +72,46 @@
         };
       };
 
-      networking.syncthing = {
-        enable = true;
-        devices = {
-          "Phone" = {
-            id = "HBDDQGH-L3HLJKF-CPJTNNR-C5JEULN-JSBNQUQ-UH7FPOO-NQRCPXC-GXJDJAT";
+      networking = {
+        syncthing = {
+          enable = true;
+          devices = {
+            "Phone" = {
+              id = "HBDDQGH-L3HLJKF-CPJTNNR-C5JEULN-JSBNQUQ-UH7FPOO-NQRCPXC-GXJDJAT";
+            };
+          };
+          folders = {
+            "Keepass DB" = {
+              id = "Keepass DB";
+              path = "/home/${primaryUser}/Documents/Keepass DB";
+              devices = [ "Phone" ];
+              versioning = {
+                type = "staggered";
+                params = {
+                  cleanInterval = "3600";
+                  maxAge = "15768000";
+                };
+              };
+            };
+            "Phone" = {
+              id = "ayfdf-jbgsg";
+              path = "/home/${primaryUser}/Documents/Phone/lmi/Backups/Syncthing";
+              devices = [ "Phone" ];
+              versioning = {
+                type = "simple";
+                params = {
+                  keep = "3";
+                };
+              };
+              type = "receiveonly";
+            };
           };
         };
-        folders = {
-          "Keepass DB" = {
-            id = "Keepass DB";
-            path = "/home/${primaryUser}/Documents/Keepass DB";
-            devices = [ "Phone" ];
-            versioning = {
-              type = "staggered";
-              params = {
-                cleanInterval = "3600";
-                maxAge = "15768000";
-              };
-            };
-          };
-          "Phone" = {
-            id = "ayfdf-jbgsg";
-            path = "/home/${primaryUser}/Documents/Phone/lmi/Backups/Syncthing";
-            devices = [ "Phone" ];
-            versioning = {
-              type = "simple";
-              params = {
-                keep = "3";
-              };
-            };
-            type = "receiveonly";
+
+        p2p = {
+          qBittorrent = {
+            enable = true;
+            port = 58902;
           };
         };
       };

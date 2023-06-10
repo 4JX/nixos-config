@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./p2p
-    ./syncthing.nix
+    ./qbittorrent.nix
   ];
 }
