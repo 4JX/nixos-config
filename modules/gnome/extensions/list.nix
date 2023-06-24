@@ -109,7 +109,7 @@ with pkgs.gnomeExtensions; [
   {
     package = blur-my-shell;
     dconfSettings = {
-      "panel/static-blur" = false;
+      "panel/static-blur" = true;
     };
   }
 
@@ -251,14 +251,15 @@ with pkgs.gnomeExtensions; [
       date-menu-date-format = "%H:%M | %d %b";
 
       # OSD
-      stylish-osd-position = 7; # Bottom center
-      stylish-osd-vertical = false;
-      stylish-osd-width = 400;
-      stylish-osd-height = 50;
-      stylish-osd-margin-y = 80; # Vertical offset
-      stylish-osd-roundness = 100;
-      stylish-osd-padding = 6;
-      stylish-osd-icon-size = 26;
+      stylish-osd = false;
+      # stylish-osd-position = 7; # Bottom center
+      # stylish-osd-vertical = false;
+      # stylish-osd-width = 400;
+      # stylish-osd-height = 50;
+      # stylish-osd-margin-y = 80; # Vertical offset
+      # stylish-osd-roundness = 100;
+      # stylish-osd-padding = 6;
+      # stylish-osd-icon-size = 26;
     };
   }
 

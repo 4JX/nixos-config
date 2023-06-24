@@ -145,6 +145,11 @@ in
               night-light-schedule-to = 9.0; # 9AM
               night-light-temperature = mkUint32 3700;
             };
+
+          "org/gnome/settings-daemon/plugins/power" = {
+            # Don't go to sleep on AC (turning the screen off is still allowed)
+            sleep-inactive-ac-type = "nothing";
+          };
         };
     };
 
