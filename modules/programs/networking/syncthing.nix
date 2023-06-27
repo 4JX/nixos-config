@@ -6,11 +6,7 @@ in
 {
   options.ncfg.programs.networking.syncthing = {
     enable = lib.mkEnableOption "Enable Syncthing";
-    devices = lib.mkOption {
-      default = { };
-      type = lib.types.attrs;
-    };
-    folders = lib.mkOption {
+    settings = lib.mkOption {
       default = { };
       type = lib.types.attrs;
     };
@@ -26,9 +22,7 @@ in
       overrideFolders = true;
       overrideDevices = true;
 
-      inherit (cfg) devices;
-      inherit (cfg) folders;
-
+      inherit (cfg) settings;
     };
 
     home-manager.users.${primaryUser} = { pkgs, ... }: {

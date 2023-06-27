@@ -34,6 +34,7 @@
       figma-linux
       quassel
       p.portmaster
+      dbeaver
     ];
 
     home.stateVersion = "22.11";
@@ -75,35 +76,37 @@
       networking = {
         syncthing = {
           enable = true;
-          devices = {
-            "Phone" = {
-              id = "HBDDQGH-L3HLJKF-CPJTNNR-C5JEULN-JSBNQUQ-UH7FPOO-NQRCPXC-GXJDJAT";
-            };
-          };
-          folders = {
-            "Keepass DB" = {
-              id = "Keepass DB";
-              path = "/home/${primaryUser}/Documents/Keepass DB";
-              devices = [ "Phone" ];
-              versioning = {
-                type = "staggered";
-                params = {
-                  cleanInterval = "3600";
-                  maxAge = "15768000";
-                };
+          settings = {
+            devices = {
+              "Phone" = {
+                id = "HBDDQGH-L3HLJKF-CPJTNNR-C5JEULN-JSBNQUQ-UH7FPOO-NQRCPXC-GXJDJAT";
               };
             };
-            "Phone" = {
-              id = "ayfdf-jbgsg";
-              path = "/home/${primaryUser}/Documents/Phone/lmi/Backups/Syncthing";
-              devices = [ "Phone" ];
-              versioning = {
-                type = "simple";
-                params = {
-                  keep = "3";
+            folders = {
+              "Keepass DB" = {
+                id = "Keepass DB";
+                path = "/home/${primaryUser}/Documents/Keepass DB";
+                devices = [ "Phone" ];
+                versioning = {
+                  type = "staggered";
+                  params = {
+                    cleanInterval = "3600";
+                    maxAge = "15768000";
+                  };
                 };
               };
-              type = "receiveonly";
+              "Phone" = {
+                id = "ayfdf-jbgsg";
+                path = "/home/${primaryUser}/Documents/Phone/lmi/Backups/Syncthing";
+                devices = [ "Phone" ];
+                versioning = {
+                  type = "simple";
+                  params = {
+                    keep = "3";
+                  };
+                };
+                type = "receiveonly";
+              };
             };
           };
         };

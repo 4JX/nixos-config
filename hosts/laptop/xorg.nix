@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 # https://github.com/NixOS/nixpkgs/blob/0491659cd060c6eace115483318f53c8419f9909/nixos/modules/hardware/video/nvidia.nix
 
@@ -11,7 +11,7 @@ let
   syncCfg = pCfg.sync;
   offloadCfg = pCfg.offload;
 
-  igpuDriver = "modesetting";
+  igpuDriver = "amdgpu";
   igpuBusId = "PCI:6:0:0";
   nvidiaBusId = "PCI:1:0:0";
 in
@@ -28,7 +28,7 @@ with lib; {
       {
         name = igpuDriver;
         display = offloadCfg.enable;
-        # modules = optionals (igpuDriver == "amdgpu") [ pkgs.xorg.xf86videoamdgpu ];
+        modules = optionals (igpuDriver == "amdgpu") [ pkgs.xorg.xf86videoamdgpu ];
         deviceSection = ''
           BusID "${igpuBusId}"
           ${optionalString (syncCfg.enable && igpuDriver != "amdgpu") ''Option "AccelMethod" "none"''}

@@ -21,7 +21,7 @@ in
   options.ncfg.misc.screenshot-ocr = {
     enable = lib.mkEnableOption "Enable the screenshot OCR utility";
     languages = lib.mkOption {
-      type = lib.types.listOf lib.types.string;
+      type = lib.types.listOf lib.types.str;
       default = [ ];
       description = ''
         Which languages to enable for the OCR

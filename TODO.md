@@ -1,14 +1,6 @@
 # TODO
 
-- Switch back to unstable for extensions when PR lands
-
-<https://nixpk.gs/pr-tracker.html?pr=235948>
-
-- Fix trayIndicator when executing steam
-
-```log
-May 25 01:41:21 nixos .gnome-shell-wr[2918]: JS ERROR: GLib.SpawnError: Failed to execute child process “/bin/bash” (No such file or directory)
-````
+- Upstream trayIndicator fix
 
 ## Portmaster
 

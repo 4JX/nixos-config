@@ -26,6 +26,11 @@
 
                 # Needed for all configs to run on flakes
                 nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+                # Fix command-not-found issues with db
+                # https://blog.nobbz.dev/2023-02-27-nixos-flakes-command-not-found/
+                environment.etc."programs.sqlite".source = inputs.programsdb.packages.${cfg.system}.programs-sqlite;
+                programs.command-not-found.dbPath = "/etc/programs.sqlite";
               })
             ];
           })
@@ -49,6 +54,11 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    programsdb = {
+      url = "github:wamserma/flake-programs-sqlite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # -- Extra packages --
     legion-kb-rgb = {

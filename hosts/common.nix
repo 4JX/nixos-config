@@ -21,7 +21,6 @@
     wget
     git
     btop
-    cudatoolkit # nvidia-smi
     iftop
     pciutils # lspci
     killall
@@ -34,7 +33,8 @@
     (inxi.override
       { withRecommends = true; }) # inxi -Fazy
     ripgrep # Faster grep
-    ripgrep-all # Wrapper arround ripgrep for convenience universal searching across a ton of filetypes
+    # FIXME: https://github.com/NixOS/nixpkgs/issues/250306
+    # ripgrep-all # Wrapper around ripgrep for convenience universal searching across a ton of filetypes
     fd # Better find
 
     # Nix stuffs
