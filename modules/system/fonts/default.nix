@@ -30,6 +30,6 @@ in
   };
 
   config.fonts = {
-    fonts = (lib.optionals cfg.enableCommonFonts commonFonts) ++ cfg.custom;
+    packages = (lib.optionals cfg.enableCommonFonts commonFonts) ++ cfg.custom;
   };
 }

@@ -66,6 +66,10 @@ When using enable = true in both nixpkgs and home-manager zsh slows down a bunch
 <https://github.com/hpfr/system/blob/a108a5ebf3ffcee75565176243936de6fd736142/profiles/system/base.nix#L12-L16>
 <https://github.com/nix-community/home-manager/issues/1011>
 
+### Command-not-found prompt + flakes
+
+<https://blog.nobbz.dev/2023-02-27-nixos-flakes-command-not-found/>
+
 ## _Non Nix specific_
 
 ### AMD Pstate EPP

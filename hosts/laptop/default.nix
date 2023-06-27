@@ -15,7 +15,7 @@ in
 
   # Use the grub bootloader.
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_3;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
     blacklistedKernelModules = [ "nouveau" ];
     loader = {
       efi = {

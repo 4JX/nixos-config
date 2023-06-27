@@ -32,7 +32,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.power-profiles-daemon.enable = true;
+    services.power-profiles-daemon.enable = cfg.power-profiles-daemon.enable;
 
     services.udev.extraRules =
       # Loosely based on https://gitlab.com/EikoTsukida/power-profiles-automation
