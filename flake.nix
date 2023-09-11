@@ -20,8 +20,7 @@
 
                 # Resolve <nixpkgs> and other references to the flake input
                 # https://ayats.org/blog/channels-to-flakes/
-                environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
-                nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
+                nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
                 nix.registry.nixpkgs.flake = nixpkgs;
 
                 # Needed for all configs to run on flakes
