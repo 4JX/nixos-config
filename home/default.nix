@@ -65,10 +65,9 @@
       browsers.firefox = {
         enable = true;
         arkenfox = {
-          firefoxVersion = "112.0";
-          sha256 = "sha256-k4PF8FWN6U+//UmZX4UxzBWbfAgEwQznLVsaFV/fVKo=";
           overrides = {
-            "keyword.enabled" = true;
+            # This is a default since https://github.com/arkenfox/user.js/releases/tag/115.1
+            # "keyword.enabled" = true;
           };
         };
       };

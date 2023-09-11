@@ -1,12 +1,15 @@
-{ pkgs, lib, config, primaryUser, ... }:
+{ lib, config, primaryUser, inputs, ... }:
 
 let
   cfg = config.ncfg.programs.browsers.firefox;
-  arkenfox_user = builtins.readFile (pkgs.fetchzip
-    {
-      url = "https://github.com/arkenfox/user.js/archive/refs/tags/${cfg.arkenfox.firefoxVersion}.tar.gz";
-      inherit (cfg.arkenfox) sha256;
-    } + /user.js);
+  # Note that we lose on version pinning by using an input, but since this is intended to be used with nixos-unstable
+  # the repo should always stay "in sync" with the version of firefox
+  # arkenfox_user = builtins.readFile (pkgs.fetchzip
+  # {
+  #   url = "https://github.com/arkenfox/user.js/archive/refs/tags/${cfg.arkenfox.firefoxVersion}.tar.gz";
+  #   inherit (cfg.arkenfox) sha256;
+  # } + /user.js);
+  arkenfox_user = builtins.readFile (inputs.arkenfox + /user.js);
 
   final = ''
     ${arkenfox_user}
@@ -23,13 +26,13 @@ in
   options.ncfg.programs.browsers.firefox = {
     enable = lib.mkEnableOption "Enable Firefox";
     arkenfox = {
-      firefoxVersion = lib.mkOption {
-        type = lib.types.strMatching "[0-9]{1,3}\.[0-9]";
-        default = builtins.elemAt (builtins.match "([0-9]+\.[0-9]+)\.*" pkgs.firefox.version) 0;
-      };
-      sha256 = lib.mkOption {
-        type = lib.types.str;
-      };
+      # firefoxVersion = lib.mkOption {
+      #   type = lib.types.strMatching "[0-9]{1,3}\.[0-9]";
+      #   default = builtins.elemAt (builtins.match "([0-9]+\.[0-9]+)\.*" pkgs.firefox.version) 0;
+      # };
+      # sha256 = lib.mkOption {
+      #   type = lib.types.str;
+      # };
       overrides = lib.mkOption {
         default = { };
         type = lib.types.attrs;
