@@ -63,7 +63,7 @@ in
 
     specialArgs =
       {
-        inherit primaryUser p myLib;
+        inherit primaryUser p myLib inputs;
         theme = import ../theme.nix;
       };
 

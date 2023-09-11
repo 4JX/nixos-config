@@ -59,6 +59,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    arkenfox = {
+      url = "github:arkenfox/user.js";
+      flake = false;
+    };
+
     # -- Extra packages --
     legion-kb-rgb = {
       url = "github:4JX/L5P-Keyboard-RGB/gui-but-better";
