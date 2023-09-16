@@ -5,25 +5,7 @@ let
 
   system = "x86_64-linux"; # System architecture
 
-  # An instance of Nixpkgs used solely for instantiating the custom packages with callPackage
-  pkgsCall = import nixpkgs {
-    inherit system;
-
-    config.allowUnfree = true;
-  };
-
-  myLib = pkgsCall.callPackage ../lib { };
-
-  # Collection of custom packages
-  p = {
-    legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
-  } // (pkgsCall.callPackage ../pkgs { inherit myLib; });
-
-
-  overlay = _final: _prev: {
-    # Needed for services.auto-cpufreq.enable
-    inherit (p) auto-cpufreq;
-  };
+  myLib = import ../lib { inherit (nixpkgs) lib; };
 
   patched = myLib.patchNixpkgs {
     inherit nixpkgs system;
@@ -44,7 +26,7 @@ let
     inherit system;
 
     config.allowUnfree = true;
-    overlays = [ overlay ];
+    overlays = [ ];
 
     #! TODO: Remove these as soon as possible
     config.permittedInsecurePackages = [
@@ -52,6 +34,11 @@ let
       "openssl-1.1.1u"
     ];
   };
+
+  # Collection of custom packages
+  p = {
+    legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
+  } // (pkgs.callPackage ../pkgs { inherit myLib; });
 
   # inherit (nixpkgs) lib;
 in

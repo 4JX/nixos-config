@@ -48,14 +48,17 @@ in
         };
 
         powerSaver = mkPPDCommand "power-saver";
-        performance = mkPPDCommand "performance";
+        balanced = mkPPDCommand "balanced";
       in
       lib.optionalString cfg.power-profiles-daemon.enable ''
         # On battery
-        SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="0",RUN+="${lib.getExe powerSaver}"
+        SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="0", RUN+="${lib.getExe powerSaver}"
 
-         # Charging
-        SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="1",RUN+="${lib.getExe performance}"
+        # Change if discharging
+        # SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-9][0-9]", RUN+="${lib.getExe powerSaver}"
+         
+        # Charging
+        SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="1", RUN+="${lib.getExe balanced}"
       '';
 
     environment.systemPackages = with pkgs; [ powertop ] ++ lib.optionals cfg.tlp.enable [ tlp ];
