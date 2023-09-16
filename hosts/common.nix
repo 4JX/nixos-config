@@ -22,9 +22,8 @@
     git
     btop
     iftop
-    pciutils # lspci
     killall
-    exa
+    eza
     bat
     cmake
     gcc
