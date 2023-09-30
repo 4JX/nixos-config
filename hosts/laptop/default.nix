@@ -10,6 +10,7 @@ in
       ./hardware-configuration.nix
       ./specialisations
       ./ncfg.nix
+      ./xorg.nix
     ];
 
   # Use the grub bootloader.
