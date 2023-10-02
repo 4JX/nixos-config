@@ -10,13 +10,13 @@
           in
 
           nixosSystem (cfg // {
-            specialArgs = {
-              inherit machineName;
-            } // (cfg.specialArgs or { });
+            specialArgs = { } // (cfg.specialArgs or { });
 
             modules = cfg.modules ++ [
               ./modules
               (_: {
+                # Set the hostName to the one specified in the machine name
+                networking.hostName = machineName;
 
                 # Resolve <nixpkgs> and other references to the flake input
                 # https://ayats.org/blog/channels-to-flakes/
