@@ -1,33 +1,38 @@
 {
     "output": {
         "bass_enhancer#0": {
-            "amount": 26.0,
-            "blend": 0.0,
+            "amount": 16.0,
+            "blend": -6.0,
             "bypass": false,
-            "floor": 10.0,
+            "floor": 60.0,
             "floor-active": true,
-            "harmonics": 9.999999999999995,
+            "harmonics": 10.0,
             "input-gain": 0.0,
-            "output-gain": -8.0,
+            "output-gain": -4.1,
             "scope": 200.0
         },
         "blocklist": [],
         "filter#0": {
-            "balance": 0.0,
             "bypass": false,
-            "frequency": 120.0,
-            "gain": 0.0,
-            "input-gain": 0.0,
-            "mode": "RLC (BT)",
+            "frequency": 140.0,
+            "inertia": 5.0,
+            "input-gain": -8.0,
+            "mode": "36dB/oct Highpass",
             "output-gain": 0.0,
-            "quality": 0.0,
-            "slope": "x3",
-            "type": "High-pass",
-            "width": 4.0
+            "resonance": -3.0
+        },
+        "filter#1": {
+            "bypass": false,
+            "frequency": 100.0,
+            "inertia": 5.0,
+            "input-gain": 0.0,
+            "mode": "36dB/oct Highpass",
+            "output-gain": 0.0,
+            "resonance": -3.0
         },
         "limiter#0": {
             "alr": false,
-            "alr-attack": 5.0,
+            "alr-attack": 0.1,
             "alr-knee": 0.0,
             "alr-release": 50.0,
             "attack": 2.0,
@@ -38,7 +43,7 @@
             "input-gain": 0.0,
             "lookahead": 4.000000000000021,
             "mode": "Herm Thin",
-            "output-gain": 0.0,
+            "output-gain": -2.0,
             "oversampling": "Half x4(3L)",
             "release": 8.0,
             "sidechain-preamp": 0.0,
@@ -108,7 +113,7 @@
                 "enable-band": true,
                 "external-sidechain": false,
                 "knee": -9.0,
-                "makeup": 4.0,
+                "makeup": 3.0,
                 "mute": false,
                 "ratio": 3.0,
                 "release-threshold": -100.0,
@@ -271,30 +276,9 @@
         "plugins_order": [
             "filter#0",
             "bass_enhancer#0",
+            "filter#1",
             "multiband_compressor#0",
-            "stereo_tools#0",
             "limiter#0"
-        ],
-        "stereo_tools#0": {
-            "balance-in": 0.0,
-            "balance-out": 0.0,
-            "bypass": false,
-            "delay": 0.0,
-            "input-gain": 0.0,
-            "middle-level": 0.0,
-            "middle-panorama": 0.0,
-            "mode": "LR > LR (Stereo Default)",
-            "mutel": false,
-            "muter": false,
-            "output-gain": 0.0,
-            "phasel": false,
-            "phaser": false,
-            "sc-level": 1.0,
-            "side-balance": 0.0,
-            "side-level": 0.0,
-            "softclip": false,
-            "stereo-base": 0.2,
-            "stereo-phase": 0.0
-        }
+        ]
     }
 }
