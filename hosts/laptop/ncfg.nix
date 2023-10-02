@@ -9,7 +9,7 @@
       fonts = {
         enableCommonFonts = true;
         custom = [
-          p.fonts.apple-fonts.otf-apple
+          p.fonts.apple-fonts
         ];
       };
       pipewire = {
@@ -45,9 +45,5 @@
     shell.zsh.shellAliases = {
       # turn-off-keyboard = "sudo ${p.legion-kb-rgb}/bin/legion-kb-rgb set --effect Static -c 0,0,0,0,0,0,0,0,0,0,0,0";
     };
-  };
-
-  services.postgresql = {
-    enable = true;
   };
 }

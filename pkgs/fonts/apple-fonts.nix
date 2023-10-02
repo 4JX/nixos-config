@@ -8,41 +8,39 @@
 ,
 }:
 
-{
-  otf-apple = stdenvNoCC.mkDerivation {
-    pname = "otf-apple";
-    version = "1.0";
+stdenvNoCC.mkDerivation {
+  pname = "otf-apple";
+  version = "1.0";
 
-    src = [
-      (fetchurl {
-        url = "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
-        sha256 = "sha256-WG0nLn/Giiv0DT8zUwTiWuv/I23RqMSxJsGUbrQzCqc=";
-      })
-      (fetchurl {
-        url = "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg";
-        sha256 = "sha256-pqkYgJZttKKHqTYobBUjud0fW79dS5tdzYJ23we9TW4=";
-      })
-      (fetchurl {
-        url = "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg";
-        sha256 = "sha256-uMGSFvqAfTdUWhNE6D6RyLKCrt4VXrUNZppvTHM7Igg=";
-      })
-      (fetchurl {
-        url = "https://devimages-cdn.apple.com/design/resources/download/NY.dmg";
-        sha256 = "sha256-XOiWc4c7Yah+mM7axk8g1gY12vXamQF78Keqd3/0/cE=";
-      })
-    ];
+  src = [
+    (fetchurl {
+      url = "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
+      sha256 = "sha256-WG0nLn/Giiv0DT8zUwTiWuv/I23RqMSxJsGUbrQzCqc=";
+    })
+    (fetchurl {
+      url = "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg";
+      sha256 = "sha256-pqkYgJZttKKHqTYobBUjud0fW79dS5tdzYJ23we9TW4=";
+    })
+    (fetchurl {
+      url = "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg";
+      sha256 = "sha256-uMGSFvqAfTdUWhNE6D6RyLKCrt4VXrUNZppvTHM7Igg=";
+    })
+    (fetchurl {
+      url = "https://devimages-cdn.apple.com/design/resources/download/NY.dmg";
+      sha256 = "sha256-XOiWc4c7Yah+mM7axk8g1gY12vXamQF78Keqd3/0/cE=";
+    })
+  ];
 
-    buildInputs = [ p7zip ];
-    sourceRoot = "./Library/Fonts";
-    preUnpack = "mkdir fonts";
-    unpackCmd = ''
-      7z x $curSrc
-      find . -name "*.pkg" -exec 7z x {} \;
-      find . -name "Payload~" -exec 7z x {} \;
-    '';
-    installPhase = ''
-      find . -name '*.ttf' -exec install -m444 -Dt $out/share/fonts/truetype {} \;
-      find . -name '*.otf' -exec install -m444 -Dt $out/share/fonts/opentype {} \;
-    '';
-  };
+  buildInputs = [ p7zip ];
+  sourceRoot = "./Library/Fonts";
+  preUnpack = "mkdir fonts";
+  unpackCmd = ''
+    7z x $curSrc
+    find . -name "*.pkg" -exec 7z x {} \;
+    find . -name "Payload~" -exec 7z x {} \;
+  '';
+  installPhase = ''
+    find . -name '*.ttf' -exec install -m444 -Dt $out/share/fonts/truetype {} \;
+    find . -name '*.otf' -exec install -m444 -Dt $out/share/fonts/opentype {} \;
+  '';
 }
