@@ -30,7 +30,7 @@ let
   scriptsCustom = with p.mpv.mpvScripts; [ betterChapters pauseWhenMinimize ]; # evafast
 
   # Escape character is "%"
-  webSources = [ "HorribleSubs" "Erai%-raws" "SubsPlease" ];
+  webSources = [ "HorribleSubs" "Erai%-raws" "SubsPlease" "Tsundere%-Raws" ];
   miniEncodeSources = [ "ASW" "DKB" "Judas" "Cleo" "Cerberus" "Reaktor" "Ember" "Nep%_Blanc" "Akihito" ];
 
   # Case insensitive filename match
