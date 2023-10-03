@@ -13,9 +13,6 @@ let
     jetbrains-mono
     (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
     twemoji-color-font
-
-    # Test
-    (pkgs.callPackage ./custom-fonts.nix { })
   ];
 in
 {
