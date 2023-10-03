@@ -10,6 +10,7 @@
         enableCommonFonts = true;
         custom = [
           p.fonts.apple-fonts
+          p.fonts.custom-fonts
         ];
       };
       pipewire = {
