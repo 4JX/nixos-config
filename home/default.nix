@@ -116,6 +116,10 @@
             port = 58902;
           };
         };
+
+        sniffers = {
+          wireshark.enable = true;
+        };
       };
 
       games.steam = {
