@@ -4,7 +4,7 @@ let
   cfg = config.ncfg.virtualisation.libvirtd;
 in
 {
-  options.ncfg.virtualisation.libvirtd.enable = lib.mkEnableOption "Enable libvirtd";
+  options.ncfg.virtualisation.libvirtd.enable = lib.mkEnableOption "libvirtd";
 
   config = lib.mkIf cfg.enable {
     virtualisation = {

@@ -10,7 +10,7 @@ in
   imports = [ ./extensions ];
 
   options.ncfg.gnome = {
-    enable = lib.mkEnableOption "Enable the Gnome desktop environment";
+    enable = lib.mkEnableOption "the GNOME desktop environment";
   };
 
   config = lib.mkIf cfg.enable {

@@ -4,7 +4,7 @@ let
 in
 {
   options.ncfg.programs.audio.easyeffects = {
-    enable = lib.mkEnableOption "Enable Easyeffects";
+    enable = lib.mkEnableOption "EasyEffects";
 
     outputPresets = lib.mkOption {
       default = { };

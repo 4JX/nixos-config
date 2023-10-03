@@ -4,7 +4,7 @@ let
   cfg = config.ncfg.system.hyprland;
 in
 {
-  options.ncfg.system.hyprland.enable = lib.mkEnableOption "Enable hyprland";
+  options.ncfg.system.hyprland.enable = lib.mkEnableOption "hyprland";
 
   config = lib.mkIf cfg.enable {
     nix.settings = {

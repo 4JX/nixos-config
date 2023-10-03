@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.programs.networking.p2p.qBittorrent = {
-    enable = lib.mkEnableOption "Enable qBittorrent";
+    enable = lib.mkEnableOption "qBittorrent";
     devices = lib.mkOption {
       default = { };
       type = lib.types.attrs;

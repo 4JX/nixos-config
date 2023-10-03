@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.shell.starship = {
-    enable = lib.mkEnableOption "Enable Starship";
+    enable = lib.mkEnableOption "Starship";
     enableZshIntegration = lib.mkOption {
       default = false;
       type = lib.types.bool;

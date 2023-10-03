@@ -4,7 +4,7 @@ let
   cfg = config.ncfg.system.flatpak;
 in
 {
-  options.ncfg.system.flatpak.enable = lib.mkEnableOption "Enable Flatpak";
+  options.ncfg.system.flatpak.enable = lib.mkEnableOption "Flatpak";
 
   config = lib.mkIf
     cfg.enable

@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.system.security.usbguard = {
-    enable = lib.mkEnableOption "Enable usbguard";
+    enable = lib.mkEnableOption "usbguard";
     rules = lib.mkOption {
       type = lib.types.nullOr lib.types.lines;
     };

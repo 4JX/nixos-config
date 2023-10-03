@@ -5,8 +5,8 @@ let
 in
 {
   options.ncfg.system.pipewire = {
-    enable = lib.mkEnableOption "Enable Pipewire";
-    extraRates = lib.mkEnableOption "Enable more rates for different kinds of audio";
+    enable = lib.mkEnableOption "Pipewire";
+    extraRates = lib.mkEnableOption "more rates for different kinds of audio";
   };
 
   config = lib.mkIf cfg.enable {

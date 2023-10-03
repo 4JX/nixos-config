@@ -6,7 +6,7 @@ in
 {
 
   options.ncfg.shell.zsh = {
-    enable = lib.mkEnableOption "Enable ZSH";
+    enable = lib.mkEnableOption "ZSH";
 
     shellAliases = lib.mkOption {
       default = { };

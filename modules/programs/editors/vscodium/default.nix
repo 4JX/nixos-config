@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.programs.editors.vscodium = {
-    enable = lib.mkEnableOption "Enable VSCodium";
+    enable = lib.mkEnableOption "VSCodium";
 
     mutableExtensionsDir = lib.mkOption {
       default = false;

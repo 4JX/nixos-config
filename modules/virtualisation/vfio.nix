@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.virtualisation.vfio = {
-    enable = lib.mkEnableOption "Enable the vfio kernel parameters and modules";
+    enable = lib.mkEnableOption "the vfio kernel parameters and modules";
 
     blacklistNvidia = lib.mkOption {
       default = false;

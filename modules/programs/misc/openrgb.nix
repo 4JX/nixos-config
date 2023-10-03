@@ -4,7 +4,7 @@ let
   cfg = config.ncfg.programs.misc.openrgb;
 in
 {
-  options.ncfg.programs.misc.openrgb.enable = lib.mkEnableOption "Enable OpenRGB";
+  options.ncfg.programs.misc.openrgb.enable = lib.mkEnableOption "OpenRGB";
 
   config = lib.mkIf cfg.enable {
     boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];

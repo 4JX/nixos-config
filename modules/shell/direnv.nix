@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.shell.direnv = {
-    enable = lib.mkEnableOption "Enable direnv";
+    enable = lib.mkEnableOption "direnv";
   };
 
   config = lib.mkIf cfg.enable {
