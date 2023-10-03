@@ -17,8 +17,6 @@
         extraRates = true;
       };
       power-management = {
-        enable = true;
-
         blacklistAmdPstate = false;
 
         power-profiles-daemon.enable = true;
