@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.system.power-management = {
-    enable = lib.mkEnableOption "Enable extra power saving options";
+    enable = lib.mkEnableOption "extra power saving options";
 
     blacklistAmdPstate = lib.mkOption {
       default = false;
@@ -14,15 +14,15 @@ in
     };
 
     power-profiles-daemon = {
-      enable = lib.mkEnableOption "Enable power-profiles-daemon";
+      enable = lib.mkEnableOption "power-profiles-daemon";
     };
 
     tlp = {
-      enable = lib.mkEnableOption "Enable tlp";
+      enable = lib.mkEnableOption "TLP";
     };
 
     auto-cpufreq = {
-      enable = lib.mkEnableOption "Enable auto-cpufreq";
+      enable = lib.mkEnableOption "auto-cpufreq";
 
       configPath = lib.mkOption {
         type = lib.types.path;

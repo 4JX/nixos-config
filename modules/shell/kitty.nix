@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.shell.kitty = {
-    enable = lib.mkEnableOption "Enable Kitty";
+    enable = lib.mkEnableOption "Kitty";
   };
 
   config = lib.mkIf cfg.enable {

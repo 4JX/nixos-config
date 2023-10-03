@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.programs.editors.android-studio = {
-    enable = lib.mkEnableOption "Enable Android Studio";
+    enable = lib.mkEnableOption "Android Studio";
 
 
   };

@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.virtualisation.looking-glass = {
-    enable = lib.mkEnableOption "Enable the Looking Glass client";
+    enable = lib.mkEnableOption "the Looking Glass client";
 
     createSharedMemoryFile = lib.mkOption {
       default = cfg.enable;

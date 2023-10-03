@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.programs.networking.sniffers.wireshark = {
-    enable = lib.mkEnableOption "Enable wireshark";
+    enable = lib.mkEnableOption "Wireshark";
   };
 
   config = lib.mkIf cfg.enable {

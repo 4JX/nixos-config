@@ -37,7 +37,7 @@ let
   debandCond = names: builtins.concatStringsSep " or " (builtins.map (x: ''string.match(string.lower(p.filename), string.lower("${x}"))~=nil'') names);
 in
 {
-  options.ncfg.programs.video.mpv.enable = lib.mkEnableOption "Enable mpv";
+  options.ncfg.programs.video.mpv.enable = lib.mkEnableOption "MPV";
 
   config = lib.mkIf cfg.enable {
 

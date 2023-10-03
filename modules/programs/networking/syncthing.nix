@@ -5,7 +5,7 @@ let
 in
 {
   options.ncfg.programs.networking.syncthing = {
-    enable = lib.mkEnableOption "Enable Syncthing";
+    enable = lib.mkEnableOption "Syncthing";
     settings = lib.mkOption {
       default = { };
       type = lib.types.attrs;

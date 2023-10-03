@@ -24,7 +24,7 @@ let
 in
 {
   options.ncfg.programs.browsers.firefox = {
-    enable = lib.mkEnableOption "Enable Firefox";
+    enable = lib.mkEnableOption "Firefox";
     arkenfox = {
       # firefoxVersion = lib.mkOption {
       #   type = lib.types.strMatching "[0-9]{1,3}\.[0-9]";

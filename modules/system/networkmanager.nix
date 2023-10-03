@@ -4,7 +4,7 @@ let
   cfg = config.ncfg.system.networkmanager;
 in
 {
-  options.ncfg.system.networkmanager.enable = lib.mkEnableOption "Enable networkmanager";
+  options.ncfg.system.networkmanager.enable = lib.mkEnableOption "networkmanager";
 
   config = lib.mkIf cfg.enable {
     networking.networkmanager.enable = true;
