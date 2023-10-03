@@ -5,8 +5,6 @@ let
 in
 {
   options.ncfg.system.power-management = {
-    enable = lib.mkEnableOption "extra power saving options";
-
     blacklistAmdPstate = lib.mkOption {
       default = false;
       type = lib.types.bool;
@@ -31,7 +29,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     services.power-profiles-daemon.enable = cfg.power-profiles-daemon.enable;
 
     services.udev.extraRules =
