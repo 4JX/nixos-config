@@ -35,6 +35,7 @@
       quassel
       p.portmaster
       dbeaver
+      libsForQt5.okular
     ];
 
     home.stateVersion = "22.11";
