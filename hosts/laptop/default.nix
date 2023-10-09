@@ -30,6 +30,15 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="048d", ATTR{idProduct}=="c965", MODE="0666"
   '';
 
+  home-manager.users.${primaryUser} = { pkgs, ... }: {
+
+    home.packages = with pkgs; [
+      # To be used along with the kernel module specified in the boot option
+      # Adds legion_cli legion_gui to PATH
+      lenovo-legion
+    ];
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
