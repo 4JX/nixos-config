@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 # let
 #   offloadEnabled = config.hardware.nvidia.prime.offload.enable;
@@ -13,7 +13,12 @@
 
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
+
+    # Enable KDE
+    desktopManager.plasma5.enable = true;
   };
+
+  programs.ssh.askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
 
   # Disabled from loading in nixos-hardware but not put anywhere afterwards
   boot.kernelModules = [ "amdgpu" ];
