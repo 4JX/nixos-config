@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 
 let
   cfg = config.ncfg.virtualisation.libvirtd;
@@ -11,7 +11,13 @@ in
       libvirtd = {
         enable = true;
         qemu = {
-          ovmf.enable = true;
+          ovmf = {
+            enable = true;
+            # Required for Windows 11
+            packages = [ pkgs.OVMFFull.fd ];
+          };
+          # Required for Windows 11
+          swtpm.enable = true;
           # Run qemu as an unprivileged user
           runAsRoot = false;
         };
