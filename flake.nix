@@ -6,7 +6,7 @@
       machines = builtins.mapAttrs
         (machineName: machineConfig:
           let
-            inherit (import machineConfig inputs) cfg nixosSystem nixpkgs;
+            inherit (import machineConfig inputs) cfg nixosSystem nixpkgs system;
           in
 
           nixosSystem (cfg // {
@@ -28,7 +28,7 @@
 
                 # Fix command-not-found issues with db
                 # https://blog.nobbz.dev/2023-02-27-nixos-flakes-command-not-found/
-                environment.etc."programs.sqlite".source = inputs.programsdb.packages.${cfg.system}.programs-sqlite;
+                environment.etc."programs.sqlite".source = inputs.programsdb.packages.${system}.programs-sqlite;
                 programs.command-not-found.dbPath = "/etc/programs.sqlite";
               })
             ];

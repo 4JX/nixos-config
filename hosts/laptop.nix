@@ -7,31 +7,11 @@ let
 
   myLib = import ../lib { inherit (nixpkgs) lib; };
 
-  patched = myLib.patchNixpkgs {
-    inherit nixpkgs system;
-    remoteNixpkgsPatches = [
-      #   {
-      #     meta.description = "PRCHANGE";
-      #     url = "https://github.com/NixOS/nixpkgs/pull/PRNUMBER.diff";
-      #     sha256 = "SHA256";
-      #   }
-    ];
-
-    localNixpkgsPatches = [
-      # ./patches/force-modesetting.diff
-    ];
-  };
-
-  pkgs = import patched.nixpkgs {
+  pkgs = import nixpkgs {
     inherit system;
 
-    config.allowUnfree = true;
-    overlays = [ ];
-
-    #! TODO: Remove these as soon as possible
-    config.permittedInsecurePackages = [
-      # Github-desktop
-      "openssl-1.1.1u"
+    config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
+      "mpv-betterChapters"
     ];
   };
 
@@ -40,14 +20,12 @@ let
     legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
   } // (pkgs.callPackage ../pkgs { inherit myLib; });
 
-  # inherit (nixpkgs) lib;
+  nixosSystem = nixpkgs.lib.nixosSystem;
 in
 {
-  inherit (patched) nixpkgs nixosSystem;
+  inherit nixpkgs nixosSystem system;
 
   cfg = {
-    inherit system pkgs;
-
     specialArgs =
       {
         inherit primaryUser p myLib inputs;
@@ -58,7 +36,9 @@ in
       nixos-hardware.nixosModules.lenovo-legion-16ach6h-hybrid
       home-manager.nixosModules.home-manager
       {
+        # Use the same pkgs as the global nixpkgs
         home-manager.useGlobalPkgs = true;
+        # Install stuff to /etc/profiles
         home-manager.useUserPackages = true;
         imports = [
           ../home
