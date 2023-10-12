@@ -1,10 +1,10 @@
 { lib, config, primaryUser, ... }:
 
 let
-  cfg = config.ncfg.system.hyprland;
+  cfg = config.ncfg.WM.hyprland;
 in
 {
-  options.ncfg.system.hyprland.enable = lib.mkEnableOption "hyprland";
+  options.ncfg.WM.hyprland.enable = lib.mkEnableOption "hyprland";
 
   config = lib.mkIf cfg.enable {
     nix.settings = {

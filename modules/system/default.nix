@@ -3,7 +3,6 @@
 {
   imports = [
     ./fonts
-    ./hyprland
     ./security
     ./colord-kde.nix
     ./flatpak.nix
