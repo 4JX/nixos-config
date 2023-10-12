@@ -82,7 +82,7 @@
 
     # -- Extra packages --
     legion-kb-rgb = {
-      url = "github:4JX/L5P-Keyboard-RGB/gui-but-better";
+      url = "github:4JX/L5P-Keyboard-RGB";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
