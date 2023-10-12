@@ -14,7 +14,9 @@
       "steam-original"
       "steam-run"
     ];
-    gnome.enable = true;
+
+    DE.gnome.enable = true;
+    WM.hyprland.enable = true;
 
     system = {
       flatpak.enable = true;
@@ -44,7 +46,6 @@
       gnome-keyring.enable = true;
       networkmanager.enable = true;
       colord-kde.enable = true;
-      hyprland.enable = true;
       security = {
         usbguard = {
           enable = true;

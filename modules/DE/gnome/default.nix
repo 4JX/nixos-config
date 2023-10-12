@@ -1,15 +1,11 @@
 { config, primaryUser, lib, pkgs, p, ... }:
 let
-  cfg = config.ncfg.gnome;
-  # # https://github.com/NixOS/nixpkgs/blob/nixos-22.11/pkgs/data/themes/orchis-theme/default.nix#L9
-  # orchis = pkgs.orchis-theme.override {
-  #   tweaks = [ ];
-  # };
+  cfg = config.ncfg.DE.gnome;
 in
 {
   imports = [ ./extensions ];
 
-  options.ncfg.gnome = {
+  options.ncfg.DE.gnome = {
     enable = lib.mkEnableOption "the GNOME desktop environment";
   };
 
