@@ -1,4 +1,4 @@
-{ config, lib, primaryUser, pkgs, p, ... }:
+{ config, lib, primaryUser, pkgs, inputs, ... }:
 
 # https://thewiki.moe/tutorials/mpv/
 # https://thewiki.moe/guides/playback/
@@ -25,6 +25,8 @@ let
       source = ./uosc.conf;
     };
   };
+
+  p = inputs.self.packages.${pkgs.system};
 
   scriptsPkgs = with pkgs.mpvScripts; [ uosc thumbfast ]; # autoload
   scriptsCustom = with p.mpv.mpvScripts; [ betterChapters pauseWhenMinimize ]; # evafast
