@@ -5,6 +5,8 @@ let
 in
 {
   options.ncfg.system.power-management = {
+    enable = lib.mkEnableOption "power management";
+
     blacklistAmdPstate = lib.mkOption {
       default = false;
       type = lib.types.bool;
@@ -23,8 +25,9 @@ in
       enable = lib.mkEnableOption "auto-cpufreq";
 
       configPath = lib.mkOption {
-        type = lib.types.path;
+        type = lib.types.nullOr lib.types.path;
         description = "Path of the auto-cpufreq config file";
+        default = null;
       };
     };
   };
