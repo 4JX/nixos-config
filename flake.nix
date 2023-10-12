@@ -1,7 +1,7 @@
 {
   description = "Personal NixOS configuration";
 
-  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, hyprland, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, hyprland, ... }:
     let
       machines = builtins.mapAttrs
         (machineName: machineConfig:
@@ -13,7 +13,7 @@
             specialArgs = { } // (cfg.specialArgs or { });
 
             modules = cfg.modules ++ [
-              ./modules
+              self.nixosModules
               (_: {
                 # Set the hostName to the one specified in the machine name
                 networking.hostName = machineName;
@@ -40,18 +40,18 @@
         nixos = ./hosts/laptop.nix;
       };
 
+      nixosModules = ./modules;
+
       packages.x86_64-linux =
         let
           system = "x86_64-linux"; # System architecture
 
-          myLib = import ./lib { inherit (nixpkgs) lib; };
+          myLib = import ./lib { inherit inputs; };
 
           pkgs = import nixpkgs {
             inherit system;
 
-            config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-              "mpv-betterChapters"
-            ];
+            config.allowUnfree = true;
           };
         in
         pkgs.callPackage ./pkgs { inherit myLib; };

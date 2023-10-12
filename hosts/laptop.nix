@@ -5,7 +5,7 @@ let
 
   system = "x86_64-linux"; # System architecture
 
-  myLib = import ../lib { inherit (nixpkgs) lib; };
+  myLib = import ../lib { inherit inputs; };
 
   nixosSystem = nixpkgs.lib.nixosSystem;
 in
