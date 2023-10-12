@@ -1,5 +1,8 @@
-{ p, ... }:
+{ inputs, pkgs, ... }:
 
+let
+  p = inputs.self.packages.${pkgs.system};
+in
 {
   ncfg = {
     allowedUnfree = [

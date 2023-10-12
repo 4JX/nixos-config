@@ -1,5 +1,6 @@
-{ config, primaryUser, lib, pkgs, p, ... }:
+{ config, primaryUser, lib, pkgs, inputs, ... }:
 let
+  p = inputs.self.packages.${pkgs.system};
   cfg = config.ncfg.DE.gnome;
 in
 {

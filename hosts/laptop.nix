@@ -7,19 +7,6 @@ let
 
   myLib = import ../lib { inherit (nixpkgs) lib; };
 
-  pkgs = import nixpkgs {
-    inherit system;
-
-    config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-      "mpv-betterChapters"
-    ];
-  };
-
-  # Collection of custom packages
-  p = {
-    legion-kb-rgb = inputs.legion-kb-rgb.packages.${system}.wrapped;
-  } // (pkgs.callPackage ../pkgs { inherit myLib; });
-
   nixosSystem = nixpkgs.lib.nixosSystem;
 in
 {
@@ -28,7 +15,7 @@ in
   cfg = {
     specialArgs =
       {
-        inherit primaryUser p myLib inputs;
+        inherit primaryUser myLib inputs;
         theme = import ../theme.nix;
       };
 
