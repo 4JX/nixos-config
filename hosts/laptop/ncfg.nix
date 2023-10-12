@@ -22,9 +22,9 @@
       flatpak.enable = true;
       fonts = {
         enableCommonFonts = true;
-        custom = [
-          p.fonts.apple-fonts
-          p.fonts.custom-fonts
+        custom = with p.fonts; [
+          apple-fonts
+          custom-fonts
         ];
       };
       pipewire = {
@@ -32,16 +32,9 @@
         extraRates = true;
       };
       power-management = {
-        blacklistAmdPstate = false;
+        enable = true;
 
         power-profiles-daemon.enable = true;
-
-        tlp.enable = false;
-
-        auto-cpufreq = {
-          enable = false;
-          configPath = ./auto-cpufreq.conf;
-        };
       };
       gnome-keyring.enable = true;
       networkmanager.enable = true;
