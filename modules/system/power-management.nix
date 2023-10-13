@@ -5,8 +5,6 @@ let
 in
 {
   options.ncfg.system.power-management = {
-    enable = lib.mkEnableOption "power management";
-
     blacklistAmdPstate = lib.mkOption {
       default = false;
       type = lib.types.bool;
@@ -19,6 +17,10 @@ in
 
     tlp = {
       enable = lib.mkEnableOption "TLP";
+      settings = lib.mkOption {
+        type = with lib.types; attrsOf (oneOf [ bool int float str (listOf str) ]);
+        default = { };
+      };
     };
 
     auto-cpufreq = {
@@ -66,7 +68,10 @@ in
 
     # powerManagement.powertop.enable = true;
 
-    services.tlp.enable = cfg.tlp.enable;
+    services.tlp = {
+      enable = cfg.tlp.enable;
+      settings = cfg.tlp.settings;
+    };
 
     # https://github.com/AdnanHodzic/auto-cpufreq/issues/464
     services.auto-cpufreq.enable = cfg.auto-cpufreq.enable;
