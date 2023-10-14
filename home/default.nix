@@ -1,7 +1,7 @@
-{ pkgs, primaryUser, inputs, ... }:
+{ pkgs, primaryUser, self, ... }:
 
 let
-  p = inputs.self.packages.${pkgs.system};
+  p = self.packages.${pkgs.system};
 in
 {
   hardware.ckb-next.enable = true;
