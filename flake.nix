@@ -3,46 +3,15 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, hyprland, ... }:
     let
-      machines = builtins.mapAttrs
-        (machineName: machineConfig:
-          let
-            inherit (import machineConfig inputs) cfg nixosSystem;
-          in
-
-          nixosSystem (cfg // {
-            specialArgs = { } // (cfg.specialArgs or { });
-
-            modules = cfg.modules ++ [
-              self.nixosModules
-              (_: {
-                # Set the hostName to the one specified in the machine name
-                networking.hostName = machineName;
-              })
-            ];
-          })
-        );
+      myLib = import ./lib inputs;
     in
-    {
-      nixosConfigurations = machines {
-        nixos = ./hosts/laptop.nix;
-      };
+    myLib.initFlake [ "x86_64-linux" ] { allowUnfree = true; } ({ pkgs, system, ... }: {
+      nixosConfigurations = import ./hosts { inherit self myLib; };
 
       nixosModules = ./modules;
 
-      packages.x86_64-linux =
-        let
-          system = "x86_64-linux"; # System architecture
-
-          myLib = import ./lib { inherit inputs; };
-
-          pkgs = import nixpkgs {
-            inherit system;
-
-            config.allowUnfree = true;
-          };
-        in
-        pkgs.callPackage ./pkgs { inherit myLib; };
-    };
+      packages.${system} = pkgs.callPackage ./pkgs { inherit myLib; };
+    });
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

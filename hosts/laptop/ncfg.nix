@@ -1,7 +1,7 @@
-{ inputs, pkgs, primaryUser, ... }:
+{ inputs, self, pkgs, primaryUser, ... }:
 
 let
-  p = inputs.self.packages.${pkgs.system};
+  p = self.packages.${pkgs.system};
   legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.system}.wrapped;
 in
 {
