@@ -10,5 +10,6 @@
     ./system
     ./virtualisation
     ./WM
+    ./always-set.nix
   ];
 }
