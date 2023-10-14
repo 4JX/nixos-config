@@ -17,13 +17,12 @@ let
   # Where the modules are located
   modulePath = ../modules;
 
-  commonModules = modulePath + /common;
-  options = commonModules + /options; # Option declarations
-  core = commonModules + /core; # Defaults shared across systems
+  options = modulePath + /options; # Option declarations
+  common = modulePath + /common; # Defaults shared across systems
 
   homesDir = ../home;
 
-  shared = [ options core ];
+  shared = [ options common ];
   homes = [ hm homesDir ];
 
   commonArgs = { inherit inputs self myLib theme; };
