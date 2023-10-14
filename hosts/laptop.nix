@@ -3,14 +3,12 @@ inputs@{ nixpkgs, home-manager, nixos-hardware, hyprland, ... }:
 let
   primaryUser = "infinity";
 
-  system = "x86_64-linux"; # System architecture
-
   myLib = import ../lib { inherit inputs; };
 
   nixosSystem = nixpkgs.lib.nixosSystem;
 in
 {
-  inherit nixpkgs nixosSystem system;
+  inherit nixosSystem;
 
   cfg = {
     specialArgs =

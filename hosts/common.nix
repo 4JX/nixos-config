@@ -1,11 +1,10 @@
-{ pkgs, primaryUser, lib, ... }:
+{ pkgs, ... }:
 
 {
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
-
-  # Select internationalisation properties.
+  # Select internationalization properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   console = {
@@ -44,20 +43,6 @@
     statix
     nix-tree # Scan current system / derivations for what-why-how depends
   ];
-
-  # Fix home-manager's home.sessionVariables not being sourced on DE's
-  # https://rycee.gitlab.io/home-manager/index.html#_why_are_the_session_variables_not_set
-  # https://github.com/hpfr/system/blob/a108a5ebf3ffcee75565176243936de6fd736142/profiles/system/base.nix#L12-L16
-  # https://github.com/nix-community/home-manager/issues/1011
-  environment.extraInit =
-    let
-      sourceForUser = (user: ''
-        if [ "$(id -un)" = "${user}" ]; then
-          . "/etc/profiles/per-user/${user}/etc/profile.d/hm-session-vars.sh"
-        fi
-      '');
-    in
-    lib.concatLines (builtins.map sourceForUser [ primaryUser ]);
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
