@@ -2,6 +2,8 @@
 
 let
   inherit (self) inputs;
+  inherit (self.inputs.nixpkgs) lib;
+  inherit (lib) concatLists;
 
 
   hm = inputs.home-manager.nixosModules.home-manager;
@@ -11,6 +13,18 @@ let
   nixosSystem = inputs.nixpkgs.lib.nixosSystem;
 
   theme = import ../theme.nix;
+
+  # Where the modules are located
+  modulePath = ../modules;
+
+  commonModules = modulePath + /common;
+  options = commonModules + /options; # Option declarations
+  core = commonModules + /core; # Defaults shared across systems
+
+  homesDir = ../home;
+
+  shared = [ options core ];
+  homes = [ hm homesDir ];
 
   commonArgs = { inherit inputs self myLib theme; };
 in
@@ -29,23 +43,18 @@ in
         hw.lenovo-legion-16ach6h-hybrid
         ./laptop
 
-        # Common
-        self.nixosModules
-        hm
+        # TODO: Common home manager config, to be moved to the home folder on home config refactoring
         {
           # Use the same pkgs as the global nixpkgs
           home-manager.useGlobalPkgs = true;
           # Install stuff to /etc/profiles
           home-manager.useUserPackages = true;
-          imports = [
-            ../home
-          ];
 
           home-manager.extraSpecialArgs = {
             inherit primaryUser;
           };
         }
         hypr
-      ];
+      ] ++ concatLists [ shared homes ];
     };
 }
