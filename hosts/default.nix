@@ -19,6 +19,7 @@ let
 
   options = modulePath + /options; # Option declarations
   common = modulePath + /common; # Defaults shared across systems
+  laptop = modulePath + /laptop.nix; # Options specific for laptops, currently only enables power management
 
   homesDir = ../home;
 
@@ -54,6 +55,6 @@ in
           };
         }
         hypr
-      ] ++ concatLists [ shared homes ];
+      ] ++ concatLists [ shared homes ] ++ [ laptop ];
     };
 }
