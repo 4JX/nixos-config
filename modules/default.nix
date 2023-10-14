@@ -3,6 +3,7 @@
 {
   imports = [
     ./DE
+    ./DM
     ./misc
     ./programs
     ./shell
