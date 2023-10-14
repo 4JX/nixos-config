@@ -1,10 +1,10 @@
 { config, primaryUser, lib, theme, ... }:
 
 let
-  cfg = config.ncfg.shell.kitty;
+  cfg = config.ncfg.system.shell.kitty;
 in
 {
-  options.ncfg.shell.kitty = {
+  options.ncfg.system.shell.kitty = {
     enable = lib.mkEnableOption "Kitty";
   };
 

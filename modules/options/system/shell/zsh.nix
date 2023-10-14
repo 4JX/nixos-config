@@ -1,11 +1,11 @@
 { pkgs, config, lib, primaryUser, ... }:
 
 let
-  cfg = config.ncfg.shell.zsh;
+  cfg = config.ncfg.system.shell.zsh;
 in
 {
 
-  options.ncfg.shell.zsh = {
+  options.ncfg.system.shell.zsh = {
     enable = lib.mkEnableOption "ZSH";
 
     shellAliases = lib.mkOption {
