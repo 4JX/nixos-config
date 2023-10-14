@@ -30,15 +30,10 @@ in
     system = {
       flatpak.enable = true;
       fonts = {
-        enableCommonFonts = true;
         custom = with p.fonts; [
           apple-fonts
           custom-fonts
         ];
-      };
-      pipewire = {
-        enable = true;
-        extraRates = true;
       };
       power-management = {
         tlp = {
@@ -93,8 +88,6 @@ in
         # The repo seems to be dead/archived sadly
         power-profiles-daemon.enable = false;
       };
-      gnome-keyring.enable = true;
-      networkmanager.enable = true;
       security = {
         usbguard = {
           enable = true;
