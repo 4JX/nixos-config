@@ -1,10 +1,10 @@
 { config, lib, primaryUser, ... }:
 
 let
-  cfg = config.ncfg.shell.direnv;
+  cfg = config.ncfg.system.shell.direnv;
 in
 {
-  options.ncfg.shell.direnv = {
+  options.ncfg.system.shell.direnv = {
     enable = lib.mkEnableOption "direnv";
   };
 
