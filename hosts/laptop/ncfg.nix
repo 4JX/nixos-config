@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, primaryUser, ... }:
 
 let
   p = inputs.self.packages.${pkgs.system};
@@ -19,6 +19,11 @@ in
       "steam-run"
     ];
 
+    DM = {
+      autoLogin = true;
+      loginUser = primaryUser;
+      gdm.enable = true;
+    };
     DE.gnome.enable = true;
     WM.hyprland.enable = true;
 
@@ -90,7 +95,6 @@ in
       };
       gnome-keyring.enable = true;
       networkmanager.enable = true;
-      colord-kde.enable = true;
       security = {
         usbguard = {
           enable = true;
@@ -100,7 +104,7 @@ in
     };
 
     shell.zsh.shellAliases = {
-      # turn-off-keyboard = "sudo ${legion-kb-rgb}/bin/legion-kb-rgb set --effect Static -c 0,0,0,0,0,0,0,0,0,0,0,0";
+      turn-off-keyboard = "${legion-kb-rgb}/bin/legion-kb-rgb set --effect Static -c 0,0,0,0,0,0,0,0,0,0,0,0";
     };
   };
 }

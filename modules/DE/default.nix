@@ -1,5 +1,8 @@
 { ... }:
 
 {
-  imports = [ ./gnome ];
+  imports = [
+    ./gnome
+    ./plasma
+  ];
 }

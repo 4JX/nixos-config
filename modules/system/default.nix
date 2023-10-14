@@ -4,7 +4,6 @@
   imports = [
     ./fonts
     ./security
-    ./colord-kde.nix
     ./flatpak.nix
     ./gnome-keyring.nix
     ./networkmanager.nix
