@@ -9,7 +9,7 @@
       nixosConfigurations = import ./hosts { inherit self myLib; };
 
       # This works for now since there's no host specific modules
-      nixosModules = ./modules/common;
+      nixosModules = ./modules/options;
 
       packages.${system} = pkgs.callPackage ./pkgs { inherit myLib; };
     });
