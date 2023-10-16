@@ -28,7 +28,7 @@ let
   commonArgs = { inherit inputs self myLib theme; };
 in
 {
-  nixos =
+  terra =
     let
       mainUser = "infinity";
     in
@@ -37,11 +37,11 @@ in
 
       modules = [
         {
-          networking.hostName = "nixos";
+          networking.hostName = "terra";
         }
         hw.lenovo-legion-16ach6h-hybrid
-        ./laptop
-        ../home/laptop.nix
+        ./terra
+        ../home/terra.nix
       ] ++ concatLists [ shared homes ] ++ [ laptop ];
     };
 }
