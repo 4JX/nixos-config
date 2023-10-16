@@ -1,4 +1,4 @@
-{ config, lib, primaryUser, pkgs, self, ... }:
+{ config, lib, mainUser, pkgs, self, ... }:
 
 # https://thewiki.moe/tutorials/mpv/
 # https://thewiki.moe/guides/playback/
@@ -44,7 +44,7 @@ in
   config = lib.mkIf cfg.enable {
 
 
-    home-manager.users.${primaryUser} = _: {
+    home-manager.users.${mainUser} = _: {
       programs.mpv = {
         inherit (cfg) enable;
         config = {

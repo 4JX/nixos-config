@@ -1,4 +1,4 @@
-{ config, lib, primaryUser, ... }:
+{ config, lib, mainUser, ... }:
 
 let
   cfg = config.ncfg.programs.editors.vscodium;
@@ -21,7 +21,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${mainUser} = { pkgs, ... }: {
       programs.vscode = {
         enable = true;
         package = pkgs.vscodium;

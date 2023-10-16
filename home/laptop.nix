@@ -1,4 +1,4 @@
-{ pkgs, primaryUser, self, ... }:
+{ pkgs, mainUser, self, ... }:
 
 let
   p = self.packages.${pkgs.system};
@@ -6,7 +6,7 @@ in
 {
   hardware.ckb-next.enable = true;
 
-  home-manager.users.${primaryUser} = { pkgs, ... }: {
+  home-manager.users.${mainUser} = { pkgs, ... }: {
     home.packages = with pkgs; [
       kate
       keepassxc
@@ -81,7 +81,7 @@ in
             folders = {
               "Keepass DB" = {
                 id = "Keepass DB";
-                path = "/home/${primaryUser}/Documents/Keepass DB";
+                path = "/home/${mainUser}/Documents/Keepass DB";
                 devices = [ "Phone" ];
                 versioning = {
                   type = "staggered";
@@ -93,7 +93,7 @@ in
               };
               "Phone" = {
                 id = "ayfdf-jbgsg";
-                path = "/home/${primaryUser}/Documents/Phone/lmi/Backups/Syncthing";
+                path = "/home/${mainUser}/Documents/Phone/lmi/Backups/Syncthing";
                 devices = [ "Phone" ];
                 versioning = {
                   type = "simple";

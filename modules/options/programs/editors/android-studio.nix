@@ -1,4 +1,4 @@
-{ config, lib, primaryUser, ... }:
+{ config, lib, mainUser, ... }:
 
 let
   cfg = config.ncfg.programs.editors.android-studio;
@@ -13,7 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.adb.enable = true;
 
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${mainUser} = { pkgs, ... }: {
       home.packages = with pkgs; [
         android-studio
       ];

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, primaryUser, ... }:
+{ config, lib, pkgs, mainUser, ... }:
 
 let
   cfg = config.ncfg.virtualisation.looking-glass;
@@ -20,7 +20,7 @@ in
       looking-glass-client
     ];
 
-    home-manager.users.${primaryUser} = _: {
+    home-manager.users.${mainUser} = _: {
       xdg.configFile."looking-glass/client.ini".text = ''
         [input]
         # Right Control, see https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
@@ -31,7 +31,7 @@ in
 
     ncfg.virtualisation.sharedMemoryFiles = lib.optionals cfg.createSharedMemoryFile {
       looking-glass = {
-        user = primaryUser;
+        user = mainUser;
         group = "qemu-libvirtd";
         mode = "666";
       };

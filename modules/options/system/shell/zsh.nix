@@ -1,4 +1,4 @@
-{ pkgs, config, lib, primaryUser, ... }:
+{ pkgs, config, lib, mainUser, ... }:
 
 let
   cfg = config.ncfg.system.shell.zsh;
@@ -20,7 +20,7 @@ in
     environment.shells = with pkgs; [ zsh ];
     programs.zsh.enable = true;
 
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${mainUser} = { pkgs, ... }: {
       programs.zsh = {
         enable = true;
         enableAutosuggestions = true;

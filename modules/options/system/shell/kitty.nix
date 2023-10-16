@@ -1,4 +1,4 @@
-{ config, primaryUser, lib, theme, ... }:
+{ config, mainUser, lib, theme, ... }:
 
 let
   cfg = config.ncfg.system.shell.kitty;
@@ -9,7 +9,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${mainUser} = { pkgs, ... }: {
       programs.kitty = {
         enable = true;
         font = {

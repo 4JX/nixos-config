@@ -1,4 +1,4 @@
-{ inputs, self, pkgs, primaryUser, ... }:
+{ inputs, self, pkgs, mainUser, ... }:
 
 let
   p = self.packages.${pkgs.system};
@@ -21,7 +21,7 @@ in
 
     DM = {
       autoLogin = false;
-      loginUser = primaryUser;
+      loginUser = mainUser;
       gdm.enable = true;
     };
     DE.gnome.enable = true;

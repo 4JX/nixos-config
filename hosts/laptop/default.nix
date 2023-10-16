@@ -1,4 +1,4 @@
-{ primaryUser, ... }:
+{ mainUser, ... }:
 
 {
   imports =
@@ -12,7 +12,7 @@
     ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${primaryUser} = {
+  users.users.${mainUser} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
@@ -30,7 +30,7 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="048d", ATTR{idProduct}=="c965", MODE="0666"
   '';
 
-  home-manager.users.${primaryUser} = { pkgs, ... }: {
+  home-manager.users.${mainUser} = { pkgs, ... }: {
 
     home.packages = with pkgs; [
       # To be used along with the kernel module specified in the boot option

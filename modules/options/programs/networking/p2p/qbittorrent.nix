@@ -1,4 +1,4 @@
-{ primaryUser, config, lib, ... }:
+{ mainUser, config, lib, ... }:
 
 let
   cfg = config.ncfg.programs.networking.p2p.qBittorrent;
@@ -24,7 +24,7 @@ in
       allowedUDPPorts = [ cfg.port ];
     };
 
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${mainUser} = { pkgs, ... }: {
       home.packages = with pkgs; [
         qbittorrent
       ];

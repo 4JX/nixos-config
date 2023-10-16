@@ -1,7 +1,7 @@
-{ primaryUser, p, myLib, ... }:
+{ mainUser, p, myLib, ... }:
 
 {
-  home-manager.users.${primaryUser} = { pkgs, lib, ... }:
+  home-manager.users.${mainUser} = { pkgs, lib, ... }:
     let
       extensions = import ./list.nix { inherit pkgs lib p; };
       mapDconfSettings =
@@ -49,7 +49,7 @@
       } // myLib.recursiveMergeAttrs mapDconfSettings;
     };
 
-  users.users.${primaryUser} = {
+  users.users.${mainUser} = {
     extraGroups = [ "input" ]; # Needed for gestures.
   };
 }

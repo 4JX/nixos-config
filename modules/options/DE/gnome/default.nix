@@ -1,4 +1,4 @@
-{ config, primaryUser, lib, pkgs, self, ... }:
+{ config, mainUser, lib, pkgs, self, ... }:
 let
   p = self.packages.${pkgs.system};
   cfg = config.ncfg.DE.gnome;
@@ -38,7 +38,7 @@ in
       gnome.dconf-editor
     ];
 
-    home-manager.users.${primaryUser} = { pkgs, lib, ... }: {
+    home-manager.users.${mainUser} = { pkgs, lib, ... }: {
       xdg.configFile =
         let
           themePath = p.mono-gtk-theme + /share/themes/MonoThemeDark/gtk-4.0;
@@ -149,7 +149,7 @@ in
     };
 
     # Stuff needed for X11 gestures in tandem with the gesture improvements extension
-    users.users.${primaryUser} = {
+    users.users.${mainUser} = {
       extraGroups = [ "input" ];
     };
 

@@ -1,4 +1,4 @@
-{ primaryUser, config, lib, pkgs, ... }:
+{ mainUser, config, lib, pkgs, ... }:
 
 let
   cfg = config.ncfg.programs.networking.p2p.qBittorrent;
@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    users.users.${primaryUser} = {
+    users.users.${mainUser} = {
       extraGroups = [ "wireshark" ];
     };
 

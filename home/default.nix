@@ -1,8 +1,8 @@
-{ primaryUser, ... }:
+{ mainUser, ... }:
 
 
 {
-  home-manager.users.${primaryUser} = { pkgs, ... }: {
+  home-manager.users.${mainUser} = { pkgs, ... }: {
 
     # https://github.com/NixOS/nixpkgs/issues/168484#issuecomment-1501080778 Fixes crash when figma-linux tries to save files
     xdg.systemDirs.data = with pkgs; [
@@ -16,7 +16,7 @@
     useGlobalPkgs = true;
     # Install stuff to /etc/profiles
     useUserPackages = true;
-    extraSpecialArgs = { inherit primaryUser; };
+    extraSpecialArgs = { inherit mainUser; };
   };
 }
 

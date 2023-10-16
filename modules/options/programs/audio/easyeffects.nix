@@ -1,4 +1,4 @@
-{ config, primaryUser, lib, ... }:
+{ config, mainUser, lib, ... }:
 let
   cfg = config.ncfg.programs.audio.easyeffects;
 in
@@ -13,7 +13,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${mainUser} = { pkgs, ... }: {
       home.packages = [ pkgs.easyeffects ];
 
       xdg.configFile =

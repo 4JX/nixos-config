@@ -1,4 +1,4 @@
-{ config, lib, primaryUser, ... }:
+{ config, lib, mainUser, ... }:
 
 let
   cfg = config.ncfg.system.shell.starship;
@@ -13,7 +13,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${primaryUser} = _: {
+    home-manager.users.${mainUser} = _: {
 
       programs.starship = {
         enable = true;
