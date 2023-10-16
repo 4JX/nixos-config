@@ -42,18 +42,7 @@ in
         }
         hw.lenovo-legion-16ach6h-hybrid
         ./laptop
-
-        # TODO: Common home manager config, to be moved to the home folder on home config refactoring
-        {
-          # Use the same pkgs as the global nixpkgs
-          home-manager.useGlobalPkgs = true;
-          # Install stuff to /etc/profiles
-          home-manager.useUserPackages = true;
-
-          home-manager.extraSpecialArgs = {
-            inherit primaryUser;
-          };
-        }
+        ../home/laptop.nix
         hypr
       ] ++ concatLists [ shared homes ] ++ [ laptop ];
     };
