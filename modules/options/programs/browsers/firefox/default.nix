@@ -1,4 +1,4 @@
-{ lib, config, primaryUser, inputs, ... }:
+{ lib, config, mainUser, inputs, ... }:
 
 let
   cfg = config.ncfg.programs.browsers.firefox;
@@ -41,7 +41,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${mainUser} = { pkgs, ... }: {
       programs.firefox = {
         enable = true;
         profiles = {

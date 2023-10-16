@@ -30,10 +30,10 @@ in
 {
   nixos =
     let
-      primaryUser = "infinity";
+      mainUser = "infinity";
     in
     nixosSystem {
-      specialArgs = commonArgs // { inherit primaryUser; };
+      specialArgs = commonArgs // { inherit mainUser; };
 
       modules = [
         {

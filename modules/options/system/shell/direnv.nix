@@ -1,4 +1,4 @@
-{ config, lib, primaryUser, ... }:
+{ config, lib, mainUser, ... }:
 
 let
   cfg = config.ncfg.system.shell.direnv;
@@ -9,7 +9,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${primaryUser} = _: {
+    home-manager.users.${mainUser} = _: {
       programs.direnv.enable = true;
       programs.direnv.nix-direnv.enable = true;
     };

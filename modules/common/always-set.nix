@@ -1,4 +1,4 @@
-{ lib, inputs, pkgs, primaryUser, ... }:
+{ lib, inputs, pkgs, mainUser, ... }:
 
 # Stuff that is unconditionally imported to fix flake shenanigans and co.
 let
@@ -39,5 +39,5 @@ in
         fi
       '');
     in
-    lib.concatLines (builtins.map sourceForUser [ primaryUser ]);
+    lib.concatLines (builtins.map sourceForUser [ mainUser ]);
 }

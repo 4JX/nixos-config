@@ -1,4 +1,4 @@
-{ inputs, lib, config, primaryUser, ... }:
+{ inputs, lib, config, mainUser, ... }:
 
 let
   cfg = config.ncfg.WM.hyprland;
@@ -19,7 +19,7 @@ in
       enableNvidiaPatches = true;
     };
 
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${mainUser} = { pkgs, ... }: {
       xdg.configFile."hyprland.conf" = {
         text = import ./config.nix { };
         target = "hypr/hyprland.conf";

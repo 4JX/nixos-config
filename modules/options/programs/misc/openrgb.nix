@@ -1,4 +1,4 @@
-{ config, lib, primaryUser, pkgs, ... }:
+{ config, lib, mainUser, pkgs, ... }:
 
 let
   cfg = config.ncfg.programs.misc.openrgb;
@@ -12,7 +12,7 @@ in
     # Automagically extract and apply the built udev rules
     services.udev.packages = [ pkgs.openrgb ];
 
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${mainUser} = { pkgs, ... }: {
       home.packages = with pkgs; [ openrgb ];
     };
   };

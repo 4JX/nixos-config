@@ -1,4 +1,4 @@
-{ config, primaryUser, lib, pkgs, ... }:
+{ config, mainUser, lib, pkgs, ... }:
 
 # https://gist.github.com/numkem/904f98bbb09280cb8b15cbdaca37f267
 # https://github.com/WhiteBlackGoose/dotfiles/blob/b3e5229b6bb4e5a3a052a75a3dcb0bd2cc695ce0/nix-config/home.nix#L74-L107
@@ -30,7 +30,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${primaryUser} = { pkgs, ... }: {
+    home-manager.users.${mainUser} = { pkgs, ... }: {
       home.packages = map (lang: (mkOcr lang)) cfg.languages;
 
       xdg.desktopEntries =
