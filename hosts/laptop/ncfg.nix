@@ -28,6 +28,8 @@ in
     WM.hyprland.enable = true;
 
     system = {
+      sound.enable = true;
+
       flatpak.enable = true;
       fonts = {
         custom = with p.fonts; [
