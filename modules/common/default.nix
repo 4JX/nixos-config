@@ -50,10 +50,6 @@
       fonts = {
         enableCommonFonts = true;
       };
-      pipewire = {
-        enable = true;
-        extraRates = true;
-      };
       gnome-keyring.enable = true;
       networkmanager.enable = true;
       shell = {

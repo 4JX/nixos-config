@@ -8,7 +8,7 @@
     ./flatpak.nix
     ./gnome-keyring.nix
     ./networkmanager.nix
-    ./pipewire.nix
+    ./sound.nix
     ./power-management.nix
     ./systemd.nix
   ];
