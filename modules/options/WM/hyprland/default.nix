@@ -1,9 +1,11 @@
-{ lib, config, primaryUser, ... }:
+{ inputs, lib, config, primaryUser, ... }:
 
 let
   cfg = config.ncfg.WM.hyprland;
 in
 {
+  imports = [ inputs.hyprland.nixosModules.default ];
+
   options.ncfg.WM.hyprland.enable = lib.mkEnableOption "hyprland";
 
   config = lib.mkIf cfg.enable {

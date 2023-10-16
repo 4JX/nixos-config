@@ -8,7 +8,6 @@ let
 
   hm = inputs.home-manager.nixosModules.home-manager;
   hw = inputs.nixos-hardware.nixosModules;
-  hypr = inputs.hyprland.nixosModules.default;
 
   nixosSystem = inputs.nixpkgs.lib.nixosSystem;
 
@@ -43,7 +42,6 @@ in
         hw.lenovo-legion-16ach6h-hybrid
         ./laptop
         ../home/laptop.nix
-        hypr
       ] ++ concatLists [ shared homes ] ++ [ laptop ];
     };
 }
