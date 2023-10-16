@@ -1,4 +1,4 @@
-{ primaryUser, lib, config, ... }:
+{ mainUser, lib, config, ... }:
 
 let
   cfg = config.ncfg.system.networkmanager;
@@ -9,6 +9,6 @@ in
   config = lib.mkIf cfg.enable {
     networking.networkmanager.enable = true;
 
-    users.users.${primaryUser}.extraGroups = [ "networkmanager" ];
+    users.users.${mainUser}.extraGroups = [ "networkmanager" ];
   };
 }
