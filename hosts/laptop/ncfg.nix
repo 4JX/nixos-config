@@ -20,7 +20,7 @@ in
     ];
 
     DM = {
-      autoLogin = true;
+      autoLogin = false;
       loginUser = primaryUser;
       gdm.enable = true;
     };
