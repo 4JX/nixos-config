@@ -7,6 +7,5 @@
     ./games
     ./misc
     ./networking
-    ./video
   ];
 }

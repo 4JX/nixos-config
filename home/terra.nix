@@ -121,10 +121,6 @@ in
         openrgb.enable = true;
         act.enable = false;
       };
-
-      video = {
-        mpv.enable = true;
-      };
     };
 
     misc = {

@@ -20,6 +20,10 @@
           "DT880" = ../easyeffects/DT880.json;
         };
       };
+
+      video = {
+        mpv.enable = true;
+      };
     };
   };
 }
