@@ -26,22 +26,30 @@ let
   homes = [ hm homesDir ];
 
   commonArgs = { inherit inputs self myLib theme; };
+
+  mkHosts = builtins.mapAttrs (hostName: config: nixosSystem {
+    specialArgs = commonArgs // config.specialArgs;
+
+    modules = config.modules ++ [
+      {
+        networking = { inherit hostName; };
+      }
+      ./${hostName}
+      ../home/${hostName}.nix
+    ] ++ concatLists [ shared homes ];
+  });
 in
-{
+mkHosts {
   terra =
     let
       mainUser = "infinity";
     in
-    nixosSystem {
-      specialArgs = commonArgs // { inherit mainUser; };
+    {
+      specialArgs = { inherit mainUser; };
 
       modules = [
-        {
-          networking.hostName = "terra";
-        }
         hw.lenovo-legion-16ach6h-hybrid
-        ./terra
-        ../home/terra.nix
-      ] ++ concatLists [ shared homes ] ++ [ laptop ];
+        laptop
+      ];
     };
 }
