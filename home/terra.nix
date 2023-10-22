@@ -40,12 +40,6 @@ in
   ncfg = {
     programs = {
       editors = {
-        vscodium = {
-          enable = true;
-          mutableExtensionsDir = true;
-          useVSCodeMarketplace = true;
-        };
-
         android-studio.enable = true;
       };
 

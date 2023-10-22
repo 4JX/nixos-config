@@ -1,4 +1,4 @@
-{ config, lib, mainUser, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.ncfg.programs.editors.vscodium;
@@ -21,19 +21,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${mainUser} = { pkgs, ... }: {
-      programs.vscode = {
-        enable = true;
-        package = pkgs.vscodium;
+    programs.vscode = {
+      enable = true;
+      package = pkgs.vscodium;
 
-        # Extensions are managed through Settings Sync
-        inherit (cfg) mutableExtensionsDir;
-      };
+      # Extensions are managed through Settings Sync because it also syncs other stuff
+      inherit (cfg) mutableExtensionsDir;
+    };
 
-      # Use the VSCode marketplace
-      xdg.configFile = lib.mkIf cfg.useVSCodeMarketplace {
-        "VSCodium/product.json".source = ./product.json;
-      };
+    # Use the VSCode marketplace
+    xdg.configFile = lib.mkIf cfg.useVSCodeMarketplace {
+      "VSCodium/product.json".source = ./product.json;
     };
   };
 }
