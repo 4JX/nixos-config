@@ -1,22 +1,19 @@
-{ mainUser, ... }:
+{ mainUser, lib, config, inputs, self, ... }:
 
+let
+  hostName = config.networking.hostName;
 
+  userHomes = lib.genAttrs config.ncfg.system.users (name: ./${hostName}/${name}.nix);
+in
 {
-  home-manager.users.${mainUser} = { pkgs, ... }: {
-
-    # https://github.com/NixOS/nixpkgs/issues/168484#issuecomment-1501080778 Fixes crash when figma-linux tries to save files
-    xdg.systemDirs.data = with pkgs; [
-      "${gtk3}/share/gsettings-schemas/gtk+3-${gtk3.version}"
-      "${gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-${gsettings-desktop-schemas.version}"
-    ];
-  };
-
   home-manager = {
     # Use the same nixpkgs instance as the global nixpkgs
     useGlobalPkgs = true;
     # Install stuff to /etc/profiles
     useUserPackages = true;
-    extraSpecialArgs = { inherit mainUser; };
+    extraSpecialArgs = { inherit mainUser inputs self; };
+    users = userHomes;
   };
+
 }
 
