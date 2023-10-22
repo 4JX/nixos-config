@@ -1,5 +1,8 @@
 { lib, config, pkgs, inputs, ... }:
 
+# FIXME: Search engine config currently stuck at v6 for the json file (home-manager) but firefox is already at v9
+# https://github.com/schizofox/schizofox is nice but is pretty opinionated and uses its own preferences rather than arkenfox
+# though it can definitely be used as a base 
 let
   cfg = config.ncfg.programs.browsers.firefox;
   # Note that we lose on version pinning by using an input, but since this is intended to be used with nixos-unstable
@@ -114,7 +117,7 @@ in
                 urls = [{
                   template = "https://search.nixos.org/packages";
                   params = [
-                    { name = "channel"; value = "22.11"; }
+                    { name = "channel"; value = "unstable"; }
                     { name = "query"; value = "{searchTerms}"; }
                   ];
                 }];
