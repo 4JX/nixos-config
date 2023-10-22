@@ -2,6 +2,6 @@
 
 {
   imports = [
-    ./android-studio.nix
+    ./vscodium
   ];
 }

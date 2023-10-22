@@ -31,6 +31,14 @@
         };
       };
 
+      editors = {
+        vscodium = {
+          enable = true;
+          mutableExtensionsDir = true;
+          useVSCodeMarketplace = true;
+        };
+      };
+
       video = {
         mpv.enable = true;
       };
