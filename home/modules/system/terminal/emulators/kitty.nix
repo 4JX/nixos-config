@@ -1,14 +1,7 @@
-{ config, pkgs, lib, theme, ... }:
+{ pkgs, theme, ... }:
 
-let
-  cfg = config.ncfg.system.shell.kitty;
-in
 {
-  options.ncfg.system.shell.kitty = {
-    enable = lib.mkEnableOption "Kitty";
-  };
-
-  config = lib.mkIf cfg.enable {
+  config = {
     programs.kitty = {
       enable = true;
       font = {
