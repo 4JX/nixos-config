@@ -2,6 +2,6 @@
 
 {
   imports = [
-    ./qbittorrent.nix
+    ./infinity.nix
   ];
 }

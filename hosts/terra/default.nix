@@ -9,6 +9,7 @@
       ./specialisations
       ./ncfg.nix
       ./xorg.nix
+      ./users
     ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
