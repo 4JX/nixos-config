@@ -1,7 +1,0 @@
-{ ... }:
-
-{
-  imports = [
-    ./android-studio.nix
-  ];
-}
