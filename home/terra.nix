@@ -39,10 +39,6 @@ in
 
   ncfg = {
     programs = {
-      editors = {
-        android-studio.enable = true;
-      };
-
       networking = {
         syncthing = {
           enable = true;
