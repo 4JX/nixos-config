@@ -33,8 +33,6 @@ in
       dbeaver
       libsForQt5.okular
     ];
-
-    home.stateVersion = "22.11";
   };
 
   ncfg = {
