@@ -89,10 +89,7 @@ in
         };
       };
 
-      games = {
-        steam.enable = true;
-        gamemode.enable = true;
-      };
+      gaming.enable = true;
 
       misc = {
         openrgb.enable = true;

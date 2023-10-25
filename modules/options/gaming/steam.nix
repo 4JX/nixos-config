@@ -1,7 +1,7 @@
 { lib, config, pkgs, inputs, self, ... }:
 
 let
-  cfg = config.ncfg.programs.games.steam;
+  cfg = config.ncfg.programs.gaming;
   p = self.packages.${pkgs.system};
 in
 {
@@ -9,10 +9,6 @@ in
   # https://github.com/NixOS/nixpkgs/issues/73323
   # https://github.com/Shawn8901/nix-configuration/blob/c8e2c749c2c43e7637e5a2ccb8e63d4c75fabc9d/modules/nixos/steam-compat-tools.nix
   imports = [ inputs.nix-gaming.nixosModules.steamCompat ];
-
-  options.ncfg.programs.games.steam = with lib; {
-    enable = mkEnableOption "Steam";
-  };
 
   config = lib.mkIf cfg.enable {
     programs.steam = {

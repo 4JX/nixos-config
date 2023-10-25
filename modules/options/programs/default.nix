@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./games
     ./misc
     ./networking
   ];
