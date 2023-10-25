@@ -5,6 +5,7 @@
     ./audio
     ./browsers
     ./editors
+    ./gaming
     ./video
   ];
 }
