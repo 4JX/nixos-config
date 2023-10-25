@@ -1,0 +1,7 @@
+{ ... }:
+
+{
+  imports = [
+    ./screenshot-ocr.nix
+  ];
+}

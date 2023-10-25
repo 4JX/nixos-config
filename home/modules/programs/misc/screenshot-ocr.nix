@@ -1,4 +1,4 @@
-{ config, mainUser, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 # https://gist.github.com/numkem/904f98bbb09280cb8b15cbdaca37f267
 # https://github.com/WhiteBlackGoose/dotfiles/blob/b3e5229b6bb4e5a3a052a75a3dcb0bd2cc695ce0/nix-config/home.nix#L74-L107
@@ -6,7 +6,7 @@
 # https://reddit.com/r/NixOS/comments/13uboa6/text_from_image_to_clipboard_nix_tip/
 
 let
-  cfg = config.ncfg.misc.screenshot-ocr;
+  cfg = config.ncfg.programs.misc.screenshot-ocr;
   # For wayland use: grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy
   mkOcr = lang: pkgs.writeShellApplication {
     name = "screen_copy_${lang}";
@@ -18,7 +18,7 @@ let
   };
 in
 {
-  options.ncfg.misc.screenshot-ocr = {
+  options.ncfg.programs.misc.screenshot-ocr = {
     enable = lib.mkEnableOption "the screenshot OCR utility";
     languages = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -30,26 +30,24 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${mainUser} = { pkgs, ... }: {
-      home.packages = map (lang: (mkOcr lang)) cfg.languages;
+    home.packages = map (lang: (mkOcr lang)) cfg.languages;
 
-      xdg.desktopEntries =
-        builtins.listToAttrs
-          (map
-            (lang:
-              let
-                ocr = mkOcr lang;
-                entry = {
-                  name = "Image OCR: ${lang}";
-                  exec = "${ocr}/bin/${ocr.name}";
-                };
-              in
-              {
-                name = "ocr-${lang}";
-                value = entry;
-              }
-            )
-            cfg.languages);
-    };
+    xdg.desktopEntries =
+      builtins.listToAttrs
+        (map
+          (lang:
+            let
+              ocr = mkOcr lang;
+              entry = {
+                name = "Image OCR: ${lang}";
+                exec = "${ocr}/bin/${ocr.name}";
+              };
+            in
+            {
+              name = "ocr-${lang}";
+              value = entry;
+            }
+          )
+          cfg.languages);
   };
 }
