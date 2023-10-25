@@ -1,7 +1,7 @@
 { mainUser, config, lib, pkgs, ... }:
 
 let
-  cfg = config.ncfg.programs.networking.p2p.qBittorrent;
+  cfg = config.ncfg.programs.networking.sniffers.wireshark;
 in
 {
   options.ncfg.programs.networking.sniffers.wireshark = {
@@ -9,7 +9,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users.${mainUser} = {
       extraGroups = [ "wireshark" ];
     };
