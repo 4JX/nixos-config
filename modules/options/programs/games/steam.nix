@@ -1,37 +1,29 @@
-{ lib, config, pkgs, mainUser, ... }:
+{ lib, config, pkgs, mainUser, inputs, self, ... }:
 
 let
   cfg = config.ncfg.programs.games.steam;
+  p = self.packages.${pkgs.system};
 in
 {
+  # https://github.com/NixOS/nixpkgs/pull/189398
+  # https://github.com/NixOS/nixpkgs/issues/73323
+  # https://github.com/Shawn8901/nix-configuration/blob/c8e2c749c2c43e7637e5a2ccb8e63d4c75fabc9d/modules/nixos/steam-compat-tools.nix
+  imports = [ inputs.nix-gaming.nixosModules.steamCompat ];
+
   options.ncfg.programs.games.steam = with lib; {
     enable = mkEnableOption "Steam";
-    # https://github.com/NixOS/nixpkgs/pull/189398
-    # https://github.com/NixOS/nixpkgs/issues/73323
-    # https://github.com/Shawn8901/nix-configuration/blob/c8e2c749c2c43e7637e5a2ccb8e63d4c75fabc9d/modules/nixos/steam-compat-tools.nix
-    extraCompatPackages = mkOption {
-      type = with types; listOf package;
-      default = [ ];
-      defaultText = literalExpression "[]";
-      example = literalExpression ''
-        with pkgs; [
-          luxtorpeda
-          proton-ge
-        ]
-      '';
-      description = lib.mdDoc ''
-        Extra packages to be used as compatibility tools for Steam on Linux. Packages will be included
-        in the `STEAM_EXTRA_COMPAT_TOOLS_PATHS` environmental variable. For more information see
-        <https://github.com/ValveSoftware/steam-for-linux/issues/6310">.
-      '';
-    };
-
   };
 
   config = lib.mkIf cfg.enable {
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true;
+
+      # Provided by nix-gaming
+      extraCompatPackages = with p; [
+        proton-ge-custom
+        proton-ge-custom-621
+      ];
     };
 
     hardware.steam-hardware.enable = true;
@@ -159,12 +151,6 @@ in
           # benchmark_percentiles=97,AVG,1,0.1 };
         };
       };
-    };
-
-    # Append the extra compatibility packages to whatever else the env variable was populated with.
-    # For more information see https://github.com/ValveSoftware/steam-for-linux/issues/6310.
-    environment.sessionVariables = lib.mkIf (cfg.extraCompatPackages != [ ]) {
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS = lib.concatStringsSep ":" cfg.extraCompatPackages;
     };
   };
 }
