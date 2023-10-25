@@ -42,6 +42,13 @@
         };
       };
 
+      misc = {
+        screenshot-ocr = {
+          enable = true;
+          languages = [ "eng" "spa" ];
+        };
+      };
+
       video = {
         mpv.enable = true;
       };

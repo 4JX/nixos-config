@@ -1,10 +1,6 @@
 { lib, config, ... }:
 
 {
-  imports = [
-    ./screenshot-ocr.nix
-  ];
-
   options.ncfg.allowedUnfree = lib.mkOption {
     type = lib.types.listOf lib.types.str;
     default = [ ];
