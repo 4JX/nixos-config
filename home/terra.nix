@@ -40,43 +40,6 @@ in
   ncfg = {
     programs = {
       networking = {
-        syncthing = {
-          enable = true;
-          settings = {
-            devices = {
-              "Phone" = {
-                id = "HBDDQGH-L3HLJKF-CPJTNNR-C5JEULN-JSBNQUQ-UH7FPOO-NQRCPXC-GXJDJAT";
-              };
-            };
-            folders = {
-              "Keepass DB" = {
-                id = "Keepass DB";
-                path = "/home/${mainUser}/Documents/Keepass DB";
-                devices = [ "Phone" ];
-                versioning = {
-                  type = "staggered";
-                  params = {
-                    cleanInterval = "3600";
-                    maxAge = "15768000";
-                  };
-                };
-              };
-              "Phone" = {
-                id = "ayfdf-jbgsg";
-                path = "/home/${mainUser}/Documents/Phone/lmi/Backups/Syncthing";
-                devices = [ "Phone" ];
-                versioning = {
-                  type = "simple";
-                  params = {
-                    keep = "3";
-                  };
-                };
-                type = "receiveonly";
-              };
-            };
-          };
-        };
-
         sniffers = {
           wireshark.enable = true;
         };

@@ -10,4 +10,53 @@
       allowedTCPPorts = [ port ];
       allowedUDPPorts = [ port ];
     };
+
+  # Setup syncthing
+  services.syncthing =
+    let
+      user = "infinity";
+    in
+    {
+      enable = true;
+      user = user;
+      dataDir = "/home/${user}"; # configDir is set automatically from dataDir
+      openDefaultPorts = true;
+      group = "users";
+      overrideFolders = true;
+      overrideDevices = true;
+
+      settings = {
+        devices = {
+          "Phone" = {
+            id = "HBDDQGH-L3HLJKF-CPJTNNR-C5JEULN-JSBNQUQ-UH7FPOO-NQRCPXC-GXJDJAT";
+          };
+        };
+        folders = {
+          "Keepass DB" = {
+            id = "Keepass DB";
+            path = "/home/${user}/Documents/Keepass DB";
+            devices = [ "Phone" ];
+            versioning = {
+              type = "staggered";
+              params = {
+                cleanInterval = "3600";
+                maxAge = "15768000";
+              };
+            };
+          };
+          "Phone" = {
+            id = "ayfdf-jbgsg";
+            path = "/home/${user}/Documents/Phone/lmi/Backups/Syncthing";
+            devices = [ "Phone" ];
+            versioning = {
+              type = "simple";
+              params = {
+                keep = "3";
+              };
+            };
+            type = "receiveonly";
+          };
+        };
+      };
+    };
 }
