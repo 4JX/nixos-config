@@ -65,7 +65,6 @@
           enableZshIntegration = true;
         };
         kitty.enable = true;
-        direnv.enable = true;
       };
     };
   };
