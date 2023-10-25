@@ -52,20 +52,6 @@
       };
       gnome-keyring.enable = true;
       networkmanager.enable = true;
-      shell = {
-        zsh = {
-          enable = true;
-          shellAliases = with pkgs; {
-            update-config = "nixos-rebuild --use-remote-sudo switch";
-            eza = "${eza}/bin/exa --icons";
-          };
-        };
-        starship = {
-          enable = true;
-          enableZshIntegration = true;
-        };
-        kitty.enable = true;
-      };
     };
   };
 }
