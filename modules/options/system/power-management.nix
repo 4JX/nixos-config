@@ -1,5 +1,6 @@
 { pkgs, config, lib, ... }:
 
+# TODO: https://github.com/NotAShelf/nyx/tree/c182362cd0e848a9175d836289596860cfacb08f/modules/core/types/laptop/power
 let
   cfg = config.ncfg.system.power-management;
 in
