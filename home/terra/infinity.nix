@@ -47,5 +47,6 @@
 
   home.packages = with pkgs; [
     qbittorrent
+    openrgb
   ];
 }

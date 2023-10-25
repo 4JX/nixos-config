@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   # Open up a port for qbittorrent
@@ -59,4 +59,8 @@
         };
       };
     };
+
+  # Add OpenRGB udev rules
+  # TODO: Somehow properly add the kernel module things it complains about
+  services.udev.packages = [ pkgs.openrgb ];
 }

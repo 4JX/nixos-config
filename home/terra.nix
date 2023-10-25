@@ -46,10 +46,6 @@ in
       };
 
       gaming.enable = true;
-
-      misc = {
-        openrgb.enable = true;
-      };
     };
 
     misc = {
