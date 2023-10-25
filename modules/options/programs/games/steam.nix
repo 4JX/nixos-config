@@ -1,4 +1,4 @@
-{ lib, config, pkgs, mainUser, inputs, self, ... }:
+{ lib, config, pkgs, inputs, self, ... }:
 
 let
   cfg = config.ncfg.programs.games.steam;
@@ -27,14 +27,5 @@ in
     };
 
     hardware.steam-hardware.enable = true;
-
-    # Replace the desktop file if offload is enabled (force use nvidia-offload)
-    # home-manager.users.${mainUser} = lib.mkIf config.hardware.nvidia.prime.offload.enable {
-    #   home.file.".local/share/applications/steam.desktop".source = ./steam.desktop;
-    # };
-
-    home-manager.users.${mainUser} = {
-      home.packages = with pkgs; [ gamemode gamescope ];
-    };
   };
 }
