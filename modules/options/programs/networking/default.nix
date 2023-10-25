@@ -3,6 +3,5 @@
 {
   imports = [
     ./sniffers
-    ./syncthing.nix
   ];
 }
