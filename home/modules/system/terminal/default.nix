@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./programs
-    ./system
+    ./emulators
+    ./shell
   ];
 }

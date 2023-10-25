@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./programs
-    ./system
+    ./terminal
   ];
 }
