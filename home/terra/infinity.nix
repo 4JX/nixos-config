@@ -39,6 +39,10 @@
         };
       };
 
+      gaming = {
+        mangohud.enable = true;
+      };
+
       video = {
         mpv.enable = true;
       };
