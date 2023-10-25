@@ -77,13 +77,6 @@ in
           };
         };
 
-        p2p = {
-          qBittorrent = {
-            enable = true;
-            port = 58902;
-          };
-        };
-
         sniffers = {
           wireshark.enable = true;
         };
