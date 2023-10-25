@@ -6,6 +6,7 @@
     ./browsers
     ./editors
     ./gaming
+    ./misc
     ./video
   ];
 }
