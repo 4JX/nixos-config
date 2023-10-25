@@ -8,9 +8,6 @@
     myLib.initFlake [ "x86_64-linux" ] { allowUnfree = true; } ({ pkgs, system, ... }: {
       nixosConfigurations = import ./hosts { inherit self myLib; };
 
-      # This works for now since there's no host specific modules
-      nixosModules = ./modules/options;
-
       packages.${system} = pkgs.callPackage ./pkgs { inherit myLib; };
     });
 
