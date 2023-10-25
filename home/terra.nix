@@ -89,13 +89,7 @@ in
         };
       };
 
-      games.steam = {
-        enable = true;
-        extraCompatPackages = with p; [
-          proton-ge-custom
-          proton-ge-custom-621
-        ];
-      };
+      games.steam.enable = true;
 
       misc = {
         openrgb.enable = true;
