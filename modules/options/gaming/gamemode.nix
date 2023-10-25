@@ -4,13 +4,9 @@
 # If I ever get to using hyprland
 
 let
-  cfg = config.ncfg.programs.games.gamemode;
+  cfg = config.ncfg.programs.gaming;
 in
 {
-  options.ncfg.programs.games.gamemode = {
-    enable = lib.mkEnableOption "gamemode";
-  };
-
   config = lib.mkIf cfg.enable {
     programs.gamemode = {
       enable = true;

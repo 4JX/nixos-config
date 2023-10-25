@@ -1,13 +1,10 @@
-{ config, lib, ... }:
+{ osConfig, lib, ... }:
 
 let
-  cfg = config.ncfg.programs.gaming.mangohud;
+  # Tie mangohud to the os-level gaming setting
+  cfg = osConfig.ncfg.programs.gaming;
 in
 {
-  options.ncfg.programs.gaming.mangohud = {
-    enable = lib.mkEnableOption "mangohud";
-  };
-
   config = lib.mkIf cfg.enable {
     programs.mangohud = {
       enable = true;
