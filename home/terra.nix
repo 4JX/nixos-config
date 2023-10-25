@@ -99,7 +99,6 @@ in
 
       misc = {
         openrgb.enable = true;
-        act.enable = false;
       };
     };
 
