@@ -1,7 +1,0 @@
-{ ... }:
-
-{
-  imports = [
-    ./openrgb.nix
-  ];
-}
