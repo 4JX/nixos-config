@@ -4,6 +4,8 @@ let
   hostName = config.networking.hostName;
 
   userHomes = lib.genAttrs config.ncfg.system.users (name: ./${hostName}/${name}.nix);
+
+  homeFiles = ./files;
 in
 {
   home-manager = {
@@ -11,7 +13,7 @@ in
     useGlobalPkgs = true;
     # Install stuff to /etc/profiles
     useUserPackages = true;
-    extraSpecialArgs = { inherit mainUser inputs self; };
+    extraSpecialArgs = { inherit mainUser inputs self homeFiles; };
     users = userHomes;
   };
 
