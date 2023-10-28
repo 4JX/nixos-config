@@ -10,6 +10,7 @@
       ./ncfg.nix
       ./xorg.nix
       ./users
+      ./power-management.nix
     ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
