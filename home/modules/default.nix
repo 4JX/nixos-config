@@ -4,5 +4,6 @@
   imports = [
     ./programs
     ./system
+    ./WM
   ];
 }

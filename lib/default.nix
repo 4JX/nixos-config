@@ -20,9 +20,12 @@ let
         )
         systems
     );
+
+  homeOption = config: option: builtins.mapAttrs (n: v: v.${option}) config.home-manager.users;
+  homeOptionValues = config: option: builtins.attrValues homeOption config option;
 in
 {
-  inherit initFlake;
+  inherit initFlake homeOption homeOptionValues;
 
   recursiveMergeAttrs = lib.fold lib.recursiveUpdate { };
 
