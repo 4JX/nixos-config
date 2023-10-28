@@ -1,0 +1,7 @@
+{ ... }:
+
+{
+  imports = [
+    ./looking-glass.nix
+  ];
+}
