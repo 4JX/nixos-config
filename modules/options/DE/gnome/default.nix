@@ -39,60 +39,6 @@ in
     ];
 
     home-manager.users.${mainUser} = { pkgs, lib, ... }: {
-      xdg.configFile =
-        let
-          themePath = p.mono-gtk-theme + /share/themes/MonoThemeDark/gtk-4.0;
-        in
-        {
-          "gtk-4.0/gtk.css" = {
-            source = "${themePath}/gtk.css";
-          };
-          "gtk-4.0/gtk-dark.css" = {
-            source = "${themePath}/gtk-dark.css";
-          };
-          "gtk-4.0/assets" = {
-            source = "${themePath}/assets";
-          };
-        };
-
-      gtk = {
-        enable = true;
-
-        iconTheme = {
-          name = "Tela-circle-dark";
-          package = pkgs.tela-circle-icon-theme;
-        };
-
-        theme = {
-          name = "MonoThemeDark";
-          package = p.mono-gtk-theme;
-        };
-
-        cursorTheme = {
-          name = "Vimix-cursors";
-          package = p.vimix-cursor-theme;
-        };
-
-        gtk3.extraConfig = {
-          gtk-application-prefer-dark-theme = 1;
-          gtk-cursor-theme-size = 28;
-        };
-
-        gtk4.extraConfig = {
-          gtk-application-prefer-dark-theme = 1;
-          gtk-cursor-theme-size = 28;
-        };
-      };
-
-      qt = {
-        enable = true;
-        platformTheme = "gnome";
-        style = {
-          package = pkgs.adwaita-qt;
-          name = "adwaita-dark";
-        };
-      };
-
       home.packages = with pkgs; [
         gnome-extension-manager
       ];
@@ -106,7 +52,7 @@ in
             icon-theme = "Tela-circle-dark";
 
             cursor-theme = "Vimix-cursors";
-            cursor-size = 28; # Default 24
+            # cursor-size = 28; # Default 24
           };
 
           "org/gnome/desktop/interface" = {
