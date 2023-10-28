@@ -28,13 +28,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Hyprland and co.
     hyprland.url = "github:hyprwm/Hyprland";
 
+    xdg-portal-hyprland = {
+      url = "github:hyprwm/xdg-desktop-portal-hyprland";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Makes command-not-found work
     programsdb = {
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Are you paranoid enough yet?
     arkenfox = {
       url = "github:arkenfox/user.js";
       flake = false;
