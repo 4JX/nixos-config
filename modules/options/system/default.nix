@@ -6,13 +6,13 @@ in
 {
   imports = [
     ./fonts
+    ./power-management
     ./security
     ./shell
     ./flatpak.nix
     ./gnome-keyring.nix
     ./networkmanager.nix
     ./sound.nix
-    ./power-management.nix
     ./systemd.nix
   ];
 
