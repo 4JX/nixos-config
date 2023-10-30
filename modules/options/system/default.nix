@@ -5,10 +5,11 @@ let
 in
 {
   imports = [
+    ./environment
     ./fonts
     ./power-management
     ./security
-    ./shell
+    ./programs
     ./flatpak.nix
     ./gnome-keyring.nix
     ./sound.nix
