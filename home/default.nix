@@ -1,4 +1,4 @@
-{ mainUser, lib, config, inputs, self, theme, myLib, ... }:
+{ lib, config, inputs, self, theme, myLib, ... }:
 
 let
   hostName = config.networking.hostName;
@@ -13,7 +13,7 @@ in
     useGlobalPkgs = true;
     # Install stuff to /etc/profiles
     useUserPackages = true;
-    extraSpecialArgs = { inherit mainUser inputs self homeFiles theme myLib; };
+    extraSpecialArgs = { inherit inputs self homeFiles theme myLib; };
     users = userHomes;
   };
 

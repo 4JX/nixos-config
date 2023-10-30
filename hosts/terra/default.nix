@@ -1,4 +1,4 @@
-{ mainUser, ... }:
+{ ... }:
 
 {
   imports =
@@ -13,11 +13,7 @@
       ./power-management.nix
     ];
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${mainUser} = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  };
+  networking.networkmanager.enable = true;
 
   services = {
     # Enable CUPS to print documents.
@@ -27,6 +23,8 @@
       enable = true;
     };
   };
+
+  hardware.ckb-next.enable = true;
 
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTR{idVendor}=="048d", ATTR{idProduct}=="c965", MODE="0666"

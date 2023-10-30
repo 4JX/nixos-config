@@ -1,5 +1,7 @@
-{ pkgs, homeFiles, ... }:
-
+{ pkgs, homeFiles, self, ... }:
+let
+  p = self.packages.${pkgs.system};
+in
 {
   imports = [ ../modules ];
 
@@ -50,6 +52,30 @@
   };
 
   home.packages = with pkgs; [
+    kate
+    keepassxc
+    github-desktop
+    spotify
+    ark
+    gh # Github CLI
+    jetbrains.clion
+    android-studio
+    # handbrake
+    vokoscreen-ng
+    peek
+    scrcpy
+    tor-browser-bundle-bin
+    arandr
+    libreoffice
+    obsidian
+    node2nix
+    cyberchef
+    element-desktop
+    figma-linux
+    quassel
+    p.portmaster
+    dbeaver
+    libsForQt5.okular
     qbittorrent
     openrgb
     # To be used along with the kernel module specified in the boot option

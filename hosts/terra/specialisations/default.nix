@@ -20,7 +20,13 @@
           pciIds = [ "10de:24dd" "10de:228b" "1c5c:174a" ];
         };
 
-        looking-glass.enable = true;
+        looking-glass = {
+          enable = true;
+          sharedMemoryFile = {
+            create = true;
+            user = "infinity";
+          };
+        };
 
         hugepages = {
           enable = false;

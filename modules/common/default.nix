@@ -51,7 +51,6 @@
         enableCommonFonts = true;
       };
       gnome-keyring.enable = true;
-      networkmanager.enable = true;
     };
   };
 }

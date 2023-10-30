@@ -1,4 +1,4 @@
-{ lib, inputs, pkgs, mainUser, ... }:
+{ lib, inputs, pkgs, config, ... }:
 
 # Stuff that is unconditionally imported to fix flake shenanigans and co.
 let
@@ -33,11 +33,13 @@ in
   # https://github.com/nix-community/home-manager/issues/1011
   environment.extraInit =
     let
+      users = builtins.attrNames config.home-manager.users;
+
       sourceForUser = (user: ''
         if [ "$(id -un)" = "${user}" ]; then
           . "/etc/profiles/per-user/${user}/etc/profile.d/hm-session-vars.sh"
         fi
       '');
     in
-    lib.concatLines (builtins.map sourceForUser [ mainUser ]);
+    lib.concatLines (builtins.map sourceForUser users);
 }

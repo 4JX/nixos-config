@@ -11,7 +11,6 @@ in
     ./shell
     ./flatpak.nix
     ./gnome-keyring.nix
-    ./networkmanager.nix
     ./sound.nix
     ./systemd.nix
   ];
