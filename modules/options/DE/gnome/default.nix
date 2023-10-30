@@ -1,4 +1,4 @@
-{ config, mainUser, lib, pkgs, self, ... }:
+{ config, lib, pkgs, self, ... }:
 let
   p = self.packages.${pkgs.system};
   cfg = config.ncfg.DE.gnome;
@@ -9,7 +9,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     # Just in case
     programs.dconf.enable = true;
 
@@ -48,11 +47,6 @@ in
       #   ];
       # }))
     ];
-
-    # Stuff needed for X11 gestures in tandem with the gesture improvements extension
-    users.users.${mainUser} = {
-      extraGroups = [ "input" ];
-    };
 
     # https://github.com/harshadgavali/gnome-x11-gesture-daemon/blob/main/gesture_improvements_gesture_daemon.service
     systemd.user.services."gesture_improvements_gesture_daemon" = {

@@ -35,17 +35,13 @@ let
         networking = { inherit hostName; };
       }
       ./${hostName}
-      ../home/${hostName}.nix
     ] ++ concatLists [ shared homes ];
   });
 in
 mkHosts {
   terra =
-    let
-      mainUser = "infinity";
-    in
     {
-      specialArgs = { inherit mainUser; };
+      specialArgs = { };
 
       modules = [
         hw.lenovo-legion-16ach6h-hybrid

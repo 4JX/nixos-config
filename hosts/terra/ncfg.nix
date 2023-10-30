@@ -1,4 +1,4 @@
-{ inputs, self, pkgs, mainUser, ... }:
+{ inputs, self, pkgs, ... }:
 
 let
   p = self.packages.${pkgs.system};
@@ -21,7 +21,7 @@ in
 
     DM = {
       autoLogin = false;
-      loginUser = mainUser;
+      loginUser = "infinity";
       gdm.enable = true;
     };
     DE.gnome.enable = true;
@@ -43,6 +43,10 @@ in
           rules = builtins.readFile ./usbguard-rules.conf;
         };
       };
+    };
+
+    programs = {
+      gaming.enable = true;
     };
   };
 

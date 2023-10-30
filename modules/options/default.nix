@@ -6,7 +6,6 @@
     ./DM
     ./gaming
     ./misc
-    ./programs
     ./system
     ./virtualisation
     ./WM
