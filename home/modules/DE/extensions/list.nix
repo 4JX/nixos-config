@@ -1,4 +1,4 @@
-{ pkgs, lib, p, ... }:
+{ pkgs, lib, ... }:
 
 # To consider
 # https://extensions.gnome.org/extension/2992/ideapad/
