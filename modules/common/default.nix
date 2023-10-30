@@ -1,7 +1,0 @@
-{ ... }:
-
-{
-  imports = [
-    ./always-set.nix
-  ];
-}

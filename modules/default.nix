@@ -5,6 +5,16 @@ let
   isFlake = (lib.filterAttrs (_: lib.isType "flake"));
 in
 {
+    imports = [
+    ./DE
+    ./DM
+    ./gaming
+    ./misc
+    ./system
+    ./virtualisation
+    ./WM
+  ];
+  
   # Resolve <nixpkgs> and other references to the flake input
   # https://ayats.org/blog/channels-to-flakes/
   # https://github.com/Gerg-L/nixos/blob/681ea1529269dbc62652e8368c7f4f1f659c661f/modules/nix.nix#L9-L16 
@@ -42,3 +52,4 @@ in
     in
     lib.concatLines (builtins.map sourceForUser users);
 }
+

@@ -16,13 +16,13 @@ let
   # Where the modules are located
   modulePath = ../modules;
 
-  options = modulePath + /options; # Option declarations
-  common = modulePath + /common; # Defaults shared across systems
+  # options = modulePath + /options; # Option declarations
+  # common = modulePath + /common; # Defaults shared across systems
   laptop = modulePath + /laptop.nix; # Options specific for laptops, currently only enables power management
 
   homesDir = ../home;
 
-  shared = [ options common ];
+  shared = [ modulePath ];
   homes = [ hm homesDir ];
 
   commonArgs = { inherit inputs self myLib theme; };
