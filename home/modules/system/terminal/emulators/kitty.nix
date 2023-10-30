@@ -1,5 +1,8 @@
-{ pkgs, theme, ... }:
+{ pkgs, config, ... }:
 
+let
+  colors = config.colorScheme.colors;
+in
 {
   config = {
     programs.kitty = {
@@ -15,39 +18,39 @@
         enable_audio_bell = false;
 
         # Theme
-        inherit (theme.ui) background;
+        background = "#${colors.base00}";
 
         # Black
-        color0 = theme.ansi.black;
-        color8 = theme.ansi.black_light;
+        color0 = "#${colors.base00}";
+        color8 = "#${colors.base08}";
 
         # Red
-        color1 = theme.ansi.red;
-        color9 = theme.ansi.red_light;
+        color1 = "#${colors.base01}";
+        color9 = "#${colors.base09}";
 
         # Green
-        color2 = theme.ansi.green;
-        color10 = theme.ansi.green_light;
+        color2 = "#${colors.base02}";
+        color10 = "#${colors.base0A}";
 
         # Yellow
-        color3 = theme.ansi.yellow;
-        color11 = theme.ansi.yellow_light;
+        color3 = "#${colors.base03}";
+        color11 = "#${colors.base0B}";
 
         # Blue
-        color4 = theme.ansi.blue;
-        color12 = theme.ansi.blue_light;
+        color4 = "#${colors.base04}";
+        color12 = "#${colors.base0C}";
 
         # Magenta
-        color5 = theme.ansi.magenta;
-        color13 = theme.ansi.magenta_light;
+        color5 = "#${colors.base05}";
+        color13 = "#${colors.base0D}";
 
         # Cyan
-        color6 = theme.ansi.cyan;
-        color14 = theme.ansi.cyan_light;
+        color6 = "#${colors.base06}";
+        color14 = "#${colors.base0E}";
 
         # White
-        color7 = theme.ansi.white;
-        color15 = theme.ansi.white_light;
+        color7 = "#${colors.base07}";
+        color15 = "#${colors.base0F}";
       };
     };
   };

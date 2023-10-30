@@ -48,6 +48,12 @@
       flake = false;
     };
 
+    # Basic theme-ing integration, might consider stylix
+    nix-colors = {
+      url = "github:misterio77/nix-colors";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
     # -- Extra packages --
     legion-kb-rgb = {
       url = "github:4JX/L5P-Keyboard-RGB";
