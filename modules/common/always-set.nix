@@ -13,7 +13,6 @@ in
     (lib.mapAttrs (_: flake: { inherit flake; }))
   ];
 
-
   nix.nixPath = lib.pipe inputs [
     isFlake
     (lib.mapAttrsToList (n: _: "${n}=flake:${n}"))
