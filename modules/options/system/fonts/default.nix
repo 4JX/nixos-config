@@ -17,7 +17,11 @@ let
 in
 {
   options.ncfg.system.fonts = {
-    enableCommonFonts = lib.mkEnableOption "some common fonts";
+    enableCommonFonts = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to enable some common fonts";
+    };
 
     custom = lib.mkOption {
       type = lib.types.listOf lib.types.path;
