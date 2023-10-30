@@ -11,8 +11,6 @@ let
 
   nixosSystem = inputs.nixpkgs.lib.nixosSystem;
 
-  theme = import ../theme.nix;
-
   # Where the modules are located
   modulePath = ../modules;
 
@@ -25,7 +23,7 @@ let
   shared = [ modulePath ];
   homes = [ hm homesDir ];
 
-  commonArgs = { inherit inputs self myLib theme; };
+  commonArgs = { inherit inputs self myLib; };
 
   mkHosts = builtins.mapAttrs (hostName: config: nixosSystem {
     specialArgs = commonArgs // config.specialArgs;
