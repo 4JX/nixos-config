@@ -56,7 +56,8 @@ in
       GTK_THEME = "${cfg.gtk.theme.name}";
 
       # GTK applications should use filepickers specified by xdg
-      GTK_USE_PORTAL = "1";
+      # Or maybe not  # https://github.com/NixOS/nixpkgs/commit/ebde08adf37932ff59c27b5935840aa733965bdb
+      # GTK_USE_PORTAL = "1";
     };
   };
 
