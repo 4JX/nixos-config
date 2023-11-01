@@ -29,6 +29,7 @@ in
 
     system = {
       sound.enable = true;
+      gnome-keyring.enable = true;
 
       flatpak.enable = true;
       fonts = {
