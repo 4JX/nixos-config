@@ -24,11 +24,11 @@ in
     ];
 
   qt = {
-    enable = true;
-    platformTheme = cfg.qt.platformTheme;
-    style = {
-      name = cfg.qt.theme.name;
-      package = cfg.qt.theme.package;
-    };
+    # enable = true;
+    # platformTheme = cfg.qt.platformTheme;
+    # style = {
+    #   name = cfg.qt.theme.name;
+    #   package = cfg.qt.theme.package;
+    # };
   };
 }
