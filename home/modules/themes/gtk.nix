@@ -43,9 +43,8 @@ in
           }
         ''
       ];
-      "gtk-4.0/gtk-dark.css" .
-      text = builtins.concatStringsSep "\n" [
-        (builtins.readFile ("${themePath}/gtk-dark.css"))
+      "gtk-4.0/gtk-dark.css".text = builtins.concatStringsSep "\n" [
+        (builtins.readFile "${themePath}/gtk-dark.css")
         ''
           /* Temp workaround */
           .nautilus-window .content-pane,
