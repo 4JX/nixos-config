@@ -71,7 +71,8 @@ in
     node2nix
     cyberchef
     element-desktop
-    figma-linux
+    # CVE-2023-5217, https://github.com/NixOS/nixpkgs/issues/258048#issuecomment-1764386704
+    # figma-linux 
     quassel
     p.portmaster
     dbeaver
