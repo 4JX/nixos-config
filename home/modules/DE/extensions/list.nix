@@ -34,7 +34,7 @@ let
   #     '';
   # }));
 in
-with pkgs.gnomeExtensions; [
+with pkgs.gnomeExtensions; builtins.trace "Re enable pano https://nixpk.gs/pr-tracker.html?pr=269588" [
   {
     package = user-themes;
     dconfSettings = {
@@ -180,20 +180,20 @@ with pkgs.gnomeExtensions; [
     dconfSettings = { };
   }
 
-  {
-    package = pano;
-    dconfSettings = {
-      # Remove audio and notification cues on copy
-      send-notification-on-copy = false;
-      play-audio-on-copy = false;
+  # {
+  #   package = pano;
+  #   dconfSettings = {
+  #     # Remove audio and notification cues on copy
+  #     send-notification-on-copy = false;
+  #     play-audio-on-copy = false;
 
-      # Do not generate link previews for copied links
-      link-previews = false;
+  #     # Do not generate link previews for copied links
+  #     link-previews = false;
 
-      # Window title(?) based excludes
-      exclusion-list = [ "Bitwarden" "1Password" "KeePassXC" "secrets" "org.gnome.World.Secrets" "Tor Browser" ];
-    };
-  }
+  #     # Window title(?) based excludes
+  #     exclusion-list = [ "Bitwarden" "1Password" "KeePassXC" "secrets" "org.gnome.World.Secrets" "Tor Browser" ];
+  #   };
+  # }
 
   {
     package = removable-drive-menu;

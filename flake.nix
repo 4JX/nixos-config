@@ -14,7 +14,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    # nixos-hardware.url = "github:nixos/nixos-hardware";
+    # TODO: Properly fix the failing config build
+    nixos-hardware.url = "github:4JX/nixos-hardware/edid";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
