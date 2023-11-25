@@ -1,4 +1,4 @@
-{ config, pkgs, self, ... }:
+{ config, pkgs, self, lib, ... }:
 
 # https://github.com/NotAShelf/nyx/blob/fac9b59c8239c573733f89e41b35f267ae19413d/homes/notashelf/themes/gtk.nix#L15C1-L18C1
 
@@ -31,16 +31,30 @@ in
     let
       themePath = cfg.gtk.theme.themePath;
     in
-    {
-      "gtk-4.0/gtk.css" = {
-        source = "${themePath}/gtk.css";
-      };
-      "gtk-4.0/gtk-dark.css" = {
-        source = "${themePath}/gtk-dark.css";
-      };
-      "gtk-4.0/assets" = {
-        source = "${themePath}/assets";
-      };
+    lib.warn "Await GNOME 45 fix https://github.com/witalihirsch/Mono-gtk-theme/issues/51" {
+      "gtk-4.0/gtk.css".text = builtins.concatStringsSep "\n" [
+        (builtins.readFile "${themePath}/gtk.css")
+        # Intuition would tell me that this file needs the *light* background, but alas it is not the case
+        ''
+          /* Temp workaround */
+          .nautilus-window .content-pane,
+          .nautilus-window .sidebar-pane {
+              background-color: #252525;
+          }
+        ''
+      ];
+      "gtk-4.0/gtk-dark.css" .
+      text = builtins.concatStringsSep "\n" [
+        (builtins.readFile ("${themePath}/gtk-dark.css"))
+        ''
+          /* Temp workaround */
+          .nautilus-window .content-pane,
+          .nautilus-window .sidebar-pane {
+              background-color: #f0f0f0;
+          }
+        ''
+      ];
+      "gtk-4.0/assets".source = "${themePath}/assets";
     };
 
 
