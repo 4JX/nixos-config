@@ -74,7 +74,7 @@ When using enable = true in both nixpkgs and home-manager zsh slows down a bunch
 
 ### AMD Pstate EPP
 
-As of 06-06-2023 partly controlled by `power-profiles-daemon`
+Partly controlled by `tlp` at the moment and staying that way unless ppd makes a comeback from being acrhived
 
 Interesting options to play with can be found in
 

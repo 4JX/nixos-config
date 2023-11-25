@@ -11,7 +11,9 @@ stdenv.mkDerivation rec {
   };
 
   buildCommand = ''
-    mkdir -p $out
-    tar -C $out --strip=1 -x -f $src
+    runHook preBuild
+    mkdir -p $out/bin
+    tar -C $out/bin --strip=1 -x -f $src
+    runHook postBuild
   '';
 }
