@@ -34,7 +34,7 @@ let
   #     '';
   # }));
 in
-with pkgs.gnomeExtensions; builtins.trace "Re enable pano https://nixpk.gs/pr-tracker.html?pr=269588" [
+with pkgs.gnomeExtensions; lib.warn "Re enable pano https://nixpk.gs/pr-tracker.html?pr=269588" [
   {
     package = user-themes;
     dconfSettings = {
