@@ -30,6 +30,7 @@ in
   xdg.configFile =
     let
       themePath = cfg.gtk.theme.themePath;
+      themePath3 = p.mono-gtk-theme + /share/themes/MonoThemeDark/gtk-3.0;
     in
     lib.warn "Await GNOME 45 fix https://github.com/witalihirsch/Mono-gtk-theme/issues/51" {
       "gtk-4.0/gtk.css".text = builtins.concatStringsSep "\n" [
@@ -54,6 +55,9 @@ in
         ''
       ];
       "gtk-4.0/assets".source = "${themePath}/assets";
+      "gtk-3.0/gtk.css".source = "${themePath3}/gtk.css";
+      "gtk-3.0/gkt-dark.css".source = "${themePath3}/gkt-dark.css";
+      "gtk-3.0/assets".source = "${themePath3}/assets";
     };
 
 
