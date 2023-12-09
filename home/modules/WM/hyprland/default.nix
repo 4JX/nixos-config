@@ -11,8 +11,6 @@ in
       enable = true;
       package = inputs.hyprland.packages.${pkgs.system}.default;
 
-      # TODO: Enable based on device characteristics
-      enableNvidiaPatches = true;
       xwayland.enable = true;
 
       systemd = {
