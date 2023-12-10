@@ -44,7 +44,6 @@ with pkgs.gnomeExtensions; [
 
   {
     package = dash-to-panel;
-    disable = true;
     dconfSettings = {
       panel-element-positions = ''
         {"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}
@@ -62,6 +61,7 @@ with pkgs.gnomeExtensions; [
 
   {
     package = app-icons-taskbar;
+    disable = true;
     dconfSettings = {
       position-in-panel = "CENTER";
       panel-location = "BOTTOM";
@@ -164,8 +164,8 @@ with pkgs.gnomeExtensions; [
       window-demands-attention-focus = true;
 
       # Move the clock stuff to a more classic opinion
-      clock-menu-position = 1; # Right
-      clock-menu-position-offset = 11; # After quick settings and power menu from Aylur's
+      # clock-menu-position = 1; # Right
+      # clock-menu-position-offset = 11; # After quick settings and power menu from Aylur's
     };
   }
 
@@ -202,6 +202,8 @@ with pkgs.gnomeExtensions; [
 
   {
     package = vitals;
+    # Only really ever used it for power consumption and battery-usage-wattmeter does that
+    disable = true;
     dconfSettings = {
       show-voltage = false;
       show-fan = false;
@@ -212,54 +214,10 @@ with pkgs.gnomeExtensions; [
   }
 
   {
-    package = aylurs-widgets.overrideAttrs (old:
-      {
-        src = pkgs.fetchFromGitHub
-          # {
-          #   owner = "Aylur";
-          #   repo = "gnome-extensions";
-          #   rev = "69d51b3ed531b042df206436c78d70a613a2312d";
-          #   hash = "sha256-rUX6WaIh+Z6Pdz5mxLBXII7nwOzJkROf7Zg8rk1V4Bo=";
-          # } + "/widgets@aylur";
-          {
-            owner = "4JX";
-            repo = "gnome-extensions";
-            rev = "aa3af014daf0237ce7ea3afc8102e8540c7c316c";
-            hash = "sha256-eJe+7dGjuZZau4pD6uxKr1i8NHZHKllaSOpGW0lL5rk=";
-          } + "/widgets@aylur";
-      });
+    package = battery-usage-wattmeter;
     dconfSettings = {
-      background-clock = false;
-      dash-board = false;
-      workspace-indicator = false;
-      battery-bar = false;
-      quick-settings-tweaks = false;
-
-      # Notification indicator
-      notification-indicator-position = 1; # Center
-
-      # Media player
-      # Move player controls to the right
-      media-player-position = 2;
-      media-player-max-width = 200;
-      media-player-controls-position = 2;
-
-      # Date menu
-      date-menu-show-system-levels = false;
-      date-menu-hide-notifications = true;
-      date-menu-show-media = false;
-      date-menu-date-format = "%H:%M | %d %b";
-
-      # OSD
-      stylish-osd = false;
-      # stylish-osd-position = 7; # Bottom center
-      # stylish-osd-vertical = false;
-      # stylish-osd-width = 400;
-      # stylish-osd-height = 50;
-      # stylish-osd-margin-y = 80; # Vertical offset
-      # stylish-osd-roundness = 100;
-      # stylish-osd-padding = 6;
-      # stylish-osd-icon-size = 26;
+      # Update every 5 seconds
+      interval = 5;
     };
   }
 
@@ -272,6 +230,18 @@ with pkgs.gnomeExtensions; [
     package = gsconnect;
     dconfSettings = {
       panel-position = "top";
+    };
+  }
+
+  {
+    package = media-controls;
+    dconfSettings = {
+      show-seperators = false;
+      show-seek-back = false;
+      show-seek-forward = false;
+      show-sources-menu = false;
+      extension-position = "right";
+      mouse-actions = [ "toggle_info" "toggle_menu" "raise" "none" "none" "none" "none" "none" ];
     };
   }
 ]
