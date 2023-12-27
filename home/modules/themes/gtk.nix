@@ -56,7 +56,7 @@ in
       GTK_THEME = "${cfg.gtk.theme.name}";
 
       # GTK applications should use filepickers specified by xdg
-      GTK_USE_PORTAL = "1";
+      # GTK_USE_PORTAL = "1";
     };
   };
 
