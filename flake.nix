@@ -12,7 +12,7 @@
     });
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/282d9cd278480206964640c73cab2621e77300d7";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -37,10 +37,10 @@
     };
 
     # Makes command-not-found work
-    programsdb = {
-      url = "github:wamserma/flake-programs-sqlite";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # programsdb = {
+    #   url = "github:wamserma/flake-programs-sqlite";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # Are you paranoid enough yet?
     arkenfox = {
