@@ -13,6 +13,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-ding.url = "github:4JX/nixpkgs/gtk4-ding68";
 
     # nixos-hardware.url = "github:nixos/nixos-hardware";
     # TODO: Properly fix the failing config build
