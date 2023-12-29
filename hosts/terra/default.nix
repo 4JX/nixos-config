@@ -13,6 +13,13 @@
       ./power-management.nix
     ];
 
+  #! TODO: Remove me
+  # Should probably make an enhanced version of this that alerts when the offending package is upgraded...
+  nixpkgs.config.permittedInsecurePackages = [
+    # obsidian-1.4.16
+    "electron-25.9.0"
+  ];
+
   networking.networkmanager.enable = true;
 
   services = {
