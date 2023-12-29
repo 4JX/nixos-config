@@ -1,9 +1,9 @@
-{ pkgs, lib, myLib, osConfig, ... }:
+{ pkgs, lib, myLib, inputs, osConfig, ... }:
 
 let
   cfg = osConfig.ncfg.DE.gnome;
 
-  extensions = import ./list.nix { inherit pkgs lib; };
+  extensions = import ./list.nix { inherit pkgs lib inputs; };
   mapDconfSettings =
     builtins.map
       (e:
