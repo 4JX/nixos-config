@@ -17,6 +17,7 @@ in
           # Based on https://gist.github.com/sebastian-de/648555c1233fdc6688c0a224fc2fca7e
           "Legion 5 Pro" = homeFiles + /easyeffects/L5P.json;
           "DT880" = homeFiles + /easyeffects/DT880.json;
+          "Sony WH-CH720N" = homeFiles + /easyeffects/Sony_WH-CH720N.json;
         };
       };
 
