@@ -137,7 +137,14 @@ with pkgs.gnomeExtensions; [
 
 
   {
-    package = ideapad-controls;
+    package = lib.warn "Using patched ideapad-controls https://github.com/AzzamAlsharafi/ideapad-controls-gnome-extension/pull/16" ideapad-controls.overrideAttrs (old: {
+      src = pkgs.fetchzip {
+        url = "https://github.com/AzzamAlsharafi/ideapad-controls-gnome-extension/archive/0a89792aadafd15d3e605b81b5bce6ffc7db5354.zip";
+        # # Otherwise the metadata will get replaced
+        # postFetch = "";
+        sha256 = "sha256-BIMKzIANfGZNMdllcD5xOr8zY7PXDuU7TDLIpl2PzlQ=";
+      };
+    });
     dconfSettings = {
       # Show inside the quick settings menu
       tray-location = false;
