@@ -1,19 +1,8 @@
 {
     "output": {
-        "bass_enhancer#0": {
-            "amount": 0.0,
-            "blend": 0.0,
-            "bypass": true,
-            "floor": 10.0,
-            "floor-active": true,
-            "harmonics": 10.0,
-            "input-gain": 0.0,
-            "output-gain": 0.0,
-            "scope": 160.0
-        },
         "blocklist": [],
         "equalizer#0": {
-            "balance": 0.0,
+            "balance": -0.0,
             "bypass": false,
             "input-gain": -11.0,
             "left": {
@@ -25,8 +14,7 @@
                     "q": 1.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band1": {
                     "frequency": 100.0,
@@ -36,8 +24,7 @@
                     "q": 0.699999988079071,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Lo-shelf",
-                    "width": 4.0
+                    "type": "Lo-shelf"
                 },
                 "band2": {
                     "frequency": 210.0,
@@ -47,8 +34,7 @@
                     "q": 2.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band3": {
                     "frequency": 2800.0,
@@ -58,8 +44,7 @@
                     "q": 4.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band4": {
                     "frequency": 3650.0,
@@ -69,8 +54,7 @@
                     "q": 6.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band5": {
                     "frequency": 5000.0,
@@ -80,8 +64,7 @@
                     "q": 3.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band6": {
                     "frequency": 5980.0,
@@ -91,8 +74,7 @@
                     "q": 5.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band7": {
                     "frequency": 7400.0,
@@ -102,8 +84,7 @@
                     "q": 6.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 }
             },
             "mode": "IIR",
@@ -120,8 +101,7 @@
                     "q": 1.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band1": {
                     "frequency": 100.0,
@@ -131,8 +111,7 @@
                     "q": 0.699999988079071,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Lo-shelf",
-                    "width": 4.0
+                    "type": "Lo-shelf"
                 },
                 "band2": {
                     "frequency": 210.0,
@@ -142,8 +121,7 @@
                     "q": 2.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band3": {
                     "frequency": 2800.0,
@@ -153,8 +131,7 @@
                     "q": 4.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band4": {
                     "frequency": 3650.0,
@@ -164,8 +141,7 @@
                     "q": 6.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band5": {
                     "frequency": 5000.0,
@@ -175,8 +151,7 @@
                     "q": 3.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band6": {
                     "frequency": 5980.0,
@@ -186,8 +161,7 @@
                     "q": 5.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 },
                 "band7": {
                     "frequency": 7400.0,
@@ -197,15 +171,13 @@
                     "q": 6.0,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Bell",
-                    "width": 4.0
+                    "type": "Bell"
                 }
             },
             "split-channels": false
         },
         "plugins_order": [
-            "equalizer#0",
-            "bass_enhancer#0"
+            "equalizer#0"
         ]
     }
 }
