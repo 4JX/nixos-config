@@ -17,7 +17,8 @@
 
     # nixos-hardware.url = "github:nixos/nixos-hardware";
     # TODO: Properly fix the failing config build
-    nixos-hardware.url = "github:4JX/nixos-hardware/edid";
+    # nixos-hardware.url = "github:4JX/nixos-hardware/edid";
+    nixos-hardware.url = "github:4JX/nixos-hardware/fixup";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
