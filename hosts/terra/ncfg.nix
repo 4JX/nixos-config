@@ -2,7 +2,7 @@
 
 let
   p = self.packages.${pkgs.system};
-  legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.system}.wrapped;
+  legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.system}.default;
 in
 {
   ncfg = {
