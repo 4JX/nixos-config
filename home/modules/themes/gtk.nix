@@ -15,7 +15,13 @@ let
       name = "MonoThemeDark";
       package = p.mono-gtk-theme;
       themePath = package + /share/themes/MonoThemeDark/gtk-4.0;
+      themePath3 = p.mono-gtk-theme + /share/themes/MonoThemeDark/gtk-3.0;
     };
+
+    # theme = rec {
+    #   name = "Adwaita-dark";
+    #   package = pkgs.gnome.gnome-themes-extra;
+    # };
   };
 
   cfg = conf.style;
@@ -30,7 +36,7 @@ in
   xdg.configFile =
     let
       themePath = cfg.gtk.theme.themePath;
-      themePath3 = p.mono-gtk-theme + /share/themes/MonoThemeDark/gtk-3.0;
+      themePath3 = cfg.gtk.theme.themePath3;
     in
     lib.warn "Await GNOME 45 fix https://github.com/witalihirsch/Mono-gtk-theme/issues/51" {
       "gtk-4.0/gtk.css".text = builtins.concatStringsSep "\n" [

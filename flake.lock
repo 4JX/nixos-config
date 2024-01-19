@@ -324,16 +324,16 @@
     },
     "nixpkgs-ding": {
       "locked": {
-        "lastModified": 1702931261,
-        "narHash": "sha256-+znyaZ/OtpCDkQyo6iof3ygaMQCIDTBnpeXpI05grko=",
+        "lastModified": 1705708804,
+        "narHash": "sha256-+XJo8QCVLT/B5g0MlPMVPyYaPEyXOFNKXq6cwMfV8UU=",
         "owner": "4JX",
         "repo": "nixpkgs",
-        "rev": "3c9f285e2f01d23d3613926609ad0c161b31980a",
+        "rev": "799466b12f8332847f3193d369a2568dd20e7ac5",
         "type": "github"
       },
       "original": {
         "owner": "4JX",
-        "ref": "gtk4-ding68",
+        "ref": "gtk4-ding70",
         "repo": "nixpkgs",
         "type": "github"
       }
