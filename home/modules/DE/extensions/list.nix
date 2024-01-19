@@ -182,7 +182,16 @@ with pkgs.gnomeExtensions; [
 
   {
     # package = gtk4-desktop-icons-ng-ding;
-    package = ding;
+    package = ((ding.override { version = "70"; sha256 = "sha256-EI1AOXfXHbYWsjJoHwLZDtsTawu7TJYYG2ozd6rUEdA="; }).overrideAttrs (old:
+      {
+        # Get rid of the metadata replacement, maybe?
+        src = pkgs.fetchzip {
+          url = old.src.url;
+          hash = old.src.outputHash;
+          stripRoot = false;
+        };
+      }
+    ));
     disable = true;
     dconfSettings = { };
   }
