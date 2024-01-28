@@ -38,4 +38,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   # powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  # Update the value from nixos-hardware since this is a laptop with 2 drives
+  hardware.nvidia.prime.amdgpuBusId = "PCI:6:0:0";
 }
