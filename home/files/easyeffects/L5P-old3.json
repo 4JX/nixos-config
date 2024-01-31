@@ -1,22 +1,21 @@
 {
     "output": {
         "bass_enhancer#0": {
-            "amount": 20.0,
+            "amount": 24.0,
             "blend": 0.0,
             "bypass": false,
-            "floor": 100.0,
+            "floor": 10.0,
             "floor-active": true,
-            "harmonics": 8.0,
+            "harmonics": 9.999999999999995,
             "input-gain": 0.0,
             "output-gain": -8.0,
-            "scope": 250.0
+            "scope": 200.0
         },
         "blocklist": [],
         "filter#0": {
             "balance": 0.0,
             "bypass": false,
-            "equal-mode": "IIR",
-            "frequency": 80.0,
+            "frequency": 120.0,
             "gain": 0.0,
             "input-gain": 0.0,
             "mode": "RLC (BT)",
@@ -70,8 +69,7 @@
                 "sidechain-preamp": 0.0,
                 "sidechain-reactivity": 10.0,
                 "sidechain-source": "Middle",
-                "solo": false,
-                "stereo-split-source": "Left/Right"
+                "solo": false
             },
             "band1": {
                 "attack-threshold": -24.0,
@@ -98,8 +96,7 @@
                 "sidechain-reactivity": 10.0,
                 "sidechain-source": "Middle",
                 "solo": false,
-                "split-frequency": 250.0,
-                "stereo-split-source": "Left/Right"
+                "split-frequency": 250.0
             },
             "band2": {
                 "attack-threshold": -24.0,
@@ -126,8 +123,7 @@
                 "sidechain-reactivity": 10.0,
                 "sidechain-source": "Middle",
                 "solo": false,
-                "split-frequency": 1250.0,
-                "stereo-split-source": "Left/Right"
+                "split-frequency": 1250.0
             },
             "band3": {
                 "attack-threshold": -24.0,
@@ -154,8 +150,7 @@
                 "sidechain-reactivity": 10.0,
                 "sidechain-source": "Middle",
                 "solo": false,
-                "split-frequency": 5000.0,
-                "stereo-split-source": "Left/Right"
+                "split-frequency": 5000.0
             },
             "band4": {
                 "attack-threshold": -12.0,
@@ -182,8 +177,7 @@
                 "sidechain-reactivity": 10.0,
                 "sidechain-source": "Middle",
                 "solo": false,
-                "split-frequency": 4000.0,
-                "stereo-split-source": "Left/Right"
+                "split-frequency": 4000.0
             },
             "band5": {
                 "attack-threshold": -12.0,
@@ -210,8 +204,7 @@
                 "sidechain-reactivity": 10.0,
                 "sidechain-source": "Middle",
                 "solo": false,
-                "split-frequency": 8000.0,
-                "stereo-split-source": "Left/Right"
+                "split-frequency": 8000.0
             },
             "band6": {
                 "attack-threshold": -12.0,
@@ -238,8 +231,7 @@
                 "sidechain-reactivity": 10.0,
                 "sidechain-source": "Middle",
                 "solo": false,
-                "split-frequency": 12000.0,
-                "stereo-split-source": "Left/Right"
+                "split-frequency": 12000.0
             },
             "band7": {
                 "attack-threshold": -12.0,
@@ -266,8 +258,7 @@
                 "sidechain-reactivity": 10.0,
                 "sidechain-source": "Middle",
                 "solo": false,
-                "split-frequency": 16000.0,
-                "stereo-split-source": "Left/Right"
+                "split-frequency": 16000.0
             },
             "bypass": false,
             "compressor-mode": "Modern",
@@ -275,7 +266,6 @@
             "envelope-boost": "None",
             "input-gain": 0.0,
             "output-gain": 0.0,
-            "stereo-split": false,
             "wet": 0.0
         },
         "plugins_order": [
@@ -303,7 +293,7 @@
             "side-balance": 0.0,
             "side-level": 0.0,
             "softclip": false,
-            "stereo-base": 0.3,
+            "stereo-base": 0.2,
             "stereo-phase": 0.0
         }
     }
