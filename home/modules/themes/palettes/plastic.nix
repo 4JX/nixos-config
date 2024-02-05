@@ -3,7 +3,7 @@
     slug = "plastic";
     name = "Plastic";
     author = "Will Stone (https://github.com/will-stone/plastic)";
-    colors = {
+    palette = {
       # Black
       base00 = "#181A1F";
       base08 = "#5F6672";

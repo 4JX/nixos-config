@@ -13,12 +13,13 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-ding.url = "github:4JX/nixpkgs/gtk4-ding70";
+    # nixpkgs.url = "github:4JX/nixpkgs/gnome-extensions-update";
+    nixpkgs-ding.url = "github:4JX/nixpkgs/gnome-extensions-update";
 
     # nixos-hardware.url = "github:nixos/nixos-hardware";
     # TODO: Properly fix the failing config build
-    # nixos-hardware.url = "github:4JX/nixos-hardware/edid";
-    nixos-hardware.url = "github:4JX/nixos-hardware/fixup";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    # nixos-hardware.url = "github:4JX/nixos-hardware/fixup";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";

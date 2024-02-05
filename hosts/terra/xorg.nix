@@ -9,7 +9,7 @@
     enable = true;
 
     # Configure keymap in X11
-    layout = "es";
+    xkb.layout = "es";
 
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
