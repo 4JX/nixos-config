@@ -8,5 +8,5 @@
     ./qt.nix
   ];
 
-  inherit ((import ./palletes/plastic.nix)) colorScheme;
+  inherit ((import ./palettes/plastic.nix)) colorScheme;
 }

@@ -181,17 +181,18 @@ with pkgs.gnomeExtensions; [
   }
 
   {
-    # package = gtk4-desktop-icons-ng-ding;
-    package = ((ding.override { version = "70"; sha256 = "sha256-EI1AOXfXHbYWsjJoHwLZDtsTawu7TJYYG2ozd6rUEdA="; }).overrideAttrs (old:
-      {
-        # Get rid of the metadata replacement, maybe?
-        src = pkgs.fetchzip {
-          url = old.src.url;
-          hash = old.src.outputHash;
-          stripRoot = false;
-        };
-      }
-    ));
+    package = gtk4-desktop-icons-ng-ding;
+    # package = ding;
+    # package = ((ding.override { version = "70"; sha256 = "sha256-EI1AOXfXHbYWsjJoHwLZDtsTawu7TJYYG2ozd6rUEdA="; }).overrideAttrs (old:
+    #   {
+    #     # Get rid of the metadata replacement, maybe?
+    #     src = pkgs.fetchzip {
+    #       url = old.src.url;
+    #       hash = old.src.outputHash;
+    #       stripRoot = false;
+    #     };
+    #   }
+    # ));
     disable = true;
     dconfSettings = { };
   }
@@ -265,4 +266,14 @@ with pkgs.gnomeExtensions; [
       mouse-actions = [ "toggle_info" "toggle_menu" "raise" "none" "none" "none" "none" "none" ];
     };
   }
+
+  {
+    package = task-widget;
+    dconfSettings = { };
+  }
+
+  # {
+  #   package = systemd-manager;
+  #   dconfSettings = { };
+  # }
 ]
