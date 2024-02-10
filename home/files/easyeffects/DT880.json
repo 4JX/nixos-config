@@ -3,13 +3,13 @@
         "bass_enhancer#0": {
             "amount": 0.0,
             "blend": 0.0,
-            "bypass": true,
+            "bypass": false,
             "floor": 10.0,
-            "floor-active": true,
+            "floor-active": false,
             "harmonics": 10.0,
             "input-gain": 0.0,
             "output-gain": 0.0,
-            "scope": 160.0
+            "scope": 180.0
         },
         "blocklist": [],
         "equalizer#0": {

@@ -10,7 +10,6 @@
 # assert versionReminder pkgs.gnomeExtensions.muteunmute "11";
 
 let
-  ding = inputs.nixpkgs-ding.legacyPackages.${pkgs.system}.gnomeExtensions.gtk4-desktop-icons-ng-ding;
   inherit (lib.hm.gvariant) mkTuple;
   # fixMetadata = pkg: sha256: (pkg.overrideAttrs (old: {
   #   # Replace the metadata back to its original one
@@ -182,17 +181,6 @@ with pkgs.gnomeExtensions; [
 
   {
     package = gtk4-desktop-icons-ng-ding;
-    # package = ding;
-    # package = ((ding.override { version = "70"; sha256 = "sha256-EI1AOXfXHbYWsjJoHwLZDtsTawu7TJYYG2ozd6rUEdA="; }).overrideAttrs (old:
-    #   {
-    #     # Get rid of the metadata replacement, maybe?
-    #     src = pkgs.fetchzip {
-    #       url = old.src.url;
-    #       hash = old.src.outputHash;
-    #       stripRoot = false;
-    #     };
-    #   }
-    # ));
     disable = true;
     dconfSettings = { };
   }
@@ -271,9 +259,4 @@ with pkgs.gnomeExtensions; [
     package = task-widget;
     dconfSettings = { };
   }
-
-  # {
-  #   package = systemd-manager;
-  #   dconfSettings = { };
-  # }
 ]
