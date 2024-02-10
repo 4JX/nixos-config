@@ -14,10 +14,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:4JX/nixpkgs/gnome-extensions-update";
-    nixpkgs-ding.url = "github:4JX/nixpkgs/gnome-extensions-update";
 
     # nixos-hardware.url = "github:nixos/nixos-hardware";
-    # TODO: Properly fix the failing config build
     nixos-hardware.url = "github:nixos/nixos-hardware";
     # nixos-hardware.url = "github:4JX/nixos-hardware/fixup";
 

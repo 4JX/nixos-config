@@ -96,11 +96,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707114923,
-        "narHash": "sha256-LDYPWa+BgxHSNEye93SyIPgz5u3RAfh78P9KyO+rQzI=",
+        "lastModified": 1707605127,
+        "narHash": "sha256-H9IVX1ou6MugdLG7pDDc++UfFCvHUjdADpwvyFN4sh8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "afcedcf2c8e424d0465e823cf833eb3adebe1db7",
+        "rev": "d1d6ca9b6552fc93032b76661c83061f1cd4e6e8",
         "type": "github"
       },
       "original": {
@@ -119,11 +119,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1707142088,
-        "narHash": "sha256-kyZNkkhLLuhqUIuLPaOUxVRH7IS9IDpijhW0nkEWEW4=",
+        "lastModified": 1707586793,
+        "narHash": "sha256-Vdf5QGzkZe6UUdVZ80YT78id7Yw5ww9Fku0rEyPAkCg=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "f9202f791e3690ad248c842158ee9fa9e1105ea6",
+        "rev": "e4bb5fa4af1a6c36aab1c28651b5403dc4952f93",
         "type": "github"
       },
       "original": {
@@ -235,11 +235,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1703975527,
-        "narHash": "sha256-nyYINGAdv1WaN1DWyu06c7Uxqxf/+qeisTbvio3OJOM=",
+        "lastModified": 1707603098,
+        "narHash": "sha256-4TePWAAvAv99Ju+Oi9Y+fPi+1n5Ida/bqHuJZBXQxu4=",
         "owner": "4JX",
         "repo": "L5P-Keyboard-RGB",
-        "rev": "b191604331261e44f8a54696ef704960426e37ae",
+        "rev": "6356a244d6d71df6913420f236d2aeaa1ca19b28",
         "type": "github"
       },
       "original": {
@@ -277,11 +277,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707095568,
-        "narHash": "sha256-6zZifK7cs9eWiC+3MQvlMsq2JeyH7hPSP0qZ6sTny68=",
+        "lastModified": 1707555870,
+        "narHash": "sha256-HdlhkqyAfCCMszVAn9zW2FxgC8vvehpqo5qcG/MHpmY=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "9bde4efca9e4750ed691520d68c4c6eb308015e7",
+        "rev": "c913bc4a71b0cd785734b25afc38b3faa15fa8c4",
         "type": "github"
       },
       "original": {
@@ -292,11 +292,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1706834982,
-        "narHash": "sha256-3CfxA7gZ+DVv/N9Pvw61bV5Oe/mWfxYPyVQGqp9TMJA=",
+        "lastModified": 1707211557,
+        "narHash": "sha256-LTKTzZ6fM5j8XWXf51IMBzDaOaJg9kYWLUZxoIhzRN8=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "83e571bb291161682b9c3ccd48318f115143a550",
+        "rev": "6e5cc385fc8cf5ca6495d70243074ccdea9f64c7",
         "type": "github"
       },
       "original": {
@@ -321,22 +321,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-ding": {
-      "locked": {
-        "lastModified": 1706897609,
-        "narHash": "sha256-XXPW1aMEWBVD7SWIFRVFPtFK/HvcrnMNNTi+ypTAhtI=",
-        "owner": "4JX",
-        "repo": "nixpkgs",
-        "rev": "59885a1059f89bd33b827781a805fe23f0691344",
-        "type": "github"
-      },
-      "original": {
-        "owner": "4JX",
-        "ref": "gnome-extensions-update",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -357,11 +341,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1706913249,
-        "narHash": "sha256-x3M7iV++CsvRXI1fpyFPduGELUckZEhSv0XWnUopAG8=",
+        "lastModified": 1707268954,
+        "narHash": "sha256-2en1kvde3cJVc3ZnTy8QeD2oKcseLFjYPLKhIGDanQ0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e92b6015881907e698782c77641aa49298330223",
+        "rev": "f8e2ebd66d097614d51a56a755450d4ae1632df1",
         "type": "github"
       },
       "original": {
@@ -395,11 +379,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1707142490,
-        "narHash": "sha256-sib8Y9YotNCiUwjU8D8NpsQ8FNsXHygfe0eJ89OXi04=",
+        "lastModified": 1707598987,
+        "narHash": "sha256-5xMH7acOtevXtC1vWth+RSw4ZpLOP9sDscrgY+/6eEI=",
         "owner": "wamserma",
         "repo": "flake-programs-sqlite",
-        "rev": "1e2956f55f384a93a48fc5adfdf692d99a649b06",
+        "rev": "4ca5fb00cc175f3eb710ae2bed04e258102b2353",
         "type": "github"
       },
       "original": {
@@ -418,7 +402,6 @@
         "nix-gaming": "nix-gaming",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-ding": "nixpkgs-ding",
         "programsdb": "programsdb",
         "xdg-portal-hyprland": "xdg-portal-hyprland"
       }
