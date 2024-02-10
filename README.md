@@ -63,12 +63,20 @@ When using enable = true in both nixpkgs and home-manager zsh slows down a bunch
 ### Fix home-manager's home.sessionVariables not being sourced on DE's
 
 <https://rycee.gitlab.io/home-manager/index.html#_why_are_the_session_variables_not_set>
+
 <https://github.com/hpfr/system/blob/a108a5ebf3ffcee75565176243936de6fd736142/profiles/system/base.nix#L12-L16>
+
 <https://github.com/nix-community/home-manager/issues/1011>
 
 ### Command-not-found prompt + flakes
 
 <https://blog.nobbz.dev/2023-02-27-nixos-flakes-command-not-found/>
+
+### Microsoft fonts
+
+For when you want to sell your soul to the devil
+
+<https://github.com/spikespaz/dotfiles/tree/eedd610fc2125567e7f7bd7471042ab7e24efe97/packages/ttf-ms-win11>
 
 ## _Non Nix specific_
 
