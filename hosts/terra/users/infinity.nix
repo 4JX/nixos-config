@@ -60,7 +60,7 @@
               type = "staggered";
               params = {
                 cleanInterval = "3600";
-                maxAge = "15768000";
+                maxAge = "31536000";
               };
             };
           };
@@ -71,7 +71,7 @@
             versioning = {
               type = "simple";
               params = {
-                keep = "3";
+                keep = "10";
               };
             };
             type = "receiveonly";
