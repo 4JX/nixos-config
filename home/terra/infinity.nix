@@ -83,5 +83,6 @@ in
     # Adds legion_cli legion_gui to PATH
     lenovo-legion
     endeavour # TODO app that integrates with the GNOME todo extension
+    josm
   ];
 }
