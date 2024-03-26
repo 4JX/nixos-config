@@ -1,7 +1,7 @@
 { pkgs, config, ... }: {
   # Use the grub bootloader.
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_5;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_7;
     blacklistedKernelModules = [ "nouveau" ];
     # extraModulePackages = with config.boot.kernelPackages; [ lenovo-legion-module ];
 
