@@ -34,7 +34,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "A free and open-source application firewall that does the heavy lifting for you";
     homepage = "https://safing.io";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     maintainers = with maintainers; [ urandom ];
   };
 }

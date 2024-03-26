@@ -5,7 +5,7 @@
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
 
     # https://github.com/nix-community/home-manager/issues/3965
     # https://github.com/NixOS/nixpkgs/blob/fd40cef8d797670e203a27a91e4b8e6decf0b90c/nixos/modules/programs/zsh/zsh.nix#L149-L160
