@@ -83,6 +83,33 @@ in
     # Adds legion_cli legion_gui to PATH
     lenovo-legion
     endeavour # TODO app that integrates with the GNOME todo extension
+
+    # JOSM
     josm
+    # JOSM Catastro
+    ((josm.overrideAttrs (old: {
+      name = "${old.pname}-catastro-${old.version}";
+
+      # Direct replacement wont work because of mkWrapper
+      # -e 's/Exec=josm %U/Exec=env JAVA_OPTS="-Djosm.home=JOSM-catastro" josm %U/' \
+      # chmod +w $out/share/applications
+      installPhase = ''
+        ${old.installPhase}
+
+        mv $out/bin/josm $out/bin/josm-catastro
+
+        chmod +w $out/share/applications
+        mv $out/share/applications/org.openstreetmap.josm.desktop $out/share/applications/org.openstreetmap.josm-catastro.desktop
+        sed -e 's/Name=JOSM/Name=JOSM Catastro/' \
+            -e 's/Exec=josm %U/Exec=josm-catastro %U/' \
+            $out/share/applications/org.openstreetmap.josm-catastro.desktop -i
+      '';
+    })).override {
+      # First two are from the package
+      extraJavaOpts = "-Djosm.restart=true -Djava.net.useSystemProxies=true -Djosm.home=JOSM-catastro";
+    })
+
+    fractal
+    filelight
   ];
 }
