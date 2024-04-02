@@ -64,9 +64,21 @@
               };
             };
           };
-          "Phone" = {
+          "LMI Phone" = {
             id = "ayfdf-jbgsg";
             path = "/home/${user}/Documents/Phone/lmi/Backups/Syncthing";
+            devices = [ "Phone" ];
+            versioning = {
+              type = "simple";
+              params = {
+                keep = "10";
+              };
+            };
+            type = "receiveonly";
+          };
+          "LMI Whatsapp" = {
+            id = "78hku-rwy3n";
+            path = "/home/${user}/Documents/Phone/lmi/Backups/Syncthing_Whatsapp";
             devices = [ "Phone" ];
             versioning = {
               type = "simple";
