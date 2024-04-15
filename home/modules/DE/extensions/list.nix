@@ -10,7 +10,7 @@
 # assert versionReminder pkgs.gnomeExtensions.muteunmute "11";
 
 let
-  inherit (lib.hm.gvariant) mkTuple;
+  inherit (lib.hm.gvariant) mkTuple mkUint32;
   # fixMetadata = pkg: sha256: (pkg.overrideAttrs (old: {
   #   # Replace the metadata back to its original one
   #   # To be used as
@@ -34,16 +34,18 @@ let
   #     '';
   # }));
 in
-with pkgs.gnomeExtensions; [
+with lib.warn "Remove extension source overrides https://nixpk.gs/pr-tracker.html?pr=304245" pkgs.gnomeExtensions; [
   {
-    package = user-themes;
+    package = pkgs.gnome45Extensions."user-theme@gnome-shell-extensions.gcampax.github.com";
+    # package = user-themes;
     dconfSettings = {
       name = "MonoThemeDark";
     };
   }
 
   {
-    package = dash-to-panel;
+    package = pkgs.gnome45Extensions."dash-to-panel@jderose9.github.com";
+    # package = dash-to-panel;
     dconfSettings = {
       panel-element-positions = ''
         {
@@ -79,7 +81,8 @@ with pkgs.gnomeExtensions; [
   }
 
   {
-    package = space-bar;
+    package = pkgs.gnome45Extensions."space-bar@luchrioh";
+    # package = space-bar;
     dconfSettings = { };
   }
 
@@ -110,14 +113,20 @@ with pkgs.gnomeExtensions; [
   }
 
   {
-    package = blur-my-shell;
+    package = pkgs.gnome45Extensions."blur-my-shell@aunetx";
+    # package = blur-my-shell;
     dconfSettings = {
       "panel/static-blur" = true;
     };
   }
 
   {
-    package = (tray-icons-reloaded.overrideAttrs (old: {
+    # package = (tray-icons-reloaded.overrideAttrs (old: {
+    #   postPatch = ''
+    #     substituteInPlace "AppManager.js" --replace "/bin/bash" "${pkgs.bash}/bin/bash"
+    #   '';
+    # }));
+    package = (pkgs.gnome45Extensions."trayIconsReloaded@selfmade.pl".overrideAttrs (old: {
       postPatch = ''
         substituteInPlace "AppManager.js" --replace "/bin/bash" "${pkgs.bash}/bin/bash"
       '';
@@ -206,7 +215,8 @@ with pkgs.gnomeExtensions; [
   }
 
   {
-    package = removable-drive-menu;
+    package = pkgs.gnome45Extensions."drive-menu@gnome-shell-extensions.gcampax.github.com";
+    # package = removable-drive-menu;
     dconfSettings = { };
   }
 
@@ -232,7 +242,8 @@ with pkgs.gnomeExtensions; [
   }
 
   {
-    package = quick-settings-audio-panel;
+    package = pkgs.gnome45Extensions."quick-settings-audio-panel@rayzeq.github.io";
+    # package = quick-settings-audio-panel;
     dconfSettings = { };
   }
 
@@ -246,12 +257,18 @@ with pkgs.gnomeExtensions; [
   {
     package = media-controls;
     dconfSettings = {
-      show-seperators = false;
-      show-seek-back = false;
-      show-seek-forward = false;
-      show-sources-menu = false;
+      label-width = mkUint32 200;
+      show-control-icons-seek-backward = false;
+      show-control-icons-seek-forward = false;
+
       extension-position = "right";
-      mouse-actions = [ "toggle_info" "toggle_menu" "raise" "none" "none" "none" "none" "none" ];
+      # After tray icons, before whatever else(?)
+      extension-index = mkUint32 4;
+
+      # Double click to skip song
+      mouse-action-double = "NEXT_TRACK";
+      mouse-action-scroll-up = "NONE";
+      mouse-action-scroll-down = "NONE";
     };
   }
 

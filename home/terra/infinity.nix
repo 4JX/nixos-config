@@ -59,7 +59,7 @@ in
     spotify
     ark
     gh # Github CLI
-    jetbrains.clion
+    # jetbrains.clion # FIXME: https://github.com/NixOS/nixpkgs/pull/304223
     android-studio
     # handbrake
     vokoscreen-ng

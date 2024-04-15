@@ -13,7 +13,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:4JX/nixpkgs/gnome-extensions-update";
+    # nixpkgs.url = "github:4JX/nixpkgs/nixos-unstable-edid";
 
     # nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-hardware.url = "github:nixos/nixos-hardware";
