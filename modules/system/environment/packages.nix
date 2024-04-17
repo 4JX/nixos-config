@@ -18,8 +18,7 @@
     (inxi.override
       { withRecommends = true; }) # inxi -Fazy
     ripgrep # Faster grep
-    # FIXME: https://github.com/NixOS/nixpkgs/issues/250306
-    # ripgrep-all # Wrapper around ripgrep for convenience universal searching across a ton of filetypes
+    ripgrep-all # Wrapper around ripgrep for convenience universal searching across a ton of filetypes
     fd # Better find
     exiftool # Metadata about various files
 
