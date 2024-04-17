@@ -48,12 +48,6 @@ Specifically not finding other apps:
 
 <https://github.com/avih/dejsonlz4>
 
-### Flatpak access to fonts
-
-<https://github.com/NixOS/nixpkgs/issues/119433>
-
-<https://github.com/accelbread/config-flake/blob/744196b43b93626025e5a2789c8700a5ec371aad/nix/nixosModules/bind-fonts-icons.nix#L9>
-
 ### ZSH is slow to start
 
 When using enable = true in both nixpkgs and home-manager zsh slows down a bunch due to duplicate calls to `compinit`
@@ -77,6 +71,16 @@ When using enable = true in both nixpkgs and home-manager zsh slows down a bunch
 For when you want to sell your soul to the devil
 
 <https://github.com/spikespaz/dotfiles/tree/eedd610fc2125567e7f7bd7471042ab7e24efe97/packages/ttf-ms-win11>
+
+## Old
+
+These are probably not relevant anymore due to updates/fixes, but keep them just in case
+
+### Flatpak access to fonts
+
+<https://github.com/NixOS/nixpkgs/issues/119433>
+
+<https://github.com/accelbread/config-flake/blob/744196b43b93626025e5a2789c8700a5ec371aad/nix/nixosModules/bind-fonts-icons.nix#L9>
 
 ## _Non Nix specific_
 
