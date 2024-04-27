@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -24,7 +24,15 @@
 
   services = {
     # Enable CUPS to print documents.
-    printing.enable = true;
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        # cups-brother-hl3140cw
+        # brlaser
+        # (pkgs.callPackage ./brother.nix { })
+      ];
+
+    };
 
     postgresql = {
       enable = true;

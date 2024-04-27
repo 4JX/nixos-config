@@ -14,7 +14,7 @@
     cmake
     gcc
     efibootmgr
-    nvtopPackages.full
+    # nvtopPackages.full
     (inxi.override
       { withRecommends = true; }) # inxi -Fazy
     ripgrep # Faster grep
