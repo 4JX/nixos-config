@@ -34,18 +34,18 @@ let
   #     '';
   # }));
 in
-with lib.warn "Remove extension source overrides https://nixpk.gs/pr-tracker.html?pr=304245" pkgs.gnomeExtensions; [
+with pkgs.gnomeExtensions; [
   {
-    package = pkgs.gnome45Extensions."user-theme@gnome-shell-extensions.gcampax.github.com";
-    # package = user-themes;
+    # package = pkgs.gnome45Extensions."user-theme@gnome-shell-extensions.gcampax.github.com";
+    package = user-themes;
     dconfSettings = {
       name = "MonoThemeDark";
     };
   }
 
   {
-    package = pkgs.gnome45Extensions."dash-to-panel@jderose9.github.com";
-    # package = dash-to-panel;
+    # package = pkgs.gnome45Extensions."dash-to-panel@jderose9.github.com";
+    package = dash-to-panel;
     dconfSettings = {
       panel-element-positions = ''
         {
@@ -81,8 +81,8 @@ with lib.warn "Remove extension source overrides https://nixpk.gs/pr-tracker.htm
   }
 
   {
-    package = pkgs.gnome45Extensions."space-bar@luchrioh";
-    # package = space-bar;
+    # package = pkgs.gnome45Extensions."space-bar@luchrioh";
+    package = space-bar;
     dconfSettings = { };
   }
 
@@ -113,24 +113,24 @@ with lib.warn "Remove extension source overrides https://nixpk.gs/pr-tracker.htm
   }
 
   {
-    package = pkgs.gnome45Extensions."blur-my-shell@aunetx";
-    # package = blur-my-shell;
+    # package = pkgs.gnome45Extensions."blur-my-shell@aunetx";
+    package = blur-my-shell;
     dconfSettings = {
       "panel/static-blur" = true;
     };
   }
 
   {
-    # package = (tray-icons-reloaded.overrideAttrs (old: {
-    #   postPatch = ''
-    #     substituteInPlace "AppManager.js" --replace "/bin/bash" "${pkgs.bash}/bin/bash"
-    #   '';
-    # }));
-    package = (pkgs.gnome45Extensions."trayIconsReloaded@selfmade.pl".overrideAttrs (old: {
+    package = (tray-icons-reloaded.overrideAttrs (old: {
       postPatch = ''
         substituteInPlace "AppManager.js" --replace "/bin/bash" "${pkgs.bash}/bin/bash"
       '';
     }));
+    # package = (pkgs.gnome45Extensions."trayIconsReloaded@selfmade.pl".overrideAttrs (old: {
+    #   postPatch = ''
+    #     substituteInPlace "AppManager.js" --replace "/bin/bash" "${pkgs.bash}/bin/bash"
+    #   '';
+    # }));
     dconfSettings = {
       icon-size = 22;
       # Make the icons be close together while using Dash to Dock
@@ -215,8 +215,8 @@ with lib.warn "Remove extension source overrides https://nixpk.gs/pr-tracker.htm
   }
 
   {
-    package = pkgs.gnome45Extensions."drive-menu@gnome-shell-extensions.gcampax.github.com";
-    # package = removable-drive-menu;
+    # package = pkgs.gnome45Extensions."drive-menu@gnome-shell-extensions.gcampax.github.com";
+    package = removable-drive-menu;
     dconfSettings = { };
   }
 
@@ -242,8 +242,8 @@ with lib.warn "Remove extension source overrides https://nixpk.gs/pr-tracker.htm
   }
 
   {
-    package = pkgs.gnome45Extensions."quick-settings-audio-panel@rayzeq.github.io";
-    # package = quick-settings-audio-panel;
+    # package = pkgs.gnome45Extensions."quick-settings-audio-panel@rayzeq.github.io";
+    package = quick-settings-audio-panel;
     dconfSettings = { };
   }
 

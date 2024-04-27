@@ -12,11 +12,12 @@ in
       "android-studio-stable"
       "obsidian"
       "nvidia-x11"
-      "cudatoolkit"
+      # "cudatoolkit"
       "nvidia-settings"
       "steam"
       "steam-original"
       "steam-run"
+      "cups-brother-hl3140cw-1.1.4-0"
     ];
 
     DM = {
@@ -25,7 +26,7 @@ in
       gdm.enable = true;
     };
     DE.gnome.enable = true;
-    WM.hyprland.enable = true;
+    # WM.hyprland.enable = true;
 
     system = {
       sound.enable = true;
