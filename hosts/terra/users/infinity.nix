@@ -47,15 +47,18 @@
 
       settings = {
         devices = {
-          "Phone" = {
+          "POCO F2" = {
             id = "HBDDQGH-L3HLJKF-CPJTNNR-C5JEULN-JSBNQUQ-UH7FPOO-NQRCPXC-GXJDJAT";
+          };
+          "POCO F6" = {
+            id = "APT4BNW-Z3XOPOO-FF5FHPJ-YP2KU7V-RW4CP6C-ACN7TJJ-OWY4GL6-65JRZAK";
           };
         };
         folders = {
           "Keepass DB" = {
             id = "Keepass DB";
             path = "/home/${user}/Documents/Keepass DB";
-            devices = [ "Phone" ];
+            devices = [ "POCO F2" ];
             versioning = {
               type = "staggered";
               params = {
@@ -67,7 +70,7 @@
           "LMI Phone" = {
             id = "ayfdf-jbgsg";
             path = "/home/${user}/Documents/Phone/lmi/Backups/Syncthing";
-            devices = [ "Phone" ];
+            devices = [ "POCO F2" ];
             versioning = {
               type = "simple";
               params = {
@@ -79,7 +82,7 @@
           "LMI Whatsapp" = {
             id = "78hku-rwy3n";
             path = "/home/${user}/Documents/Phone/lmi/Backups/Syncthing_Whatsapp";
-            devices = [ "Phone" ];
+            devices = [ "POCO F2" ];
             versioning = {
               type = "simple";
               params = {

@@ -75,7 +75,7 @@ in
     figma-linux
     quassel
     p.portmaster
-    dbeaver
+    dbeaver-bin
     libsForQt5.okular
     qbittorrent
     openrgb
