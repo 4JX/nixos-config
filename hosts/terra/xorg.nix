@@ -8,14 +8,16 @@
   services = {
     displayManager.defaultSession = "gnome";
 
+    # Enable touchpad support (enabled default in most desktopManager).
+    libinput.enable = true;
+
     xserver = {
       enable = true;
 
       # Configure keymap in X11
       xkb.layout = "es";
 
-      # Enable touchpad support (enabled default in most desktopManager).
-      libinput.enable = true;
+
 
       # Enable KDE
       desktopManager.plasma5.enable = true;
