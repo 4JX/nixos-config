@@ -11,11 +11,18 @@ let
       package = pkgs.tela-circle-icon-theme;
     };
 
+    # theme = rec {
+    #   name = "MonoThemeDark";
+    #   package = p.mono-gtk-theme;
+    #   themePath = package + /share/themes/MonoThemeDark/gtk-4.0;
+    #   themePath3 = p.mono-gtk-theme + /share/themes/MonoThemeDark/gtk-3.0;
+    # };
+
     theme = rec {
-      name = "MonoThemeDark";
-      package = p.mono-gtk-theme;
-      themePath = package + /share/themes/MonoThemeDark/gtk-4.0;
-      themePath3 = p.mono-gtk-theme + /share/themes/MonoThemeDark/gtk-3.0;
+      name = "Adwaita-dark";
+      package = pkgs.gnome.gnome-themes-extra;
+      themePath = package + /share/themes/Adwaita-dark/gtk-4.0;
+      themePath3 = package + /share/themes/Adwaita-dark/gtk-3.0;
     };
 
     # theme = rec {
@@ -38,32 +45,13 @@ in
       themePath = cfg.gtk.theme.themePath;
       themePath3 = cfg.gtk.theme.themePath3;
     in
-    lib.warn "Await GNOME 45 fix https://github.com/witalihirsch/Mono-gtk-theme/issues/51" {
-      "gtk-4.0/gtk.css".text = builtins.concatStringsSep "\n" [
-        (builtins.readFile "${themePath}/gtk.css")
-        # Intuition would tell me that this file needs the *light* background, but alas it is not the case
-        ''
-          /* Temp workaround */
-          .nautilus-window .content-pane,
-          .nautilus-window .sidebar-pane {
-              background-color: #252525;
-          }
-        ''
-      ];
-      "gtk-4.0/gtk-dark.css".text = builtins.concatStringsSep "\n" [
-        (builtins.readFile "${themePath}/gtk-dark.css")
-        ''
-          /* Temp workaround */
-          .nautilus-window .content-pane,
-          .nautilus-window .sidebar-pane {
-              background-color: #f0f0f0;
-          }
-        ''
-      ];
-      "gtk-4.0/assets".source = "${themePath}/assets";
+    {
+      # "gtk-4.0/gtk.css".source = "${themePath}/gtk.css";
+      # "gtk-4.0/gtk-dark.css".source = "${themePath}/gtk-dark.css";
+      # "gtk-4.0/assets".source = "${themePath}/assets";
       "gtk-3.0/gtk.css".source = "${themePath3}/gtk.css";
-      "gtk-3.0/gkt-dark.css".source = "${themePath3}/gkt-dark.css";
-      "gtk-3.0/assets".source = "${themePath3}/assets";
+      # "gtk-3.0/gkt-dark.css".source = "${themePath3}/gkt-dark.css";
+      # "gtk-3.0/assets".source = "${themePath3}/assets";
     };
 
 
@@ -76,7 +64,7 @@ in
 
     sessionVariables = {
       # Set GTK theme to the name specified by the gtk theme package
-      GTK_THEME = "${cfg.gtk.theme.name}";
+      # GTK_THEME = "${cfg.gtk.theme.name}";
 
       # GTK applications should use filepickers specified by xdg
       # Or maybe not  # https://github.com/NixOS/nixpkgs/commit/ebde08adf37932ff59c27b5935840aa733965bdb
