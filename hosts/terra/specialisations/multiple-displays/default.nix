@@ -27,9 +27,9 @@
       };
     };
 
-    # These options are nixos-hardware specific, not from nixpkgs
     amdgpu = {
-      amdvlk = false;
+      amdvlk.enable = false;
+      # This option is nixos-hardware specific, not from nixpkgs
       opencl = false;
     };
   };
