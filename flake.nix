@@ -12,8 +12,8 @@
     });
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:4JX/nixpkgs/nixos-unstable-edid2";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:4JX/nixpkgs/nixos-unstable-edid2";
     # nixpkgs.url = "github:4JX/nixpkgs/nixos-unstable-edid";
 
     # nixos-hardware.url = "github:nixos/nixos-hardware";
