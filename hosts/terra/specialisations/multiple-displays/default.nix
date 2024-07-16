@@ -12,7 +12,7 @@
     videoDrivers = lib.mkForce [ "nvidia" ];
   };
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   hardware = {
     nvidia = {
       powerManagement.enable = lib.mkForce false;
@@ -29,8 +29,7 @@
 
     amdgpu = {
       amdvlk.enable = false;
-      # This option is nixos-hardware specific, not from nixpkgs
-      opencl = false;
+      opencl.enable = false;
     };
   };
 }

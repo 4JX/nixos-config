@@ -20,19 +20,19 @@ in
       epiphany # Web
       gnome-tour
       gnome-console
+      yelp # Gnome help stuff
     ]) ++ (with pkgs.gnome; [
       gnome-music
       gnome-characters
-      yelp # Gnome help stuff
       gnome-contacts
       gnome-shell-extensions # Superseded by gnome-extension-manager, not actually doing anything
       gnome-software # Software store, useless in NixOS
     ]);
 
     environment.systemPackages = with pkgs; [
-      gnome.gnome-tweaks
+      gnome-tweaks
       dconf2nix
-      gnome.dconf-editor
+      dconf-editor
       gnome-extension-manager
       dconf2nix
       # (gnomeExtensions.gtk4-desktop-icons-ng-ding.overrideAttrs (_: {

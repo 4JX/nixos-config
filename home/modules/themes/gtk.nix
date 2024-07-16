@@ -20,7 +20,7 @@ let
 
     theme = rec {
       name = "Adwaita-dark";
-      package = pkgs.gnome.gnome-themes-extra;
+      package = pkgs.gnome-themes-extra;
       themePath = package + /share/themes/Adwaita-dark/gtk-4.0;
       themePath3 = package + /share/themes/Adwaita-dark/gtk-3.0;
     };
