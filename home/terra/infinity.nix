@@ -111,5 +111,7 @@ in
 
     fractal
     filelight
+
+    pinta # paint.net but linux? Not as complex as GIMP
   ];
 }

@@ -11,21 +11,20 @@
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
 
+
+    # Enable KDE
+    desktopManager.plasma6.enable = true;
+
     xserver = {
       enable = true;
 
       # Configure keymap in X11
       xkb.layout = "es";
-
-
-
-      # Enable KDE
-      desktopManager.plasma5.enable = true;
     };
   };
 
   # Conflict between KDE and GNOME
-  programs.ssh.askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+  programs.ssh.askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
 
   # Disabled from loading in nixos-hardware but not put anywhere afterwards
   # boot.kernelModules = [ "amdgpu" ];
