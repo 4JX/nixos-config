@@ -71,7 +71,7 @@ in
     obsidian
     node2nix
     cyberchef
-    element-desktop
+    # element-desktop # fails via insecure jitsi-meet-1.0.8043
     figma-linux
     quassel
     p.portmaster
@@ -113,5 +113,6 @@ in
     filelight
 
     pinta # paint.net but linux? Not as complex as GIMP
+    modrinth-app
   ];
 }

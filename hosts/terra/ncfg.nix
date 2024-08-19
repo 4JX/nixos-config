@@ -18,6 +18,8 @@ in
       "steam-original"
       "steam-run"
       "cups-brother-hl3140cw-1.1.4-0"
+      "modrinth-app"
+      "modrinth-app-unwrapped"
     ];
 
     DM = {
