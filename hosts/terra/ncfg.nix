@@ -3,6 +3,7 @@
 let
   p = self.packages.${pkgs.system};
   legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.system}.default;
+  recyclarr-new = inputs.pkgs-recyclarr.legacyPackages.${pkgs.system}.recyclarr;
 in
 {
   ncfg = {
@@ -51,6 +52,15 @@ in
 
     programs = {
       gaming.enable = true;
+    };
+
+    servarr = {
+      enable = true;
+      recyclarr = {
+        enable = true;
+        package = recyclarr-new;
+        configVersion = "7.0.0";
+      };
     };
   };
 

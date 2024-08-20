@@ -11,6 +11,8 @@
       "wireshark"
       # Needed for X11 gestures in tandem with the gesture improvements extension
       "input"
+      # Shared group for arr apps and co.
+      "servarr"
     ];
   };
 

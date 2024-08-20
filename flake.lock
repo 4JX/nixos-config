@@ -519,6 +519,22 @@
         "type": "github"
       }
     },
+    "pkgs-recyclarr": {
+      "locked": {
+        "lastModified": 1723432711,
+        "narHash": "sha256-eOUqPck2sBx9wCQG1MbUNE0lTxth3HFqevQyHInNEW0=",
+        "owner": "josephst",
+        "repo": "nixpkgs",
+        "rev": "aaba7b83709eacf862cf36449d9d33428fed505b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "josephst",
+        "repo": "nixpkgs",
+        "rev": "aaba7b83709eacf862cf36449d9d33428fed505b",
+        "type": "github"
+      }
+    },
     "programsdb": {
       "inputs": {
         "nixpkgs": [
@@ -550,6 +566,7 @@
         "nix-gaming": "nix-gaming",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "pkgs-recyclarr": "pkgs-recyclarr",
         "programsdb": "programsdb",
         "xdg-portal-hyprland": "xdg-portal-hyprland"
       }

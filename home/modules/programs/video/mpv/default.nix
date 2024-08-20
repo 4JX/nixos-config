@@ -29,7 +29,8 @@ let
   p = self.packages.${pkgs.system};
 
   scriptsPkgs = with pkgs.mpvScripts; [ uosc thumbfast ]; # autoload
-  scriptsCustom = with p.mpv.mpvScripts; [ betterChapters pauseWhenMinimize ]; # evafast
+  scriptsCustom = with p.mpv.mpvScripts; [ betterChapters pauseWhenMinimize ]; # evafast mpv-jellyfin
+  scripts = scriptsPkgs ++ scriptsCustom;
 
   # Escape character is "%"
   webSources = [ "HorribleSubs" "Erai%-raws" "SubsPlease" "Tsundere%-Raws" ];
@@ -39,6 +40,8 @@ let
   debandCond = names: builtins.concatStringsSep " or " (builtins.map (x: ''string.match(string.lower(p.filename), string.lower("${x}"))~=nil'') names);
 in
 {
+  imports = [ ./jellyfin-shim ];
+
   options.ncfg.programs.video.mpv.enable = lib.mkEnableOption "MPV";
 
   config = lib.mkIf cfg.enable {
@@ -136,14 +139,13 @@ in
           };
       };
 
-      scripts = scriptsPkgs ++ scriptsCustom;
+      inherit scripts;
 
       bindings = import ./bindings.nix { inherit p pkgs; };
     };
 
     xdg.configFile =
-      lib.mapAttrs' (name: value: { name = "mpv/${name}"; inherit value; }) externalFiles;
-
+      (lib.mapAttrs' (name: value: { name = "mpv/${name}"; inherit value; }) externalFiles);
   };
 }
 
