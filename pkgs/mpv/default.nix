@@ -40,6 +40,7 @@ in
     };
 
     pauseWhenMinimize = pkgs.callPackage ./pauseWhenMinimize.nix { };
+    mpv-jellyfin = pkgs.callPackage ./mpv-jellyfin.nix { };
   };
 
   shaders = {
