@@ -126,6 +126,7 @@ with pkgs.gnomeExtensions; [
         substituteInPlace "AppManager.js" --replace "/bin/bash" "${pkgs.bash}/bin/bash"
       '';
     }));
+    disable = true;
     # package = (pkgs.gnome45Extensions."trayIconsReloaded@selfmade.pl".overrideAttrs (old: {
     #   postPatch = ''
     #     substituteInPlace "AppManager.js" --replace "/bin/bash" "${pkgs.bash}/bin/bash"
@@ -135,6 +136,13 @@ with pkgs.gnomeExtensions; [
       icon-size = 22;
       # Make the icons be close together while using Dash to Dock
       icon-padding-horizontal = 0;
+    };
+  }
+
+  {
+    package = appindicator;
+    dconfSettings = {
+      icon-size = 18;
     };
   }
 
