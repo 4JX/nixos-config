@@ -13,11 +13,9 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    pkgs-recyclarr.url = "github:josephst/nixpkgs/aaba7b83709eacf862cf36449d9d33428fed505b";
 
-    # nixos-hardware.url = "github:nixos/nixos-hardware";
-    nixos-hardware.url = "github:4JX/nixos-hardware";
-    # nixos-hardware.url = "github:4JX/nixos-hardware/fixup";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    # nixos-hardware.url = "github:4JX/nixos-hardware";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";

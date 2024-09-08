@@ -6,7 +6,8 @@
       ./boot.nix
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./specialisations
+      # These hinder evaluation times and I've found myself rarely using them
+      # ./specialisations
       ./ncfg.nix
       ./xorg.nix
       ./users
