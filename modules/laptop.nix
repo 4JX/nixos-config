@@ -1,15 +1,15 @@
-{ ... }:
+{ lib, ... }:
 
 {
   ncfg.system.power-management = {
-    enable = true;
+    enable = lib.mkDefault true;
 
     tlp = {
       # Configure this on a per-device basis, should be enough to not need auto-cpufreq or others
-      enable = true;
+      enable = lib.mkDefault false;
     };
 
-    # The repo seems to be dead/archived sadly
-    power-profiles-daemon.enable = false;
+    # No thoughts needed, well integrated power management
+    power-profiles-daemon.enable = lib.mkDefault true;
   };
 }
