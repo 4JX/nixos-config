@@ -1,9 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   # Use the grub bootloader.
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_6_10;
     blacklistedKernelModules = [ "nouveau" ];
-    # extraModulePackages = with config.boot.kernelPackages; [ lenovo-legion-module ];
+    extraModulePackages = with config.boot.kernelPackages; [ lenovo-legion-module ];
 
     # Patch the kernel to properly load EDID
     # https://github.com/NixOS/nixpkgs/pull/279789#issuecomment-2148560802
