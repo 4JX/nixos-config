@@ -9,7 +9,7 @@
       # These hinder evaluation times and I've found myself rarely using them
       # ./specialisations
       ./ncfg.nix
-      ./xorg.nix
+      ./DE.nix
       ./users
       ./power-management.nix
     ];
