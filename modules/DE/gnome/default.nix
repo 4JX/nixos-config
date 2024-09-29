@@ -21,7 +21,6 @@ in
       gnome-tour
       gnome-console
       yelp # Gnome help stuff
-    ]) ++ (with pkgs.gnome; [
       gnome-music
       gnome-characters
       gnome-contacts
