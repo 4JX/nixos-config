@@ -98,4 +98,19 @@
   # Add OpenRGB udev rules
   # TODO: Somehow properly add the kernel module things it complains about
   services.udev.packages = [ pkgs.openrgb ];
+
+  # Virtual machine stuff
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "infinity" ];
+
+  ncfg.virtualisation = {
+    libvirtd.enable = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    virt-manager
+    qemu
+    OVMF
+    pciutils
+  ];
 }
