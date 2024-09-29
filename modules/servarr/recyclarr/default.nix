@@ -26,13 +26,24 @@ in
 
     environment.systemPackages = [ cfg.package ];
 
-    systemd.services.recyclarr = {
-      description = "Recyclarr Sync Service";
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${cfg.package}/bin/recyclarr sync --config ${recyclarrYaml}";
+
+    systemd.services.recyclarr =
+      let
+        sonarrEnabled = config.services.sonarr.enable;
+        radarrEnabled = config.services.radarr.enable;
+        enabledServices =
+          lib.optionals sonarrEnabled [ "sonarr.service" ] ++
+          lib.optionals radarrEnabled [ "radarr.service" ];
+      in
+      {
+        description = "Recyclarr Sync Service";
+        after = enabledServices;
+        requires = enabledServices;
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${cfg.package}/bin/recyclarr sync --config ${recyclarrYaml}";
+        };
       };
-    };
 
     systemd.timers.recyclarr = {
       description = "Recyclarr Sync Timer";

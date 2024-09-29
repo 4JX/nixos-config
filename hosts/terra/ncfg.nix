@@ -54,11 +54,11 @@ in
     };
 
     servarr = {
-      enable = false;
+      enable = true;
       recyclarr = {
         enable = true;
         # package = recyclarr-new;
-        configVersion = "7.2.1";
+        configVersion = "7.2.3";
       };
     };
   };
