@@ -49,6 +49,13 @@
       flake = false;
     };
 
+    # Secrets management
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      # optional, not necessary for the module
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Basic theme-ing integration, might consider stylix
     nix-colors = {
       url = "github:misterio77/nix-colors";

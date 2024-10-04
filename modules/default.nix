@@ -13,6 +13,7 @@ in
     ./system
     ./virtualisation
     ./WM
+    ./sops.nix
   ];
   
   # Resolve <nixpkgs> and other references to the flake input

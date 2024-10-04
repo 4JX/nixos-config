@@ -14,6 +14,8 @@
     ];
   };
 
+  sops.age.keyFile = "/home/infinity/.config/sops/age/keys.txt";
+
   programs = {
     wireshark = {
       enable = true;
