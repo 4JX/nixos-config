@@ -4,7 +4,10 @@ let
   cfg = config.ncfg.servarr;
 in
 {
-  imports = [ ./recyclarr ];
+  imports = [
+    ./recyclarr
+    ./gluetun.nix
+  ];
 
   options.ncfg.servarr = {
     enable = lib.mkEnableOption "";
