@@ -7,21 +7,26 @@ let
   # https://recyclarr.dev/wiki/guide-configs/#anime-sonarr-v4
   # https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/anime-sonarr-v4.yml
   recyclarrYaml = ./recyclarr.yml;
-  servarrEnable = config.ncfg.servarr.enable;
-  cfg = config.ncfg.servarr.recyclarr;
-  inherit (lib) mkEnableOption mkPackageOption mkOption;
+  servarrCfg = config.ncfg.servarr;
+  sonarrEnable = servarrCfg.sonarr.enable;
+  # radarrEnable = servarrCfg.radarr.enable;
+  cfg = servarrCfg.recyclarr;
+  inherit (lib) mkPackageOption mkOption;
 in
-
 {
   options.ncfg.servarr.recyclarr = {
-    enable = mkEnableOption "the Recyclarr service";
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = sonarrEnable;
+      description = "Whether to enable the Recyclarr service.";
+    };
     package = mkPackageOption pkgs "recyclarr" { };
     configVersion = mkOption {
       type = lib.types.str;
     };
   };
 
-  config = lib.mkIf (servarrEnable && cfg.enable) {
+  config = lib.mkIf (sonarrEnable && cfg.enable) {
     assertions = [ (myLib.mkVersionAssertion pkgs.recyclarr cfg.configVersion) ];
 
     environment.systemPackages = [ cfg.package ];
