@@ -1,3 +1,4 @@
+# Import module specific secrets via a pattern like https://github.com/Mic92/sops-nix/issues/378#issuecomment-2068820729
 { self, config, lib, inputs, pkgs, ... }:
 
 let
@@ -13,6 +14,12 @@ in
       type = lib.types.bool;
       default = true;
       description = "Whether to enable SOPS.";
+    };
+
+    secretsPath = lib.mkOption {
+      type = lib.types.path;
+      default = "${self}/secrets";
+      description = "The folder where the secrets are stored.";
     };
   };
 

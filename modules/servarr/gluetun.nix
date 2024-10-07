@@ -2,7 +2,9 @@
 
 let
   cfg = config.ncfg.servarr.gluetun;
-  servarrEnable = config.ncfg.servarr.enable;
+  servarrCfg = config.ncfg.servarr;
+  servarrEnable = servarrCfg.enable;
+  secretsFile.sopsFile = servarrCfg.secretsFile;
 in
 {
   options.ncfg.servarr.gluetun.enable = lib.mkOption {
@@ -12,25 +14,40 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets.gluetun-env = { };
+    sops.secrets.gluetun-env = secretsFile;
 
-    virtualisation.oci-containers.containers.gluetun = {
+    # Extracted from docker-compose.nix
+    virtualisation.oci-containers.containers."gluetun" = {
       image = "qmcgaw/gluetun";
-      extraOptions = [
-        "--cap-add=NET_ADMIN"
-        "--device=/dev/net/tun"
+      environmentFiles = [
+        config.sops.secrets.gluetun-env.path
       ];
       ports = [
         "8888:8888/tcp"
       ];
-      volumes = [
-        # "./riseup.ovpn:/gluetun/custom.conf:ro"
-        # "./files/vpn-ca.pem:/files/vpn-ca.pem:ro"
-        # "./files/cert.pem:/files/cert.pem:ro"
-        # "./files/key.pem:/files/key.pem:ro"
+      log-driver = "journald";
+      extraOptions = [
+        "--cap-add=NET_ADMIN"
+        "--device=/dev/net/tun:/dev/net/tun:rwm"
+        "--network-alias=gluetun"
+        "--network=arr"
       ];
-      environmentFiles = [
-        config.sops.secrets.gluetun-env.path
+    };
+    systemd.services."podman-gluetun" = {
+      serviceConfig = {
+        Restart = lib.mkOverride 90 "no";
+      };
+      after = [
+        "podman-network-arr.service"
+      ];
+      requires = [
+        "podman-network-arr.service"
+      ];
+      partOf = [
+        "podman-compose-servarr-root.target"
+      ];
+      wantedBy = [
+        "podman-compose-servarr-root.target"
       ];
     };
   };

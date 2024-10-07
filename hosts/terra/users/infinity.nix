@@ -11,12 +11,12 @@
       "wireshark"
       # Needed for X11 gestures in tandem with the gesture improvements extension
       "input"
-      # Shared group for arr apps and co.
-      "servarr"
     ];
   };
 
   sops.age.keyFile = "/home/infinity/.config/sops/age/keys.txt";
+
+  ncfg.servarr.users = [ "infinity" ];
 
   programs = {
     wireshark = {
@@ -24,16 +24,6 @@
       package = pkgs.wireshark;
     };
   };
-
-  # Open up a port for qbittorrent
-  networking.firewall =
-    let
-      port = 58902;
-    in
-    {
-      allowedTCPPorts = [ port ];
-      allowedUDPPorts = [ port ];
-    };
 
   # Setup syncthing
   services.syncthing =
