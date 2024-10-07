@@ -1,0 +1,80 @@
+# compose2nix --project servarr
+networks:
+  arr:
+    name: arr
+
+services:
+  # https://github.com/qdm12/gluetun
+  # https://github.com/qdm12/gluetun-wiki?tab=readme-ov-file#table-of-contents
+  gluetun:
+    container_name: gluetun
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    ports:
+      - 8888:8888
+    # volumes:
+    #   - ./riseup.ovpn:/gluetun/custom.conf:ro
+    #   - ./files/vpn-ca.pem:/files/vpn-ca.pem:ro
+    #   - ./files/cert.pem:/files/cert.pem:ro
+    #   - ./files/key.pem:/files/key.pem:ro
+    # env_file:
+    # - ${config.sops.secrets.gluetun-env.path}
+    networks:
+      - arr
+
+  # https://hotio.dev/containers/qbittorrent/#starting-the-container
+  qbittorrent:
+    container_name: qbittorrent
+    image: ghcr.io/hotio/qbittorrent
+    ports:
+      - '8080:8080'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      # Set as config.time.timeZone
+      - TZ=Etc/UTC
+      - WEBUI_PORTS=8080/tcp,8080/udp
+    volumes:
+      - /data/config/qBit:/config
+      - /data/torrents:/data/torrents
+    networks:
+      - arr
+
+  # https://hotio.dev/containers/sonarr/#starting-the-container
+  sonarr-anime:
+    container_name: sonarr-anime
+    image: ghcr.io/hotio/sonarr
+    ports:
+      - '8989:8989'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      # Set as config.time.timeZone
+      - TZ=Etc/UTC
+    volumes:
+      - /data/config/sonarr-anime:/config
+      - /data:/data
+    networks:
+      - arr
+
+  # https://hotio.dev/containers/prowlarr/#starting-the-container
+  prowlarr:
+    container_name: prowlarr
+    image: ghcr.io/hotio/prowlarr
+    ports:
+      - '9696:9696'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      # Set as config.time.timeZone
+      - TZ=Etc/UTC
+    volumes:
+      - /data/config/prowlarr:/config
+    networks:
+      - arr

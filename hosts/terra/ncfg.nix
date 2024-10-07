@@ -60,6 +60,12 @@ in
         # package = recyclarr-new;
         configVersion = "7.2.3";
       };
+      qbittorrent = {
+        firewall = {
+          open = true;
+          incomingPort = 58902;
+        };
+      };
     };
   };
 

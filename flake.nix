@@ -67,6 +67,11 @@
       url = "github:4JX/L5P-Keyboard-RGB";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    compose2nix = {
+      url = "github:aksiksi/compose2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }
     
