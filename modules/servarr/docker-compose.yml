@@ -25,6 +25,22 @@ services:
     networks:
       - arr
 
+  # https://dozzle.dev/guide/getting-started
+  # PODMAN: https://github.com/amir20/dozzle?tab=readme-ov-file#installation-on-podman
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:latest
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock
+      # - /run/user/1000/podman/podman.sock:/var/run/docker.sock
+      # Currently using podman with root
+      - /run/podman/podman.sock:/var/run/docker.sock
+    ports:
+      # QBit is already using 8080
+      - 8090:8080
+    networks:
+      - arr
+
   # https://hotio.dev/containers/qbittorrent/#starting-the-container
   qbittorrent:
     container_name: qbittorrent
