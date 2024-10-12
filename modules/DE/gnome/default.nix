@@ -10,6 +10,9 @@ in
 
   config = lib.mkIf cfg.enable {
     # Just in case
+    # Can technically manage system-wide with 
+    # https://search.nixos.org/options?channel=unstable&show=programs.dconf.profiles&from=0&size=50&sort=relevance&type=packages&query=programs.dconf
+    # but right now the GNOME config is per-user
     programs.dconf.enable = true;
 
     # https://hoverbear.org/blog/declarative-gnome-configuration-in-nixos/
