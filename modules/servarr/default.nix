@@ -14,6 +14,7 @@ let
 in
 {
   imports = [
+    ./dozzle.nix
     ./recyclarr
     ./gluetun.nix
     ./jellyfin.nix

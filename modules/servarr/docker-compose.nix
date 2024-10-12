@@ -20,6 +20,37 @@
   virtualisation.oci-containers.backend = "podman";
 
   # Containers
+  virtualisation.oci-containers.containers."dozzle" = {
+    image = "amir20/dozzle:latest";
+    volumes = [
+      "/run/podman/podman.sock:/var/run/docker.sock:rw"
+    ];
+    ports = [
+      "8090:8080/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=dozzle"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-dozzle" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."gluetun" = {
     image = "qmcgaw/gluetun";
     ports = [
