@@ -269,7 +269,7 @@ with pkgs.gnomeExtensions; [
       show-control-icons-seek-backward = false;
       show-control-icons-seek-forward = false;
 
-      extension-position = "right";
+      extension-position = "Right";
       # After tray icons, before whatever else(?)
       extension-index = mkUint32 4;
 
@@ -282,6 +282,11 @@ with pkgs.gnomeExtensions; [
 
   {
     package = task-widget;
+    dconfSettings = { };
+  }
+
+  {
+    package = systemd-manager;
     dconfSettings = { };
   }
 ]

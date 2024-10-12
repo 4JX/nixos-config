@@ -10,6 +10,10 @@ in
     # Use dconf2nix to get an idea of how to format the changes
     dconf.settings =
       {
+        # Show minimize, maximize and close to the left of the title bar
+        "org/gnome/desktop/wm/preferences" = {
+          button-layout = "appmenu:minimize,maximize,close";
+        };
 
         "org/gnome/desktop/interface" = {
           icon-theme = "Tela-circle-dark";
@@ -53,6 +57,11 @@ in
         "org/gnome/settings-daemon/plugins/power" = {
           # Don't go to sleep on AC (turning the screen off is still allowed)
           sleep-inactive-ac-type = "nothing";
+        };
+
+        "org/gnome/mutter" = {
+          # Automatically create/delete workspaces (as opposed to having a fixed amount)
+          dynamic-workspaces = true;
         };
       };
   };
