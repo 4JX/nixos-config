@@ -114,5 +114,8 @@ in
 
     pinta # paint.net but linux? Not as complex as GIMP
     modrinth-app
+
+    # Filesharing but easy
+    localsend
   ];
 }
