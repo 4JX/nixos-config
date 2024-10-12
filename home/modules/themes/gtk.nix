@@ -18,12 +18,12 @@ let
     #   themePath3 = p.mono-gtk-theme + /share/themes/MonoThemeDark/gtk-3.0;
     # };
 
-    theme = rec {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-      themePath = package + /share/themes/Adwaita-dark/gtk-4.0;
-      themePath3 = package + /share/themes/Adwaita-dark/gtk-3.0;
-    };
+    # theme = rec {
+    #   name = "Adwaita-dark";
+    #   package = pkgs.gnome-themes-extra;
+    #   themePath = package + /share/themes/Adwaita-dark/gtk-4.0;
+    #   themePath3 = package + /share/themes/Adwaita-dark/gtk-3.0;
+    # };
 
     # theme = rec {
     #   name = "Adwaita-dark";
@@ -40,25 +40,25 @@ in
     "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
   ];
 
-  xdg.configFile =
-    let
-      themePath = cfg.gtk.theme.themePath;
-      themePath3 = cfg.gtk.theme.themePath3;
-    in
-    {
-      # "gtk-4.0/gtk.css".source = "${themePath}/gtk.css";
-      # "gtk-4.0/gtk-dark.css".source = "${themePath}/gtk-dark.css";
-      # "gtk-4.0/assets".source = "${themePath}/assets";
-      "gtk-3.0/gtk.css".source = "${themePath3}/gtk.css";
-      # "gtk-3.0/gkt-dark.css".source = "${themePath3}/gkt-dark.css";
-      # "gtk-3.0/assets".source = "${themePath3}/assets";
-    };
+  # xdg.configFile =
+  #   let
+  #     themePath = cfg.gtk.theme.themePath;
+  #     themePath3 = cfg.gtk.theme.themePath3;
+  #   in
+  #   {
+  #     # "gtk-4.0/gtk.css".source = "${themePath}/gtk.css";
+  #     # "gtk-4.0/gtk-dark.css".source = "${themePath}/gtk-dark.css";
+  #     # "gtk-4.0/assets".source = "${themePath}/assets";
+  #     # "gtk-3.0/gtk.css".source = "${themePath3}/gtk.css";
+  #     # "gtk-3.0/gkt-dark.css".source = "${themePath3}/gkt-dark.css";
+  #     # "gtk-3.0/assets".source = "${themePath3}/assets";
+  #   };
 
 
   home = {
     packages = with pkgs; [
       glib # gsettings
-      cfg.gtk.theme.package
+      # cfg.gtk.theme.package
       cfg.gtk.iconTheme.package
     ];
 
@@ -80,10 +80,10 @@ in
       package = cfg.gtk.iconTheme.package;
     };
 
-    theme = {
-      name = cfg.gtk.theme.name;
-      package = cfg.gtk.theme.package;
-    };
+    # theme = {
+    #   name = cfg.gtk.theme.name;
+    #   package = cfg.gtk.theme.package;
+    # };
 
     # This is set in the global-er cursorTheme home-manager module
     # cursorTheme = {
