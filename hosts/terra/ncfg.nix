@@ -1,10 +1,19 @@
-{ inputs, self, pkgs, ... }:
+{ inputs, self, pkgs, config, ... }:
 
 let
   p = self.packages.${pkgs.system};
   legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.system}.default;
+  secretsPath = config.ncfg.sops.secretsPath;
+  hostName = config.networking.hostName;
 in
 {
+  sops.secrets.dnscryptConfigFile = {
+    format = "binary";
+    sopsFile = secretsPath + "/hosts/${hostName}/dnscrypt-proxy.toml";
+    # The service set up by nixos has DynamicUser=true, best one can do is have it be world readable by anyone
+    mode = "0444";
+  };
+
   ncfg = {
     allowedUnfree = [
       "spotify"
@@ -34,6 +43,11 @@ in
       sound.enable = true;
       gnome-keyring.enable = true;
 
+      dnscrypt = {
+        enable = true;
+        configFile = config.sops.secrets.dnscryptConfigFile.path;
+      };
+
       flatpak.enable = true;
       fonts = {
         custom = with p.fonts; [
@@ -41,6 +55,7 @@ in
           custom-fonts
         ];
       };
+
       security = {
         usbguard = {
           enable = true;
