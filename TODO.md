@@ -1,5 +1,29 @@
 # TODO
 
+## System config maintenance
+
+### pkgs
+
+Should probably automate the importing of packages based on the filename and sprinkle in some other fanciness. Gerg-L has a wonderful `mkPackages` for that.
+
+### Modules
+
+Right now it's an open secret that all the modules have defaults ideal for the target `terra`. Should probably look into further distinction between options and defaults.
+
+Should also just reconsider, rename and reorganize in general.
+
+### Lib
+
+Using `myLib` feels awkward. There's a "lib" option built into the nixpkgs modules (`config.lib`) that might just do it
+
+### ncfg
+
+The "`ncfg`" namespace name is eeh. `modules` or `local` should work better.
+
+### Host Init
+
+Replace the current fanciness with better fanciness. Consider `flake-parts` while we're at it
+
 ## Codeium
 
 Should not be using nix-ld as a hack, see about implementing this:
@@ -11,10 +35,6 @@ Though apparently there's some hash checking. Guessing one would need to patch t
 ## [Swag](https://docs.linuxserver.io/general/swag)
 
 Perhaps useful for when I expose homeserver things to the internet
-
-## [Commitlint](https://commitlint.js.org/)
-
-Could help with ensuring commit messages are well made, since I'm going down this rabbit hole
 
 ## [Stylix](https://github.com/danth/stylix)
 
@@ -32,3 +52,7 @@ Blocked by:
 - <https://github.com/NixOS/nixpkgs/pull/231673>
 
 Or some fancier way of giving portmaster-core and co. perms to do stuff inside the wrapper
+
+## [Commitlint](https://commitlint.js.org/)
+
+Could help with ensuring commit messages are well made, since I'm going down this rabbit hole
