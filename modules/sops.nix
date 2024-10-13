@@ -25,9 +25,13 @@ in
 
   config = lib.mkIf cfg.enable {
     # warnings = lib.optionals missingKeyFile [ "SOPS: Populate the keyfile over at ${keyFile} to be able to decrypt secrets" ];
+    lib.sops = rec {
+      mkSecretsPath = path: cfg.secretsPath + path;
+      mkHostPath = path: mkSecretsPath ("/hosts/${config.networking.hostName}/" + path);
+    };
 
     sops = {
-      defaultSopsFile = "${self}/secrets/hosts/${config.networking.hostName}/secrets.yaml";
+      defaultSopsFile = config.lib.sops.mkHostPath "secrets.yaml";
       # age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
       age = {
         # ? Maybe better to have it placed somewhere else

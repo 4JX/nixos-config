@@ -9,7 +9,6 @@
 
 let
   cfg = config.ncfg.servarr;
-  sopsCfg = config.ncfg.sops;
   systemUsers = lib.attrNames config.users.users;
 in
 {
@@ -28,7 +27,7 @@ in
     enable = lib.mkEnableOption "the servarr module";
     secretsFile = lib.mkOption {
       type = lib.types.path;
-      default = "${sopsCfg.secretsPath}/arr/servarr.yaml";
+      default = config.lib.sops.mkSecretsPath "/arr/servarr.yaml";
       description = "The path to the servarr secrets file.";
     };
     users = lib.mkOption {
