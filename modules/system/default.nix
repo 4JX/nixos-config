@@ -10,6 +10,7 @@ in
     ./power-management
     ./security
     ./programs
+    ./dnscrypt.nix
     ./flatpak.nix
     ./gnome-keyring.nix
     ./sound.nix
