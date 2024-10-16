@@ -285,8 +285,23 @@ with pkgs.gnomeExtensions; [
     dconfSettings = { };
   }
 
+  # Allow managing systemd targets too
+  # https://github.com/hardpixel/systemd-manager/pull/22
   {
-    package = systemd-manager;
+    # package = systemd-manager;
+    package = systemd-manager.overrideAttrs (old: {
+      src = pkgs.applyPatches
+        {
+          src = old.src;
+          patches = [
+            (pkgs.fetchpatch {
+              url = "https://github.com/hardpixel/systemd-manager/commit/7dcce7bc883bab0ba59fc63bb818385f60b159f9.patch";
+              sha256 = "sha256-YWLfOeCL9AGskr2yBbi3FCiWBRbBsJoX6eY/ZuS7r1w=";
+            })
+          ];
+        };
+    });
+
     dconfSettings = { };
   }
 ]
