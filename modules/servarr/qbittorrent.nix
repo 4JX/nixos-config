@@ -15,6 +15,11 @@ in
         default = servarrEnable;
         description = "Whether to enable QBit.";
       };
+      autoStart = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Whether to start the container service automatically.";
+      };
       firewall = {
         open = lib.mkOption {
           type = lib.types.bool;
@@ -41,6 +46,7 @@ in
     # Extracted from docker-compose.nix
     virtualisation.oci-containers.containers."qbittorrent" = {
       image = "ghcr.io/hotio/qbittorrent";
+      inherit (cfg) autoStart;
       environment = {
         "PGID" = "1000";
         "PUID" = "1000";
@@ -64,6 +70,7 @@ in
         "--network=arr"
       ];
     };
+
     systemd.services."podman-qbittorrent" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "no";
@@ -77,9 +84,15 @@ in
       partOf = [
         "podman-compose-servarr-root.target"
       ];
-      wantedBy = [
-        "podman-compose-servarr-root.target"
-      ];
+      # Avoid starting the service automatically unless explicitly requested
+      # Override "virtualisation.oci-containers.containers.<name>.autoStart" which adds multi-user.target if true
+      # TODO: lib.servarr.mkAutoStart (container-name)? Override container and service setting
+      # https://github.com/NixOS/nixpkgs/blob/a3f9ad65a0bf298ed5847629a57808b97e6e8077/nixos/modules/virtualisation/oci-containers.nix#L246-L272
+      wantedBy = lib.mkForce (
+        if cfg.autoStart then [
+          "podman-compose-servarr-root.target"
+        ] else [ ]
+      );
     };
   };
 }
