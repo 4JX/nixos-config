@@ -23,6 +23,7 @@ in
       "nvidia-settings"
       "steam"
       "steam-original"
+      "steam-unwrapped"
       "steam-run"
       "cups-brother-hl3140cw-1.1.4-0"
       "modrinth-app"
@@ -71,7 +72,7 @@ in
       recyclarr = {
         enable = true;
         # package = recyclarr-new;
-        config.version = "7.2.3";
+        config.version = "7.2.4";
       };
       qbittorrent = {
         firewall = {
