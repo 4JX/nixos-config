@@ -71,7 +71,7 @@ in
       recyclarr = {
         enable = true;
         # package = recyclarr-new;
-        configVersion = "7.2.3";
+        config.version = "7.2.3";
       };
       qbittorrent = {
         firewall = {

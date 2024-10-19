@@ -157,6 +157,44 @@
       "podman-compose-servarr-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."radarr" = {
+    image = "ghcr.io/hotio/radarr";
+    environment = {
+      "PGID" = "1000";
+      "PUID" = "1000";
+      "TZ" = "Etc/UTC";
+      "UMASK" = "002";
+    };
+    volumes = [
+      "/data:/data:rw"
+      "/data/config/radarr:/config:rw"
+    ];
+    ports = [
+      "7878:7878/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=radarr"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-radarr" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."sonarr-anime" = {
     image = "ghcr.io/hotio/sonarr";
     environment = {
@@ -170,7 +208,7 @@
       "/data/config/sonarr-anime:/config:rw"
     ];
     ports = [
-      "8989:8989/tcp"
+      "8990:8989/tcp"
     ];
     log-driver = "journald";
     extraOptions = [

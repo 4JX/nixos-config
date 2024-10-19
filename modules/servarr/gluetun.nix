@@ -4,7 +4,7 @@ let
   cfg = config.ncfg.servarr.gluetun;
   servarrCfg = config.ncfg.servarr;
   servarrEnable = servarrCfg.enable;
-  secretsFile.sopsFile = servarrCfg.secretsFile;
+  secretsFile.sopsFile = servarrCfg.secretsFolder + "/servarr.yaml";
 in
 {
   options.ncfg.servarr.gluetun.enable = lib.mkOption {

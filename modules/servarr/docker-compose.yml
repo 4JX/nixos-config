@@ -61,11 +61,28 @@ services:
       - arr
 
   # https://hotio.dev/containers/sonarr/#starting-the-container
+  # sonarr:
+  #   container_name: sonarr
+  #   image: ghcr.io/hotio/sonarr
+  #   ports:
+  #     - '8989:8989'
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - UMASK=002
+  #     # Set as config.time.timeZone
+  #     - TZ=Etc/UTC
+  #   volumes:
+  #     - /data/config/sonarr:/config
+  #     - /data:/data
+  #   networks:
+  #     - arr
+
   sonarr-anime:
     container_name: sonarr-anime
     image: ghcr.io/hotio/sonarr
     ports:
-      - '8989:8989'
+      - '8990:8989'
     environment:
       - PUID=1000
       - PGID=1000
@@ -74,6 +91,23 @@ services:
       - TZ=Etc/UTC
     volumes:
       - /data/config/sonarr-anime:/config
+      - /data:/data
+    networks:
+      - arr
+
+  # https://hotio.dev/containers/radarr/#starting-the-container
+  radarr:
+    container_name: radarr
+    image: ghcr.io/hotio/radarr
+    ports:
+      - '7878:7878'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - /data/config/radarr:/config
       - /data:/data
     networks:
       - arr

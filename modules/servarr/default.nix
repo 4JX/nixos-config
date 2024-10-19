@@ -19,16 +19,17 @@ in
     ./jellyfin.nix
     ./prowlarr.nix
     ./qbittorrent.nix
+    ./radarr.nix
     ./sonarr.nix
     ./tor.nix
   ];
 
   options.ncfg.servarr = {
     enable = lib.mkEnableOption "the servarr module";
-    secretsFile = lib.mkOption {
+    secretsFolder = lib.mkOption {
       type = lib.types.path;
-      default = config.lib.sops.mkSecretsPath "/arr/servarr.yaml";
-      description = "The path to the servarr secrets file.";
+      default = config.lib.sops.mkSecretsPath "/arr";
+      description = "The path to the servarr secrets folder.";
     };
     users = lib.mkOption {
       type = lib.types.listOf (lib.types.enum systemUsers);
