@@ -14,6 +14,7 @@ let
   # } + /user.js);
   arkenfox_user = builtins.readFile (inputs.arkenfox + /user.js);
 
+  # layout.css.visited_links_enabled = true; Enables history scraping via various a:visited selector thingmabobs, is it really worth it?
   final = ''
     ${arkenfox_user}
 
