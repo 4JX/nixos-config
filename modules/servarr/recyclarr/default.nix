@@ -37,9 +37,14 @@ in
 
     systemd.services.recyclarr =
       let
-        enabledServices =
-          lib.optionals sonarrEnabled [ "sonarr.service" ] ++
-          lib.optionals radarrEnabled [ "radarr.service" ];
+        backend = config.virtualisation.oci-containers.backend;
+
+        enabledServices = lib.pipe config.systemd.services
+          [
+            builtins.attrNames
+            (builtins.filter (v: (builtins.match "${backend}-(sonarr|radarr)(-[^-]+)*" v) != null))
+            (builtins.map (v: "${v}.service"))
+          ];
       in
       {
         description = "Recyclarr Sync Service";
