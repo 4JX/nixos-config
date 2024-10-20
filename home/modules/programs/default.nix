@@ -7,6 +7,7 @@
     ./editors
     ./gaming
     ./misc
+    ./office
     ./video
   ];
 }
