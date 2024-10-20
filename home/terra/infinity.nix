@@ -46,6 +46,10 @@ in
         };
       };
 
+      office = {
+        libreoffice.enable = true;
+      };
+
       video = {
         mpv.enable = true;
       };
@@ -67,7 +71,6 @@ in
     scrcpy
     tor-browser-bundle-bin
     arandr
-    libreoffice
     obsidian
     node2nix
     cyberchef
