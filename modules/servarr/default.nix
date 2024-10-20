@@ -41,6 +41,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
       inputs.compose2nix.packages.${pkgs.system}.default
+      pkgs.docker-compose
     ];
 
     users.groups.podman.members = cfg.users;
