@@ -24,6 +24,7 @@
 
     # Nix stuffs
     nil # Nix language server
+    nixd # Another nix language server
     nixpkgs-fmt
     nixos-option
     deadnix
