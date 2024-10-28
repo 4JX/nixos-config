@@ -5,7 +5,6 @@
 # Or at least with includes https://recyclarr.dev/wiki/yaml/config-reference/include/
 let
   # https://recyclarr.dev/wiki/guide-configs/
-  # https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/anime-sonarr-v4.yml
   recyclarrYaml = ./recyclarr.yml;
 
   servarrCfg = config.ncfg.servarr;

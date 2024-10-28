@@ -8,7 +8,7 @@ in
   options = {
     ncfg.servarr.radarr.enable = lib.mkOption {
       type = lib.types.bool;
-      default = servarrEnable && false; # Disabled for now
+      default = servarrEnable; # Disabled for now
       description = "Whether to enable Radarr.";
     };
   };
@@ -19,6 +19,7 @@ in
     # https://trash-guides.info/Radarr/Radarr-recommended-naming-scheme/ -> http://localhost:7878/settings/mediamanagement (Jellyfin season folders)
     # https://trash-guides.info/Radarr/radarr-setup-quality-profiles/ + https://trash-guides.info/Radarr/radarr-setup-quality-profiles/#proper-and-repacks
     # https://trash-guides.info/Hardlinks/How-to-setup-for/ and https://trash-guides.info/Hardlinks/Examples/
+    #! Disable "remove on download" for the downloaders, else chaos ensues with Hardlinks
     # To consider for movies: https://trash-guides.info/Misc/x265-4k/#golden-rule
 
     # Extracted from docker-compose.nix
