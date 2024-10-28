@@ -14,6 +14,7 @@ in
 {
   imports = [
     ./dozzle.nix
+    ./flaresolverr.nix
     ./recyclarr
     ./gluetun.nix
     ./jellyfin.nix

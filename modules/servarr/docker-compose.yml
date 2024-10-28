@@ -128,3 +128,19 @@ services:
       - /data/config/prowlarr:/config
     networks:
       - arr
+
+  flaresolverr:
+    # DockerHub mirror flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=info
+      - LOG_HTML=false
+      - CAPTCHA_SOLVER=none
+      # Set as config.time.timeZone
+      - TZ=Etc/UTC
+    ports:
+      - '8191:8191'
+    restart: unless-stopped
+    networks:
+      - arr

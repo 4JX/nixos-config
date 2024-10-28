@@ -1,4 +1,4 @@
-# Auto-generated using compose2nix v0.3.1-pre.
+# Auto-generated using compose2nix v0.3.2-pre.
 { pkgs, lib, ... }:
 
 {
@@ -37,6 +37,40 @@
   systemd.services."podman-dozzle" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."flaresolverr" = {
+    image = "ghcr.io/flaresolverr/flaresolverr:latest";
+    environment = {
+      "CAPTCHA_SOLVER" = "none";
+      "LOG_HTML" = "false";
+      "LOG_LEVEL" = "info";
+      "TZ" = "Etc/UTC";
+    };
+    ports = [
+      "8191:8191/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=flaresolverr"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-flaresolverr" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
     };
     after = [
       "podman-network-arr.service"
