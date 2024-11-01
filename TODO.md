@@ -14,7 +14,7 @@ Should also just reconsider, rename and reorganize in general.
 
 ### Lib
 
-Using `myLib` feels awkward. There's a "lib" option built into the nixpkgs modules (`config.lib`) that might just do it
+Using `myLib` feels awkward. There's a "lib" option built into the nixpkgs modules (`config.lib`) that might just do it. Or otherwise a namespace in `lib`.
 
 ### ncfg
 
@@ -23,6 +23,14 @@ The "`ncfg`" namespace name is eeh. `modules` or `local` should work better.
 ### Host Init
 
 Replace the current fanciness with better fanciness. Consider `flake-parts` while we're at it
+
+### Formatting
+
+`nixpkgs-fmt` is dead, should either use `nixfmt-rfc-style` (classic is too clumped up) or `alejandra`. Also combine with `deadnix` and `statix` while we're at it.
+
+### Docs
+
+Clean up README, get a docs folder for collecting documentation/links/snippets so that I don't have to remember it all, because something *will* get forgotten.
 
 ## Codeium
 
@@ -34,7 +42,9 @@ Though apparently there's some hash checking. Guessing one would need to patch t
 
 ## [Swag](https://docs.linuxserver.io/general/swag)
 
-Perhaps useful for when I expose homeserver things to the internet
+Reverse proxy to avoid directly exposing services. Perhaps useful for when I expose homeserver things to the internet.
+
+Another option is traefik, but that's *probably* too complex for what I need.
 
 ## [Stylix](https://github.com/danth/stylix)
 
