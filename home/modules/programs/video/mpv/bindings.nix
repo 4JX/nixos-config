@@ -1,8 +1,9 @@
-{ p, ... }:
+{ pkgs, p, ... }:
 
 
 let
   inherit (p.mpv) shaders;
+  inherit (pkgs) anime4k;
 
   setShader = { files, message }: ''no-osd change-list glsl-shaders set "${builtins.concatStringsSep ":" files}"; show-text "${message}"'';
 
@@ -12,6 +13,7 @@ let
   # };
 in
 with shaders; {
+  # # https://github.com/NotAShelf/nyx/blob/b1f789e7b4da072cfbc912df90836c777c4555cf/pkgs/overlays/anime4k/default.nix
   # curl -sL https://raw.githubusercontent.com/bloc97/Anime4K/master/md/GLSL_Instructions_Linux.md | grep '^CTRL' | sed -r -e '/^$/d' -e 's|~~/shaders/|${anime4k}/|g' -e 's|;\$|:$|g' -e "s| |\" = ''|" -e 's|^|    "|' -e "s|$|'';|"
   # A for originally blurry lines, B for pretty sharp ones, C for potato resolution
   "CTRL+1" = ''no-osd change-list glsl-shaders set "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode A (HQ)"'';
