@@ -116,26 +116,7 @@ with pkgs.gnomeExtensions; [
     # package = pkgs.gnome45Extensions."blur-my-shell@aunetx";
     package = blur-my-shell;
     dconfSettings = {
-      "panel/static-blur" = true;
-    };
-  }
-
-  {
-    package = (tray-icons-reloaded.overrideAttrs (old: {
-      postPatch = ''
-        substituteInPlace "AppManager.js" --replace "/bin/bash" "${pkgs.bash}/bin/bash"
-      '';
-    }));
-    disable = true;
-    # package = (pkgs.gnome45Extensions."trayIconsReloaded@selfmade.pl".overrideAttrs (old: {
-    #   postPatch = ''
-    #     substituteInPlace "AppManager.js" --replace "/bin/bash" "${pkgs.bash}/bin/bash"
-    #   '';
-    # }));
-    dconfSettings = {
-      icon-size = 22;
-      # Make the icons be close together while using Dash to Dock
-      icon-padding-horizontal = 0;
+      "panel/static-blur" = false;
     };
   }
 
@@ -209,6 +190,7 @@ with pkgs.gnomeExtensions; [
 
   {
     package = pano;
+    disable = true;
     dconfSettings = {
       # Remove audio and notification cues on copy
       send-notification-on-copy = false;
@@ -252,7 +234,10 @@ with pkgs.gnomeExtensions; [
   {
     # package = pkgs.gnome45Extensions."quick-settings-audio-panel@rayzeq.github.io";
     package = quick-settings-audio-panel;
-    dconfSettings = { };
+    dconfSettings = {
+      # Always show the microphone slider
+      always-show-input-slider = true;
+    };
   }
 
   {
