@@ -19,7 +19,7 @@
     shellAliases = with pkgs; {
       # MOVE THIS TO system env aliases
       eza = "${eza}/bin/eza --icons";
-      scrcpy = "${scrcpy}/bin/scrcpy --bit-rate 32M --encoder 'OMX.qcom.video.encoder.avc' --window-title 'Phone' --stay-awake --turn-screen-off";
+      # scrcpy-phone = "${scrcpy}/bin/scrcpy --bit-rate 32M --encoder 'OMX.qcom.video.encoder.avc' --window-title 'Phone' --stay-awake --turn-screen-off";
       discordrpc = "ln -sf {app/com.discordapp.Discord,$XDG_RUNTIME_DIR}/discord-ipc-0";
 
       # Faster navigation
