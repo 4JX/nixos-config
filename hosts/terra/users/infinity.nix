@@ -50,7 +50,7 @@
           "Keepass DB" = {
             id = "Keepass DB";
             path = "/home/${user}/Documents/Keepass DB";
-            devices = [ "POCO F2" ];
+            devices = [ "POCO F2" "POCO F6" ];
             versioning = {
               type = "staggered";
               params = {
