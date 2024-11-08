@@ -134,14 +134,18 @@ with pkgs.gnomeExtensions; [
 
 
   {
-    package = lib.warn "Using patched ideapad-controls https://github.com/AzzamAlsharafi/ideapad-controls-gnome-extension/pull/16" ideapad-controls.overrideAttrs (old: {
-      src = pkgs.fetchzip {
-        url = "https://github.com/AzzamAlsharafi/ideapad-controls-gnome-extension/archive/b5994061d0bfddf96ede19292365f47fac3c6141.zip";
-        # # Otherwise the metadata will get replaced
-        # postFetch = "";
-        sha256 = "sha256-PPjTTrPE1844FPHm/qmDUeNyUuaij4mbQDOpN8h/KAk=";
-      };
-    });
+    package =
+      let
+        ideapad-old = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.gnomeExtensions."ideapad-controls";
+      in
+      lib.warn "Using patched ideapad-controls https://github.com/AzzamAlsharafi/ideapad-controls-gnome-extension/pull/16" ideapad-old.overrideAttrs (old: {
+        src = pkgs.fetchzip {
+          url = "https://github.com/AzzamAlsharafi/ideapad-controls-gnome-extension/archive/74378b8c610679010b70076275ada75649574892.zip";
+          # # Otherwise the metadata will get replaced
+          # postFetch = "";
+          sha256 = "sha256-x1EFglOIsK8KxRJpG8VecYleHFHRmZ8m5TTghYeyg0M=";
+        };
+      });
     dconfSettings = {
       # Show inside the quick settings menu
       tray-location = false;
@@ -149,7 +153,8 @@ with pkgs.gnomeExtensions; [
   }
 
   {
-    package = gesture-improvements;
+    package = window-gestures;
+    disable = true;
     dconfSettings = { };
   }
 

@@ -1,11 +1,15 @@
-{ config, osConfig, lib, pkgs, ... }:
+{ inputs, config, osConfig, lib, pkgs, ... }:
 
 let
   mpvEnable = config.ncfg.programs.video.mpv.enable;
   jellyfinEnable = osConfig.services.jellyfin.enable;
 in
 lib.mkIf (mpvEnable && jellyfinEnable) {
-  home.packages = with pkgs; [ jellyfin-mpv-shim ];
+  home.packages = with pkgs; [
+    # https://github.com/NixOS/nixpkgs/pull/353833
+    inputs.nixpkgs-pr353833.legacyPackages.${pkgs.system}.jellyfin-mpv-shim
+    # jellyfin-mpv-shim
+  ];
 
   # https://github.com/jellyfin/jellyfin-mpv-shim#external-mpv
   # https://github.com/jellyfin/jellyfin-mpv-shim/issues/266#issuecomment-1152883845
