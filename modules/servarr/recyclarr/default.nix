@@ -46,6 +46,10 @@ in
         "${config.sops.secrets.recyclarr.path}:/config/secrets.yml:rw"
         "/data/config/recyclarr:/config:rw"
       ];
+      dependsOn = [
+        "radarr-movies-hd"
+        "sonarr-anime"
+      ];
       user = "${username}:${group}";
       log-driver = "journald";
       extraOptions = [

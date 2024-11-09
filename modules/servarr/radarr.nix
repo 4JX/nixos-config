@@ -23,7 +23,7 @@ in
     # To consider for movies: https://trash-guides.info/Misc/x265-4k/#golden-rule
 
     # Extracted from docker-compose.nix
-    virtualisation.oci-containers.containers."radarr" = {
+    virtualisation.oci-containers.containers."radarr-movies-hd" = {
       image = "ghcr.io/hotio/radarr";
       environment = {
         "PGID" = "1000";
@@ -33,18 +33,18 @@ in
       };
       volumes = [
         "/data:/data:rw"
-        "/data/config/radarr:/config:rw"
+        "/data/config/radarr-movies-hd:/config:rw"
       ];
       ports = [
         "7878:7878/tcp"
       ];
       log-driver = "journald";
       extraOptions = [
-        "--network-alias=radarr"
+        "--network-alias=radarr-movies-hd"
         "--network=arr"
       ];
     };
-    systemd.services."podman-radarr" = {
+    systemd.services."podman-radarr-movies-hd" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "no";
       };

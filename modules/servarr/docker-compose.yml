@@ -21,7 +21,7 @@ services:
     #   - ./files/cert.pem:/files/cert.pem:ro
     #   - ./files/key.pem:/files/key.pem:ro
     # env_file:
-    # - ${config.sops.secrets.gluetun-env.path}
+    #   - ${config.sops.secrets.gluetun-env.path}
     networks:
       - arr
 
@@ -96,8 +96,8 @@ services:
       - arr
 
   # https://hotio.dev/containers/radarr/#starting-the-container
-  radarr:
-    container_name: radarr
+  radarr-movies-hd:
+    container_name: radarr-movies-hd
     image: ghcr.io/hotio/radarr
     ports:
       - '7878:7878'
@@ -107,7 +107,7 @@ services:
       - UMASK=002
       - TZ=Etc/UTC
     volumes:
-      - /data/config/radarr:/config
+      - /data/config/radarr-movies-hd:/config
       - /data:/data
     networks:
       - arr
@@ -130,9 +130,9 @@ services:
       - arr
 
   flaresolverr:
+    container_name: flaresolverr
     # DockerHub mirror flaresolverr/flaresolverr:latest
     image: ghcr.io/flaresolverr/flaresolverr:latest
-    container_name: flaresolverr
     environment:
       - LOG_LEVEL=info
       - LOG_HTML=false
@@ -147,8 +147,8 @@ services:
 
   # https://recyclarr.dev/wiki/installation/docker/
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr
     container_name: recyclarr
+    image: ghcr.io/recyclarr/recyclarr
     # Change this to use config.nix.users.*
     # This is ok as recyclarr is a rootless container
     user: nobody:nogroup
@@ -163,3 +163,6 @@ services:
       # - CRON_SCHEDULE=@daily
     networks:
       - arr
+    depends_on:
+      - sonarr-anime
+      - radarr-movies-hd

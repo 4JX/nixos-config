@@ -191,7 +191,7 @@
       "podman-compose-servarr-root.target"
     ];
   };
-  virtualisation.oci-containers.containers."radarr" = {
+  virtualisation.oci-containers.containers."radarr-movies-hd" = {
     image = "ghcr.io/hotio/radarr";
     environment = {
       "PGID" = "1000";
@@ -201,18 +201,18 @@
     };
     volumes = [
       "/data:/data:rw"
-      "/data/config/radarr:/config:rw"
+      "/data/config/radarr-movies-hd:/config:rw"
     ];
     ports = [
       "7878:7878/tcp"
     ];
     log-driver = "journald";
     extraOptions = [
-      "--network-alias=radarr"
+      "--network-alias=radarr-movies-hd"
       "--network=arr"
     ];
   };
-  systemd.services."podman-radarr" = {
+  systemd.services."podman-radarr-movies-hd" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
@@ -238,6 +238,10 @@
       "/CHANGEME:/config/recyclarr.yml:rw"
       "/CHANGEME2:/config/secrets.yml:rw"
       "/data/config/recyclarr:/config:rw"
+    ];
+    dependsOn = [
+      "radarr-movies-hd"
+      "sonarr-anime"
     ];
     user = "nobody:nogroup";
     log-driver = "journald";
