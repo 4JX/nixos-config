@@ -38,7 +38,7 @@ in
 
   config = lib.mkIf cfg.enable {
     # Open up a port for qbittorrent
-    networking.firewall = lib.mkIf (openFirewall) {
+    networking.firewall = lib.mkIf openFirewall {
       allowedTCPPorts = [ incomingPort ];
       allowedUDPPorts = [ incomingPort ];
     };
@@ -50,7 +50,7 @@ in
       environment = {
         "PGID" = "1000";
         "PUID" = "1000";
-        "TZ" = "Etc/UTC";
+        "TZ" = config.time.timeZone;
         "UMASK" = "002";
         "WEBUI_PORTS" = "8080/tcp,8080/udp";
       };

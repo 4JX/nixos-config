@@ -21,7 +21,7 @@ in
         "CAPTCHA_SOLVER" = "none";
         "LOG_HTML" = "false";
         "LOG_LEVEL" = "info";
-        "TZ" = "Etc/UTC";
+        "TZ" = config.time.timeZone;
       };
       ports = [
         "8191:8191/tcp"

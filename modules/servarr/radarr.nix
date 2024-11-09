@@ -28,7 +28,7 @@ in
       environment = {
         "PGID" = "1000";
         "PUID" = "1000";
-        "TZ" = "Etc/UTC";
+        "TZ" = config.time.timeZone;
         "UMASK" = "002";
       };
       volumes = [
