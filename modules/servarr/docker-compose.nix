@@ -305,6 +305,44 @@
       "podman-compose-servarr-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."sonarr-tv-hd" = {
+    image = "ghcr.io/hotio/sonarr";
+    environment = {
+      "PGID" = "1000";
+      "PUID" = "1000";
+      "TZ" = "Etc/UTC";
+      "UMASK" = "002";
+    };
+    volumes = [
+      "/data:/data:rw"
+      "/data/config/sonarr-tv-hd:/config:rw"
+    ];
+    ports = [
+      "8989:8989/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=sonarr-tv-hd"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-sonarr-tv-hd" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
 
   # Networks
   systemd.services."podman-network-arr" = {

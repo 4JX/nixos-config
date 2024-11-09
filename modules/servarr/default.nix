@@ -13,6 +13,8 @@ let
 in
 {
   imports = [
+    ./sonarr
+
     ./dozzle.nix
     ./flaresolverr.nix
     ./recyclarr
@@ -21,7 +23,6 @@ in
     ./prowlarr.nix
     ./qbittorrent.nix
     ./radarr.nix
-    ./sonarr.nix
     ./tor.nix
   ];
 
