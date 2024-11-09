@@ -8,9 +8,9 @@
 ###################################################################################################
 
 sonarr:
-  anime-sonarr-v4:
-    base_url: http://localhost:8990/
-    api_key: 8f9b610cebc14cfcb824dbf82d238027
+  sonarr-anime:
+    # base_url: http://localhost:8990/
+    # api_key: 8f9b610cebc14cfcb824dbf82d238027
 
     delete_old_custom_formats: true
     replace_existing_custom_formats: true
@@ -58,9 +58,9 @@ sonarr:
 ###################################################################################################
 
 radarr:
-  remux-web-1080p:
-    base_url: http://localhost:7878/
-    api_key: b1e91a595f1142b984ff69632666c030
+  radarr-movies-hd:
+    # base_url: http://localhost:7878/
+    # api_key: b1e91a595f1142b984ff69632666c030
 
     delete_old_custom_formats: true
     replace_existing_custom_formats: true

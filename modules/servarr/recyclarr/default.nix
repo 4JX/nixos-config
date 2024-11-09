@@ -1,4 +1,4 @@
-{ config, lib, pkgs, myLib, ... }:
+{ config, lib, ... }:
 
 # TODO: More granular profile management with https://recyclarr.dev/wiki/yaml/config-reference/ and https://github.com/MasterMidi/nixos-config/blob/d26bd35bfb328bab2c5dc2733bc1c7de5e2c4faa/hosts/servers/david/recyclarr/
 # Written via pkgs.writers.writeYAML "recyclarr.yaml" { settings = "foo"; } since it gives more flexibility
@@ -13,7 +13,8 @@ let
   sonarrEnabled = servarrCfg.sonarr.enable;
   radarrEnabled = servarrCfg.radarr.enable;
 
-  inherit (lib) mkPackageOption mkOption;
+  username = config.users.users.nobody.name;
+  group = config.users.users.nobody.group;
 in
 {
   options.ncfg.servarr.recyclarr = {
@@ -22,46 +23,52 @@ in
       default = sonarrEnabled || radarrEnabled;
       description = "Whether to enable the Recyclarr service.";
     };
-    package = mkPackageOption pkgs "recyclarr" { };
-    config.version = mkOption {
-      type = lib.types.str;
-    };
   };
 
-  config = lib.mkIf (sonarrEnabled && cfg.enable) {
-    assertions = [ (myLib.mkVersionAssertion pkgs.recyclarr cfg.config.version) ];
+  config = lib.mkIf cfg.enable {
+    sops.secrets.recyclarr = {
+      sopsFile = servarrCfg.secretsFolder + "/recyclarr.yaml";
+      # Serve the whole YAML file
+      key = "";
+      # The container will also run as the same user/group
+      owner = username;
+      group = group;
+    };
 
-    environment.systemPackages = [ cfg.package ];
-
-
-    systemd.services.recyclarr =
-      let
-        backend = config.virtualisation.oci-containers.backend;
-
-        enabledServices = lib.pipe config.systemd.services
-          [
-            builtins.attrNames
-            (builtins.filter (v: (builtins.match "${backend}-(sonarr|radarr)(-[^-]+)*" v) != null))
-            (builtins.map (v: "${v}.service"))
-          ];
-      in
-      {
-        description = "Recyclarr Sync Service";
-        after = enabledServices;
-        requires = enabledServices;
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "${cfg.package}/bin/recyclarr sync --config ${recyclarrYaml}";
-        };
+    # Extracted from docker-compose.nix
+    virtualisation.oci-containers.containers."recyclarr" = {
+      image = "ghcr.io/recyclarr/recyclarr";
+      environment = {
+        "TZ" = config.time.timeZone;
       };
-
-    systemd.timers.recyclarr = {
-      description = "Recyclarr Sync Timer";
-      wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = [ "daily" ];
-        Persistent = true;
+      volumes = [
+        "${recyclarrYaml}:/config/recyclarr.yml:rw"
+        "${config.sops.secrets.recyclarr.path}:/config/secrets.yml:rw"
+        "/data/config/recyclarr:/config:rw"
+      ];
+      user = "${username}:${group}";
+      log-driver = "journald";
+      extraOptions = [
+        "--network-alias=recyclarr"
+        "--network=arr"
+      ];
+    };
+    systemd.services."podman-recyclarr" = {
+      serviceConfig = {
+        Restart = lib.mkOverride 90 "no";
       };
+      after = [
+        "podman-network-arr.service"
+      ];
+      requires = [
+        "podman-network-arr.service"
+      ];
+      partOf = [
+        "podman-compose-servarr-root.target"
+      ];
+      wantedBy = [
+        "podman-compose-servarr-root.target"
+      ];
     };
   };
 }

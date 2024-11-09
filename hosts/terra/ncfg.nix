@@ -69,11 +69,7 @@ in
 
     servarr = {
       enable = true;
-      recyclarr = {
-        enable = true;
-        # package = recyclarr-new;
-        config.version = "7.2.4";
-      };
+      recyclarr.enable = true;
       qbittorrent = {
         firewall = {
           open = true;

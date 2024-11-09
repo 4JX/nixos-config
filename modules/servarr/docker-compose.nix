@@ -229,6 +229,40 @@
       "podman-compose-servarr-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."recyclarr" = {
+    image = "ghcr.io/recyclarr/recyclarr";
+    environment = {
+      "TZ" = "Etc/UTC";
+    };
+    volumes = [
+      "/CHANGEME:/config/recyclarr.yml:rw"
+      "/CHANGEME2:/config/secrets.yml:rw"
+      "/data/config/recyclarr:/config:rw"
+    ];
+    user = "nobody:nogroup";
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=recyclarr"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-recyclarr" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."sonarr-anime" = {
     image = "ghcr.io/hotio/sonarr";
     environment = {

@@ -144,3 +144,22 @@ services:
     restart: unless-stopped
     networks:
       - arr
+
+  # https://recyclarr.dev/wiki/installation/docker/
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    container_name: recyclarr
+    # Change this to use config.nix.users.*
+    # This is ok as recyclarr is a rootless container
+    user: nobody:nogroup
+    volumes:
+      - /data/config/recyclarr:/config
+      - /CHANGEME:/config/recyclarr.yml
+      - /CHANGEME2:/config/secrets.yml
+    environment:
+      # Set as config.time.timeZone
+      - TZ=Etc/UTC
+      # This is a default
+      # - CRON_SCHEDULE=@daily
+    networks:
+      - arr
