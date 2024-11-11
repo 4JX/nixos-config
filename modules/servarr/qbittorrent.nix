@@ -55,7 +55,7 @@ in
         "WEBUI_PORTS" = "8080/tcp,8080/udp";
       };
       volumes = [
-        "/data/config/qBit:/config:rw"
+        "/data/config/qbittorrent:/config:rw"
         "/data/torrents:/data/torrents:rw"
       ];
       ports = [

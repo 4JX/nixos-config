@@ -13,6 +13,7 @@ let
 in
 {
   imports = [
+    ./qbit_manage
     ./sonarr
 
     ./dozzle.nix

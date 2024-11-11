@@ -55,10 +55,43 @@ services:
       - TZ=Etc/UTC
       - WEBUI_PORTS=8080/tcp,8080/udp
     volumes:
-      - /data/config/qBit:/config
+      - /data/config/qbittorrent:/config
       - /data/torrents:/data/torrents
     networks:
       - arr
+
+  qbit_manage:
+    container_name: qbit_manage
+    image: ghcr.io/stuffanthings/qbit_manage:latest
+    volumes:
+      - /data/config/qbit_manage/:/config:rw
+      - /CHANGEME:/config/config.yml
+      - /data/torrents/:/data/torrents:rw
+      - /data/config/qbittorrent:/qbittorrent/:ro
+    environment:
+      - QBT_RUN=false
+      - QBT_SCHEDULE=1440
+      - QBT_CONFIG=config.yml
+      - QBT_LOGFILE=activity.log
+      - QBT_CROSS_SEED=false
+      - QBT_RECHECK=false
+      - QBT_CAT_UPDATE=false
+      - QBT_TAG_UPDATE=false
+      - QBT_REM_UNREGISTERED=false
+      - QBT_REM_ORPHANED=false
+      - QBT_TAG_TRACKER_ERROR=false
+      - QBT_TAG_NOHARDLINKS=false
+      - QBT_SHARE_LIMITS=false
+      - QBT_SKIP_CLEANUP=false
+      - QBT_DRY_RUN=false
+      - QBT_LOG_LEVEL=INFO
+      - QBT_DIVIDER==
+      - QBT_WIDTH=100
+    restart: on-failure:2
+    networks:
+      - arr
+    depends_on:
+      - qbittorrent
 
   # https://hotio.dev/containers/sonarr/#starting-the-container
   sonarr-tv-hd:
