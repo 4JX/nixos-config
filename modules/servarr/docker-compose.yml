@@ -41,6 +41,47 @@ services:
     networks:
       - arr
 
+  # https://hotio.dev/containers/jellyfin/
+  # Migration: Compare paths in
+  # https://jellyfin.org/docs/general/administration/migrate/#migrating-linux-install-to-docker
+  # https://hotio.dev/containers/jellyfin/#configuration
+  # https://github.com/NixOS/nixpkgs/blob/40916ded4ad5fe4bcc18963217c3a026db505c7f/nixos/modules/services/misc/jellyfin.nix#L27-L63
+  jellyfin:
+    container_name: jellyfin
+    image: ghcr.io/hotio/jellyfin
+    ports:
+      - '8096:8096'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      # Set as config.time.timeZone
+      - TZ=Etc/UTC
+    volumes:
+      - /data/config/jellyfin:/config
+      - /data/media:/data/media
+    # https://jellyfin.org/docs/general/installation/container#with-hardware-acceleration
+    devices: # Needed for hardware acceleration/transcoding
+      - /dev/dri:/dev/dri
+    networks:
+      - arr
+
+  # https://docs.jellyseerr.dev/
+  jellyseerr:
+    container_name: jellyseerr
+    image: fallenbagel/jellyseerr:latest
+    environment:
+      - LOG_LEVEL=debug
+      # Set as config.time.timeZone
+      - TZ=Etc/UTC
+    ports:
+      - 5055:5055
+    volumes:
+      - /data/config/jellyseerr:/app/config
+    # restart: unless-stopped
+    networks:
+      - arr
+
   # https://hotio.dev/containers/qbittorrent/#starting-the-container
   qbittorrent:
     container_name: qbittorrent

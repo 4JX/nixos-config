@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
 let
-  cfg = config.ncfg.servarr.jellyfin;
+  cfg = config.ncfg.servarr.jellyseer;
   servarrEnable = config.ncfg.servarr.enable;
 
   openFirewall = cfg.firewall.open && cfg.firewall.port != null;
@@ -10,25 +10,24 @@ let
 in
 {
   options = {
-    ncfg.servarr.jellyfin = {
+    ncfg.servarr.jellyseer = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = servarrEnable;
-        description = "Whether to enable Jellyfin.";
+        description = "Whether to enable Jellyseer.";
       };
       firewall = {
         open = lib.mkOption {
           type = lib.types.bool;
           default = false;
-          description = "Whether to open the port for incoming connections inside Jellyfin.";
+          description = "Whether to open the port for incoming connections inside Jellyseer.";
         };
         port = lib.mkOption {
           type = lib.types.int;
-          default = 8096;
-          description = "The port used for connections inside Jellyfin.";
+          default = 5055;
+          description = "The port used for connections inside Jellyseer.";
         };
       };
-
     };
   };
 
@@ -37,29 +36,26 @@ in
       allowedTCPPorts = [ port ];
     };
 
-    virtualisation.oci-containers.containers."jellyfin" = {
-      image = "ghcr.io/hotio/jellyfin";
+    # Extracted from docker-compose.nix
+    virtualisation.oci-containers.containers."jellyseerr" = {
+      image = "fallenbagel/jellyseerr:latest";
       environment = {
-        "PGID" = "1000";
-        "PUID" = "1000";
+        "LOG_LEVEL" = "debug";
         "TZ" = config.time.timeZone;
-        "UMASK" = "002";
       };
       volumes = [
-        "/data/media:/data/media:rw"
-        "/data/config/jellyfin:/config:rw"
+        "/data/config/jellyseerr:/app/config:rw"
       ];
       ports = [
-        "${portString}:8096/tcp"
+        "${portString}:5055/tcp"
       ];
       log-driver = "journald";
       extraOptions = [
-        "--device=/dev/dri:/dev/dri:rwm"
-        "--network-alias=jellyfin"
+        "--network-alias=jellyseerr"
         "--network=arr"
       ];
     };
-    systemd.services."podman-jellyfin" = {
+    systemd.services."podman-jellyseerr" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "no";
       };

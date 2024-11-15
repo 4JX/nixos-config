@@ -21,6 +21,7 @@ in
     ./recyclarr
     ./gluetun.nix
     ./jellyfin.nix
+    ./jellyseer.nix
     ./prowlarr.nix
     ./qbittorrent.nix
     ./radarr.nix

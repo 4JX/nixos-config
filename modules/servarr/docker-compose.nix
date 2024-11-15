@@ -115,6 +115,80 @@
       "podman-compose-servarr-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."jellyfin" = {
+    image = "ghcr.io/hotio/jellyfin";
+    environment = {
+      "PGID" = "1000";
+      "PUID" = "1000";
+      "TZ" = "Etc/UTC";
+      "UMASK" = "002";
+    };
+    volumes = [
+      "/data/config/jellyfin:/config:rw"
+      "/data/media:/data/media:rw"
+    ];
+    ports = [
+      "8096:8096/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--device=/dev/dri:/dev/dri:rwm"
+      "--network-alias=jellyfin"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-jellyfin" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."jellyseerr" = {
+    image = "fallenbagel/jellyseerr:latest";
+    environment = {
+      "LOG_LEVEL" = "debug";
+      "TZ" = "Etc/UTC";
+    };
+    volumes = [
+      "/data/config/jellyseerr:/app/config:rw"
+    ];
+    ports = [
+      "5055:5055/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=jellyseerr"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-jellyseerr" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."prowlarr" = {
     image = "ghcr.io/hotio/prowlarr";
     environment = {

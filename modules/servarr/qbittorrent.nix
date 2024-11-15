@@ -3,6 +3,7 @@
 let
   cfg = config.ncfg.servarr.qbittorrent;
   servarrEnable = config.ncfg.servarr.enable;
+
   openFirewall = cfg.firewall.open && cfg.firewall.incomingPort != null;
   incomingPort = cfg.firewall.incomingPort;
   incomingPortString = builtins.toString incomingPort;
