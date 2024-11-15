@@ -70,7 +70,7 @@
   };
   systemd.services."podman-flaresolverr" = {
     serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
+      Restart = lib.mkOverride 90 "no";
     };
     after = [
       "podman-network-arr.service"
