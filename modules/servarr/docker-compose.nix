@@ -265,11 +265,7 @@
   };
   systemd.services."podman-qbit_manage" = {
     serviceConfig = {
-      Restart = lib.mkOverride 90 "on-failure";
-    };
-    startLimitBurst = 2;
-    unitConfig = {
-      StartLimitIntervalSec = lib.mkOverride 90 "infinity";
+      Restart = lib.mkOverride 90 "no";
     };
     after = [
       "podman-network-arr.service"
@@ -302,6 +298,8 @@
     ];
     log-driver = "journald";
     extraOptions = [
+      "--dns=1.1.1.1"
+      "--dns=9.9.9.9"
       "--network-alias=qbittorrent"
       "--network=arr"
     ];
@@ -374,6 +372,7 @@
     dependsOn = [
       "radarr-movies-hd"
       "sonarr-anime"
+      "sonarr-tv-hd"
     ];
     user = "nobody:nogroup";
     log-driver = "journald";

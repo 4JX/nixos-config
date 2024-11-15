@@ -67,6 +67,8 @@ in
       ];
       log-driver = "journald";
       extraOptions = [
+        "--dns=1.1.1.1"
+        "--dns=9.9.9.9"
         "--network-alias=qbittorrent"
         "--network=arr"
       ];

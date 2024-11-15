@@ -48,6 +48,7 @@ in
       ];
       dependsOn = [
         "radarr-movies-hd"
+        "sonarr-tv-hd"
         "sonarr-anime"
       ];
       user = "${username}:${group}";

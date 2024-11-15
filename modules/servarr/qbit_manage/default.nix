@@ -65,11 +65,7 @@ in
     };
     systemd.services."podman-qbit_manage" = {
       serviceConfig = {
-        Restart = lib.mkOverride 90 "on-failure";
-      };
-      startLimitBurst = 2;
-      unitConfig = {
-        StartLimitIntervalSec = lib.mkOverride 90 "infinity";
+        Restart = lib.mkOverride 90 "no";
       };
       after = [
         "podman-network-arr.service"
