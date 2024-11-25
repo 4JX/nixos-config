@@ -46,4 +46,11 @@ mkHosts {
         laptop
       ];
     };
+
+  luna =
+    {
+      specialArgs = { };
+
+      modules = [ ];
+    };
 }
