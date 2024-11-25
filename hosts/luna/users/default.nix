@@ -1,0 +1,7 @@
+{ ... }:
+
+{
+  imports = [
+    ./infinity.nix
+  ];
+}
