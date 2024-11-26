@@ -98,8 +98,32 @@ services:
       # Set as config.time.timeZone
       - TZ=Etc/UTC
       - WEBUI_PORTS=8080/tcp,8080/udp
+      # VPN Config
+      # https://hotio.dev/containers/qbittorrent/#wireguard
+      - VPN_ENABLED=true
+      - VPN_CONF=wg0
+      # https://protonvpn.com/vpn-servers
+      - VPN_PROVIDER=proton
+      - VPN_LAN_NETWORK=192.168.1.0/24
+      - VPN_LAN_LEAK_ENABLED=false
+      - VPN_EXPOSE_PORTS_ON_LAN=8080/tcp # Expose WebUI
+      - VPN_AUTO_PORT_FORWARD=true
+      - VPN_AUTO_PORT_FORWARD_TO_PORTS=
+      - VPN_KEEP_LOCAL_DNS=false
+      - VPN_FIREWALL_TYPE=auto
+      - VPN_HEALTHCHECK_ENABLED=false
+      - PRIVOXY_ENABLED=false
+      - UNBOUND_ENABLED=false
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv6.conf.all.disable_ipv6=1 # Disable IPv6
+    # devices:
+    #   - /dev/net/tun:/dev/net/tun # OPTIONAL, READ THIS(9)
     volumes:
       - /data/config/qbittorrent:/config
+      - /CHANGEME:/config/wireguard/wg0.conf
       - /data/torrents:/data/torrents
     networks:
       - arr

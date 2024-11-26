@@ -284,12 +284,26 @@
     image = "ghcr.io/hotio/qbittorrent";
     environment = {
       "PGID" = "1000";
+      "PRIVOXY_ENABLED" = "false";
       "PUID" = "1000";
       "TZ" = "Etc/UTC";
       "UMASK" = "002";
+      "UNBOUND_ENABLED" = "false";
+      "VPN_AUTO_PORT_FORWARD" = "true";
+      "VPN_AUTO_PORT_FORWARD_TO_PORTS" = "";
+      "VPN_CONF" = "wg0";
+      "VPN_ENABLED" = "true";
+      "VPN_EXPOSE_PORTS_ON_LAN" = "8080/tcp";
+      "VPN_FIREWALL_TYPE" = "auto";
+      "VPN_HEALTHCHECK_ENABLED" = "false";
+      "VPN_KEEP_LOCAL_DNS" = "false";
+      "VPN_LAN_LEAK_ENABLED" = "false";
+      "VPN_LAN_NETWORK" = "192.168.1.0/24";
+      "VPN_PROVIDER" = "proton";
       "WEBUI_PORTS" = "8080/tcp,8080/udp";
     };
     volumes = [
+      "/CHANGEME:/config/wireguard/wg0.conf:rw"
       "/data/config/qbittorrent:/config:rw"
       "/data/torrents:/data/torrents:rw"
     ];
@@ -298,10 +312,13 @@
     ];
     log-driver = "journald";
     extraOptions = [
+      "--cap-add=NET_ADMIN"
       "--dns=1.1.1.1"
       "--dns=9.9.9.9"
       "--network-alias=qbittorrent"
       "--network=arr"
+      "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
+      "--sysctl=net.ipv6.conf.all.disable_ipv6=1"
     ];
   };
   systemd.services."podman-qbittorrent" = {

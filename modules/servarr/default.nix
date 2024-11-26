@@ -9,7 +9,7 @@
 
 let
   cfg = config.ncfg.servarr;
-  systemUsers = lib.attrNames config.users.users;
+  # systemUsers = lib.attrNames config.users.users;
 in
 {
   imports = [
@@ -35,11 +35,11 @@ in
       default = config.lib.sops.mkSecretsPath "/arr";
       description = "The path to the servarr secrets folder.";
     };
-    users = lib.mkOption {
-      type = lib.types.listOf (lib.types.enum systemUsers);
-      default = [ ];
-      description = "The users to add to the servarr and podman groups.";
-    };
+    # users = lib.mkOption {
+    #   type = lib.types.listOf (lib.types.enum systemUsers);
+    #   default = [ ];
+    #   description = "The users to add to the servarr and podman groups.";
+    # };
   };
 
   config = lib.mkIf cfg.enable {
@@ -48,8 +48,8 @@ in
       pkgs.docker-compose
     ];
 
-    users.groups.podman.members = cfg.users;
-    users.groups.servarr.members = cfg.users;
+    # users.groups.podman.members = cfg.users;
+    # users.groups.servarr.members = cfg.users;
 
     # Runtime
     virtualisation.podman = {

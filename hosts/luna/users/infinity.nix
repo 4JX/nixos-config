@@ -16,8 +16,6 @@
 
   sops.age.keyFile = "/home/infinity/.config/sops/age/keys.txt";
 
-  ncfg.servarr.users = [ "infinity" ];
-
   programs = {
     wireshark = {
       enable = true;

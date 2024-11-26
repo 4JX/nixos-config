@@ -71,7 +71,7 @@ in
       qbittorrent = {
         firewall = {
           open = true;
-          incomingPort = 58902;
+          incomingPort = 64793;
         };
       };
     };
