@@ -43,7 +43,7 @@ in
     };
 
     servarr = {
-      enable = false;
+      enable = true;
       recyclarr.enable = true;
       qbittorrent = {
         firewall = {

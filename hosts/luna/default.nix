@@ -3,7 +3,7 @@
 {
   imports =
     [
-      inputs.nixos-hardware.common-gpu-nvidia-nonprime
+      inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
       ./boot.nix
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
