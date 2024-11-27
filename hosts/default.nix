@@ -51,6 +51,11 @@ mkHosts {
     {
       specialArgs = { };
 
-      modules = [ ];
+      modules = [
+        {
+          # The open source driver does not support Pascal GPUs.
+          hardware.nvidia.open = false;
+        }
+      ];
     };
 }

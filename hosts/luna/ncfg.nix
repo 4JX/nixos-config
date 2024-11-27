@@ -1,4 +1,4 @@
-{ self, pkgs, config, ... }:
+{ self, pkgs, ... }:
 
 let
   p = self.packages.${pkgs.system};
@@ -13,26 +13,15 @@ in
 
   ncfg = {
     allowedUnfree = [
-      "spotify"
-      "clion"
-      "android-studio-stable"
-      "obsidian"
       "nvidia-x11"
-      # "cudatoolkit"
       "nvidia-settings"
-      "steam"
-      "steam-original"
-      "steam-unwrapped"
-      "steam-run"
-      "cups-brother-hl3140cw-1.1.4-0"
     ];
 
     DM = {
       autoLogin = false;
       loginUser = "infinity";
-      gdm.enable = true;
     };
-    DE.gnome.enable = true;
+    DE.xfce.enable = true;
 
     system = {
       sound.enable = true;
