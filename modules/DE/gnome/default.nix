@@ -1,6 +1,5 @@
-{ config, lib, pkgs, self, ... }:
+{ config, lib, pkgs, ... }:
 let
-  p = self.packages.${pkgs.system};
   cfg = config.ncfg.DE.gnome;
 in
 {
@@ -49,19 +48,5 @@ in
       #   ];
       # }))
     ];
-
-    # https://github.com/harshadgavali/gnome-x11-gesture-daemon/blob/main/gesture_improvements_gesture_daemon.service
-    systemd.user.services."gesture_improvements_gesture_daemon" = {
-      # [Unit]
-      requires = [ "dbus.service" ];
-      description = "gesture improvements Gesture Daemon";
-      startLimitIntervalSec = 0;
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${p.gnome-x11-gesture-daemon}/bin/gesture_improvements_gesture_daemon";
-        Restart = "always";
-        RestartSec = "1s";
-      };
-    };
   };
 }
