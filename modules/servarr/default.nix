@@ -13,6 +13,8 @@ let
 in
 {
   imports = [
+    ./nvidia-ctk.nix
+
     ./qbit_manage
     ./sonarr
 

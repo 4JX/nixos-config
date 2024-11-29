@@ -3,6 +3,7 @@
 let
   cfg = config.ncfg.servarr.jellyfin;
   servarrEnable = config.ncfg.servarr.enable;
+  containerToolkitEnable = config.ncfg.servarr.nvidia-container-toolkit.enable;
 
   openFirewall = cfg.firewall.open && cfg.firewall.port != null;
   port = cfg.firewall.port;
@@ -57,6 +58,8 @@ in
         "--device=/dev/dri:/dev/dri:rwm"
         "--network-alias=jellyfin"
         "--network=arr"
+      ] ++ lib.optionals containerToolkitEnable [
+        "--device=nvidia.com/gpu=all"
       ];
     };
     systemd.services."podman-jellyfin" = {

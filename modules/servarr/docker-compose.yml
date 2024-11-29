@@ -63,6 +63,7 @@ services:
     # https://jellyfin.org/docs/general/installation/container#with-hardware-acceleration
     devices: # Needed for hardware acceleration/transcoding
       - /dev/dri:/dev/dri
+      - nvidia.com/gpu=all
     networks:
       - arr
 

@@ -133,6 +133,7 @@
     log-driver = "journald";
     extraOptions = [
       "--device=/dev/dri:/dev/dri:rwm"
+      "--device=nvidia.com/gpu=all"
       "--network-alias=jellyfin"
       "--network=arr"
     ];
