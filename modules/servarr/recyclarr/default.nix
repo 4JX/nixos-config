@@ -10,7 +10,7 @@ let
   servarrCfg = config.ncfg.servarr;
   cfg = servarrCfg.recyclarr;
 
-  sonarrEnabled = servarrCfg.sonarr.enable;
+  sonarrEnabled = servarrCfg.sonarr.tv-hd.enable || servarrCfg.sonarr.anime.enable;
   radarrEnabled = servarrCfg.radarr.enable;
 
   username = config.users.users.nobody.name;
