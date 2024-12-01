@@ -22,6 +22,7 @@ in
     ./flaresolverr.nix
     ./recyclarr
     ./gluetun.nix
+    ./homarr.nix
     ./jellyfin.nix
     ./jellyseer.nix
     ./prowlarr.nix

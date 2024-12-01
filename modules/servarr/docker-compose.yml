@@ -271,3 +271,19 @@ services:
       - sonarr-anime
       - sonarr-tv-hd
       - radarr-movies-hd
+
+  homarr:
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /run/podman/podman.sock:/var/run/docker.sock
+      - /data/config/homarr/configs:/app/data/configs
+      - /data/config/homarr/icons:/app/public/icons
+      - /data/config/homarr/data:/data
+    ports:
+      - '7575:7575'
+    environment:
+      - DISABLE_ANALYTICS=true
+    networks:
+      - arr

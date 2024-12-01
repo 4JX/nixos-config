@@ -115,6 +115,43 @@
       "podman-compose-servarr-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."homarr" = {
+    image = "ghcr.io/ajnart/homarr:latest";
+    environment = {
+      "DISABLE_ANALYTICS" = "true";
+    };
+    volumes = [
+      "/data/config/homarr/configs:/app/data/configs:rw"
+      "/data/config/homarr/data:/data:rw"
+      "/data/config/homarr/icons:/app/public/icons:rw"
+      "/run/podman/podman.sock:/var/run/docker.sock:rw"
+    ];
+    ports = [
+      "7575:7575/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=homarr"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-homarr" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."jellyfin" = {
     image = "ghcr.io/hotio/jellyfin";
     environment = {
