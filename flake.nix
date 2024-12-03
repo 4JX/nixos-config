@@ -14,8 +14,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
-    # https://github.com/NixOS/nixpkgs/pull/353833
-    nixpkgs-pr353833.url = "github:nixos/nixpkgs/515690695c549a7274bf034be45f0706b93827cd";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
     # nixos-hardware.url = "github:4JX/nixos-hardware";
