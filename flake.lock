@@ -637,22 +637,6 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/cc2f28000298e1269cea6612cd06ec9979dd5d7f.tar.gz"
       }
     },
-    "nixpkgs-pr353833": {
-      "locked": {
-        "lastModified": 1730814834,
-        "narHash": "sha256-9NEbZILEzqptMegtgcgqSS0ip5FMT226jPCeeuHENbQ=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "515690695c549a7274bf034be45f0706b93827cd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "515690695c549a7274bf034be45f0706b93827cd",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1730741070,
@@ -795,7 +779,6 @@
         "nix-gaming": "nix-gaming",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-pr353833": "nixpkgs-pr353833",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "programsdb": "programsdb",
         "sops-nix": "sops-nix",
