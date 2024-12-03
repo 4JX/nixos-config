@@ -51,11 +51,12 @@ in
 
     # Extracted from docker-compose.nix
     virtualisation.oci-containers.containers."qbittorrent" = {
-      image = "ghcr.io/hotio/qbittorrent";
+      # image = "ghcr.io/hotio/qbittorrent:release-5.0.2";
+      image = "ghcr.io/hotio/qbittorrent:release-4.6.7";
       inherit (cfg) autoStart;
       environment = {
         "PGID" = "1000";
-        "PRIVOXY_ENABLED" = "false";
+        "PRIVOXY_ENABLED" = "true";
         "PUID" = "1000";
         "TZ" = config.time.timeZone;
         "UMASK" = "002";
@@ -80,6 +81,7 @@ in
       ];
       ports = [
         "8080:8080/tcp"
+        "8118:8118/tcp"
       ]
       ++ lib.optionals openFirewall [
         "${incomingPortString}:${incomingPortString}/tcp"

@@ -86,12 +86,13 @@ services:
   # https://hotio.dev/containers/qbittorrent/#starting-the-container
   qbittorrent:
     container_name: qbittorrent
-    image: ghcr.io/hotio/qbittorrent
+    image: ghcr.io/hotio/qbittorrent:release-4.6.7
     dns:
       - 1.1.1.1
       - 9.9.9.9
     ports:
       - '8080:8080'
+      - '8118:8118'
     environment:
       - PUID=1000
       - PGID=1000
@@ -113,7 +114,7 @@ services:
       - VPN_KEEP_LOCAL_DNS=false
       - VPN_FIREWALL_TYPE=auto
       - VPN_HEALTHCHECK_ENABLED=false
-      - PRIVOXY_ENABLED=false
+      - PRIVOXY_ENABLED=true
       - UNBOUND_ENABLED=false
     cap_add:
       - NET_ADMIN

@@ -282,10 +282,10 @@
     ];
   };
   virtualisation.oci-containers.containers."qbittorrent" = {
-    image = "ghcr.io/hotio/qbittorrent";
+    image = "ghcr.io/hotio/qbittorrent:release-4.6.7";
     environment = {
       "PGID" = "1000";
-      "PRIVOXY_ENABLED" = "false";
+      "PRIVOXY_ENABLED" = "true";
       "PUID" = "1000";
       "TZ" = "Etc/UTC";
       "UMASK" = "002";
@@ -310,6 +310,7 @@
     ];
     ports = [
       "8080:8080/tcp"
+      "8118:8118/tcp"
     ];
     log-driver = "journald";
     extraOptions = [

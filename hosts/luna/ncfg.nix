@@ -44,13 +44,6 @@ in
 
     servarr = {
       enable = true;
-      recyclarr.enable = true;
-      qbittorrent = {
-        firewall = {
-          open = true;
-          incomingPort = 64793;
-        };
-      };
     };
   };
 }
