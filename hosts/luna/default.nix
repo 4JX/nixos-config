@@ -11,11 +11,21 @@
       ./users
     ];
 
+  # TODO: Tailscale/OpenVPN?
   services.openssh = {
     enable = true;
+    ports = [ 52000 ];
     settings = {
+      # Only via keys
       PermitRootLogin = "prohibit-password";
+      # PermitRootLogin = "no";
+      AllowUsers = [ "infinity@192.168.1.*" ];
+      PasswordAuthentication = false;
     };
+  };
+
+  services.fail2ban = {
+    enable = true;
   };
 
   networking.networkmanager.enable = true;
