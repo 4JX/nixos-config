@@ -41,6 +41,52 @@ services:
     networks:
       - arr
 
+  cloudflared-tunnel:
+    container_name: cloudflared
+    image: cloudflare/cloudflared
+    # restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=<token>
+    # env_file:
+    #   - ${config.sops.secrets.cloudflared-env.path}
+    networks:
+      - arr
+
+  # https://docs.linuxserver.io/general/swag/#swag
+  # https://github.com/linuxserver/reverse-proxy-confs?tab=readme-ov-file#how-to-use-these-reverse-proxy-configs
+  # https://www.linuxserver.io/blog/zero-trust-hosting-and-reverse-proxy-via-cloudflare-swag-and-authelia
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      # Set as config.time.timeZone
+      - TZ=Etc/UTC
+      # - URL=
+      - SUBDOMAINS=wildcard
+      - VALIDATION=dns
+      - CERTPROVIDER=
+      - DNSPLUGIN=cloudflare
+      # - EMAIL=
+      - ONLY_SUBDOMAINS=false
+      - EXTRA_DOMAINS=
+      - STAGING=false
+      - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload
+    # env_file:
+    #   - ${config.sops.secrets.swag-env.path}
+    volumes:
+      - /data/config/swag:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    # restart: unless-stopped
+    networks:
+      - arr
+
   # https://hotio.dev/containers/jellyfin/
   # Migration: Compare paths in
   # https://jellyfin.org/docs/general/administration/migrate/#migrating-linux-install-to-docker

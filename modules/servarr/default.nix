@@ -18,6 +18,7 @@ in
     ./qbit_manage
     ./sonarr
 
+    ./cloudflared.nix
     ./dozzle.nix
     ./flaresolverr.nix
     ./recyclarr
@@ -28,6 +29,7 @@ in
     ./prowlarr.nix
     ./qbittorrent.nix
     ./radarr.nix
+    ./swag.nix
     ./tor.nix
   ];
 

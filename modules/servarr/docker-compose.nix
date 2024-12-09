@@ -20,6 +20,35 @@
   virtualisation.oci-containers.backend = "podman";
 
   # Containers
+  virtualisation.oci-containers.containers."cloudflared" = {
+    image = "cloudflare/cloudflared";
+    environment = {
+      "TUNNEL_TOKEN" = "<token>";
+    };
+    cmd = [ "tunnel" "run" ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=cloudflared-tunnel"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-cloudflared" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."dozzle" = {
     image = "amir20/dozzle:latest";
     volumes = [
@@ -514,6 +543,52 @@
     ];
   };
   systemd.services."podman-sonarr-tv-hd" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."swag" = {
+    image = "lscr.io/linuxserver/swag";
+    environment = {
+      "CERTPROVIDER" = "";
+      "DNSPLUGIN" = "cloudflare";
+      "DOCKER_MODS" = "linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload";
+      "EXTRA_DOMAINS" = "";
+      "ONLY_SUBDOMAINS" = "false";
+      "PGID" = "1000";
+      "PUID" = "1000";
+      "STAGING" = "false";
+      "SUBDOMAINS" = "wildcard";
+      "TZ" = "Etc/UTC";
+      "VALIDATION" = "dns";
+    };
+    volumes = [
+      "/data/config/swag:/config:rw"
+    ];
+    ports = [
+      "443:443/tcp"
+      "80:80/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--cap-add=NET_ADMIN"
+      "--network-alias=swag"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-swag" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
