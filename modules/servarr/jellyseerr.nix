@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
 let
-  cfg = config.ncfg.servarr.jellyseer;
+  cfg = config.ncfg.servarr.jellyseerr;
   servarrEnable = config.ncfg.servarr.enable;
 
   openFirewall = cfg.firewall.open && cfg.firewall.port != null;
@@ -10,22 +10,22 @@ let
 in
 {
   options = {
-    ncfg.servarr.jellyseer = {
+    ncfg.servarr.jellyseerr = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = servarrEnable;
-        description = "Whether to enable Jellyseer.";
+        description = "Whether to enable Jellyseerr.";
       };
       firewall = {
         open = lib.mkOption {
           type = lib.types.bool;
           default = false;
-          description = "Whether to open the port for incoming connections inside Jellyseer.";
+          description = "Whether to open the port for incoming connections inside Jellyseerr.";
         };
         port = lib.mkOption {
           type = lib.types.int;
           default = 5055;
-          description = "The port used for connections inside Jellyseer.";
+          description = "The port used for connections inside Jellyseerr.";
         };
       };
     };

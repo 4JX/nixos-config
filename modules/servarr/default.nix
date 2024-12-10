@@ -24,7 +24,7 @@ in
     ./gluetun.nix
     ./homarr.nix
     ./jellyfin.nix
-    ./jellyseer.nix
+    ./jellyseerr.nix
     ./prowlarr.nix
     ./qbittorrent.nix
     ./radarr.nix
