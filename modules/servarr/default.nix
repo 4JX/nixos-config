@@ -13,6 +13,8 @@ let
 in
 {
   imports = [
+    ./authentik
+
     ./nvidia-ctk.nix
 
     ./qbit_manage

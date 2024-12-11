@@ -1,0 +1,104 @@
+# compose2nix --project servarr
+
+# https://docs.goauthentik.io/docs/
+networks:
+  arr:
+    name: arr
+    external: true
+
+services:
+  postgresql:
+    image: docker.io/library/postgres:16-alpine
+    container_name: authentik-postgresql
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}']
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    volumes:
+      - ${PATH_AUTHENTIK_DATA_BASE}/postgresql:/var/lib/postgresql/data
+    # env_file:
+    #   - ${config.sops.secrets.authentik-postgresql-env.path}
+    networks:
+      - arr
+
+  redis:
+    image: docker.io/library/redis:alpine
+    container_name: authentik-redis
+    command: --save 60 1 --loglevel warning
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD-SHELL', 'redis-cli ping | grep PONG']
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 3s
+    volumes:
+      - ${PATH_AUTHENTIK_DATA_BASE}/redis:/data
+    networks:
+      - arr
+
+  server:
+    image: ghcr.io/goauthentik/server:2024.10.5
+    container_name: authentik-server
+    restart: unless-stopped
+    command: server
+    environment:
+      AUTHENTIK_REDIS__HOST: redis
+      AUTHENTIK_POSTGRESQL__HOST: postgresql
+      AUTHENTIK_ERROR_REPORTING__ENABLED: false
+      # Disable some analytics
+      AUTHENTIK_DISABLE_STARTUP_ANALYTICS: true
+      # AUTHENTIK_DISABLE_UPDATE_CHECK: true
+    # env_file:
+    #   - ${config.sops.secrets.authentik-env.path}
+    volumes:
+      - ${PATH_AUTHENTIK_DATA_BASE}/authentik/media:/media
+      - ${PATH_AUTHENTIK_DATA_BASE}/authentik/custom-templates:/templates
+    ports:
+      - '9000:9000'
+      - '9443:9443'
+    depends_on:
+      postgresql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - arr
+
+  worker:
+    image: ghcr.io/goauthentik/server:2024.10.5
+    container_name: authentik-worker
+    restart: unless-stopped
+    command: worker
+    environment:
+      AUTHENTIK_REDIS__HOST: redis
+      AUTHENTIK_POSTGRESQL__HOST: postgresql
+      AUTHENTIK_ERROR_REPORTING__ENABLED: false
+      # Disable some analytics
+      AUTHENTIK_DISABLE_STARTUP_ANALYTICS: true
+      # AUTHENTIK_DISABLE_UPDATE_CHECK: true
+    # `user: root` and the docker socket volume are optional.
+    # See more for the docker socket integration here:
+    # https://goauthentik.io/docs/outposts/integrations/docker
+    # Removing `user: root` also prevents the worker from fixing the permissions
+    # on the mounted folders, so when removing this make sure the folders have the correct UID/GID
+    # (1000:1000 by default)
+    # env_file:
+    #   - ${config.sops.secrets.authentik-env.path}
+    user: root
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock
+      - /run/podman/podman.sock:/var/run/docker.sock
+      - ${PATH_AUTHENTIK_DATA_BASE}/authentik/media:/media
+      - ${PATH_AUTHENTIK_DATA_BASE}/authentik/certs:/certs
+      - ${PATH_AUTHENTIK_DATA_BASE}/authentik/custom-templates:/templates
+    depends_on:
+      postgresql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - arr
