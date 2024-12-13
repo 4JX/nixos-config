@@ -150,9 +150,9 @@
       "DISABLE_ANALYTICS" = "true";
     };
     volumes = [
-      "/data/config/homarr/configs:/app/data/configs:rw"
-      "/data/config/homarr/data:/data:rw"
-      "/data/config/homarr/icons:/app/public/icons:rw"
+      "/containers/config/homarr/configs:/app/containers/configs:rw"
+      "/containers/config/homarr/data:/data:rw"
+      "/containers/config/homarr/icons:/app/public/icons:rw"
       "/run/podman/podman.sock:/var/run/docker.sock:rw"
     ];
     ports = [
@@ -190,8 +190,8 @@
       "UMASK" = "002";
     };
     volumes = [
-      "/data/config/jellyfin:/config:rw"
-      "/data/media:/data/media:rw"
+      "/containers/config/jellyfin:/config:rw"
+      "/containers/mediaserver/media:/data/media:rw"
     ];
     ports = [
       "8096:8096/tcp"
@@ -228,7 +228,7 @@
       "TZ" = "Etc/UTC";
     };
     volumes = [
-      "/data/config/jellyseerr:/app/config:rw"
+      "/containers/config/jellyseerr:/app/config:rw"
     ];
     ports = [
       "5055:5055/tcp"
@@ -265,7 +265,7 @@
       "UMASK" = "002";
     };
     volumes = [
-      "/data/config/prowlarr:/config:rw"
+      "/containers/config/prowlarr:/config:rw"
     ];
     ports = [
       "9696:9696/tcp"
@@ -317,9 +317,9 @@
     };
     volumes = [
       "/CHANGEME:/config/config.yml:rw"
-      "/data/config/qbit_manage/:/config:rw"
-      "/data/config/qbittorrent:/qbittorrent:ro"
-      "/data/torrents/:/data/torrents:rw"
+      "/containers/config/qbit_manage/:/config:rw"
+      "/containers/config/qbittorrent:/qbittorrent:ro"
+      "/containers/mediaserver/torrents/:/data/torrents:rw"
     ];
     dependsOn = [
       "qbittorrent"
@@ -371,8 +371,8 @@
     };
     volumes = [
       "/CHANGEME:/config/wireguard/wg0.conf:rw"
-      "/data/config/qbittorrent:/config:rw"
-      "/data/torrents:/data/torrents:rw"
+      "/containers/config/qbittorrent:/config:rw"
+      "/containers/mediaserver/torrents:/data/torrents:rw"
     ];
     ports = [
       "8080:8080/tcp"
@@ -415,8 +415,8 @@
       "UMASK" = "002";
     };
     volumes = [
-      "/data:/data:rw"
-      "/data/config/radarr-movies-hd:/config:rw"
+      "/containers/config/radarr-movies-hd:/config:rw"
+      "/containers/mediaserver:/data:rw"
     ];
     ports = [
       "7878:7878/tcp"
@@ -452,7 +452,7 @@
     volumes = [
       "/CHANGEME:/config/recyclarr.yml:rw"
       "/CHANGEME2:/config/secrets.yml:rw"
-      "/data/config/recyclarr:/config:rw"
+      "/containers/config/recyclarr:/config:rw"
     ];
     dependsOn = [
       "radarr-movies-hd"
@@ -492,8 +492,8 @@
       "UMASK" = "002";
     };
     volumes = [
-      "/data:/data:rw"
-      "/data/config/sonarr-anime:/config:rw"
+      "/containers/config/sonarr-anime:/config:rw"
+      "/containers/mediaserver:/data:rw"
     ];
     ports = [
       "8990:8989/tcp"
@@ -530,8 +530,8 @@
       "UMASK" = "002";
     };
     volumes = [
-      "/data:/data:rw"
-      "/data/config/sonarr-tv-hd:/config:rw"
+      "/containers/config/sonarr-tv-hd:/config:rw"
+      "/containers/mediaserver:/data:rw"
     ];
     ports = [
       "8989:8989/tcp"
@@ -575,7 +575,7 @@
       "VALIDATION" = "dns";
     };
     volumes = [
-      "/data/config/swag:/config:rw"
+      "/containers/config/swag:/config:rw"
     ];
     ports = [
       "443:443/tcp"

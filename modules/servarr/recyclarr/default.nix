@@ -44,7 +44,7 @@ in
       volumes = [
         "${recyclarrYaml}:/config/recyclarr.yml:rw"
         "${config.sops.secrets.recyclarr.path}:/config/secrets.yml:rw"
-        "/data/config/recyclarr:/config:rw"
+        "/containers/config/recyclarr:/config:rw"
       ];
       dependsOn = [
         "radarr-movies-hd"

@@ -47,8 +47,8 @@ in
         "UMASK" = "002";
       };
       volumes = [
-        "/data/media:/data/media:rw"
-        "/data/config/jellyfin:/config:rw"
+        "/containers/config/jellyfin:/config:rw"
+        "/containers/mediaserver/media:/data/media:rw"
       ];
       ports = [
         "${portString}:8096/tcp"

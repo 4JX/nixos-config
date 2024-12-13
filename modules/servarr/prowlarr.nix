@@ -24,7 +24,7 @@ in
         "UMASK" = "002";
       };
       volumes = [
-        "/data/config/prowlarr:/config:rw"
+        "/containers/config/prowlarr:/config:rw"
       ];
       ports = [
         "9696:9696/tcp"

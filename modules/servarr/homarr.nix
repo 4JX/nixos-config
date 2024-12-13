@@ -21,9 +21,9 @@ in
         "DISABLE_ANALYTICS" = "true";
       };
       volumes = [
-        "/data/config/homarr/configs:/app/data/configs:rw"
-        "/data/config/homarr/data:/data:rw"
-        "/data/config/homarr/icons:/app/public/icons:rw"
+        "/containers/config/homarr/configs:/app/containers/configs:rw"
+        "/containers/config/homarr/data:/data:rw"
+        "/containers/config/homarr/icons:/app/public/icons:rw"
         "/run/podman/podman.sock:/var/run/docker.sock:rw"
       ];
       ports = [

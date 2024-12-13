@@ -50,9 +50,9 @@ in
       };
       volumes = [
         "${manageYaml}:/config/config.yml:rw"
-        "/data/config/qbit_manage/:/config:rw"
-        "/data/config/qbittorrent:/qbittorrent:ro"
-        "/data/torrents/:/data/torrents:rw"
+        "/containers/config/qbit_manage/:/config:rw"
+        "/containers/config/qbittorrent:/qbittorrent:ro"
+        "/containers/mediaserver/torrents/:/data/torrents:rw"
       ];
       dependsOn = [
         "qbittorrent"

@@ -32,8 +32,8 @@ in
         "UMASK" = "002";
       };
       volumes = [
-        "/data:/data:rw"
-        "/data/config/radarr-movies-hd:/config:rw"
+        "/containers/config/radarr-movies-hd:/config:rw"
+        "/containers/mediaserver:/data:rw"
       ];
       ports = [
         "7878:7878/tcp"

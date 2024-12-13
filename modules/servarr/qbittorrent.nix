@@ -76,8 +76,8 @@ in
       };
       volumes = [
         "${config.sops.secrets.qbit-wg0.path}:/config/wireguard/wg0.conf:rw"
-        "/data/config/qbittorrent:/config:rw"
-        "/data/torrents:/data/torrents:rw"
+        "/containers/config/qbittorrent:/config:rw"
+        "/containers/mediaserver/torrents:/data/torrents:rw"
       ];
       ports = [
         "8080:8080/tcp"

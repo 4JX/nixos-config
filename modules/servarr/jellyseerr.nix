@@ -44,7 +44,7 @@ in
         "TZ" = config.time.timeZone;
       };
       volumes = [
-        "/data/config/jellyseerr:/app/config:rw"
+        "/containers/config/jellyseerr:/app/config:rw"
       ];
       ports = [
         "${portString}:5055/tcp"

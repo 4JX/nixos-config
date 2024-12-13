@@ -38,7 +38,7 @@ in
         config.sops.secrets.swag-env.path
       ];
       volumes = [
-        "/data/config/swag:/config:rw"
+        "/containers/config/swag:/config:rw"
       ];
       ports = [
         "443:443/tcp"

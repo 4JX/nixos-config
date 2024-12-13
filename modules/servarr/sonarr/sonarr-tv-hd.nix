@@ -32,8 +32,8 @@ in
         "UMASK" = "002";
       };
       volumes = [
-        "/data:/data:rw"
-        "/data/config/sonarr-tv-hd:/config:rw"
+        "/containers/config/sonarr-tv-hd:/config:rw"
+        "/containers/mediaserver:/data:rw"
       ];
       ports = [
         "8989:8989/tcp"
