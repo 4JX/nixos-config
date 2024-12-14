@@ -28,7 +28,7 @@ in
       log-driver = "journald";
       extraOptions = [
         "--network-alias=cloudflared-tunnel"
-        "--network=arr"
+        "--network=exposed"
       ];
     };
     systemd.services."podman-cloudflared" = {
@@ -36,10 +36,10 @@ in
         Restart = lib.mkOverride 90 "no";
       };
       after = [
-        "podman-network-arr.service"
+        "podman-network-exposed.service"
       ];
       requires = [
-        "podman-network-arr.service"
+        "podman-network-exposed.service"
       ];
       partOf = [
         "podman-compose-servarr-root.target"

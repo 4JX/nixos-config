@@ -30,13 +30,19 @@ in
         "--health-start-period=20s"
         "--health-timeout=3s"
         "--network-alias=redis"
-        "--network=arr"
+        "--network=authentik"
       ];
     };
     systemd.services."podman-authentik-redis" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "always";
       };
+      after = [
+        "podman-network-authentik.service"
+      ];
+      requires = [
+        "podman-network-authentik.service"
+      ];
       partOf = [
         "podman-compose-servarr-root.target"
       ];

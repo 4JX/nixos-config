@@ -2,8 +2,12 @@
 
 # https://docs.goauthentik.io/docs/
 networks:
-  arr:
-    name: arr
+  authentik:
+    name: authentik
+  ldap:
+    name: ldap
+  exposed:
+    name: exposed
     external: true
 
 services:
@@ -22,7 +26,7 @@ services:
     # env_file:
     #   - ${config.sops.secrets.authentik-postgresql-env.path}
     networks:
-      - arr
+      - authentik
 
   redis:
     image: docker.io/library/redis:alpine
@@ -38,7 +42,7 @@ services:
     volumes:
       - ${PATH_AUTHENTIK_DATA_BASE}/redis:/data
     networks:
-      - arr
+      - authentik
 
   server:
     image: ghcr.io/goauthentik/server:2024.10.5
@@ -66,7 +70,9 @@ services:
       redis:
         condition: service_healthy
     networks:
-      - arr
+      - authentik
+      - ldap
+      - exposed
 
   worker:
     image: ghcr.io/goauthentik/server:2024.10.5
@@ -101,4 +107,4 @@ services:
       redis:
         condition: service_healthy
     networks:
-      - arr
+      - authentik

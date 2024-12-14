@@ -47,13 +47,23 @@ in
       log-driver = "journald";
       extraOptions = [
         "--network-alias=server"
-        "--network=arr"
+        "--network=authentik"
+        "--network=exposed"
+        "--network=ldap"
       ];
     };
     systemd.services."podman-authentik-server" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "always";
       };
+      after = [
+        "podman-network-authentik.service"
+        "podman-network-ldap.service"
+      ];
+      requires = [
+        "podman-network-authentik.service"
+        "podman-network-ldap.service"
+      ];
       partOf = [
         "podman-compose-servarr-root.target"
       ];

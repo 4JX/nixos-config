@@ -33,13 +33,19 @@
       "--health-start-period=20s"
       "--health-timeout=5s"
       "--network-alias=postgresql"
-      "--network=arr"
+      "--network=authentik"
     ];
   };
   systemd.services."podman-authentik-postgresql" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
     };
+    after = [
+      "podman-network-authentik.service"
+    ];
+    requires = [
+      "podman-network-authentik.service"
+    ];
     partOf = [
       "podman-compose-servarr-root.target"
     ];
@@ -61,13 +67,19 @@
       "--health-start-period=20s"
       "--health-timeout=3s"
       "--network-alias=redis"
-      "--network=arr"
+      "--network=authentik"
     ];
   };
   systemd.services."podman-authentik-redis" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
     };
+    after = [
+      "podman-network-authentik.service"
+    ];
+    requires = [
+      "podman-network-authentik.service"
+    ];
     partOf = [
       "podman-compose-servarr-root.target"
     ];
@@ -99,13 +111,23 @@
     log-driver = "journald";
     extraOptions = [
       "--network-alias=server"
-      "--network=arr"
+      "--network=authentik"
+      "--network=exposed"
+      "--network=ldap"
     ];
   };
   systemd.services."podman-authentik-server" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
     };
+    after = [
+      "podman-network-authentik.service"
+      "podman-network-ldap.service"
+    ];
+    requires = [
+      "podman-network-authentik.service"
+      "podman-network-ldap.service"
+    ];
     partOf = [
       "podman-compose-servarr-root.target"
     ];
@@ -136,19 +158,53 @@
     log-driver = "journald";
     extraOptions = [
       "--network-alias=worker"
-      "--network=arr"
+      "--network=authentik"
     ];
   };
   systemd.services."podman-authentik-worker" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
     };
+    after = [
+      "podman-network-authentik.service"
+    ];
+    requires = [
+      "podman-network-authentik.service"
+    ];
     partOf = [
       "podman-compose-servarr-root.target"
     ];
     wantedBy = [
       "podman-compose-servarr-root.target"
     ];
+  };
+
+  # Networks
+  systemd.services."podman-network-authentik" = {
+    path = [ pkgs.podman ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "podman network rm -f authentik";
+    };
+    script = ''
+      podman network inspect authentik || podman network create authentik
+    '';
+    partOf = [ "podman-compose-servarr-root.target" ];
+    wantedBy = [ "podman-compose-servarr-root.target" ];
+  };
+  systemd.services."podman-network-ldap" = {
+    path = [ pkgs.podman ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "podman network rm -f ldap";
+    };
+    script = ''
+      podman network inspect ldap || podman network create ldap
+    '';
+    partOf = [ "podman-compose-servarr-root.target" ];
+    wantedBy = [ "podman-compose-servarr-root.target" ];
   };
 
   # Root service

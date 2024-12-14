@@ -46,13 +46,19 @@ in
       log-driver = "journald";
       extraOptions = [
         "--network-alias=worker"
-        "--network=arr"
+        "--network=authentik"
       ];
     };
     systemd.services."podman-authentik-worker" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "always";
       };
+      after = [
+        "podman-network-authentik.service"
+      ];
+      requires = [
+        "podman-network-authentik.service"
+      ];
       partOf = [
         "podman-compose-servarr-root.target"
       ];

@@ -53,6 +53,7 @@ in
       extraOptions = [
         "--network-alias=jellyseerr"
         "--network=arr"
+        "--network=exposed"
       ];
     };
     systemd.services."podman-jellyseerr" = {
@@ -61,9 +62,11 @@ in
       };
       after = [
         "podman-network-arr.service"
+        "podman-network-exposed.service"
       ];
       requires = [
         "podman-network-arr.service"
+        "podman-network-exposed.service"
       ];
       partOf = [
         "podman-compose-servarr-root.target"

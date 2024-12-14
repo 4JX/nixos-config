@@ -2,6 +2,14 @@
 networks:
   arr:
     name: arr
+  exposed:
+    name: exposed
+  authentik:
+    name: authentik
+    external: true
+  ldap:
+    name: ldap
+    external: true
 
 services:
   # https://github.com/qdm12/gluetun
@@ -51,7 +59,7 @@ services:
     # env_file:
     #   - ${config.sops.secrets.cloudflared-env.path}
     networks:
-      - arr
+      - exposed
 
   # https://docs.linuxserver.io/general/swag/#swag
   # https://github.com/linuxserver/reverse-proxy-confs?tab=readme-ov-file#how-to-use-these-reverse-proxy-configs
@@ -85,7 +93,7 @@ services:
       - 80:80 #optional
     # restart: unless-stopped
     networks:
-      - arr
+      - exposed
 
   # https://hotio.dev/containers/jellyfin/
   # Migration: Compare paths in
@@ -112,6 +120,8 @@ services:
       - nvidia.com/gpu=all
     networks:
       - arr
+      - ldap
+      - exposed
 
   # https://docs.jellyseerr.dev/
   jellyseerr:
@@ -128,6 +138,7 @@ services:
     # restart: unless-stopped
     networks:
       - arr
+      - exposed
 
   # https://hotio.dev/containers/qbittorrent/#starting-the-container
   qbittorrent:

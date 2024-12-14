@@ -29,7 +29,7 @@
     log-driver = "journald";
     extraOptions = [
       "--network-alias=cloudflared-tunnel"
-      "--network=arr"
+      "--network=exposed"
     ];
   };
   systemd.services."podman-cloudflared" = {
@@ -37,10 +37,10 @@
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "podman-network-exposed.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "podman-network-exposed.service"
     ];
     partOf = [
       "podman-compose-servarr-root.target"
@@ -202,6 +202,8 @@
       "--device=nvidia.com/gpu=all"
       "--network-alias=jellyfin"
       "--network=arr"
+      "--network=exposed"
+      "--network=ldap"
     ];
   };
   systemd.services."podman-jellyfin" = {
@@ -210,9 +212,11 @@
     };
     after = [
       "podman-network-arr.service"
+      "podman-network-exposed.service"
     ];
     requires = [
       "podman-network-arr.service"
+      "podman-network-exposed.service"
     ];
     partOf = [
       "podman-compose-servarr-root.target"
@@ -237,6 +241,7 @@
     extraOptions = [
       "--network-alias=jellyseerr"
       "--network=arr"
+      "--network=exposed"
     ];
   };
   systemd.services."podman-jellyseerr" = {
@@ -245,9 +250,11 @@
     };
     after = [
       "podman-network-arr.service"
+      "podman-network-exposed.service"
     ];
     requires = [
       "podman-network-arr.service"
+      "podman-network-exposed.service"
     ];
     partOf = [
       "podman-compose-servarr-root.target"
@@ -585,7 +592,7 @@
     extraOptions = [
       "--cap-add=NET_ADMIN"
       "--network-alias=swag"
-      "--network=arr"
+      "--network=exposed"
     ];
   };
   systemd.services."podman-swag" = {
@@ -593,10 +600,10 @@
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "podman-network-exposed.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "podman-network-exposed.service"
     ];
     partOf = [
       "podman-compose-servarr-root.target"
@@ -616,6 +623,19 @@
     };
     script = ''
       podman network inspect arr || podman network create arr
+    '';
+    partOf = [ "podman-compose-servarr-root.target" ];
+    wantedBy = [ "podman-compose-servarr-root.target" ];
+  };
+  systemd.services."podman-network-exposed" = {
+    path = [ pkgs.podman ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "podman network rm -f exposed";
+    };
+    script = ''
+      podman network inspect exposed || podman network create exposed
     '';
     partOf = [ "podman-compose-servarr-root.target" ];
     wantedBy = [ "podman-compose-servarr-root.target" ];

@@ -100,6 +100,19 @@ in
       partOf = [ "podman-compose-servarr-root.target" ];
       wantedBy = [ "podman-compose-servarr-root.target" ];
     };
+    systemd.services."podman-network-exposed" = {
+      path = [ pkgs.podman ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStop = "podman network rm -f exposed";
+      };
+      script = ''
+        podman network inspect exposed || podman network create exposed
+      '';
+      partOf = [ "podman-compose-servarr-root.target" ];
+      wantedBy = [ "podman-compose-servarr-root.target" ];
+    };
 
     # Root service
     # When started, this will automatically create all resources and start

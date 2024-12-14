@@ -58,6 +58,8 @@ in
         "--device=/dev/dri:/dev/dri:rwm"
         "--network-alias=jellyfin"
         "--network=arr"
+        "--network=exposed"
+        "--network=ldap"
       ] ++ lib.optionals containerToolkitEnable [
         "--device=nvidia.com/gpu=all"
       ];
@@ -68,9 +70,11 @@ in
       };
       after = [
         "podman-network-arr.service"
+        "podman-network-exposed.service"
       ];
       requires = [
         "podman-network-arr.service"
+        "podman-network-exposed.service"
       ];
       partOf = [
         "podman-compose-servarr-root.target"

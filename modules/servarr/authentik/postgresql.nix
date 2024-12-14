@@ -36,13 +36,19 @@ in
         "--health-start-period=20s"
         "--health-timeout=5s"
         "--network-alias=postgresql"
-        "--network=arr"
+        "--network=authentik"
       ];
     };
     systemd.services."podman-authentik-postgresql" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "always";
       };
+      after = [
+        "podman-network-authentik.service"
+      ];
+      requires = [
+        "podman-network-authentik.service"
+      ];
       partOf = [
         "podman-compose-servarr-root.target"
       ];
