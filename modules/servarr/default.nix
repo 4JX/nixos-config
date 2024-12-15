@@ -21,6 +21,7 @@ in
     ./sonarr
 
     ./cloudflared.nix
+    ./cross-seed.nix
     ./dozzle.nix
     ./flaresolverr.nix
     ./recyclarr

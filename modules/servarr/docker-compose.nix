@@ -49,6 +49,43 @@
       "podman-compose-servarr-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."cross-seed" = {
+    image = "ghcr.io/cross-seed/cross-seed:6";
+    volumes = [
+      "/CHANGEME:/config/config.js:rw"
+      "/containers/config/cross-seed:/config:rw"
+      "/containers/config/qbittorrent/data/BT_backup:/torrents:ro"
+      "/containers/mediaserver/torrents:/data/torrents:rw"
+      "/containers/mediaserver/torrents/cross-seed/foo:/cross-seeds:rw"
+    ];
+    ports = [
+      "2468:2468/tcp"
+    ];
+    cmd = [ "daemon" ];
+    user = "1000:1000";
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=cross-seed"
+      "--network=arr"
+    ];
+  };
+  systemd.services."podman-cross-seed" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-arr.service"
+    ];
+    requires = [
+      "podman-network-arr.service"
+    ];
+    partOf = [
+      "podman-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-servarr-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."dozzle" = {
     image = "amir20/dozzle:latest";
     volumes = [

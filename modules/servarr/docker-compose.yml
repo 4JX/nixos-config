@@ -221,6 +221,24 @@ services:
     depends_on:
       - qbittorrent
 
+  # https://www.cross-seed.org/docs
+  cross-seed:
+    image: ghcr.io/cross-seed/cross-seed:6
+    container_name: cross-seed
+    user: 1000:1000
+    ports:
+      - '2468:2468'
+    volumes:
+      - ${PATH_CONFIG_BASE}/cross-seed:/config
+      - /CHANGEME:/config/config.js
+      - ${PATH_CONFIG_BASE}/qbittorrent/data/BT_backup:/torrents:ro # Keep read-only
+      - ${PATH_MEDIASERVER_DATA_BASE}/torrents/cross-seed/foo:/cross-seeds
+      - ${PATH_MEDIASERVER_DATA_BASE}/torrents:/data/torrents
+    command: daemon
+    # restart: unless-stopped
+    networks:
+      - arr
+
   # https://hotio.dev/containers/sonarr/#starting-the-container
   sonarr-tv-hd:
     container_name: sonarr-tv-hd
