@@ -12,6 +12,7 @@ in
     ./misc
     ./system
     ./virtualisation
+    ./wireguard
     ./WM
     ./sops.nix
   ];

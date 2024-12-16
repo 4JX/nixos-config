@@ -64,6 +64,22 @@ in
     programs = {
       gaming.enable = true;
     };
+
+    wireguard.server = {
+      enable = false;
+      interfaces = {
+        external = "eno0";
+      };
+      peers = [
+        {
+          name = "user";
+          publicKey = "BREIGI87WL3NaqKujMIDPUl/rOg7jNBupNGBw5gN7Hs=";
+          presharedKey = "wpaxjwCUorgsjpUpvDbOmXtGg0QBBTJBmLc77T07SZg=";
+          # presharedKeyFile = "/use/me/for/your/preshared/key";
+          allowedIPs = [ "10.100.0.2/32" ];
+        }
+      ];
+    };
   };
 
   environment.shellAliases = {
