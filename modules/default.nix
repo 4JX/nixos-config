@@ -13,6 +13,7 @@ in
     ./servarr
     ./system
     ./virtualisation
+    ./wireguard
     ./WM
     ./sops.nix
   ];
