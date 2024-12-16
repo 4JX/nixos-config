@@ -15,6 +15,7 @@ in
   imports = [
     ./authentik
 
+    ./ddns
     ./nvidia-ctk.nix
 
     ./qbit_manage
