@@ -51,21 +51,21 @@ in
         "--network=exposed"
       ];
     };
-    systemd.services."podman-swag" = {
+    systemd.services."docker-swag" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "no";
       };
       after = [
-        "podman-network-exposed.service"
+        "docker-network-exposed.service"
       ];
       requires = [
-        "podman-network-exposed.service"
+        "docker-network-exposed.service"
       ];
       partOf = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
       wantedBy = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
     };
   };

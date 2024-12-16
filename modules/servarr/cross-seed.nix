@@ -51,24 +51,24 @@ in
         "--network=arr"
       ];
     };
-    systemd.services."podman-cross-seed" = {
+    systemd.services."docker-cross-seed" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "no";
       };
       after = [
-        "podman-network-arr.service"
+        "docker-network-arr.service"
       ];
       requires = [
-        "podman-network-arr.service"
+        "docker-network-arr.service"
       ];
       partOf = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
       # Do not start cross-seed if qbittorrent is not set to autoStart as well
       # This avoids qbittorrent being started by proxy due to cross-seed's wantedBy+dependsOn
       wantedBy = lib.mkForce (
         if qbitCfg.autoStart then [
-          "podman-compose-servarr-root.target"
+          "docker-compose-servarr-root.target"
         ] else [ ]
       );
     };

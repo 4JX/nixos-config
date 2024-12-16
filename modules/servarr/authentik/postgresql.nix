@@ -39,21 +39,24 @@ in
         "--network=authentik"
       ];
     };
-    systemd.services."podman-authentik-postgresql" = {
+    systemd.services."docker-authentik-postgresql" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "always";
+        RestartMaxDelaySec = lib.mkOverride 90 "1m";
+        RestartSec = lib.mkOverride 90 "100ms";
+        RestartSteps = lib.mkOverride 90 9;
       };
       after = [
-        "podman-network-authentik.service"
+        "docker-network-authentik.service"
       ];
       requires = [
-        "podman-network-authentik.service"
+        "docker-network-authentik.service"
       ];
       partOf = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
       wantedBy = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
     };
   };

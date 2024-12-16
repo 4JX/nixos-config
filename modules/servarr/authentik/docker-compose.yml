@@ -1,4 +1,4 @@
-# compose2nix --project servarr
+# compose2nix --project servarr -env_files .env -runtime docker
 
 # https://docs.goauthentik.io/docs/
 networks:
@@ -96,8 +96,8 @@ services:
     #   - ${config.sops.secrets.authentik-env.path}
     user: root
     volumes:
-      # - /var/run/docker.sock:/var/run/docker.sock
-      - /run/podman/podman.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - /run/podman/podman.sock:/var/run/docker.sock
       - ${PATH_AUTHENTIK_DATA_BASE}/authentik/media:/media
       - ${PATH_AUTHENTIK_DATA_BASE}/authentik/certs:/certs
       - ${PATH_AUTHENTIK_DATA_BASE}/authentik/custom-templates:/templates

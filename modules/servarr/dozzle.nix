@@ -18,7 +18,7 @@ in
     virtualisation.oci-containers.containers."dozzle" = {
       image = "amir20/dozzle:latest";
       volumes = [
-        "/run/podman/podman.sock:/var/run/docker.sock:rw" # TODO: Infer location from enabled container management system?
+        "/var/run/docker.sock:/var/run/docker.sock:rw" # TODO: Infer location from enabled container management system?
       ];
       ports = [
         "8090:8080/tcp"
@@ -29,21 +29,21 @@ in
         "--network=arr"
       ];
     };
-    systemd.services."podman-dozzle" = {
+    systemd.services."docker-dozzle" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "no";
       };
       after = [
-        "podman-network-arr.service"
+        "docker-network-arr.service"
       ];
       requires = [
-        "podman-network-arr.service"
+        "docker-network-arr.service"
       ];
       partOf = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
       wantedBy = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
     };
   };

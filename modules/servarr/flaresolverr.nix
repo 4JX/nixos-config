@@ -32,21 +32,21 @@ in
         "--network=arr"
       ];
     };
-    systemd.services."podman-flaresolverr" = {
+    systemd.services."docker-flaresolverr" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "no";
       };
       after = [
-        "podman-network-arr.service"
+        "docker-network-arr.service"
       ];
       requires = [
-        "podman-network-arr.service"
+        "docker-network-arr.service"
       ];
       partOf = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
       wantedBy = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
     };
   };

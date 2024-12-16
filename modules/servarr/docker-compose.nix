@@ -3,21 +3,11 @@
 
 {
   # Runtime
-  virtualisation.podman = {
+  virtualisation.docker = {
     enable = true;
     autoPrune.enable = true;
-    dockerCompat = true;
-    defaultNetwork.settings = {
-      # Required for container networking to be able to use names.
-      dns_enabled = true;
-    };
   };
-
-  # Enable container name DNS for non-default Podman networks.
-  # https://github.com/NixOS/nixpkgs/issues/226365
-  networking.firewall.interfaces."podman+".allowedUDPPorts = [ 53 ];
-
-  virtualisation.oci-containers.backend = "podman";
+  virtualisation.oci-containers.backend = "docker";
 
   # Containers
   virtualisation.oci-containers.containers."cloudflared" = {
@@ -32,21 +22,21 @@
       "--network=exposed"
     ];
   };
-  systemd.services."podman-cloudflared" = {
+  systemd.services."docker-cloudflared" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-exposed.service"
+      "docker-network-exposed.service"
     ];
     requires = [
-      "podman-network-exposed.service"
+      "docker-network-exposed.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."cross-seed" = {
@@ -69,27 +59,27 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-cross-seed" = {
+  systemd.services."docker-cross-seed" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."dozzle" = {
     image = "amir20/dozzle:latest";
     volumes = [
-      "/run/podman/podman.sock:/var/run/docker.sock:rw"
+      "/var/run/docker.sock:/var/run/docker.sock:rw"
     ];
     ports = [
       "8090:8080/tcp"
@@ -100,21 +90,21 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-dozzle" = {
+  systemd.services."docker-dozzle" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."flaresolverr" = {
@@ -134,21 +124,21 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-flaresolverr" = {
+  systemd.services."docker-flaresolverr" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."gluetun" = {
@@ -164,21 +154,21 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-gluetun" = {
+  systemd.services."docker-gluetun" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."homarr" = {
@@ -190,7 +180,7 @@
       "/containers/config/homarr/configs:/app/containers/configs:rw"
       "/containers/config/homarr/data:/data:rw"
       "/containers/config/homarr/icons:/app/public/icons:rw"
-      "/run/podman/podman.sock:/var/run/docker.sock:rw"
+      "/var/run/docker.sock:/var/run/docker.sock:rw"
     ];
     ports = [
       "7575:7575/tcp"
@@ -201,21 +191,24 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-homarr" = {
+  systemd.services."docker-homarr" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."jellyfin" = {
@@ -243,23 +236,23 @@
       "--network=ldap"
     ];
   };
-  systemd.services."podman-jellyfin" = {
+  systemd.services."docker-jellyfin" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
-      "podman-network-exposed.service"
+      "docker-network-arr.service"
+      "docker-network-exposed.service"
     ];
     requires = [
-      "podman-network-arr.service"
-      "podman-network-exposed.service"
+      "docker-network-arr.service"
+      "docker-network-exposed.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."jellyseerr" = {
@@ -281,23 +274,23 @@
       "--network=exposed"
     ];
   };
-  systemd.services."podman-jellyseerr" = {
+  systemd.services."docker-jellyseerr" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
-      "podman-network-exposed.service"
+      "docker-network-arr.service"
+      "docker-network-exposed.service"
     ];
     requires = [
-      "podman-network-arr.service"
-      "podman-network-exposed.service"
+      "docker-network-arr.service"
+      "docker-network-exposed.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."prowlarr" = {
@@ -320,21 +313,21 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-prowlarr" = {
+  systemd.services."docker-prowlarr" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."qbit_manage" = {
@@ -374,21 +367,21 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-qbit_manage" = {
+  systemd.services."docker-qbit_manage" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."qbittorrent" = {
@@ -433,21 +426,21 @@
       "--sysctl=net.ipv6.conf.all.disable_ipv6=1"
     ];
   };
-  systemd.services."podman-qbittorrent" = {
+  systemd.services."docker-qbittorrent" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."radarr-movies-hd" = {
@@ -471,21 +464,21 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-radarr-movies-hd" = {
+  systemd.services."docker-radarr-movies-hd" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."recyclarr" = {
@@ -510,21 +503,21 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-recyclarr" = {
+  systemd.services."docker-recyclarr" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."sonarr-anime" = {
@@ -548,21 +541,21 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-sonarr-anime" = {
+  systemd.services."docker-sonarr-anime" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."sonarr-tv-hd" = {
@@ -586,21 +579,21 @@
       "--network=arr"
     ];
   };
-  systemd.services."podman-sonarr-tv-hd" = {
+  systemd.services."docker-sonarr-tv-hd" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     requires = [
-      "podman-network-arr.service"
+      "docker-network-arr.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."swag" = {
@@ -632,56 +625,56 @@
       "--network=exposed"
     ];
   };
-  systemd.services."podman-swag" = {
+  systemd.services."docker-swag" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "podman-network-exposed.service"
+      "docker-network-exposed.service"
     ];
     requires = [
-      "podman-network-exposed.service"
+      "docker-network-exposed.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
 
   # Networks
-  systemd.services."podman-network-arr" = {
-    path = [ pkgs.podman ];
+  systemd.services."docker-network-arr" = {
+    path = [ pkgs.docker ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStop = "podman network rm -f arr";
+      ExecStop = "docker network rm -f arr";
     };
     script = ''
-      podman network inspect arr || podman network create arr
+      docker network inspect arr || docker network create arr
     '';
-    partOf = [ "podman-compose-servarr-root.target" ];
-    wantedBy = [ "podman-compose-servarr-root.target" ];
+    partOf = [ "docker-compose-servarr-root.target" ];
+    wantedBy = [ "docker-compose-servarr-root.target" ];
   };
-  systemd.services."podman-network-exposed" = {
-    path = [ pkgs.podman ];
+  systemd.services."docker-network-exposed" = {
+    path = [ pkgs.docker ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStop = "podman network rm -f exposed";
+      ExecStop = "docker network rm -f exposed";
     };
     script = ''
-      podman network inspect exposed || podman network create exposed
+      docker network inspect exposed || docker network create exposed
     '';
-    partOf = [ "podman-compose-servarr-root.target" ];
-    wantedBy = [ "podman-compose-servarr-root.target" ];
+    partOf = [ "docker-compose-servarr-root.target" ];
+    wantedBy = [ "docker-compose-servarr-root.target" ];
   };
 
   # Root service
   # When started, this will automatically create all resources and start
   # the containers. When stopped, this will teardown all resources.
-  systemd.targets."podman-compose-servarr-root" = {
+  systemd.targets."docker-compose-servarr-root" = {
     unitConfig = {
       Description = "Root target generated by compose2nix.";
     };

@@ -56,23 +56,23 @@ in
         "--network=exposed"
       ];
     };
-    systemd.services."podman-jellyseerr" = {
+    systemd.services."docker-jellyseerr" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "no";
       };
       after = [
-        "podman-network-arr.service"
-        "podman-network-exposed.service"
+        "docker-network-arr.service"
+        "docker-network-exposed.service"
       ];
       requires = [
-        "podman-network-arr.service"
-        "podman-network-exposed.service"
+        "docker-network-arr.service"
+        "docker-network-exposed.service"
       ];
       partOf = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
       wantedBy = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
     };
   };

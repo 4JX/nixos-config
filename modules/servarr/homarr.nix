@@ -24,7 +24,7 @@ in
         "/containers/config/homarr/configs:/app/containers/configs:rw"
         "/containers/config/homarr/data:/data:rw"
         "/containers/config/homarr/icons:/app/public/icons:rw"
-        "/run/podman/podman.sock:/var/run/docker.sock:rw"
+        "/var/run/docker.sock:/var/run/docker.sock:rw"
       ];
       ports = [
         "7575:7575/tcp"
@@ -35,21 +35,24 @@ in
         "--network=arr"
       ];
     };
-    systemd.services."podman-homarr" = {
+    systemd.services."docker-homarr" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "always";
+        RestartMaxDelaySec = lib.mkOverride 90 "1m";
+        RestartSec = lib.mkOverride 90 "100ms";
+        RestartSteps = lib.mkOverride 90 9;
       };
       after = [
-        "podman-network-arr.service"
+        "docker-network-arr.service"
       ];
       requires = [
-        "podman-network-arr.service"
+        "docker-network-arr.service"
       ];
       partOf = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
       wantedBy = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
     };
   };

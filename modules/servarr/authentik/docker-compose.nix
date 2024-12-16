@@ -3,21 +3,11 @@
 
 {
   # Runtime
-  virtualisation.podman = {
+  virtualisation.docker = {
     enable = true;
     autoPrune.enable = true;
-    dockerCompat = true;
-    defaultNetwork.settings = {
-      # Required for container networking to be able to use names.
-      dns_enabled = true;
-    };
   };
-
-  # Enable container name DNS for non-default Podman networks.
-  # https://github.com/NixOS/nixpkgs/issues/226365
-  networking.firewall.interfaces."podman+".allowedUDPPorts = [ 53 ];
-
-  virtualisation.oci-containers.backend = "podman";
+  virtualisation.oci-containers.backend = "docker";
 
   # Containers
   virtualisation.oci-containers.containers."authentik-postgresql" = {
@@ -36,21 +26,24 @@
       "--network=authentik"
     ];
   };
-  systemd.services."podman-authentik-postgresql" = {
+  systemd.services."docker-authentik-postgresql" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
     };
     after = [
-      "podman-network-authentik.service"
+      "docker-network-authentik.service"
     ];
     requires = [
-      "podman-network-authentik.service"
+      "docker-network-authentik.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."authentik-redis" = {
@@ -70,21 +63,24 @@
       "--network=authentik"
     ];
   };
-  systemd.services."podman-authentik-redis" = {
+  systemd.services."docker-authentik-redis" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
     };
     after = [
-      "podman-network-authentik.service"
+      "docker-network-authentik.service"
     ];
     requires = [
-      "podman-network-authentik.service"
+      "docker-network-authentik.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."authentik-server" = {
@@ -116,23 +112,26 @@
       "--network=ldap"
     ];
   };
-  systemd.services."podman-authentik-server" = {
+  systemd.services."docker-authentik-server" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
     };
     after = [
-      "podman-network-authentik.service"
-      "podman-network-ldap.service"
+      "docker-network-authentik.service"
+      "docker-network-ldap.service"
     ];
     requires = [
-      "podman-network-authentik.service"
-      "podman-network-ldap.service"
+      "docker-network-authentik.service"
+      "docker-network-ldap.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
   virtualisation.oci-containers.containers."authentik-worker" = {
@@ -147,7 +146,7 @@
       "/containers/authentik/authentik/certs:/certs:rw"
       "/containers/authentik/authentik/custom-templates:/templates:rw"
       "/containers/authentik/authentik/media:/media:rw"
-      "/run/podman/podman.sock:/var/run/docker.sock:rw"
+      "/var/run/docker.sock:/var/run/docker.sock:rw"
     ];
     cmd = [ "worker" ];
     dependsOn = [
@@ -161,56 +160,59 @@
       "--network=authentik"
     ];
   };
-  systemd.services."podman-authentik-worker" = {
+  systemd.services."docker-authentik-worker" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
     };
     after = [
-      "podman-network-authentik.service"
+      "docker-network-authentik.service"
     ];
     requires = [
-      "podman-network-authentik.service"
+      "docker-network-authentik.service"
     ];
     partOf = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
     wantedBy = [
-      "podman-compose-servarr-root.target"
+      "docker-compose-servarr-root.target"
     ];
   };
 
   # Networks
-  systemd.services."podman-network-authentik" = {
-    path = [ pkgs.podman ];
+  systemd.services."docker-network-authentik" = {
+    path = [ pkgs.docker ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStop = "podman network rm -f authentik";
+      ExecStop = "docker network rm -f authentik";
     };
     script = ''
-      podman network inspect authentik || podman network create authentik
+      docker network inspect authentik || docker network create authentik
     '';
-    partOf = [ "podman-compose-servarr-root.target" ];
-    wantedBy = [ "podman-compose-servarr-root.target" ];
+    partOf = [ "docker-compose-servarr-root.target" ];
+    wantedBy = [ "docker-compose-servarr-root.target" ];
   };
-  systemd.services."podman-network-ldap" = {
-    path = [ pkgs.podman ];
+  systemd.services."docker-network-ldap" = {
+    path = [ pkgs.docker ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStop = "podman network rm -f ldap";
+      ExecStop = "docker network rm -f ldap";
     };
     script = ''
-      podman network inspect ldap || podman network create ldap
+      docker network inspect ldap || docker network create ldap
     '';
-    partOf = [ "podman-compose-servarr-root.target" ];
-    wantedBy = [ "podman-compose-servarr-root.target" ];
+    partOf = [ "docker-compose-servarr-root.target" ];
+    wantedBy = [ "docker-compose-servarr-root.target" ];
   };
 
   # Root service
   # When started, this will automatically create all resources and start
   # the containers. When stopped, this will teardown all resources.
-  systemd.targets."podman-compose-servarr-root" = {
+  systemd.targets."docker-compose-servarr-root" = {
     unitConfig = {
       Description = "Root target generated by compose2nix.";
     };

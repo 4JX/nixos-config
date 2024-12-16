@@ -52,23 +52,26 @@ in
         "--network=ldap"
       ];
     };
-    systemd.services."podman-authentik-server" = {
+    systemd.services."docker-authentik-server" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "always";
+        RestartMaxDelaySec = lib.mkOverride 90 "1m";
+        RestartSec = lib.mkOverride 90 "100ms";
+        RestartSteps = lib.mkOverride 90 9;
       };
       after = [
-        "podman-network-authentik.service"
-        "podman-network-ldap.service"
+        "docker-network-authentik.service"
+        "docker-network-ldap.service"
       ];
       requires = [
-        "podman-network-authentik.service"
-        "podman-network-ldap.service"
+        "docker-network-authentik.service"
+        "docker-network-ldap.service"
       ];
       partOf = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
       wantedBy = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
     };
   };

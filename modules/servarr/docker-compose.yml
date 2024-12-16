@@ -39,10 +39,9 @@ services:
     container_name: dozzle
     image: amir20/dozzle:latest
     volumes:
-      # - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
       # - /run/user/1000/podman/podman.sock:/var/run/docker.sock
-      # Currently using podman with root
-      - /run/podman/podman.sock:/var/run/docker.sock
+      # - /run/podman/podman.sock:/var/run/docker.sock
     ports:
       # QBit is already using 8080
       - 8090:8080
@@ -352,7 +351,8 @@ services:
     image: ghcr.io/ajnart/homarr:latest
     restart: unless-stopped
     volumes:
-      - /run/podman/podman.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - /run/podman/podman.sock:/var/run/docker.sock
       - ${PATH_CONFIG_BASE}/homarr/configs:/app${PATH_CONFIG_BASE}s
       - ${PATH_CONFIG_BASE}/homarr/icons:/app/public/icons
       - ${PATH_CONFIG_BASE}/homarr/data:/data

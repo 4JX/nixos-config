@@ -35,7 +35,7 @@ in
         "/containers/authentik/authentik/certs:/certs:rw"
         "/containers/authentik/authentik/custom-templates:/templates:rw"
         "/containers/authentik/authentik/media:/media:rw"
-        "/run/podman/podman.sock:/var/run/docker.sock:rw"
+        "/var/run/docker.sock:/var/run/docker.sock:rw"
       ];
       cmd = [ "worker" ];
       dependsOn = [
@@ -49,21 +49,24 @@ in
         "--network=authentik"
       ];
     };
-    systemd.services."podman-authentik-worker" = {
+    systemd.services."docker-authentik-worker" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "always";
+        RestartMaxDelaySec = lib.mkOverride 90 "1m";
+        RestartSec = lib.mkOverride 90 "100ms";
+        RestartSteps = lib.mkOverride 90 9;
       };
       after = [
-        "podman-network-authentik.service"
+        "docker-network-authentik.service"
       ];
       requires = [
-        "podman-network-authentik.service"
+        "docker-network-authentik.service"
       ];
       partOf = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
       wantedBy = [
-        "podman-compose-servarr-root.target"
+        "docker-compose-servarr-root.target"
       ];
     };
   };

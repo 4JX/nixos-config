@@ -22,31 +22,31 @@ in
 
   config = lib.mkIf cfg.enable {
     # Networks
-    systemd.services."podman-network-authentik" = {
-      path = [ pkgs.podman ];
+    systemd.services."docker-network-authentik" = {
+      path = [ pkgs.docker ];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStop = "podman network rm -f authentik";
+        ExecStop = "docker network rm -f authentik";
       };
       script = ''
-        podman network inspect authentik || podman network create authentik
+        docker network inspect authentik || docker network create authentik
       '';
-      partOf = [ "podman-compose-servarr-root.target" ];
-      wantedBy = [ "podman-compose-servarr-root.target" ];
+      partOf = [ "docker-compose-servarr-root.target" ];
+      wantedBy = [ "docker-compose-servarr-root.target" ];
     };
-    systemd.services."podman-network-ldap" = {
-      path = [ pkgs.podman ];
+    systemd.services."docker-network-ldap" = {
+      path = [ pkgs.docker ];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStop = "podman network rm -f ldap";
+        ExecStop = "docker network rm -f ldap";
       };
       script = ''
-        podman network inspect ldap || podman network create ldap
+        docker network inspect ldap || docker network create ldap
       '';
-      partOf = [ "podman-compose-servarr-root.target" ];
-      wantedBy = [ "podman-compose-servarr-root.target" ];
+      partOf = [ "docker-compose-servarr-root.target" ];
+      wantedBy = [ "docker-compose-servarr-root.target" ];
     };
   };
 }
