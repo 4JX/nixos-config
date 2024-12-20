@@ -233,7 +233,6 @@ services:
       - ${PATH_CONFIG_BASE}/cross-seed:/config
       - /CHANGEME:/config/config.js
       - ${PATH_CONFIG_BASE}/qbittorrent/data/BT_backup:/torrents:ro # Keep read-only
-      - ${PATH_MEDIASERVER_DATA_BASE}/torrents/cross-seed/foo:/cross-seeds
       - ${PATH_MEDIASERVER_DATA_BASE}/torrents:/data/torrents
     command: daemon
     # restart: unless-stopped

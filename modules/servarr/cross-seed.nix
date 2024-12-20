@@ -38,7 +38,6 @@ in
         "${config.sops.secrets.cross-seed-config.path}:/config/config.js:ro"
         "/containers/config/qbittorrent/data/BT_backup:/torrents:ro"
         "/containers/mediaserver/torrents:/data/torrents:rw"
-        "/containers/mediaserver/torrents/cross-seed/output:/output:rw"
       ];
       ports = [
         "2468:2468/tcp"

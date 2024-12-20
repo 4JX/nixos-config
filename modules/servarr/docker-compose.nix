@@ -46,7 +46,6 @@
       "/containers/config/cross-seed:/config:rw"
       "/containers/config/qbittorrent/data/BT_backup:/torrents:ro"
       "/containers/mediaserver/torrents:/data/torrents:rw"
-      "/containers/mediaserver/torrents/cross-seed/foo:/cross-seeds:rw"
     ];
     ports = [
       "2468:2468/tcp"
