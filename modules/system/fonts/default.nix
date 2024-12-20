@@ -11,7 +11,7 @@ let
 
     # Others
     jetbrains-mono
-    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    nerd-fonts.symbols-only
     twemoji-color-font
 
     # Stolen from 
