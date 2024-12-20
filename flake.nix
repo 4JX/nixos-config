@@ -65,7 +65,7 @@
 
     # -- Extra packages --
     legion-kb-rgb = {
-      url = "github:4JX/L5P-Keyboard-RGB";
+      url = "github:4JX/L5P-Keyboard-RGB/deps-update";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
