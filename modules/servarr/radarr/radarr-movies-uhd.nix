@@ -1,15 +1,15 @@
 { lib, config, ... }:
 
 let
-  cfg = config.ncfg.servarr.radarr;
+  cfg = config.ncfg.servarr.radarr.movies-uhd;
   servarrEnable = config.ncfg.servarr.enable;
 in
 {
   options = {
-    ncfg.servarr.radarr.enable = lib.mkOption {
+    ncfg.servarr.radarr.movies-uhd.enable = lib.mkOption {
       type = lib.types.bool;
-      default = servarrEnable; # Disabled for now
-      description = "Whether to enable Radarr.";
+      default = servarrEnable;
+      description = "Whether to enable Radarr (movies-uhd).";
     };
   };
 
@@ -23,7 +23,7 @@ in
     # To consider for movies: https://trash-guides.info/Misc/x265-4k/#golden-rule
 
     # Extracted from docker-compose.nix
-    virtualisation.oci-containers.containers."radarr-movies-hd" = {
+    virtualisation.oci-containers.containers."radarr-movies-uhd" = {
       image = "ghcr.io/hotio/radarr";
       environment = {
         "PGID" = "1000";
@@ -32,19 +32,19 @@ in
         "UMASK" = "002";
       };
       volumes = [
-        "/containers/config/radarr-movies-hd:/config:rw"
+        "/containers/config/radarr-movies-uhd:/config:rw"
         "/containers/mediaserver:/data:rw"
       ];
       ports = [
-        "7878:7878/tcp"
+        "7879:7878/tcp"
       ];
       log-driver = "journald";
       extraOptions = [
-        "--network-alias=radarr-movies-hd"
+        "--network-alias=radarr-movies-uhd"
         "--network=arr"
       ];
     };
-    systemd.services."docker-radarr-movies-hd" = {
+    systemd.services."docker-radarr-movies-uhd" = {
       serviceConfig = {
         Restart = lib.mkOverride 90 "no";
       };

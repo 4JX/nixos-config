@@ -481,6 +481,44 @@
       "docker-compose-servarr-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."radarr-movies-uhd" = {
+    image = "ghcr.io/hotio/radarr";
+    environment = {
+      "PGID" = "1000";
+      "PUID" = "1000";
+      "TZ" = "Etc/UTC";
+      "UMASK" = "002";
+    };
+    volumes = [
+      "/containers/config/radarr-movies-uhd:/config:rw"
+      "/containers/mediaserver:/data:rw"
+    ];
+    ports = [
+      "7879:7878/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=radarr-movies-uhd"
+      "--network=arr"
+    ];
+  };
+  systemd.services."docker-radarr-movies-uhd" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "docker-network-arr.service"
+    ];
+    requires = [
+      "docker-network-arr.service"
+    ];
+    partOf = [
+      "docker-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "docker-compose-servarr-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."recyclarr" = {
     image = "ghcr.io/recyclarr/recyclarr";
     environment = {

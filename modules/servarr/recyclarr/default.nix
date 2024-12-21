@@ -11,7 +11,7 @@ let
   cfg = servarrCfg.recyclarr;
 
   sonarrEnabled = servarrCfg.sonarr.tv-hd.enable || servarrCfg.sonarr.anime.enable;
-  radarrEnabled = servarrCfg.radarr.enable;
+  radarrEnabled = servarrCfg.radarr.movies-hd.enable || servarrCfg.radarr.movies-uhd.enable;
 
   username = config.users.users.nobody.name;
   group = config.users.users.nobody.group;

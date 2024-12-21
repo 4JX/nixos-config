@@ -19,6 +19,7 @@ in
     ./nvidia-ctk.nix
 
     ./qbit_manage
+    ./radarr
     ./sonarr
 
     ./cloudflared.nix
@@ -32,7 +33,6 @@ in
     ./jellyseerr.nix
     ./prowlarr.nix
     ./qbittorrent.nix
-    ./radarr.nix
     ./swag.nix
     ./tor.nix
   ];

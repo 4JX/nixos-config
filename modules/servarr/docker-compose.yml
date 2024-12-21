@@ -290,6 +290,23 @@ services:
     networks:
       - arr
 
+  # https://hotio.dev/containers/radarr/#starting-the-container
+  radarr-movies-uhd:
+    container_name: radarr-movies-uhd
+    image: ghcr.io/hotio/radarr
+    ports:
+      - '7879:7878'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - ${PATH_CONFIG_BASE}/radarr-movies-uhd:/config
+      - ${PATH_MEDIASERVER_DATA_BASE}:/data
+    networks:
+      - arr
+
   # https://hotio.dev/containers/prowlarr/#starting-the-container
   prowlarr:
     container_name: prowlarr
