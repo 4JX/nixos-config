@@ -34,6 +34,7 @@ in
     ./prowlarr.nix
     ./qbittorrent.nix
     ./swag.nix
+    ./thelounge.nix
     ./tor.nix
   ];
 
@@ -91,6 +92,19 @@ in
       };
       script = ''
         docker network inspect exposed || docker network create exposed
+      '';
+      partOf = [ "docker-compose-servarr-root.target" ];
+      wantedBy = [ "docker-compose-servarr-root.target" ];
+    };
+    systemd.services."docker-network-thelounge" = {
+      path = [ pkgs.docker ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStop = "docker network rm -f thelounge";
+      };
+      script = ''
+        docker network inspect thelounge || docker network create thelounge
       '';
       partOf = [ "docker-compose-servarr-root.target" ];
       wantedBy = [ "docker-compose-servarr-root.target" ];

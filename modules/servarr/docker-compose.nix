@@ -680,6 +680,38 @@
       "docker-compose-servarr-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."thelounge" = {
+    image = "ghcr.io/thelounge/thelounge:latest";
+    volumes = [
+      "/containers/config/thelounge:/var/opt/thelounge:rw"
+    ];
+    ports = [
+      "9010:9000/tcp"
+    ];
+    user = "1000:1000";
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=thelounge"
+      "--network=thelounge"
+    ];
+  };
+  systemd.services."docker-thelounge" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "docker-network-thelounge.service"
+    ];
+    requires = [
+      "docker-network-thelounge.service"
+    ];
+    partOf = [
+      "docker-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "docker-compose-servarr-root.target"
+    ];
+  };
 
   # Networks
   systemd.services."docker-network-arr" = {
@@ -704,6 +736,19 @@
     };
     script = ''
       docker network inspect exposed || docker network create exposed
+    '';
+    partOf = [ "docker-compose-servarr-root.target" ];
+    wantedBy = [ "docker-compose-servarr-root.target" ];
+  };
+  systemd.services."docker-network-thelounge" = {
+    path = [ pkgs.docker ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "docker network rm -f thelounge";
+    };
+    script = ''
+      docker network inspect thelounge || docker network create thelounge
     '';
     partOf = [ "docker-compose-servarr-root.target" ];
     wantedBy = [ "docker-compose-servarr-root.target" ];
