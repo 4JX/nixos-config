@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    install -Dm644 ${src} $out/betterchapters.lua
+    install -Dm644 ${src} $out/share/mpv/scripts/${filename}
 
     runHook postInstall
   '';
