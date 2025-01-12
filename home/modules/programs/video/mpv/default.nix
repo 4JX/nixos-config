@@ -4,6 +4,7 @@
 # https://thewiki.moe/guides/playback/
 # https://kokomins.wordpress.com/2019/10/14/mpv-config-guide/
 # https://artoriuz.github.io/blog/mpv_upscaling.html
+# https://kohana.fi/article/mpv-for-anime
 
 let
   cfg = config.ncfg.programs.video.mpv;
@@ -70,7 +71,7 @@ in
 
         #### Video
         # https://github.com/mpv-player/mpv/blob/c3f93f5fdd33ada85e700bf8bad7d70f6739eed4/etc/builtin.conf#L43
-        profile = "gpu-hq"; # Better scaling than default
+        profile = "high-quality"; # Better scaling than default
 
         # Defaults to "no", generally not needed but can be set to "auto" to use nvenc (faster but power hungry if not plugged in)
         # hwdec="no"
@@ -80,7 +81,7 @@ in
         fbo-format = "rgba16hf";
 
         # GPU-accelerated video output driver. gpu-next also exists but is somewhat questionable ATM.
-        vo = "gpu";
+        vo = "gpu-next";
 
         dither-depth = "auto"; # Leave software dither enabled just in case
 
@@ -95,10 +96,10 @@ in
           SSimDownscaler # Luma downscaler
           KrigBilateral # Chroma up+down
         ];
-        scale = "ewa_lanczossharp"; # Luma upscale. (Default (gpu-hq): spline36)
-        dscale = "lanczos"; # Overkill, spline36/mitchell would be fine. Luma downscale. (Default (gpu-hq): mitchell)
-        cscale = "spline36"; # Chroma upscale (Less sensitive than chroma). (Default (gpu-hq): spline36)
-        linear-downscaling = "no"; # Overrides the gpu-hq option, needed for SSimDownscaler
+        scale = "ewa_lanczossharp"; # Luma upscale. (Default (high-quality): spline36)
+        dscale = "lanczos"; # Overkill, spline36/mitchell would be fine. Luma downscale. (Default (high-quality): mitchell)
+        cscale = "lanczos"; # Chroma upscale (Less sensitive than chroma). (Default (high-quality): ewa_lanczossharp)
+        linear-downscaling = "no"; # Overrides the high-quality option, needed for SSimDownscaler
         correct-downscaling = "yes";
 
         #### Screenshots
@@ -109,7 +110,6 @@ in
 
         #### Subtitle Options
         demuxer-mkv-subtitle-preroll = "yes"; #try harder to show embedded soft subtitles when seeking somewhere
-        sub-ass-vsfilter-blur-compat = "no"; #Scale \blur tags by video resolution instead of script resolution (enabled by default)
         sub-fix-timing = "no"; #Adjust subtitle timing is to remove minor gaps or overlaps between subtitles
         sub-auto = "fuzzy"; #Load all subs containing the media filename.
 
@@ -121,7 +121,7 @@ in
       profiles = {
         "Web" = {
           profile-cond = debandCond webSources;
-          deband = "yes"; # Deband applied by default with gpu-hq, just in case
+          deband = "yes";
           deband-iterations = 2; # Range 1-16. Higher = better quality but more GPU usage. >5 is redundant.
           deband-threshold = 35; # Range 0-4096. Deband strength.
           deband-range = 20; # Range 1-64. Range of deband. Too high may destroy details.
@@ -131,7 +131,7 @@ in
         "Mini-Encode" =
           {
             profile-cond = debandCond miniEncodeSources;
-            deband = "yes"; # Deband applied by default with gpu-hq, just in case
+            deband = "yes";
             deband-iterations = 2; # Range 1-16. Higher = better quality but more GPU usage. >5 is redundant.
             deband-threshold = 35; # Range 0-4096. Deband strength.
             deband-range = 20; # Range 1-64. Range of deband. Too high may destroy details.
