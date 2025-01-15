@@ -67,6 +67,8 @@ in
 
     servarr = {
       enable = true;
+      jellyfin.firewall.open = false;
+      jellyseerr.firewall.open = false;
     };
 
     wireguard.server = {
