@@ -19,7 +19,7 @@
       # Only via keys
       PermitRootLogin = "prohibit-password";
       # PermitRootLogin = "no";
-      AllowUsers = [ "infinity@192.168.1.*" ];
+      AllowUsers = [ "infinity@192.168.1.*" "root@192.168.1.*" ];
       PasswordAuthentication = false;
     };
   };
