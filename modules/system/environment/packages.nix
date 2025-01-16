@@ -22,6 +22,12 @@
     fd # Better find
     exiftool # Metadata about various files
 
+    # Disk tools
+    smartmontools
+    iotop
+    fatrace
+    lsof
+
     # Nix stuffs
     nil # Nix language server
     nixd # Another nix language server
