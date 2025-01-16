@@ -14,6 +14,23 @@ networks:
     external: true
 
 services:
+  dnsmasq:
+    image: 4km3/dnsmasq:2.90-r3
+    container_name: dnsmasq
+    volumes:
+      - /CHANGEME/dnsmasq.conf:/etc/dnsmasq.conf
+    ports:
+      - 5300:53/tcp
+      - 5300:53/udp
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - arr
+      - exposed
+      - thelounge
+      - authentik
+      - ldap
+
   # https://github.com/qdm12/gluetun
   # https://github.com/qdm12/gluetun-wiki?tab=readme-ov-file#table-of-contents
   gluetun:

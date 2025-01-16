@@ -18,6 +18,8 @@ in
     ./ddns
     ./nvidia-ctk.nix
 
+    ./dnsmasq
+
     ./qbit_manage
     ./radarr
     ./sonarr
