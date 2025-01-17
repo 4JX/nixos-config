@@ -10,7 +10,7 @@ in
   options = {
     ncfg.servarr.cloudflared.enable = lib.mkOption {
       type = lib.types.bool;
-      default = false && servarrEnable;
+      default = servarrEnable;
       description = "Whether to enable CloudFlared.";
     };
   };

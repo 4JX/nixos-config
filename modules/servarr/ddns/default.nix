@@ -4,20 +4,20 @@ let
   cfg = config.ncfg.servarr.ddns;
   servarrEnable = config.ncfg.servarr.enable;
 
-  secretsFile.sopsFile = config.ncfg.servarr.secretsFolder + "/servarr.yaml";
+  sopsFile = config.ncfg.servarr.secretsFolder + "/servarr.yaml";
 in
 {
   options.ncfg.servarr.ddns = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = false && servarrEnable;
+      default = servarrEnable;
       description = "Whether to enable DDNS";
     };
   };
 
   config = lib.mkIf cfg.enable {
     sops.secrets.cloudflare-ddns-env = {
-      sopsFile = secretsFile;
+      inherit sopsFile;
     };
 
     systemd.services.cloudflare-ddns = {
