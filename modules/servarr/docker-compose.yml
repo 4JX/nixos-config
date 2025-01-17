@@ -22,6 +22,8 @@ services:
     ports:
       - 5300:53/tcp
       - 5300:53/udp
+      - 54000:51820/udp
+      - 54001:51821/tcp
     cap_add:
       - NET_ADMIN
     networks:
@@ -30,6 +32,37 @@ services:
       - thelounge
       - authentik
       - ldap
+
+  # https://github.com/wg-easy/wg-easy
+  # sudo docker run --rm -it ghcr.io/wg-easy/wg-easy wgpw 'password'
+  wg-easy:
+    image: ghcr.io/wg-easy/wg-easy
+    container_name: wg-easy
+    environment:
+      - LANG=en
+      - WG_HOST=<Host IP>
+      # sudo docker run --rm -it ghcr.io/wg-easy/wg-easy wgpw 'password'
+      - PASSWORD_HASH=<Hash>
+      - PORT=51821
+      - WG_PORT=51820
+    # env_file:
+    #   - ${config.sops.secrets.wg-easy-env.path}
+    volumes:
+      - ${PATH_CONFIG_BASE}/wg-easy:/etc/wireguard
+    # Handled in dnsmasq
+    # ports:
+    #   - 54000:51820/udp
+    #   - 54001:51821/tcp
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv4.ip_forward=1
+    restart: unless-stopped
+    network_mode: service:dnsmasq
+    depends_on:
+      - dnsmasq
 
   # https://github.com/qdm12/gluetun
   # https://github.com/qdm12/gluetun-wiki?tab=readme-ov-file#table-of-contents

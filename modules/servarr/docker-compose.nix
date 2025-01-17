@@ -83,6 +83,8 @@
     ports = [
       "5300:53/tcp"
       "5300:53/udp"
+      "54000:51820/udp"
+      "54001:51821/tcp"
     ];
     log-driver = "journald";
     extraOptions = [
@@ -745,6 +747,44 @@
     requires = [
       "docker-network-thelounge.service"
     ];
+    partOf = [
+      "docker-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "docker-compose-servarr-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."wg-easy" = {
+    image = "ghcr.io/wg-easy/wg-easy";
+    environment = {
+      "LANG" = "en";
+      "PASSWORD_HASH" = "<Hash>";
+      "PORT" = "51821";
+      "WG_HOST" = "<Host IP>";
+      "WG_PORT" = "51820";
+    };
+    volumes = [
+      "/containers/config/wg-easy:/etc/wireguard:rw"
+    ];
+    dependsOn = [
+      "dnsmasq"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--cap-add=NET_ADMIN"
+      "--cap-add=SYS_MODULE"
+      "--network=container:dnsmasq"
+      "--sysctl=net.ipv4.conf.all.src_valid_mark=1"
+      "--sysctl=net.ipv4.ip_forward=1"
+    ];
+  };
+  systemd.services."docker-wg-easy" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
+    };
     partOf = [
       "docker-compose-servarr-root.target"
     ];

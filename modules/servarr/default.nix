@@ -19,6 +19,7 @@ in
     ./nvidia-ctk.nix
 
     ./dnsmasq
+    ./wg-easy.nix
 
     ./qbit_manage
     ./radarr

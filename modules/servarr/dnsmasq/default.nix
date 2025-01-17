@@ -5,17 +5,28 @@ let
   servarrEnable = config.ncfg.servarr.enable;
 
   configFile = ./dnsmasq.conf;
+  wgPortString = builtins.toString cfg.wgPort;
 in
 {
   options = {
-    ncfg.servarr.dnsmasq.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = servarrEnable;
-      description = "Whether to enable dnsmasq.";
+    ncfg.servarr.dnsmasq = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = servarrEnable;
+        description = "Whether to enable dnsmasq.";
+      };
+      wgPort = lib.mkOption {
+        type = lib.types.int;
+        default = 54000;
+        description = "The port used for connections inside wg-easy.";
+      };
     };
   };
 
   config = lib.mkIf cfg.enable {
+    networking.firewall.allowedUDPPorts = [ cfg.wgPort ];
+
+    # Extracted from docker-compose.nix
     virtualisation.oci-containers.containers."dnsmasq" = {
       image = "4km3/dnsmasq:2.90-r3";
       volumes = [
@@ -24,6 +35,8 @@ in
       ports = [
         "5300:53/tcp"
         "5300:53/udp"
+        "${wgPortString}:51820/udp"
+        "54001:51821/tcp"
       ];
       log-driver = "journald";
       extraOptions = [
