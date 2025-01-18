@@ -68,15 +68,15 @@ cat <<EOF
 [Interface]
 # PublicKey = $USER_PUBLIC_KEY
 PrivateKey = $USER_PRIVATE_KEY
-Address = $USER_IP/24
-# DNS = 1.1.1.1
+Address = $USER_IP/32
+# DNS = 10.100.0.1
 
 [Peer]
 PublicKey = $SERVER_PUBLIC_KEY
 Endpoint = $SERVER_ENDPOINT:$SERVER_PORT
 AllowedIPs = 10.100.0.0/24
 PresharedKey = $PRESHARED_KEY
-PersistKeepAlive = 25
+# PersistKeepAlive = 25
 EOF
 
 echo -e "\nServer config:"
