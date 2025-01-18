@@ -41,5 +41,21 @@ in
         ];
       };
     };
+
+    wireguard.server = {
+      enable = false;
+      interfaces = {
+        external = "enp2s0";
+      };
+      peers = [
+        {
+          name = "user";
+          publicKey = "3lpnmjSy+yGkTvZDHcurVEK4yZqEiq73Csj/DxB6I1g=";
+          presharedKey = "9ctI8KMwoy6nswTPI1c8o2oETEJdiCmh0XRUDEvfTYU=";
+          # presharedKeyFile = "/use/me/for/your/preshared/key";
+          allowedIPs = [ "10.100.0.2/32" ];
+        }
+      ];
+    };
   };
 }
