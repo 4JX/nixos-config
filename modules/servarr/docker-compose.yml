@@ -6,6 +6,11 @@ networks:
     name: exposed
   thelounge:
     name: thelounge
+  # HACK: Create a custom network for the wireguard server because for some reason other network subnets
+  # become unreachable if the container is just assigned to the existing networks where containers already exist.
+  # Use "0" as a prefix to have it get chosen as the one to get an IP from by docker.
+  wireguard:
+    name: 0wireguard
   authentik:
     name: authentik
     external: true
@@ -27,11 +32,7 @@ services:
     cap_add:
       - NET_ADMIN
     networks:
-      - arr
-      - exposed
-      - thelounge
-      - authentik
-      - ldap
+      - wireguard
 
   # https://github.com/wg-easy/wg-easy
   # sudo docker run --rm -it ghcr.io/wg-easy/wg-easy wgpw 'password'
@@ -145,6 +146,42 @@ services:
     # restart: unless-stopped
     networks:
       - exposed
+
+  swag-internal:
+    image: lscr.io/linuxserver/swag
+    container_name: swag-internal
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      # Set as config.time.timeZone
+      - TZ=Etc/UTC
+      # - URL=
+      - SUBDOMAINS=wildcard
+      - VALIDATION=dns
+      - CERTPROVIDER=
+      - DNSPLUGIN=cloudflare
+      # - EMAIL=
+      - ONLY_SUBDOMAINS=false
+      - EXTRA_DOMAINS=
+      - STAGING=false
+      - DOCKER_MODS=linuxserver/mods:swag-auto-reload
+    # env_file:
+    #   - ${config.sops.secrets.swag-env.path}
+    volumes:
+      - ${PATH_CONFIG_BASE}/swag-internal:/config
+    ports:
+      - 4433:443
+      - 800:80 #optional
+    # restart: unless-stopped
+    networks:
+      - wireguard
+      - arr
+      - exposed
+      - thelounge
+      - authentik
+      - ldap
 
   # https://hotio.dev/containers/jellyfin/
   # Migration: Compare paths in

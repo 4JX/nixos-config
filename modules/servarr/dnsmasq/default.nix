@@ -4,7 +4,7 @@ let
   cfg = config.ncfg.servarr.dnsmasq;
   servarrEnable = config.ncfg.servarr.enable;
 
-  configFile = ./dnsmasq.conf;
+  sopsFile = config.ncfg.servarr.secretsFolder + "/dnsmasq.conf";
   wgPortString = builtins.toString cfg.wgPort;
 in
 {
@@ -24,13 +24,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    sops.secrets.dnsmasq-conf = {
+      inherit sopsFile;
+      format = "binary";
+    };
+
     networking.firewall.allowedUDPPorts = [ cfg.wgPort ];
 
     # Extracted from docker-compose.nix
     virtualisation.oci-containers.containers."dnsmasq" = {
       image = "4km3/dnsmasq:2.90-r3";
       volumes = [
-        "${configFile}:/etc/dnsmasq.conf:rw"
+        "${config.sops.secrets.dnsmasq-conf.path}:/etc/dnsmasq.conf:rw"
       ];
       ports = [
         "5300:53/tcp"
@@ -42,11 +47,7 @@ in
       extraOptions = [
         "--cap-add=NET_ADMIN"
         "--network-alias=dnsmasq"
-        "--network=arr"
-        "--network=authentik"
-        "--network=exposed"
-        "--network=ldap"
-        "--network=thelounge"
+        "--network=0wireguard"
       ];
     };
     systemd.services."docker-dnsmasq" = {
@@ -54,14 +55,10 @@ in
         Restart = lib.mkOverride 90 "no";
       };
       after = [
-        "docker-network-arr.service"
-        "docker-network-exposed.service"
-        "docker-network-thelounge.service"
+        "docker-network-0wireguard.service"
       ];
       requires = [
-        "docker-network-arr.service"
-        "docker-network-exposed.service"
-        "docker-network-thelounge.service"
+        "docker-network-0wireguard.service"
       ];
       partOf = [
         "docker-compose-servarr-root.target"

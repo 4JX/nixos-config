@@ -90,11 +90,7 @@
     extraOptions = [
       "--cap-add=NET_ADMIN"
       "--network-alias=dnsmasq"
-      "--network=arr"
-      "--network=authentik"
-      "--network=exposed"
-      "--network=ldap"
-      "--network=thelounge"
+      "--network=0wireguard"
     ];
   };
   systemd.services."docker-dnsmasq" = {
@@ -102,14 +98,10 @@
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "docker-network-arr.service"
-      "docker-network-exposed.service"
-      "docker-network-thelounge.service"
+      "docker-network-0wireguard.service"
     ];
     requires = [
-      "docker-network-arr.service"
-      "docker-network-exposed.service"
-      "docker-network-thelounge.service"
+      "docker-network-0wireguard.service"
     ];
     partOf = [
       "docker-compose-servarr-root.target"
@@ -722,6 +714,63 @@
       "docker-compose-servarr-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."swag-internal" = {
+    image = "lscr.io/linuxserver/swag";
+    environment = {
+      "CERTPROVIDER" = "";
+      "DNSPLUGIN" = "cloudflare";
+      "DOCKER_MODS" = "linuxserver/mods:swag-auto-reload";
+      "EXTRA_DOMAINS" = "";
+      "ONLY_SUBDOMAINS" = "false";
+      "PGID" = "1000";
+      "PUID" = "1000";
+      "STAGING" = "false";
+      "SUBDOMAINS" = "wildcard";
+      "TZ" = "Etc/UTC";
+      "VALIDATION" = "dns";
+    };
+    volumes = [
+      "/containers/config/swag-internal:/config:rw"
+    ];
+    ports = [
+      "4433:443/tcp"
+      "800:80/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--cap-add=NET_ADMIN"
+      "--network-alias=swag-internal"
+      "--network=0wireguard"
+      "--network=arr"
+      "--network=authentik"
+      "--network=exposed"
+      "--network=ldap"
+      "--network=thelounge"
+    ];
+  };
+  systemd.services."docker-swag-internal" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "docker-network-0wireguard.service"
+      "docker-network-arr.service"
+      "docker-network-exposed.service"
+      "docker-network-thelounge.service"
+    ];
+    requires = [
+      "docker-network-0wireguard.service"
+      "docker-network-arr.service"
+      "docker-network-exposed.service"
+      "docker-network-thelounge.service"
+    ];
+    partOf = [
+      "docker-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "docker-compose-servarr-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."thelounge" = {
     image = "ghcr.io/thelounge/thelounge:latest";
     volumes = [
@@ -794,6 +843,19 @@
   };
 
   # Networks
+  systemd.services."docker-network-0wireguard" = {
+    path = [ pkgs.docker ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "docker network rm -f 0wireguard";
+    };
+    script = ''
+      docker network inspect 0wireguard || docker network create 0wireguard
+    '';
+    partOf = [ "docker-compose-servarr-root.target" ];
+    wantedBy = [ "docker-compose-servarr-root.target" ];
+  };
   systemd.services."docker-network-arr" = {
     path = [ pkgs.docker ];
     serviceConfig = {

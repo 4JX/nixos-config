@@ -36,6 +36,7 @@ in
     ./jellyseerr.nix
     ./prowlarr.nix
     ./qbittorrent.nix
+    ./swag-internal.nix
     ./swag.nix
     ./thelounge.nix
     ./tor.nix
@@ -73,6 +74,19 @@ in
     virtualisation.oci-containers.backend = "docker";
 
     # Networks
+    systemd.services."docker-network-0wireguard" = {
+      path = [ pkgs.docker ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStop = "docker network rm -f 0wireguard";
+      };
+      script = ''
+        docker network inspect 0wireguard || docker network create 0wireguard
+      '';
+      partOf = [ "docker-compose-servarr-root.target" ];
+      wantedBy = [ "docker-compose-servarr-root.target" ];
+    };
     systemd.services."docker-network-arr" = {
       path = [ pkgs.docker ];
       serviceConfig = {
