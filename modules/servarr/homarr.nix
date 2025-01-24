@@ -2,7 +2,10 @@
 
 let
   cfg = config.ncfg.servarr.homarr;
-  servarrEnable = config.ncfg.servarr.enable;
+  servarrCfg = config.ncfg.servarr;
+  servarrEnable = servarrCfg.enable;
+
+  secretsFile.sopsFile = servarrCfg.secretsFolder + "/servarr.yaml";
 in
 {
   options = {
@@ -14,16 +17,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    sops.secrets.homarr-env = secretsFile;
+
     # Extracted from docker-compose.nix
     virtualisation.oci-containers.containers."homarr" = {
-      image = "ghcr.io/ajnart/homarr:latest";
+      image = "ghcr.io/homarr-labs/homarr:latest";
       environment = {
         "DISABLE_ANALYTICS" = "true";
       };
+      environmentFiles = [
+        config.sops.secrets.homarr-env.path
+      ];
       volumes = [
-        "/containers/config/homarr/configs:/app/containers/configs:rw"
-        "/containers/config/homarr/data:/data:rw"
-        "/containers/config/homarr/icons:/app/public/icons:rw"
+        "/containers/config/homarr/appdata:/appdata:rw"
         "/var/run/docker.sock:/var/run/docker.sock:rw"
       ];
       ports = [

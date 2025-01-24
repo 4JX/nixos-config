@@ -206,14 +206,13 @@
     ];
   };
   virtualisation.oci-containers.containers."homarr" = {
-    image = "ghcr.io/ajnart/homarr:latest";
+    image = "ghcr.io/homarr-labs/homarr:latest";
     environment = {
       "DISABLE_ANALYTICS" = "true";
+      "SECRET_ENCRYPTION_KEY" = "foobar";
     };
     volumes = [
-      "/containers/config/homarr/configs:/app/containers/configs:rw"
-      "/containers/config/homarr/data:/data:rw"
-      "/containers/config/homarr/icons:/app/public/icons:rw"
+      "/containers/config/homarr/appdata:/appdata:rw"
       "/var/run/docker.sock:/var/run/docker.sock:rw"
     ];
     ports = [

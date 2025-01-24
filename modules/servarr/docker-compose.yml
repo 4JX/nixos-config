@@ -466,17 +466,16 @@ services:
 
   homarr:
     container_name: homarr
-    image: ghcr.io/ajnart/homarr:latest
+    image: ghcr.io/homarr-labs/homarr:latest
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - /run/podman/podman.sock:/var/run/docker.sock
-      - ${PATH_CONFIG_BASE}/homarr/configs:/app${PATH_CONFIG_BASE}s
-      - ${PATH_CONFIG_BASE}/homarr/icons:/app/public/icons
-      - ${PATH_CONFIG_BASE}/homarr/data:/data
+      - ${PATH_CONFIG_BASE}/homarr/appdata:/appdata
     ports:
       - '7575:7575'
     environment:
+      - SECRET_ENCRYPTION_KEY=foobar
       - DISABLE_ANALYTICS=true
     networks:
       - arr
