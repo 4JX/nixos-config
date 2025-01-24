@@ -11,6 +11,10 @@ networks:
   # Use "0" as a prefix to have it get chosen as the one to get an IP from by docker.
   wireguard:
     name: 0wireguard
+  dozzle:
+    name: dozzle
+  socket-proxy-dozzle:
+    name: socket-proxy-dozzle
   authentik:
     name: authentik
     external: true
@@ -86,20 +90,53 @@ services:
     networks:
       - arr
 
+  # https://github.com/wollomatic/socket-proxy
+  dockerproxy-dozzle:
+    container_name: dockerproxy-dozzle
+    image: wollomatic/socket-proxy:1
+    command:
+      - '-loglevel=info'
+      - '-allowfrom=dozzle' # allow only the container "dozzle"
+      - '-listenip=0.0.0.0'
+      - '-allowGET=/v1\.[0-9]{1,2}/(_ping|info|events|containers/(json|([a-f0-9]{12}|[a-f0-9]{64})/(json|stats|logs)))'
+      - '-allowHEAD=/_ping'
+      - '-watchdoginterval=300'
+      - '-stoponwatchdog'
+      - '-shutdowngracetime=10'
+    restart: unless-stopped
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges
+    user: nobody:docker # change gid from 998 to the gid of the docker group on your host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - socket-proxy-dozzle
+
   # https://dozzle.dev/guide/getting-started
   # PODMAN: https://github.com/amir20/dozzle?tab=readme-ov-file#installation-on-podman
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:latest
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      # - /run/user/1000/podman/podman.sock:/var/run/docker.sock
-      # - /run/podman/podman.sock:/var/run/docker.sock
+    image: amir20/dozzle:v8
+    user: nobody:nogroup
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges
+    depends_on:
+      - dockerproxy-dozzle
+    environment:
+      DOZZLE_REMOTE_HOST: tcp://dockerproxy-dozzle:2375
     ports:
       # QBit is already using 8080
       - 8090:8080
     networks:
-      - arr
+      - socket-proxy-dozzle
+      - dozzle
 
   cloudflared-tunnel:
     container_name: cloudflared
@@ -182,6 +219,7 @@ services:
       - thelounge
       - authentik
       - ldap
+      - dozzle
 
   # https://hotio.dev/containers/jellyfin/
   # Migration: Compare paths in

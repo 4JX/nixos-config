@@ -13,8 +13,10 @@ let
   sonarrEnabled = servarrCfg.sonarr.tv-hd.enable || servarrCfg.sonarr.anime.enable;
   radarrEnabled = servarrCfg.radarr.movies-hd.enable || servarrCfg.radarr.movies-uhd.enable;
 
-  username = config.users.users.nobody.name;
-  group = config.users.users.nobody.group;
+  nobodyUser = config.users.users.nobody.uid;
+  nogroupGroup = config.users.groups.nogroup.gid;
+  nobodyUserString = builtins.toString nobodyUser;
+  nogroupGroupString = builtins.toString nogroupGroup;
 in
 {
   options.ncfg.servarr.recyclarr = {
@@ -31,8 +33,8 @@ in
       # Serve the whole YAML file
       key = "";
       # The container will also run as the same user/group
-      owner = username;
-      group = group;
+      uid = nobodyUser;
+      gid = nogroupGroup;
     };
 
     # Extracted from docker-compose.nix
@@ -51,7 +53,7 @@ in
         "sonarr-tv-hd"
         "sonarr-anime"
       ];
-      user = "${username}:${group}";
+      user = "${nobodyUserString}:${nogroupGroupString}";
       log-driver = "journald";
       extraOptions = [
         "--network-alias=recyclarr"

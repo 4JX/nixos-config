@@ -16,6 +16,7 @@ in
     ./authentik
 
     ./ddns
+    ./dozzle
     ./nvidia-ctk.nix
 
     ./dnsmasq
@@ -27,7 +28,6 @@ in
 
     ./cloudflared.nix
     ./cross-seed.nix
-    ./dozzle.nix
     ./flaresolverr.nix
     ./recyclarr
     ./gluetun.nix

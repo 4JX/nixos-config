@@ -110,18 +110,60 @@
       "docker-compose-servarr-root.target"
     ];
   };
-  virtualisation.oci-containers.containers."dozzle" = {
-    image = "amir20/dozzle:latest";
+  virtualisation.oci-containers.containers."dockerproxy-dozzle" = {
+    image = "wollomatic/socket-proxy:1";
     volumes = [
-      "/var/run/docker.sock:/var/run/docker.sock:rw"
+      "/var/run/docker.sock:/var/run/docker.sock:ro"
     ];
+    cmd = [ "-loglevel=info" "-allowfrom=dozzle" "-listenip=0.0.0.0" "-allowGET=/v1\\.[0-9]{1,2}/(_ping|info|events|containers/(json|([a-f0-9]{12}|[a-f0-9]{64})/(json|stats|logs)))" "-allowHEAD=/_ping" "-watchdoginterval=300" "-stoponwatchdog" "-shutdowngracetime=10" ];
+    user = "nobody:docker";
+    log-driver = "journald";
+    extraOptions = [
+      "--cap-drop=ALL"
+      "--network-alias=dockerproxy-dozzle"
+      "--network=socket-proxy-dozzle"
+      "--security-opt=no-new-privileges"
+    ];
+  };
+  systemd.services."docker-dockerproxy-dozzle" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
+    };
+    after = [
+      "docker-network-socket-proxy-dozzle.service"
+    ];
+    requires = [
+      "docker-network-socket-proxy-dozzle.service"
+    ];
+    partOf = [
+      "docker-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "docker-compose-servarr-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."dozzle" = {
+    image = "amir20/dozzle:v8";
+    environment = {
+      "DOZZLE_REMOTE_HOST" = "tcp://dockerproxy-dozzle:2375";
+    };
     ports = [
       "8090:8080/tcp"
     ];
+    dependsOn = [
+      "dockerproxy-dozzle"
+    ];
+    user = "nobody:nogroup";
     log-driver = "journald";
     extraOptions = [
+      "--cap-drop=ALL"
       "--network-alias=dozzle"
-      "--network=arr"
+      "--network=dozzle"
+      "--network=socket-proxy-dozzle"
+      "--security-opt=no-new-privileges"
     ];
   };
   systemd.services."docker-dozzle" = {
@@ -129,10 +171,12 @@
       Restart = lib.mkOverride 90 "no";
     };
     after = [
-      "docker-network-arr.service"
+      "docker-network-dozzle.service"
+      "docker-network-socket-proxy-dozzle.service"
     ];
     requires = [
-      "docker-network-arr.service"
+      "docker-network-dozzle.service"
+      "docker-network-socket-proxy-dozzle.service"
     ];
     partOf = [
       "docker-compose-servarr-root.target"
@@ -742,6 +786,7 @@
       "--network=0wireguard"
       "--network=arr"
       "--network=authentik"
+      "--network=dozzle"
       "--network=exposed"
       "--network=ldap"
       "--network=thelounge"
@@ -754,12 +799,14 @@
     after = [
       "docker-network-0wireguard.service"
       "docker-network-arr.service"
+      "docker-network-dozzle.service"
       "docker-network-exposed.service"
       "docker-network-thelounge.service"
     ];
     requires = [
       "docker-network-0wireguard.service"
       "docker-network-arr.service"
+      "docker-network-dozzle.service"
       "docker-network-exposed.service"
       "docker-network-thelounge.service"
     ];
@@ -868,6 +915,19 @@
     partOf = [ "docker-compose-servarr-root.target" ];
     wantedBy = [ "docker-compose-servarr-root.target" ];
   };
+  systemd.services."docker-network-dozzle" = {
+    path = [ pkgs.docker ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "docker network rm -f dozzle";
+    };
+    script = ''
+      docker network inspect dozzle || docker network create dozzle
+    '';
+    partOf = [ "docker-compose-servarr-root.target" ];
+    wantedBy = [ "docker-compose-servarr-root.target" ];
+  };
   systemd.services."docker-network-exposed" = {
     path = [ pkgs.docker ];
     serviceConfig = {
@@ -877,6 +937,19 @@
     };
     script = ''
       docker network inspect exposed || docker network create exposed
+    '';
+    partOf = [ "docker-compose-servarr-root.target" ];
+    wantedBy = [ "docker-compose-servarr-root.target" ];
+  };
+  systemd.services."docker-network-socket-proxy-dozzle" = {
+    path = [ pkgs.docker ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "docker network rm -f socket-proxy-dozzle";
+    };
+    script = ''
+      docker network inspect socket-proxy-dozzle || docker network create socket-proxy-dozzle
     '';
     partOf = [ "docker-compose-servarr-root.target" ];
     wantedBy = [ "docker-compose-servarr-root.target" ];

@@ -51,6 +51,7 @@ in
         "--network=0wireguard"
         "--network=arr"
         "--network=authentik"
+        "--network=dozzle"
         "--network=exposed"
         "--network=ldap"
         "--network=thelounge"
@@ -63,12 +64,14 @@ in
       after = [
         "docker-network-0wireguard.service"
         "docker-network-arr.service"
+        "docker-network-dozzle.service"
         "docker-network-exposed.service"
         "docker-network-thelounge.service"
       ];
       requires = [
         "docker-network-0wireguard.service"
         "docker-network-arr.service"
+        "docker-network-dozzle.service"
         "docker-network-exposed.service"
         "docker-network-thelounge.service"
       ];
