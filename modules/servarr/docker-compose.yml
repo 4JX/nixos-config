@@ -15,6 +15,10 @@ networks:
     name: dozzle
   socket-proxy-dozzle:
     name: socket-proxy-dozzle
+  homarr:
+    name: homarr
+  socket-proxy-homarr:
+    name: socket-proxy-homarr
   authentik:
     name: authentik
     external: true
@@ -91,6 +95,7 @@ services:
       - arr
 
   # https://github.com/wollomatic/socket-proxy
+  # More generic permissions: https://github.com/linuxserver/docker-socket-proxy
   dockerproxy-dozzle:
     container_name: dockerproxy-dozzle
     image: wollomatic/socket-proxy:1
@@ -110,7 +115,7 @@ services:
       - ALL
     security_opt:
       - no-new-privileges
-    user: nobody:docker # change gid from 998 to the gid of the docker group on your host
+    user: nobody:docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
@@ -220,6 +225,7 @@ services:
       - authentik
       - ldap
       - dozzle
+      - homarr
 
   # https://hotio.dev/containers/jellyfin/
   # Migration: Compare paths in
@@ -502,18 +508,53 @@ services:
     networks:
       - thelounge
 
+  # https://github.com/wollomatic/socket-proxy
+  # More generic permissions: https://github.com/linuxserver/docker-socket-proxy
+  dockerproxy-homarr:
+    container_name: dockerproxy-homarr
+    image: wollomatic/socket-proxy:1
+    command:
+      - '-loglevel=info'
+      - '-allowfrom=homarr' # allow only the container "homarr"
+      - '-listenip=0.0.0.0'
+      - '-allowGET=/containers/(json|([a-f0-9]{12}|[a-f0-9]{64})/json)' # Allow GET requests for container details and list
+      # - '-allowPOST=/containers/([a-f0-9]{12}|[a-f0-9]{64})/(start|stop|restart|remove)' # Allow POST requests to start, stop, restart, and remove specific containers
+      # - '-allowDELETE=/containers/([a-f0-9]{12}|[a-f0-9]{64})' # Allow DELETE requests to remove specific containers
+      - '-watchdoginterval=300'
+      - '-stoponwatchdog'
+      - '-shutdowngracetime=10'
+    restart: unless-stopped
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges
+    user: nobody:docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - socket-proxy-homarr
+
   homarr:
     container_name: homarr
     image: ghcr.io/homarr-labs/homarr:latest
+    # user: nobody:nogroup
     restart: unless-stopped
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      # - /run/podman/podman.sock:/var/run/docker.sock
       - ${PATH_CONFIG_BASE}/homarr/appdata:/appdata
     ports:
       - '7575:7575'
     environment:
+      # https://homarr.dev/docs/advanced/running-as-different-user/
+      - PUID=65535 # nobody
+      - PGID=65535 # nogroup
       - SECRET_ENCRYPTION_KEY=foobar
       - DISABLE_ANALYTICS=true
+      # https://homarr.dev/docs/integrations/containers/#managing-your-docker-containers-within-homarr
+      # https://homarr.dev/docs/advanced/environment-variables/#docker-integration
+      - DOCKER_HOSTNAMES=http://dockerproxy-homarr
+      - DOCKER_PORTS=2375
     networks:
-      - arr
+      - socket-proxy-homarr
+      - homarr

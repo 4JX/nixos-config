@@ -145,6 +145,41 @@
       "docker-compose-servarr-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."dockerproxy-homarr" = {
+    image = "wollomatic/socket-proxy:1";
+    volumes = [
+      "/var/run/docker.sock:/var/run/docker.sock:ro"
+    ];
+    cmd = [ "-loglevel=info" "-allowfrom=homarr" "-listenip=0.0.0.0" "-allowGET=/containers/(json|([a-f0-9]{12}|[a-f0-9]{64})/json)" "-watchdoginterval=300" "-stoponwatchdog" "-shutdowngracetime=10" ];
+    user = "nobody:docker";
+    log-driver = "journald";
+    extraOptions = [
+      "--cap-drop=ALL"
+      "--network-alias=dockerproxy-homarr"
+      "--network=socket-proxy-homarr"
+      "--security-opt=no-new-privileges"
+    ];
+  };
+  systemd.services."docker-dockerproxy-homarr" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
+    };
+    after = [
+      "docker-network-socket-proxy-homarr.service"
+    ];
+    requires = [
+      "docker-network-socket-proxy-homarr.service"
+    ];
+    partOf = [
+      "docker-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "docker-compose-servarr-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."dozzle" = {
     image = "amir20/dozzle:v8";
     environment = {
@@ -253,11 +288,14 @@
     image = "ghcr.io/homarr-labs/homarr:latest";
     environment = {
       "DISABLE_ANALYTICS" = "true";
+      "DOCKER_HOSTNAMES" = "http://dockerproxy-homarr";
+      "DOCKER_PORTS" = "2375";
+      "PGID" = "65535";
+      "PUID" = "65535";
       "SECRET_ENCRYPTION_KEY" = "foobar";
     };
     volumes = [
       "/containers/config/homarr/appdata:/appdata:rw"
-      "/var/run/docker.sock:/var/run/docker.sock:rw"
     ];
     ports = [
       "7575:7575/tcp"
@@ -265,7 +303,8 @@
     log-driver = "journald";
     extraOptions = [
       "--network-alias=homarr"
-      "--network=arr"
+      "--network=homarr"
+      "--network=socket-proxy-homarr"
     ];
   };
   systemd.services."docker-homarr" = {
@@ -276,10 +315,12 @@
       RestartSteps = lib.mkOverride 90 9;
     };
     after = [
-      "docker-network-arr.service"
+      "docker-network-homarr.service"
+      "docker-network-socket-proxy-homarr.service"
     ];
     requires = [
-      "docker-network-arr.service"
+      "docker-network-homarr.service"
+      "docker-network-socket-proxy-homarr.service"
     ];
     partOf = [
       "docker-compose-servarr-root.target"
@@ -788,6 +829,7 @@
       "--network=authentik"
       "--network=dozzle"
       "--network=exposed"
+      "--network=homarr"
       "--network=ldap"
       "--network=thelounge"
     ];
@@ -801,6 +843,7 @@
       "docker-network-arr.service"
       "docker-network-dozzle.service"
       "docker-network-exposed.service"
+      "docker-network-homarr.service"
       "docker-network-thelounge.service"
     ];
     requires = [
@@ -808,6 +851,7 @@
       "docker-network-arr.service"
       "docker-network-dozzle.service"
       "docker-network-exposed.service"
+      "docker-network-homarr.service"
       "docker-network-thelounge.service"
     ];
     partOf = [
@@ -941,6 +985,19 @@
     partOf = [ "docker-compose-servarr-root.target" ];
     wantedBy = [ "docker-compose-servarr-root.target" ];
   };
+  systemd.services."docker-network-homarr" = {
+    path = [ pkgs.docker ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "docker network rm -f homarr";
+    };
+    script = ''
+      docker network inspect homarr || docker network create homarr
+    '';
+    partOf = [ "docker-compose-servarr-root.target" ];
+    wantedBy = [ "docker-compose-servarr-root.target" ];
+  };
   systemd.services."docker-network-socket-proxy-dozzle" = {
     path = [ pkgs.docker ];
     serviceConfig = {
@@ -950,6 +1007,19 @@
     };
     script = ''
       docker network inspect socket-proxy-dozzle || docker network create socket-proxy-dozzle
+    '';
+    partOf = [ "docker-compose-servarr-root.target" ];
+    wantedBy = [ "docker-compose-servarr-root.target" ];
+  };
+  systemd.services."docker-network-socket-proxy-homarr" = {
+    path = [ pkgs.docker ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "docker network rm -f socket-proxy-homarr";
+    };
+    script = ''
+      docker network inspect socket-proxy-homarr || docker network create socket-proxy-homarr
     '';
     partOf = [ "docker-compose-servarr-root.target" ];
     wantedBy = [ "docker-compose-servarr-root.target" ];

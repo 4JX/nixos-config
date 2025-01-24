@@ -17,6 +17,7 @@ in
 
     ./ddns
     ./dozzle
+    ./homarr
     ./nvidia-ctk.nix
 
     ./dnsmasq
@@ -31,7 +32,6 @@ in
     ./flaresolverr.nix
     ./recyclarr
     ./gluetun.nix
-    ./homarr.nix
     ./jellyfin.nix
     ./jellyseerr.nix
     ./prowlarr.nix

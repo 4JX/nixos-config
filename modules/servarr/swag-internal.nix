@@ -53,6 +53,7 @@ in
         "--network=authentik"
         "--network=dozzle"
         "--network=exposed"
+        "--network=homarr"
         "--network=ldap"
         "--network=thelounge"
       ];
@@ -66,6 +67,7 @@ in
         "docker-network-arr.service"
         "docker-network-dozzle.service"
         "docker-network-exposed.service"
+        "docker-network-homarr.service"
         "docker-network-thelounge.service"
       ];
       requires = [
@@ -73,6 +75,7 @@ in
         "docker-network-arr.service"
         "docker-network-dozzle.service"
         "docker-network-exposed.service"
+        "docker-network-homarr.service"
         "docker-network-thelounge.service"
       ];
       partOf = [
