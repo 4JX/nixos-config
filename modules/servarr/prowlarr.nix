@@ -6,10 +6,17 @@ let
 in
 {
   options = {
-    ncfg.servarr.prowlarr.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = servarrEnable;
-      description = "Whether to enable Prowlarr.";
+    ncfg.servarr.prowlarr = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = servarrEnable;
+        description = "Whether to enable Prowlarr.";
+      };
+      autoStart = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Whether to start Prowlarr automatically.";
+      };
     };
   };
 
@@ -17,6 +24,7 @@ in
     # Extracted from docker-compose.nix
     virtualisation.oci-containers.containers."prowlarr" = {
       image = "ghcr.io/hotio/prowlarr";
+      inherit (cfg) autoStart;
       environment = {
         "PGID" = "1000";
         "PUID" = "1000";
@@ -48,9 +56,11 @@ in
       partOf = [
         "docker-compose-servarr-root.target"
       ];
-      wantedBy = [
-        "docker-compose-servarr-root.target"
-      ];
+      wantedBy = lib.mkForce (
+        if cfg.autoStart then [
+          "docker-compose-servarr-root.target"
+        ] else [ ]
+      );
     };
   };
 }
