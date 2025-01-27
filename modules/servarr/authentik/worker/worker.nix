@@ -2,20 +2,10 @@
 
 let
   cfg = config.ncfg.servarr.authentik.worker;
-  servarrEnable = config.ncfg.servarr.enable;
-  authentikEnable = config.ncfg.servarr.authentik.enable;
 
   secretsFile.sopsFile = config.ncfg.servarr.secretsFolder + "/servarr.yaml";
 in
 {
-  options = {
-    ncfg.servarr.authentik.worker.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = authentikEnable && servarrEnable;
-      description = "Whether to enable the Authentik worker.";
-    };
-  };
-
   config = lib.mkIf cfg.enable {
     sops.secrets.authentik-env = secretsFile;
 
@@ -27,6 +17,7 @@ in
         "AUTHENTIK_ERROR_REPORTING__ENABLED" = "false";
         "AUTHENTIK_POSTGRESQL__HOST" = "postgresql";
         "AUTHENTIK_REDIS__HOST" = "redis";
+        "DOCKER_HOST" = "tcp://dockerproxy-authentik-worker:2375";
       };
       environmentFiles = [
         config.sops.secrets.authentik-env.path
@@ -35,7 +26,6 @@ in
         "/containers/authentik/authentik/certs:/certs:rw"
         "/containers/authentik/authentik/custom-templates:/templates:rw"
         "/containers/authentik/authentik/media:/media:rw"
-        "/var/run/docker.sock:/var/run/docker.sock:rw"
       ];
       cmd = [ "worker" ];
       dependsOn = [
@@ -47,6 +37,7 @@ in
       extraOptions = [
         "--network-alias=worker"
         "--network=authentik"
+        "--network=socket-proxy-authentik-worker"
       ];
     };
     systemd.services."docker-authentik-worker" = {
@@ -58,9 +49,11 @@ in
       };
       after = [
         "docker-network-authentik.service"
+        "docker-network-socket-proxy-authentik-worker.service"
       ];
       requires = [
         "docker-network-authentik.service"
+        "docker-network-socket-proxy-authentik-worker.service"
       ];
       partOf = [
         "docker-compose-servarr-root.target"

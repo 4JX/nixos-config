@@ -4,6 +4,8 @@
 networks:
   authentik:
     name: authentik
+  socket-proxy-authentik-worker:
+    name: socket-proxy-authentik-worker
   ldap:
     name: ldap
   exposed:
@@ -74,12 +76,46 @@ services:
       - ldap
       - exposed
 
+  # https://github.com/wollomatic/socket-proxy
+  # More generic permissions: https://github.com/linuxserver/docker-socket-proxy
+  dockerproxy-authentik-worker:
+    container_name: dockerproxy-authentik-worker
+    image: wollomatic/socket-proxy:1
+    command:
+      - '-loglevel=info'
+      - '-allowfrom=authentik-worker' # allow only the container "authentik-worker"
+      - '-listenip=0.0.0.0'
+      # https://docs.goauthentik.io/docs/add-secure-apps/outposts/integrations/docker#permissions
+      # Regexes formed after a short session, probably incomplete
+      # Container info may also use the container name, hence the more permissive regex for {container}/json
+      # Log filter:
+      # https://gchq.github.io/CyberChef/#recipe=Regular_expression('User%20defined','method%3D%5BA-Z%5D%2B%20URL%3D%22?(/v%5B0-9%5D%5C%5C.%5B0-9%5D%7B1,2%7D)?(/%5B%5C%5C.%5C%5C?a-zA-Z0-9-%3D%26%25_%5D%2B)%2B%22?',true,true,false,false,false,false,'List%20matches')Find_/_Replace(%7B'option':'Regex','string':'method%3D'%7D,'',true,false,true,false)Sort('Line%20feed',false,'Alphabetical%20(case%20sensitive)')
+      - '-allowGET=/(version|v1\.[0-9]{1,2}/(info|containers/(json|[^/]+/json)|images/.*))' # Containers/Read, System/Info
+      - '-allowPOST=/v1\.[0-9]{1,2}/(images/create|containers/(create|([a-f0-9]{12}|[a-f0-9]{64})/(start|kill)))' # Images/Pull, Containers/Create, Containers/Kill
+      - '-allowDELETE=/v1\.[0-9]{1,2}/containers/([a-f0-9]{12}|[a-f0-9]{64})' # Containers/Remove
+      - '-watchdoginterval=300'
+      - '-stoponwatchdog'
+      - '-shutdowngracetime=10'
+    restart: unless-stopped
+    read_only: true
+    mem_limit: 64M
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges
+    user: nobody:docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - socket-proxy-authentik-worker
+
   worker:
     image: ghcr.io/goauthentik/server:2024.10.5
     container_name: authentik-worker
     restart: unless-stopped
     command: worker
     environment:
+      DOCKER_HOST: tcp://dockerproxy-authentik-worker:2375
       AUTHENTIK_REDIS__HOST: redis
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_ERROR_REPORTING__ENABLED: false
@@ -96,7 +132,7 @@ services:
     #   - ${config.sops.secrets.authentik-env.path}
     user: root
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/run/docker.sock:/var/run/docker.sock
       # - /run/podman/podman.sock:/var/run/docker.sock
       - ${PATH_AUTHENTIK_DATA_BASE}/authentik/media:/media
       - ${PATH_AUTHENTIK_DATA_BASE}/authentik/certs:/certs
@@ -108,3 +144,4 @@ services:
         condition: service_healthy
     networks:
       - authentik
+      - socket-proxy-authentik-worker

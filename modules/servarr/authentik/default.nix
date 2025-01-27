@@ -6,10 +6,11 @@ let
 in
 {
   imports = [
+    ./worker
+
     ./postgresql.nix
     ./redis.nix
     ./server.nix
-    ./worker.nix
   ];
 
   options = {
