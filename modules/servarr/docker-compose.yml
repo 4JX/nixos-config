@@ -177,11 +177,21 @@ services:
       - ONLY_SUBDOMAINS=false
       - EXTRA_DOMAINS=
       - STAGING=false
+      # https://github.com/linuxserver/docker-mods/tree/swag-cloudflare-real-ip
+      # Real IP works with a separate container, no need for the cloudflared mod
+      # https://github.com/linuxserver/docker-mods/tree/swag-auto-reload
       - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload
     # env_file:
     #   - ${config.sops.secrets.swag-env.path}
     volumes:
       - ${PATH_CONFIG_BASE}/swag:/config
+      # https://jellyfin.org/docs/general/networking/fail2ban/
+      - ${PATH_CONFIG_BASE}/jellyfin/log:/jellyfin:ro
+      # https://docs.overseerr.dev/extending-overseerr/fail2ban
+      # This blog provides a pre-made hybrid filter for fail2ban that works with both overseerr and jellyseerr
+      # Pretty easy to arrive at it, but it's convenient
+      # https://zzuo123.github.io/blog/securing-server/
+      - ${PATH_CONFIG_BASE}/jellyseerr/logs:/jellyseerr:ro
     ports:
       - 443:443
       - 80:80 #optional
@@ -245,7 +255,7 @@ services:
       - TZ=Etc/UTC
     volumes:
       - ${PATH_CONFIG_BASE}/jellyfin:/config
-      - ${PATH_MEDIASERVER_DATA_BASE}/media:/data/media
+      - ${PATH_MEDIASERVER_DATA_BASE}/media:/data/media:ro
     # https://jellyfin.org/docs/general/installation/container#with-hardware-acceleration
     devices: # Needed for hardware acceleration/transcoding
       - /dev/dri:/dev/dri

@@ -38,6 +38,8 @@ in
         config.sops.secrets.swag-env.path
       ];
       volumes = [
+        "/containers/config/jellyfin/log:/jellyfin:ro"
+        "/containers/config/jellyseerr/logs:/jellyseerr:ro"
         "/containers/config/swag:/config:rw"
       ];
       ports = [

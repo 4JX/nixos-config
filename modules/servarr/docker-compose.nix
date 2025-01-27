@@ -339,7 +339,7 @@
     };
     volumes = [
       "/containers/config/jellyfin:/config:rw"
-      "/containers/mediaserver/media:/data/media:rw"
+      "/containers/mediaserver/media:/data/media:ro"
     ];
     ports = [
       "8096:8096/tcp"
@@ -768,6 +768,8 @@
       "VALIDATION" = "dns";
     };
     volumes = [
+      "/containers/config/jellyfin/log:/jellyfin:ro"
+      "/containers/config/jellyseerr/logs:/jellyseerr:ro"
       "/containers/config/swag:/config:rw"
     ];
     ports = [

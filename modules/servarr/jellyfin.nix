@@ -48,7 +48,7 @@ in
       };
       volumes = [
         "/containers/config/jellyfin:/config:rw"
-        "/containers/mediaserver/media:/data/media:rw"
+        "/containers/mediaserver/media:/data/media:ro"
       ];
       ports = [
         "${portString}:8096/tcp"
