@@ -66,8 +66,8 @@ in
     };
 
     servarr = {
-      enable = true;
-      jellyfin.firewall.open = true;
+      enable = false;
+      jellyfin.firewall.open = false;
       jellyseerr.firewall.open = false;
       ddns.enable = false;
       cloudflared.enable = false;

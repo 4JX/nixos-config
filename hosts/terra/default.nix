@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports =
@@ -21,6 +21,27 @@
   ];
 
   networking.networkmanager.enable = true;
+
+  sops.secrets = {
+    wg-terra = {
+      format = "binary";
+      sopsFile = config.lib.sops.mkHostPath "terra.conf";
+    };
+
+    wg-terra-lan = {
+      format = "binary";
+      sopsFile = config.lib.sops.mkHostPath "terra-lan.conf";
+    };
+  };
+
+  networking.wg-quick.interfaces.terra = {
+    autostart = false;
+    configFile = config.sops.secrets.wg-terra.path;
+  };
+  networking.wg-quick.interfaces.terra-lan = {
+    autostart = false;
+    configFile = config.sops.secrets.wg-terra-lan.path;
+  };
 
   services = {
     # Enable CUPS to print documents.
