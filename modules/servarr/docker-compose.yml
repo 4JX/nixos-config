@@ -31,7 +31,7 @@ services:
     image: 4km3/dnsmasq:2.90-r3
     container_name: dnsmasq
     volumes:
-      - /CHANGEME/dnsmasq.conf:/etc/dnsmasq.conf
+      - ${PATH_CONFIG_BASE}/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf:ro
     ports:
       - 5300:53/tcp
       - 5300:53/udp

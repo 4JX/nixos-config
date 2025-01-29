@@ -78,7 +78,7 @@
   virtualisation.oci-containers.containers."dnsmasq" = {
     image = "4km3/dnsmasq:2.90-r3";
     volumes = [
-      "/CHANGEME/dnsmasq.conf:/etc/dnsmasq.conf:rw"
+      "/containers/config/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf:ro"
     ];
     ports = [
       "5300:53/tcp"

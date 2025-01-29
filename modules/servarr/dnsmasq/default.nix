@@ -4,7 +4,6 @@ let
   cfg = config.ncfg.servarr.dnsmasq;
   servarrEnable = config.ncfg.servarr.enable;
 
-  sopsFile = config.ncfg.servarr.secretsFolder + "/dnsmasq.conf";
   wgPortString = builtins.toString cfg.wgPort;
 in
 {
@@ -24,18 +23,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets.dnsmasq-conf = {
-      inherit sopsFile;
-      format = "binary";
-    };
-
     networking.firewall.allowedUDPPorts = [ cfg.wgPort ];
 
     # Extracted from docker-compose.nix
     virtualisation.oci-containers.containers."dnsmasq" = {
       image = "4km3/dnsmasq:2.90-r3";
       volumes = [
-        "${config.sops.secrets.dnsmasq-conf.path}:/etc/dnsmasq.conf:rw"
+        "/containers/config/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf:ro"
       ];
       ports = [
         "5300:53/tcp"
