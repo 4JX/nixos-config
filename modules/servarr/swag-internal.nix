@@ -31,7 +31,7 @@ in
         "PUID" = "1000";
         "STAGING" = "false";
         "SUBDOMAINS" = "wildcard";
-        "TZ" = "Etc/UTC";
+        "TZ" = config.time.timeZone;
         "VALIDATION" = "dns";
       };
       environmentFiles = [
