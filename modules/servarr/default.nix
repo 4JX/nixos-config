@@ -23,7 +23,6 @@ in
     ./dnsmasq
     ./wg-easy.nix
 
-    ./qbit_manage
     ./radarr
     ./sonarr
 
@@ -35,6 +34,7 @@ in
     ./jellyfin.nix
     ./jellyseerr.nix
     ./prowlarr.nix
+    ./qbit_manage.nix
     ./qbittorrent.nix
     ./swag-internal.nix
     ./swag.nix
