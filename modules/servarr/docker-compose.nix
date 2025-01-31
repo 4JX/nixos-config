@@ -1,4 +1,4 @@
-# Auto-generated using compose2nix v0.3.2-pre.
+# Auto-generated using compose2nix v0.3.1.
 { pkgs, lib, ... }:
 
 {
@@ -689,7 +689,7 @@
       "/containers/mediaserver:/data:rw"
     ];
     ports = [
-      "8990:8989/tcp"
+      "8991:8989/tcp"
     ];
     log-driver = "journald";
     extraOptions = [
@@ -736,6 +736,44 @@
     ];
   };
   systemd.services."docker-sonarr-tv-hd" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "docker-network-arr.service"
+    ];
+    requires = [
+      "docker-network-arr.service"
+    ];
+    partOf = [
+      "docker-compose-servarr-root.target"
+    ];
+    wantedBy = [
+      "docker-compose-servarr-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."sonarr-tv-uhd" = {
+    image = "ghcr.io/hotio/sonarr";
+    environment = {
+      "PGID" = "1000";
+      "PUID" = "1000";
+      "TZ" = "Etc/UTC";
+      "UMASK" = "002";
+    };
+    volumes = [
+      "/containers/config/sonarr-tv-uhd:/config:rw"
+      "/containers/mediaserver:/data:rw"
+    ];
+    ports = [
+      "8990:8989/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=sonarr-tv-uhd"
+      "--network=arr"
+    ];
+  };
+  systemd.services."docker-sonarr-tv-uhd" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
