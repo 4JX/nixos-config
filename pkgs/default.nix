@@ -10,6 +10,7 @@ myLib.recursiveMergeAttrs
       portmaster = pkgs.callPackage ./portmaster.nix { };
       mono-gtk-theme = pkgs.callPackage ./mono-gtk-theme.nix { };
       gnome-x11-gesture-daemon = pkgs.callPackage ./gnome-x11-gesture-daemon.nix { };
+      proton-mail-export = pkgs.callPackage ./proton-mail-export { };
     }
 
     (pkgs.callPackage ./pull-requests { })
