@@ -12,7 +12,7 @@ in
 
   config = lib.mkIf cfg.enable {
     # Have pulseaudio as a backup to pipewire
-    hardware.pulseaudio.enable = !config.services.pipewire.enable;
+    services.pulseaudio.enable = !config.services.pipewire.enable;
 
     # Allows pipewire to be realtime
     security.rtkit.enable = config.services.pipewire.enable;
