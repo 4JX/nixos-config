@@ -51,7 +51,10 @@ in
       };
 
       video = {
-        mpv.enable = true;
+        mpv = {
+          enable = true;
+          jellyfin-mpv-shim.enable = true;
+        };
       };
     };
   };
