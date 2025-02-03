@@ -1,17 +1,29 @@
 { config, lib, pkgs, ... }:
 
 let
+  cfg = config.ncfg.programs.video.mpv.jellyfin-mpv-shim;
+
   mpvEnable = config.ncfg.programs.video.mpv.enable;
 in
-lib.mkIf mpvEnable {
-  home.packages = with pkgs; [
-    jellyfin-mpv-shim
-  ];
+{
+  options.ncfg.programs.video.mpv.jellyfin-mpv-shim = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = mpvEnable;
+    };
+  };
 
-  # https://github.com/jellyfin/jellyfin-mpv-shim#external-mpv
-  # https://github.com/jellyfin/jellyfin-mpv-shim/issues/266#issuecomment-1152883845
-  xdg.configFile."jellyfin-mpv-shim/conf.json".source = (pkgs.substituteAll {
-    src = ./conf.json;
-    mpv = lib.getExe config.programs.mpv.finalPackage;
-  });
+  config = lib.mkIf cfg.enable
+    {
+      home.packages = with pkgs; [
+        jellyfin-mpv-shim
+      ];
+
+      # https://github.com/jellyfin/jellyfin-mpv-shim#external-mpv
+      # https://github.com/jellyfin/jellyfin-mpv-shim/issues/266#issuecomment-1152883845
+      xdg.configFile."jellyfin-mpv-shim/conf.json".source = (pkgs.substituteAll {
+        src = ./conf.json;
+        mpv = lib.getExe config.programs.mpv.finalPackage;
+      });
+    };
 }
