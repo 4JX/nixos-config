@@ -119,5 +119,7 @@ in
 
     # Filesharing but easy
     localsend
+
+    p.proton-mail-export
   ];
 }
