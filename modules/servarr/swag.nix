@@ -24,13 +24,14 @@ in
       environment = {
         "CERTPROVIDER" = "";
         "DNSPLUGIN" = "cloudflare";
-        "DOCKER_MODS" = "linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload";
+        "DOCKER_MODS" = "linuxserver/mods:swag-cloudflare-real-ip";
         "EXTRA_DOMAINS" = "";
         "ONLY_SUBDOMAINS" = "false";
         "PGID" = "1000";
         "PUID" = "1000";
         "STAGING" = "false";
         "SUBDOMAINS" = "wildcard";
+        "SWAG_AUTORELOAD" = "true";
         "TZ" = config.time.timeZone;
         "VALIDATION" = "dns";
       };

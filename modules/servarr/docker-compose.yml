@@ -177,10 +177,10 @@ services:
       - ONLY_SUBDOMAINS=false
       - EXTRA_DOMAINS=
       - STAGING=false
+      - SWAG_AUTORELOAD=true
       # https://github.com/linuxserver/docker-mods/tree/swag-cloudflare-real-ip
       # Real IP works with a separate container, no need for the cloudflared mod
-      # https://github.com/linuxserver/docker-mods/tree/swag-auto-reload
-      - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload
+      - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip
     # env_file:
     #   - ${config.sops.secrets.swag-env.path}
     volumes:
@@ -218,7 +218,8 @@ services:
       - ONLY_SUBDOMAINS=false
       - EXTRA_DOMAINS=
       - STAGING=false
-      - DOCKER_MODS=linuxserver/mods:swag-auto-reload
+      - SWAG_AUTORELOAD=true
+      - DOCKER_MODS=
     # env_file:
     #   - ${config.sops.secrets.swag-env.path}
     volumes:
