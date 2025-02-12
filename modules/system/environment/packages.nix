@@ -11,8 +11,6 @@
     killall
     eza
     bat
-    cmake
-    gcc
     efibootmgr
     # nvtopPackages.full
     (inxi.override
