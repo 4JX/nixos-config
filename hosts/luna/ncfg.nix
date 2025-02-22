@@ -27,9 +27,14 @@ in
       sound.enable = true;
       gnome-keyring.enable = true;
 
-      dnscrypt = {
-        enable = false;
-        # configFile = config.sops.secrets.dnscryptConfigFile.path;
+      dns = {
+        cloudflare-resolved = {
+          enable = true;
+        };
+        dnscrypt = {
+          enable = false;
+          # configFile = config.sops.secrets.dnscryptConfigFile.path;
+        };
       };
 
       flatpak.enable = true;
