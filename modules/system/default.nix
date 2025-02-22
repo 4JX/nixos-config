@@ -5,12 +5,12 @@ let
 in
 {
   imports = [
+    ./dns
     ./environment
     ./fonts
     ./power-management
     ./security
     ./programs
-    ./dnscrypt.nix
     ./flatpak.nix
     ./gnome-keyring.nix
     ./sound.nix

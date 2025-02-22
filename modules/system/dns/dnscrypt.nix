@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
 let
-  cfg = config.ncfg.system.dnscrypt;
+  cfg = config.ncfg.system.dns.dnscrypt;
   configFile = cfg.configFile;
   # https://search.nixos.org/options?channel=unstable&show=networking.dhcpcd.enable
   dhcpcdEnable = config.networking.dhcpcd.enable;
@@ -9,11 +9,12 @@ let
   networkmanagerEnable = config.networking.networkmanager.enable;
 in
 {
-  options.ncfg.system.dnscrypt = {
+  options.ncfg.system.dns.dnscrypt = {
     enable = lib.mkEnableOption "DNSCrypt as the system DNS manager";
     configFile = lib.mkOption {
       type = lib.types.path;
       # default = "/etc/dnscrypt-proxy/dnscrypt-proxy.toml";
+      default = config.sops.secrets.dnscryptConfigFile.path;
       description = "Path to the dnscrypt-proxy configuration file";
     };
   };

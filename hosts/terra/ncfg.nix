@@ -40,9 +40,11 @@ in
       sound.enable = true;
       gnome-keyring.enable = true;
 
-      dnscrypt = {
-        enable = true;
-        configFile = config.sops.secrets.dnscryptConfigFile.path;
+      dns = {
+        dnscrypt = {
+          enable = true;
+          configFile = config.sops.secrets.dnscryptConfigFile.path;
+        };
       };
 
       flatpak.enable = true;

@@ -8,6 +8,7 @@
     git
     btop
     iftop
+    dig
     killall
     eza
     bat
