@@ -1,4 +1,4 @@
-{ pkgs, homeFiles, ... }:
+{ pkgs, ... }:
 {
   imports = [ ../modules ];
 
@@ -7,17 +7,6 @@
 
   ncfg = {
     programs = {
-      audio.easyeffects = {
-        enable = true;
-        outputPresets = {
-          # https://github.com/wwmm/easyeffects/wiki/Community-Presets
-          # Based on https://gist.github.com/sebastian-de/648555c1233fdc6688c0a224fc2fca7e
-          "Legion 5 Pro" = homeFiles + /easyeffects/L5P.json;
-          "DT880" = homeFiles + /easyeffects/DT880.json;
-          "Sony WH-CH720N" = homeFiles + /easyeffects/Sony_WH-CH720N.json;
-        };
-      };
-
       browsers.firefox = {
         enable = true;
         arkenfox = {
@@ -43,10 +32,6 @@
         };
       };
 
-      office = {
-        libreoffice.enable = true;
-      };
-
       video = {
         mpv.enable = true;
       };
@@ -56,20 +41,17 @@
   services.caffeine.enable = true;
 
   home.packages = with pkgs; [
-    kate
+    kdePackages.kate
     keepassxc
     github-desktop
-    ark
+    kdePackages.ark
     gh # Github CLI
     tor-browser-bundle-bin
     arandr
-    node2nix
     libsForQt5.okular
 
     fractal
-    filelight
-
-    pinta # paint.net but linux? Not as complex as GIMP
+    kdePackages.filelight
 
     # Filesharing but easy
     localsend

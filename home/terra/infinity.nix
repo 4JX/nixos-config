@@ -60,11 +60,11 @@ in
   };
 
   home.packages = with pkgs; [
-    kate
+    kdePackages.kate
     keepassxc
     github-desktop
     spotify
-    ark
+    kdePackages.ark
     gh # Github CLI
     # jetbrains.clion # FIXME: https://github.com/NixOS/nixpkgs/pull/304223
     android-studio
@@ -116,7 +116,7 @@ in
     })
 
     fractal
-    filelight
+    kdePackages.filelight
 
     pinta # paint.net but linux? Not as complex as GIMP
 

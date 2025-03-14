@@ -19,7 +19,8 @@ in
   home.packages = with pkgs;
     [
       libsForQt5.qt5ct
-      breeze-icons
+      # Collision with tela icons
+      # kdePackages.breeze-icons
       cfg.qt.theme.package
     ];
 
