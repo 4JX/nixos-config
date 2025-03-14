@@ -8,10 +8,6 @@
     # Because home-manager needs it
     zsh.enable = true;
 
-    # Run commands without installing the programs
-    # TODO: steal https://github.com/NotAShelf/nyx/blob/c182362cd0e848a9175d836289596860cfacb08f/modules/extra/shared/nixos/comma/default.nix#L6
-    # comma.enable = true;
-
     # Type "fuck" to fix the last command that made you go "fuck"
     thefuck.enable = true;
 

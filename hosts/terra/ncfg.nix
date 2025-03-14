@@ -65,6 +65,7 @@ in
 
     programs = {
       gaming.enable = true;
+      comma.enable = true;
     };
 
     wireguard.server = {
