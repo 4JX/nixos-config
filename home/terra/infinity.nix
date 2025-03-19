@@ -124,5 +124,8 @@ in
     localsend
 
     p.proton-mail-export
+
+    # Diff viewer
+    meld
   ];
 }
