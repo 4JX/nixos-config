@@ -1,8 +1,10 @@
 { lib, config, pkgs, inputs, ... }:
 
-# FIXME: Search engine config currently stuck at v6 for the json file (home-manager) but firefox is already at v9
+# TODO: Implement https://github.com/dwarfmaster/arkenfox-nixos for the best arkenfox setup, should also make overriding its 
+# settings easier than the currently implemented cfg.arkenfox.overrides, especially for "search on enter" and "letterboxing"
+
 # https://github.com/schizofox/schizofox is nice but is pretty opinionated and uses its own preferences rather than arkenfox
-# though it can definitely be used as a base 
+# though it can definitely be used as a base
 let
   cfg = config.ncfg.programs.browsers.firefox;
   # Note that we lose on version pinning by using an input, but since this is intended to be used with nixos-unstable
@@ -53,8 +55,10 @@ in
           search = {
             # Data for these is extracted from ~/.mozilla/firefox/default/search.json.mozlz4 with "nix-shell -p dejsonlz4"
             engines = {
-              "Google".metaData.hidden = true;
-              "Bing".metaData.hidden = true;
+              "google".metaData.hidden = true;
+              "qwant".metaData.hidden = true;
+              "bing".metaData.hidden = true;
+              "ecosia".metaData.hidden = true;
 
               "SearXNG" = {
                 loadPath = "[https]search.sapti.me/sams-searxng.xml";
@@ -81,27 +85,28 @@ in
               "LibRedirect" = {
                 loadPath = "[other]addEngineWithDetails:7esoorv3@alefvanoon.anonaddy.me";
                 description = "A web extension that redirects popular sites to alternative privacy-friendly frontends and backends";
-                urls = [
-                  {
-
-                    template = "https://search.libredirect.invalid/";
-                    params = [
-                      { name = "q"; value = "{searchTerms}"; }
-                    ];
-                  }
-
-                ];
+                urls = [{
+                  template = "https://search.libredirect.invalid/";
+                  params = [
+                    { name = "q"; value = "{searchTerms}"; }
+                  ];
+                }];
                 icon = ./engine-logos/libredirect.png;
                 iconMapObj = {
-                  "{}" = "moz-extension://e115e8c0-56ce-4709-b20b-6185524b5fc9/assets/images/libredirect-128.png";
+                  "16" = "moz-extension://e115e8c0-56ce-4709-b20b-6185524b5fc9/assets/images/libredirect-16.png";
+                  "32" = "moz-extension://e115e8c0-56ce-4709-b20b-6185524b5fc9/assets/images/libredirect-32.png";
+                  "48" = "moz-extension://e115e8c0-56ce-4709-b20b-6185524b5fc9/assets/images/libredirect-48.png";
+                  "64" = "moz-extension://e115e8c0-56ce-4709-b20b-6185524b5fc9/assets/images/libredirect-64.png";
+                  "96" = "moz-extension://e115e8c0-56ce-4709-b20b-6185524b5fc9/assets/images/libredirect-96.png";
+                  "128" = "moz-extension://e115e8c0-56ce-4709-b20b-6185524b5fc9/assets/images/libredirect-128.png";
                 };
                 definedAliases = [ "@lb" ];
                 _extensionID = "7esoorv3@alefvanoon.anonaddy.me";
               };
 
-              "Wikipedia (en)".metaData.alias = "@w";
+              "wikipedia".metaData.alias = "@w";
 
-              "DuckDuckGo".metaData.alias = "@ddg";
+              "ddg".metaData.alias = "@ddg";
 
               "GitHub" = {
                 urls = [{
@@ -143,7 +148,9 @@ in
                   ];
                 }];
                 icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                definedAliases = [ "@ni" ];
+                definedAliases = [
+                  "@ni"
+                ];
               };
 
               # The urls are not changed since LibRedirect will manage the instances part
@@ -181,3 +188,4 @@ in
     };
   };
 }
+

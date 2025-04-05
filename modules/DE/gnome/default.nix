@@ -34,8 +34,7 @@ in
       gnome-tweaks
       dconf2nix
       dconf-editor
-      # FIXME: https://github.com/NixOS/nixpkgs/pull/369069
-      # gnome-extension-manager
+      gnome-extension-manager
       dconf2nix
       # (gnomeExtensions.gtk4-desktop-icons-ng-ding.overrideAttrs (_: {
       #   patches = [
