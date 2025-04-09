@@ -45,7 +45,27 @@ with pkgs.gnomeExtensions; [
 
   {
     # package = pkgs.gnome45Extensions."dash-to-panel@jderose9.github.com";
-    package = dash-to-panel;
+    # package = dash-to-panel;
+    package =
+      let
+        dash-old = inputs.nixpkgs.legacyPackages.${pkgs.system}.gnomeExtensions.dash-to-panel;
+      in
+      lib.warn "Using patched dash-to-panel https://github.com/home-sweet-gnome/dash-to-panel/issues/2278" dash-old.overrideAttrs (old: {
+        src = pkgs.fetchzip {
+          url = "https://github.com/home-sweet-gnome/dash-to-panel/archive/eb6366ef3e60cb380bf278639324bdbd828540a4.zip";
+          # The working dir needs to be built first, can't rely on the existing metadata replacer
+          postFetch = "";
+          sha256 = "sha256-focNWwiVHPDxDw3jDIJt/r6cAA+A96vDkanTwzotqCc=";
+        };
+
+        preBuild = ''
+          make _build
+          mv _build ..
+          rm -rf *
+          mv ../_build/* .
+          rmdir ../_build
+        '';
+      });
     dconfSettings = {
       panel-element-positions = ''
         {
