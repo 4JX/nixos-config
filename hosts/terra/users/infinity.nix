@@ -9,8 +9,11 @@
       "wheel"
       "networkmanager"
       "wireshark"
-      # Needed for X11 gestures in tandem with the gesture improvements extension
-      "input"
+      # VirtualBox
+      "vboxusers"
+      # Android
+      "adbusers"
+      "kvm"
     ];
   };
 
@@ -87,24 +90,16 @@
       };
     };
 
-  # Add OpenRGB udev rules
-  # TODO: Somehow properly add the kernel module things it complains about
-  services.udev.packages = [ pkgs.openrgb ];
+  # ncfg.virtualisation = {
+  #   libvirtd.enable = true;
+  # };
 
-  # Virtual machine stuff
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "infinity" ];
-
-  ncfg.virtualisation = {
-    libvirtd.enable = true;
-  };
-
-  environment.systemPackages = with pkgs; [
-    virt-manager
-    qemu
-    OVMF
-    pciutils
-  ];
+  # environment.systemPackages = with pkgs; [
+  #   virt-manager
+  #   qemu
+  #   OVMF
+  #   pciutils
+  # ];
 
   # Allow localsend to receive files
   # https://github.com/localsend/localsend?tab=readme-ov-file#setup
