@@ -1,10 +1,11 @@
-{ config, lib, pkgs, self, ... }:
+{ config, lib, pkgs, self, osConfig, ... }:
 
 # https://thewiki.moe/tutorials/mpv/
 # https://thewiki.moe/guides/playback/
 # https://kokomins.wordpress.com/2019/10/14/mpv-config-guide/
 # https://artoriuz.github.io/blog/mpv_upscaling.html
 # https://kohana.fi/article/mpv-for-anime
+# https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/
 
 let
   cfg = config.ncfg.programs.video.mpv;
@@ -39,6 +40,8 @@ let
 
   # Case insensitive filename match
   debandCond = names: builtins.concatStringsSep " or " (builtins.map (x: ''string.match(string.lower(p.filename), string.lower("${x}"))~=nil'') names);
+  # HDR enabled on system?
+  hdrEnabled = osConfig.ncfg.system.hdr.enable;
 in
 {
   imports = [ ./jellyfin-shim ];
@@ -74,11 +77,11 @@ in
         profile = "high-quality"; # Better scaling than default
 
         # Defaults to "no", generally not needed but can be set to "auto" to use nvenc (faster but power hungry if not plugged in)
-        # hwdec="no"
+        hwdec = "auto-safe";
 
         # Best performance of the bunch (Default: 3D311, Other: opengl)
         gpu-api = "vulkan";
-        fbo-format = "rgba16hf";
+        # fbo-format = "rgba16hf";
 
         # GPU-accelerated video output driver. gpu-next also exists but is somewhat questionable ATM.
         vo = "gpu-next";
@@ -117,8 +120,26 @@ in
         slang = "eng,en,enUS"; # Subtitles
         alang = "jpn,ja,jpn,eng,en"; # Audio
       };
+      # // (lib.optionalAttrs hdrEnabled {
+      #   gpu-context = "waylandvk"; # Default "auto". Set to "help" to see possible modes
+      #   target-colorspace-hint = "auto";
+      #   hdr-compute-peak = "yes";
+      # });
 
       profiles = {
+        # Configure HDR if enabled system-wide
+        # This currently only works with wayland (tested)
+        "HDR" =
+          if hdrEnabled then {
+            profile-cond = ''p["video-params/gamma"] == "pq"'';
+            gpu-context = "waylandvk"; # Default "auto". Set to "help" to see possible modes
+            target-colorspace-hint = "yes";
+            hdr-compute-peak = "yes";
+          } else {
+            profile-cond = ''p["video-params/gamma"] == "pq"'';
+            tone-mapping = "bt.2446a"; # Default: spline. A little too dark for my taste
+          };
+
         "Web" = {
           profile-cond = debandCond webSources;
           deband = "yes";
@@ -128,15 +149,14 @@ in
           deband-grain = 5; # Range 0-4096. Inject grain to cover up bad banding, higher value needed for poor sources.
         };
 
-        "Mini-Encode" =
-          {
-            profile-cond = debandCond miniEncodeSources;
-            deband = "yes";
-            deband-iterations = 2; # Range 1-16. Higher = better quality but more GPU usage. >5 is redundant.
-            deband-threshold = 35; # Range 0-4096. Deband strength.
-            deband-range = 20; # Range 1-64. Range of deband. Too high may destroy details.
-            deband-grain = 5; # Range 0-4096. Inject grain to cover up bad banding, higher value needed for poor sources.
-          };
+        "Mini-Encode" = {
+          profile-cond = debandCond miniEncodeSources;
+          deband = "yes";
+          deband-iterations = 2; # Range 1-16. Higher = better quality but more GPU usage. >5 is redundant.
+          deband-threshold = 35; # Range 0-4096. Deband strength.
+          deband-range = 20; # Range 1-64. Range of deband. Too high may destroy details.
+          deband-grain = 5; # Range 0-4096. Inject grain to cover up bad banding, higher value needed for poor sources.
+        };
       };
 
       inherit scripts;

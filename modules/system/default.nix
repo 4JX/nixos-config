@@ -13,6 +13,7 @@ in
     ./programs
     ./flatpak.nix
     ./gnome-keyring.nix
+    ./hdr.nix
     ./sound.nix
     ./systemd.nix
   ];

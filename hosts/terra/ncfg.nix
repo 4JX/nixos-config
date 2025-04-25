@@ -61,6 +61,10 @@ in
           rules = builtins.readFile ./usbguard-rules.conf;
         };
       };
+
+      hdr = {
+        enable = true;
+      };
     };
 
     programs = {

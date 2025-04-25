@@ -37,4 +37,6 @@ with shaders; {
   };
 
   "CTRL+0" = ''no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"'';
+
+  "CTRL+h" = ''cycle-values tone-mapping "spline" "bt.2446a" "st2094-40" ; show-text "Tone-Map"'';
 }
