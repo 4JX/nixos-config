@@ -100,8 +100,8 @@ in
           KrigBilateral # Chroma up+down
         ];
         scale = "ewa_lanczossharp"; # Luma upscale. (Default (high-quality): spline36)
-        dscale = "lanczos"; # Overkill, spline36/mitchell would be fine. Luma downscale. (Default (high-quality): mitchell)
-        cscale = "lanczos"; # Chroma upscale (Less sensitive than chroma). (Default (high-quality): ewa_lanczossharp)
+        # dscale = "lanczos"; # Overkill, spline36/mitchell would be fine. Luma downscale. (Default (high-quality): mitchell)
+        cscale = "ewa_lanczossharp"; # Chroma upscale (Less sensitive than luma). (Default (high-quality): ewa_lanczossharp)
         linear-downscaling = "no"; # Overrides the high-quality option, needed for SSimDownscaler
         correct-downscaling = "yes";
 

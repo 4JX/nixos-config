@@ -26,5 +26,16 @@
     };
 
     fsrcnnx = pkgs.callPackage ./fsrcnnx.nix { };
+
+    artcnn = {
+      C4F16 = pkgs.fetchurl {
+        url = "https://github.com/Artoriuz/ArtCNN/releases/download/v1.2.3/ArtCNN_C4F16.glsl";
+        sha256 = "sha256-A9Cz0xy4LImKlKRmYwIaPo8CxaIdacXP3wII3kv9RT4=";
+      };
+      C4F32 = pkgs.fetchurl {
+        url = "https://github.com/Artoriuz/ArtCNN/releases/download/v1.2.3/ArtCNN_C4F32.glsl";
+        sha256 = "sha256-93O85s9f5+Xl1Zmmle3UDfXNeiDD0IxNFk0HWR1b6tM=";
+      };
+    };
   };
 }
