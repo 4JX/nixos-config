@@ -1,11 +1,22 @@
-{ osConfig, lib, ... }:
+{ osConfig, lib, homeFiles, ... }:
 let
   cfg = osConfig.ncfg.DE.gnome;
+
+  backgrounds = homeFiles + "/backgrounds";
+  background = backgrounds + "/the-frontier-moewanders.jpg";
 in
 {
   imports = [ ./extensions ];
 
   config = lib.mkIf cfg.enable {
+    home.file = {
+      ".local/share/backgrounds" = {
+        source = backgrounds;
+        # Link the files rather than the folder, allows for modifications through the settings page
+        recursive = true;
+      };
+    };
+
     # Use dconf watch / to record changes
     # Use dconf2nix to get an idea of how to format the changes
     dconf.settings =
@@ -13,6 +24,16 @@ in
         # Show minimize, maximize and close to the left of the title bar
         "org/gnome/desktop/wm/preferences" = {
           button-layout = "appmenu:minimize,maximize,close";
+        };
+
+        # Set the various background bits
+        "org/gnome/desktop/background" = {
+          picture-uri = "file://${background}";
+          picture-uri-dark = "file://${background}";
+        };
+
+        "org/gnome/desktop/screensaver" = {
+          picture-uri = "file://${background}";
         };
 
         "org/gnome/desktop/interface" = {
