@@ -51,9 +51,9 @@
     };
 
     # Are you paranoid enough yet?
-    arkenfox = {
-      url = "github:arkenfox/user.js";
-      flake = false;
+    arkenfox-nixos = {
+      url = "github:dwarfmaster/arkenfox-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Secrets management

@@ -23,12 +23,6 @@ in
 
       browsers.firefox = {
         enable = true;
-        arkenfox = {
-          overrides = {
-            # This is a default since https://github.com/arkenfox/user.js/releases/tag/115.1
-            # "keyword.enabled" = true;
-          };
-        };
       };
 
       editors = {
