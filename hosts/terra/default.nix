@@ -1,5 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 
+let
+  legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.system}.default;
+in
 {
   imports =
     [
@@ -67,6 +70,15 @@
   '';
 
   programs.adb.enable = true;
+
+  systemd.services.turn-off-keyboard = {
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${legion-kb-rgb}/bin/legion-kb-rgb set --effect Static -c 0,0,0,0,0,0,0,0,0,0,0,0";
+    };
+    after = [ "multi-user.target" ];
+    wantedBy = [ "multi-user.target" ];
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.05";
