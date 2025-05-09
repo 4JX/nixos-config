@@ -34,7 +34,6 @@ in
       gdm.enable = true;
     };
     DE.gnome.enable = true;
-    # WM.hyprland.enable = true;
 
     system = {
       sound.enable = true;

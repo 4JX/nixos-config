@@ -1,7 +1,7 @@
 {
   description = "Personal NixOS configuration";
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, hyprland, ... }:
+  outputs = inputs@{ self, ... }:
     let
       myLib = import ./lib inputs;
     in
@@ -28,14 +28,6 @@
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Hyprland and co.
-    hyprland.url = "github:hyprwm/Hyprland";
-
-    xdg-portal-hyprland = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      #inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Makes command-not-found work

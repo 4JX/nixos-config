@@ -7,6 +7,5 @@
     ./system
     ./themes
     ./virtualisation
-    ./WM
   ];
 }
