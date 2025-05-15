@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 # To consider
 # https://extensions.gnome.org/extension/2992/ideapad/
@@ -11,6 +11,8 @@
 
 let
   inherit (lib.hm.gvariant) mkTuple mkUint32;
+
+  cfg = config.ncfg.DE.gnome;
   # fixMetadata = pkg: sha256: (pkg.overrideAttrs (old: {
   #   # Replace the metadata back to its original one
   #   # To be used as
@@ -52,7 +54,7 @@ with pkgs.gnomeExtensions; [
       in
       lib.warn "Using patched dash-to-panel https://github.com/home-sweet-gnome/dash-to-panel/issues/2278" dash-old.overrideAttrs (old: {
         src = pkgs.fetchzip {
-          url = "https://github.com/home-sweet-gnome/dash-to-panel/archive/eb6366ef3e60cb380bf278639324bdbd828540a4.zip";
+          url = "https://github.com/home-sweet-gnome/dash-to-panel/archive/fa8fabd9a65a30d4a7f52cc6daa299efe436f947.zip";
           # The working dir needs to be built first, can't rely on the existing metadata replacer
           postFetch = "";
           sha256 = "sha256-focNWwiVHPDxDw3jDIJt/r6cAA+A96vDkanTwzotqCc=";
@@ -66,27 +68,30 @@ with pkgs.gnomeExtensions; [
           rmdir ../_build
         '';
       });
-    dconfSettings = {
-      panel-element-positions = ''
-        {
-          "0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}],
-          "1":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]
-        }
-      '';
-      panel-lengths = ''{"0":100}'';
+    dconfSettings =
+      let
+        fakePrimary = "AAA-0000000000";
+      in
+      {
+        # This is a hack to force the extension to always use the "GNOME Primary" one, as it
+        # falls back from "The main monitor of the extension" when it isn't found.
+        primary-monitor = fakePrimary;
+        panel-element-positions-monitors-sync = true;
+        # gdbus call --session --dest org.gnome.Mutter.DisplayConfig --object-path /org/gnome/Mutter/DisplayConfig --method org.gnome.Mutter.DisplayConfig.GetCurrentState
+        panel-element-positions = cfg.dashMonitorElements;
 
-      # Keep running apps for each workspace separate
-      isolate-workspaces = true;
+        # Keep running apps for each workspace separate
+        isolate-workspaces = true;
 
-      # Needed for blur-my-shell to properly work
-      trans-use-custom-opacity = true;
-      trans-panel-opacity = 0.1;
-    };
+        # Needed for blur-my-shell to properly work
+        trans-use-custom-opacity = true;
+        trans-panel-opacity = 0.1;
+      };
   }
 
   {
     package = app-icons-taskbar;
-    disable = true;
+    enable = false;
     dconfSettings = {
       position-in-panel = "CENTER";
       panel-location = "BOTTOM";
@@ -119,7 +124,7 @@ with pkgs.gnomeExtensions; [
       right-panel-width = 250;
 
       # Pinned apps
-      pinned-app-list = [ "Files" "org.gnome.Nautilus" "org.gnome.Nautilus.desktop" "Firefox" "firefox" "firefox.desktop" "kitty" "kitty" "kitty.desktop" "Discord" "com.discordapp.Discord" "com.discordapp.Discord.desktop" "VSCodium" "code" "codium.desktop" "ArcMenu Settings" "/etc/profiles/per-user/infinity/share/gnome-shell/extensions/arcmenu@arcmenu.com/media/icons/menu_icons/arcmenu-logo-symbolic.svg" "gnome-extensions prefs arcmenu@arcmenu.com" ];
+      pinned-app-list = [ "Files" "org.gnome.Nautilus" "org.gnome.Nautilus.desktop" "Firefox" "firefox" "firefox.desktop" "kitty" "kitty" "kitty.desktop" "Discord" "com.discordapp.Discord" "com.discordapp.Discord.desktop" "VSCodium" "code" "codium.desktop" "ArcMenu Settings" "${pkgs.gnomeExtensions.arcmenu}/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/arcmenu-logo-symbolic.svg" "gnome-extensions prefs arcmenu@arcmenu.com" ];
 
       # Search providers
       search-provider-open-windows = true; # Search for open windows
@@ -158,7 +163,7 @@ with pkgs.gnomeExtensions; [
       let
         ideapad-old = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.gnomeExtensions."ideapad-controls";
       in
-      lib.warn "Using patched ideapad-controls https://github.com/AzzamAlsharafi/ideapad-controls-gnome-extension/pull/16" ideapad-old.overrideAttrs (old: {
+      lib.warn "Remove for GNOME 48 (and input): Using patched ideapad-controls https://nixpk.gs/pr-tracker.html?pr=403591" ideapad-old.overrideAttrs (old: {
         src = pkgs.fetchzip {
           url = "https://github.com/AzzamAlsharafi/ideapad-controls-gnome-extension/archive/74378b8c610679010b70076275ada75649574892.zip";
           # # Otherwise the metadata will get replaced
@@ -174,13 +179,13 @@ with pkgs.gnomeExtensions; [
 
   {
     package = window-gestures;
-    disable = true;
+    enable = false;
     dconfSettings = { };
   }
 
   {
     package = easyeffects-preset-selector;
-    disable = true;
+    enable = false;
     dconfSettings = { };
   }
 
@@ -204,7 +209,7 @@ with pkgs.gnomeExtensions; [
 
   {
     package = gtk4-desktop-icons-ng-ding;
-    disable = true;
+    enable = false;
     dconfSettings = { };
   }
 
@@ -215,7 +220,7 @@ with pkgs.gnomeExtensions; [
 
   {
     package = pano;
-    disable = true;
+    enable = false;
     dconfSettings = {
       # Remove audio and notification cues on copy
       send-notification-on-copy = false;
@@ -238,7 +243,7 @@ with pkgs.gnomeExtensions; [
   {
     package = vitals;
     # Only really ever used it for power consumption and battery-usage-wattmeter does that
-    disable = true;
+    enable = false;
     dconfSettings = {
       show-voltage = false;
       show-fan = false;

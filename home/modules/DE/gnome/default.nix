@@ -1,12 +1,48 @@
-{ osConfig, lib, homeFiles, ... }:
+{ config, osConfig, pkgs, lib, inputs, homeFiles, ... }:
 let
-  cfg = osConfig.ncfg.DE.gnome;
+  inherit (lib) mkOption mkEnableOption types;
+
+  cfg = config.ncfg.DE.gnome;
+  osCfg = osConfig.ncfg.DE.gnome;
 
   backgrounds = homeFiles + "/backgrounds";
-  background = backgrounds + "/the-frontier-moewanders.jpg";
+  defaultBackground = backgrounds + "/the-frontier-moewanders.jpg";
 in
 {
-  imports = [ ./extensions ];
+  imports = [ ./extensions.nix ];
+
+  options.ncfg.DE.gnome = {
+    enable = mkEnableOption "GNOME" // { default = osCfg.enable; };
+    background = mkOption {
+      type = types.path;
+      default = defaultBackground;
+      description = "The background image to use.";
+    };
+    extensions = mkOption {
+      type = types.listOf (types.submodule {
+        options = {
+          enable = mkEnableOption "the extension" // { default = true; };
+          package = mkOption {
+            type = types.package;
+            description = "The extension's package.";
+          };
+          dconfSettings = mkOption {
+            # https://github.com/nix-community/home-manager/blob/master/modules/misc/dconf.nix#L48
+            # https://github.com/nix-community/home-manager/blob/d2263ce5f4c251c0f7608330e8fdb7d1f01f0667/modules/programs/foliate.nix#L28
+            type = with types; attrsOf (either lib.hm.types.gvariant (attrsOf lib.hm.types.gvariant));
+            default = { };
+            description = "The dconf settings to apply to the extension.";
+          };
+        };
+      });
+      default = import ./list.nix { inherit config pkgs lib inputs; };
+      description = "GNOME extensions to install.";
+    };
+    dashMonitorElements = mkOption {
+      type = types.str;
+      description = "The dash-to-panel monitor panel-element-positions config to use.";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     home.file = {
@@ -28,12 +64,12 @@ in
 
         # Set the various background bits
         "org/gnome/desktop/background" = {
-          picture-uri = "file://${background}";
-          picture-uri-dark = "file://${background}";
+          picture-uri = "file://${cfg.background}";
+          picture-uri-dark = "file://${cfg.background}";
         };
 
         "org/gnome/desktop/screensaver" = {
-          picture-uri = "file://${background}";
+          picture-uri = "file://${cfg.background}";
         };
 
         "org/gnome/desktop/interface" = {

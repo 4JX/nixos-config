@@ -1,9 +1,9 @@
-{ pkgs, lib, myLib, inputs, osConfig, ... }:
+{ lib, myLib, config, ... }:
 
 let
-  cfg = osConfig.ncfg.DE.gnome;
+  cfg = config.ncfg.DE.gnome;
 
-  extensions = import ./list.nix { inherit pkgs lib inputs; };
+  extensions = cfg.extensions;
 
   # https://gjs.guide/extensions/overview/anatomy.html#settings-schema
   dconfPathFromPackage = extension:
@@ -61,7 +61,7 @@ lib.mkIf cfg.enable {
       # `gnome-extensions list` for a list
       enabled-extensions =
         let
-          enabled = builtins.filter (e: !(e.disable or false)) extensions;
+          enabled = builtins.filter (e: e.enable) extensions;
         in
         builtins.map (e: e.package.extensionUuid) enabled;
     };
