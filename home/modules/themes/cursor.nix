@@ -1,4 +1,6 @@
 { pkgs, self, ... }:
+
+# TODO: Surely this is part of stylix?
 let
   p = self.packages.${pkgs.system};
 
@@ -11,13 +13,13 @@ let
   cfg = conf.style;
 in
 {
-  home = {
-    pointerCursor = {
-      package = cfg.pointerCursor.package;
-      name = "${cfg.pointerCursor.name}";
-      size = cfg.pointerCursor.size;
-      gtk.enable = true;
-      x11.enable = true;
-    };
-  };
+  # home = {
+  #   pointerCursor = {
+  #     package = cfg.pointerCursor.package;
+  #     name = "${cfg.pointerCursor.name}";
+  #     size = cfg.pointerCursor.size;
+  #     gtk.enable = true;
+  #     x11.enable = true;
+  #   };
+  # };
 }

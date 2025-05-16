@@ -13,7 +13,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
     # nixos-hardware.url = "github:4JX/nixos-hardware";
@@ -63,7 +63,7 @@
 
     # -- Extra packages --
     legion-kb-rgb = {
-      url = "github:4JX/L5P-Keyboard-RGB/deps-update";
+      url = "github:4JX/L5P-Keyboard-RGB";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

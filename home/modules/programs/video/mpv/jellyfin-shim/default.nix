@@ -21,8 +21,7 @@ in
 
       # https://github.com/jellyfin/jellyfin-mpv-shim#external-mpv
       # https://github.com/jellyfin/jellyfin-mpv-shim/issues/266#issuecomment-1152883845
-      xdg.configFile."jellyfin-mpv-shim/conf.json".source = (pkgs.substituteAll {
-        src = ./conf.json;
+      xdg.configFile."jellyfin-mpv-shim/conf.json".source = (pkgs.replaceVars ./conf.json {
         mpv = lib.getExe config.programs.mpv.finalPackage;
       });
     };

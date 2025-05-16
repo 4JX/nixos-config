@@ -7,11 +7,11 @@
   i18n =
     let
       enUS = "en_US.UTF-8";
-      # esES = "es_ES.UTF-8";
+      esES = "es_ES.UTF-8";
     in
     {
       defaultLocale = lib.mkDefault enUS;
-      supportedLocales = [ "en_US.UTF-8/UTF-8" "es_ES.UTF-8/UTF-8" ];
+      extraLocales = [ enUS esES ];
     };
 
   console =

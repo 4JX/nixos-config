@@ -75,7 +75,9 @@ in
         "org/gnome/desktop/interface" = {
           icon-theme = "Tela-circle-dark";
 
-          cursor-theme = "Vimix-cursors";
+          # TODO: Find nicer cursor theme
+          cursor-theme = "Adwaita";
+          # cursor-theme = "Vimix-cursors";
           # cursor-size = 28; # Default 24
         };
 

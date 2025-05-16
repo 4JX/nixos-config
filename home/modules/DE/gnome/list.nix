@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 
 # To consider
 # https://extensions.gnome.org/extension/2992/ideapad/
@@ -48,26 +48,22 @@ with pkgs.gnomeExtensions; [
   {
     # package = pkgs.gnome45Extensions."dash-to-panel@jderose9.github.com";
     # package = dash-to-panel;
-    package =
-      let
-        dash-old = inputs.nixpkgs.legacyPackages.${pkgs.system}.gnomeExtensions.dash-to-panel;
-      in
-      lib.warn "Using patched dash-to-panel https://github.com/home-sweet-gnome/dash-to-panel/issues/2278" dash-old.overrideAttrs (old: {
-        src = pkgs.fetchzip {
-          url = "https://github.com/home-sweet-gnome/dash-to-panel/archive/fa8fabd9a65a30d4a7f52cc6daa299efe436f947.zip";
-          # The working dir needs to be built first, can't rely on the existing metadata replacer
-          postFetch = "";
-          sha256 = "sha256-focNWwiVHPDxDw3jDIJt/r6cAA+A96vDkanTwzotqCc=";
-        };
+    package = lib.warn "Using patched dash-to-panel https://github.com/home-sweet-gnome/dash-to-panel/issues/2278" dash-to-panel.overrideAttrs (old: {
+      src = pkgs.fetchzip {
+        url = "https://github.com/home-sweet-gnome/dash-to-panel/archive/ad8c3eac83a23846d5916330573fbc5b311ed715.zip";
+        # The working dir needs to be built first, can't rely on the existing metadata replacer
+        postFetch = "";
+        sha256 = "sha256-Ion4+NZcTKqvBqzHe7DwxqOXWFyoZi78H7S75XuL95A=";
+      };
 
-        preBuild = ''
-          make _build
-          mv _build ..
-          rm -rf *
-          mv ../_build/* .
-          rmdir ../_build
-        '';
-      });
+      preBuild = ''
+        make _build
+        mv _build ..
+        rm -rf *
+        mv ../_build/* .
+        rmdir ../_build
+      '';
+    });
     dconfSettings =
       let
         fakePrimary = "AAA-0000000000";
@@ -159,18 +155,8 @@ with pkgs.gnomeExtensions; [
 
 
   {
-    package =
-      let
-        ideapad-old = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.gnomeExtensions."ideapad-controls";
-      in
-      lib.warn "Remove for GNOME 48 (and input): Using patched ideapad-controls https://nixpk.gs/pr-tracker.html?pr=403591" ideapad-old.overrideAttrs (old: {
-        src = pkgs.fetchzip {
-          url = "https://github.com/AzzamAlsharafi/ideapad-controls-gnome-extension/archive/74378b8c610679010b70076275ada75649574892.zip";
-          # # Otherwise the metadata will get replaced
-          # postFetch = "";
-          sha256 = "sha256-x1EFglOIsK8KxRJpG8VecYleHFHRmZ8m5TTghYeyg0M=";
-        };
-      });
+    package = ideapad-controls;
+
     dconfSettings = {
       # Show inside the quick settings menu
       tray-location = false;
