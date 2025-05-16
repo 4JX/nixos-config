@@ -11,6 +11,7 @@ in
       ./hardware-configuration.nix
       # These hinder evaluation times and I've found myself rarely using them
       # ./specialisations
+      # ./monero.nix
       ./ncfg.nix
       ./DE.nix
       ./users
@@ -44,23 +45,6 @@ in
   networking.wg-quick.interfaces.terra-lan = {
     autostart = false;
     configFile = config.sops.secrets.wg-terra-lan.path;
-  };
-
-  services = {
-    # Enable CUPS to print documents.
-    printing = {
-      enable = true;
-      drivers = with pkgs; [
-        # cups-brother-hl3140cw
-        # brlaser
-        # (pkgs.callPackage ./brother.nix { })
-      ];
-
-    };
-
-    postgresql = {
-      enable = true;
-    };
   };
 
   hardware.ckb-next.enable = true;
