@@ -1,9 +1,10 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, udev
-, libinput
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  udev,
+  libinput,
 }:
 
 rustPlatform.buildRustPackage {
@@ -21,7 +22,10 @@ rustPlatform.buildRustPackage {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ udev libinput ];
+  buildInputs = [
+    udev
+    libinput
+  ];
 
   meta = with lib; {
     description = "Adds X11 compatibility for gnomeExtensions.gesture-improvements";

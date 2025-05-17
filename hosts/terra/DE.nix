@@ -11,7 +11,6 @@
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
 
-
     # Enable KDE
     desktopManager.plasma6.enable = true;
 

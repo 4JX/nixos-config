@@ -1,4 +1,9 @@
-{ config, lib, inputs, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 
 let
   cfg = config.ncfg.system.sound;
@@ -40,7 +45,16 @@ in
         "user.conf" = {
           # 44100 48000 88200 96000 176400 192000 352800 384000
           "context.properties" = {
-            "default.clock.allowed-rates" = [ 44100 48000 88200 96000 176400 192000 352800 384000 ];
+            "default.clock.allowed-rates" = [
+              44100
+              48000
+              88200
+              96000
+              176400
+              192000
+              352800
+              384000
+            ];
           };
         };
       };

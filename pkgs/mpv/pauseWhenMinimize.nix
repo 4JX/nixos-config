@@ -1,4 +1,9 @@
-{ lib, pkgs, stdenvNoCC, ... }:
+{
+  lib,
+  pkgs,
+  stdenvNoCC,
+  ...
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "mpv-pause-when-minimize";

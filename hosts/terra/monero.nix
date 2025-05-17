@@ -18,7 +18,7 @@
       download = -1;
       # download = 10485760;
     };
-    extraConfig = '' 
+    extraConfig = ''
       out-peers=64              # Faster sync
       in-peers=1024             # Default is unlimited, but we limit it to 1024
       zmq-pub=tcp://127.0.0.1:18084

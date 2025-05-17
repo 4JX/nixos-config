@@ -1,22 +1,26 @@
-{ pkgs, config, inputs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 
 let
   legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.system}.default;
 in
 {
-  imports =
-    [
-      ./boot.nix
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      # These hinder evaluation times and I've found myself rarely using them
-      # ./specialisations
-      # ./monero.nix
-      ./ncfg.nix
-      ./DE.nix
-      ./users
-      ./power-management.nix
-    ];
+  imports = [
+    ./boot.nix
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    # These hinder evaluation times and I've found myself rarely using them
+    # ./specialisations
+    # ./monero.nix
+    ./ncfg.nix
+    ./DE.nix
+    ./users
+    ./power-management.nix
+  ];
 
   # TODO: Should probably make an enhanced version of this that alerts when the offending package is upgraded...
   nixpkgs.config.permittedInsecurePackages = [

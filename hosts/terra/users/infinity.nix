@@ -33,7 +33,7 @@
     in
     {
       enable = true;
-      user = user;
+      inherit user;
       dataDir = "/home/${user}"; # configDir is set automatically from dataDir
       openDefaultPorts = true;
       group = "users";
@@ -53,7 +53,10 @@
           "Keepass DB" = {
             id = "Keepass DB";
             path = "/home/${user}/Documents/Keepass DB";
-            devices = [ "POCO F2" "POCO F6" ];
+            devices = [
+              "POCO F2"
+              "POCO F6"
+            ];
             versioning = {
               type = "staggered";
               params = {

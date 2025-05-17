@@ -1,7 +1,15 @@
-{ lib, config, inputs, self, theme, myLib, ... }:
+{
+  lib,
+  config,
+  inputs,
+  self,
+  theme,
+  myLib,
+  ...
+}:
 
 let
-  hostName = config.networking.hostName;
+  inherit (config.networking) hostName;
 
   userHomes = lib.genAttrs config.ncfg.system.users (name: ./${hostName}/${name}.nix);
 
@@ -13,9 +21,16 @@ in
     useGlobalPkgs = true;
     # Install stuff to /etc/profiles
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs self homeFiles theme myLib; };
+    extraSpecialArgs = {
+      inherit
+        inputs
+        self
+        homeFiles
+        theme
+        myLib
+        ;
+    };
     users = userHomes;
   };
 
 }
-

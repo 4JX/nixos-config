@@ -1,5 +1,12 @@
 # https://github.com/nix-community/nur-combined/blob/8262ec00e5f1f10b2fb2e4bd3ea5444e0acf135b/repos/ambroisie/pkgs/vimix-cursors/default.nix#L32
-{ lib, python3, fetchFromGitHub, inkscape, stdenvNoCC, xcursorgen }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  inkscape,
+  stdenvNoCC,
+  xcursorgen,
+}:
 let
   py = python3.withPackages (ps: with ps; [ cairosvg ]);
 in

@@ -1,5 +1,12 @@
 # Import module specific secrets via a pattern like https://github.com/Mic92/sops-nix/issues/378#issuecomment-2068820729
-{ self, config, lib, inputs, pkgs, ... }:
+{
+  self,
+  config,
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
 
 let
   # keyFile = config.sops.age.keyFile;
@@ -47,7 +54,12 @@ in
           sops "$@"
         '';
       in
-      with pkgs; [ sops age sops-codium ];
+      with pkgs;
+      [
+        sops
+        age
+        sops-codium
+      ];
 
     # services.openssh = {
     #   enable = true;

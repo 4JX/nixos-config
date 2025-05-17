@@ -8,7 +8,6 @@
   ncfg.system.power-management = {
     power-profiles-daemon.enable = true;
 
-
     tlp.enable = false;
 
     tlp.settings = {
@@ -27,7 +26,7 @@
       CPU_DRIVER_OPMODE_ON_BAT = "active";
 
       # https://linrunner.de/tlp/settings/processor.html#cpu-driver-opmode-on-ac-bat
-      # Performance basically locks the hint to "full throttle" as well, 
+      # Performance basically locks the hint to "full throttle" as well,
       # guided can probably do better by allowing more governor choices (schedutil ?)
       CPU_SCALING_GOVERNOR_ON_AC = "performance"; # Default powersave
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -45,12 +44,12 @@
       CPU_BOOST_ON_BAT = 0;
 
       # https://linrunner.de/tlp/settings/radio.html#devices-to-disable-on-startup
-      #* Bluetooth is rarely if ever used 
+      #* Bluetooth is rarely if ever used
       # Wireless Wide Area Network technologies are not even a thing on this laptop, but left in regardless
       DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth wwan";
 
       # https://linrunner.de/tlp/settings/usb.html
-      #* TLP configures quite a bit of USB related power saving by default, may become an annoyance 
+      #* TLP configures quite a bit of USB related power saving by default, may become an annoyance
     };
   };
 

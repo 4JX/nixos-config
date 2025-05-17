@@ -1,8 +1,9 @@
-{ lib
-, stdenvNoCC
-, fetchzip
-, gnome-themes-extra
-, gtk-engine-murrine
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+  gnome-themes-extra,
+  gtk-engine-murrine,
 }:
 let
   folderName = "MonoThemeDark";

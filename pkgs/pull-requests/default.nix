@@ -1,13 +1,5 @@
 { pkgs }:
 
-let
-  nixpkgsPR = { rev, path, sha256 }: pkgs.callPackage
-    (pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/NixOS/nixpkgs/${rev}/${path}";
-      inherit sha256;
-    })
-    { };
-in
 {
   # auto-cpufreq 1.9.6
   # https://github.com/NixOS/nixpkgs/pull/226458

@@ -1,4 +1,9 @@
-{ lib, config, options, ... }:
+{
+  lib,
+  config,
+  options,
+  ...
+}:
 
 let
   cfg = config.ncfg.wireguard.client;
@@ -38,12 +43,12 @@ in
       ${cfg.interface} = {
         # Determines the IP address and subnet of the client's end of the tunnel interface.
         ips = [ "10.100.0.2/24" ];
-        listenPort = cfg.listenPort; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
+        inherit (cfg) listenPort; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
 
         # Path to the private key file.
         privateKeyFile = config.sops.secrets.wg-client-private-key.path;
 
-        peers = cfg.peers;
+        inherit (cfg) peers;
       };
     };
   };

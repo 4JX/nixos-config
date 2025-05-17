@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   # Use the grub bootloader.
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_6_13;
@@ -35,8 +36,8 @@
     # Doesn't fix the tearing of external monitors for me
     # https://forums.developer.nvidia.com/t/nvidia-please-get-it-together-with-external-monitors-on-wayland/301684/31
     # https://github.com/NVIDIA/open-gpu-kernel-modules/issues/650
-    # Hack/Workaround: execute "sudo nvidia-smi -lgc 2000,40000" whenever using an external monitor, 
-    # at the expense of power consumption.(?) 
+    # Hack/Workaround: execute "sudo nvidia-smi -lgc 2000,40000" whenever using an external monitor,
+    # at the expense of power consumption.(?)
     # kernelParams = [ "nvidia.NVreg_EnableGpuFirmware=0" ];
   };
 

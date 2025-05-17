@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchurl, ... }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  ...
+}:
 
 let
   filename = "evafast.lua";

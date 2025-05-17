@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.ncfg.system.fonts;
@@ -14,7 +19,7 @@ let
     nerd-fonts.symbols-only
     twemoji-color-font
 
-    # Stolen from 
+    # Stolen from
     # https://github.com/PatrickShaw/patrickshaw/blob/799ab4a839d092869bf8f6a55cb3afb1d0cd0a49/personal/dotfiles/.config/fonts/conf.d/flake.nix
     # https://github.com/somasis/nixos/blob/3519e7df91f19106c779bd71c305ad82a473850e/users/somasis/desktop/study/writing.nix#L166-L172
     # See: https://dribbble.com/stories/2021/04/26/web-design-data-fonts

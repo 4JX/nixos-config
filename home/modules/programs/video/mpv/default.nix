@@ -1,4 +1,11 @@
-{ config, lib, pkgs, self, osConfig, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  osConfig,
+  ...
+}:
 
 # https://thewiki.moe/tutorials/mpv/
 # https://thewiki.moe/guides/playback/
@@ -30,16 +37,41 @@ let
 
   p = self.packages.${pkgs.system};
 
-  scriptsPkgs = with pkgs.mpvScripts; [ uosc thumbfast ]; # autoload
-  scriptsCustom = with p.mpv.mpvScripts; [ betterChapters pauseWhenMinimize ]; # evafast mpv-jellyfin
+  scriptsPkgs = with pkgs.mpvScripts; [
+    uosc
+    thumbfast
+  ]; # autoload
+  scriptsCustom = with p.mpv.mpvScripts; [
+    betterChapters
+    pauseWhenMinimize
+  ]; # evafast mpv-jellyfin
   scripts = scriptsPkgs ++ scriptsCustom;
 
   # Escape character is "%"
-  webSources = [ "HorribleSubs" "Erai%-raws" "SubsPlease" "Tsundere%-Raws" ];
-  miniEncodeSources = [ "ASW" "DKB" "Judas" "Cleo" "Cerberus" "Reaktor" "Ember" "Nep%_Blanc" "Akihito" ];
+  webSources = [
+    "HorribleSubs"
+    "Erai%-raws"
+    "SubsPlease"
+    "Tsundere%-Raws"
+  ];
+  miniEncodeSources = [
+    "ASW"
+    "DKB"
+    "Judas"
+    "Cleo"
+    "Cerberus"
+    "Reaktor"
+    "Ember"
+    "Nep%_Blanc"
+    "Akihito"
+  ];
 
   # Case insensitive filename match
-  debandCond = names: builtins.concatStringsSep " or " (builtins.map (x: ''string.match(string.lower(p.filename), string.lower("${x}"))~=nil'') names);
+  debandCond =
+    names:
+    builtins.concatStringsSep " or " (
+      builtins.map (x: ''string.match(string.lower(p.filename), string.lower("${x}"))~=nil'') names
+    );
   # HDR enabled on system?
   hdrEnabled = osConfig.ncfg.system.hdr.enable;
 in
@@ -91,14 +123,15 @@ in
         # icc-profile-auto = true; # Probably not really needed since the entire screen is calibrated through a profile
         # target-prim = "dci-p3"; # Cap the colors at the specified gamut to fix oversaturation
 
-
         #### Shaders
         # Defaults for everyday use, heavier shaders are left to bindings
-        glsl-shaders = with p.mpv.shaders; builtins.concatStringsSep ":" [
-          SSimSuperRes # Luma upscaler
-          SSimDownscaler # Luma downscaler
-          KrigBilateral # Chroma up+down
-        ];
+        glsl-shaders =
+          with p.mpv.shaders;
+          builtins.concatStringsSep ":" [
+            SSimSuperRes # Luma upscaler
+            SSimDownscaler # Luma downscaler
+            KrigBilateral # Chroma up+down
+          ];
         scale = "ewa_lanczossharp"; # Luma upscale. (Default (high-quality): spline36)
         # dscale = "lanczos"; # Overkill, spline36/mitchell would be fine. Luma downscale. (Default (high-quality): mitchell)
         cscale = "ewa_lanczossharp"; # Chroma upscale (Less sensitive than luma). (Default (high-quality): ewa_lanczossharp)
@@ -112,9 +145,9 @@ in
         screenshot-directory = "~/Pictures/mpv";
 
         #### Subtitle Options
-        demuxer-mkv-subtitle-preroll = "yes"; #try harder to show embedded soft subtitles when seeking somewhere
-        sub-fix-timing = "no"; #Adjust subtitle timing is to remove minor gaps or overlaps between subtitles
-        sub-auto = "fuzzy"; #Load all subs containing the media filename.
+        demuxer-mkv-subtitle-preroll = "yes"; # try harder to show embedded soft subtitles when seeking somewhere
+        sub-fix-timing = "no"; # Adjust subtitle timing is to remove minor gaps or overlaps between subtitles
+        sub-auto = "fuzzy"; # Load all subs containing the media filename.
 
         #### Language Priority
         slang = "eng,en,enUS"; # Subtitles
@@ -130,15 +163,18 @@ in
         # Configure HDR if enabled system-wide
         # This currently only works with wayland (tested)
         "HDR" =
-          if hdrEnabled then {
-            profile-cond = ''p["video-params/gamma"] == "pq"'';
-            gpu-context = "waylandvk"; # Default "auto". Set to "help" to see possible modes
-            target-colorspace-hint = "yes";
-            hdr-compute-peak = "yes";
-          } else {
-            profile-cond = ''p["video-params/gamma"] == "pq"'';
-            tone-mapping = "bt.2446a"; # Default: spline. A little too dark for my taste
-          };
+          if hdrEnabled then
+            {
+              profile-cond = ''p["video-params/gamma"] == "pq"'';
+              gpu-context = "waylandvk"; # Default "auto". Set to "help" to see possible modes
+              target-colorspace-hint = "yes";
+              hdr-compute-peak = "yes";
+            }
+          else
+            {
+              profile-cond = ''p["video-params/gamma"] == "pq"'';
+              tone-mapping = "bt.2446a"; # Default: spline. A little too dark for my taste
+            };
 
         "Web" = {
           profile-cond = debandCond webSources;
@@ -164,9 +200,9 @@ in
       bindings = import ./bindings.nix { inherit p pkgs; };
     };
 
-    xdg.configFile =
-      (lib.mapAttrs' (name: value: { name = "mpv/${name}"; inherit value; }) externalFiles);
+    xdg.configFile = lib.mapAttrs' (name: value: {
+        name = "mpv/${name}";
+        inherit value;
+      }) externalFiles;
   };
 }
-
-

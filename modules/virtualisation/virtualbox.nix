@@ -16,8 +16,8 @@ in
   config = lib.mkIf cfg.enable {
     # Virtual machine stuff
     virtualisation.virtualbox.host = {
-      enable = cfg.enable;
-      enableKvm = cfg.enableKvm;
+      inherit (cfg) enable;
+      inherit (cfg) enableKvm;
     };
 
     # Workaround for https://github.com/NixOS/nixpkgs/issues/363887

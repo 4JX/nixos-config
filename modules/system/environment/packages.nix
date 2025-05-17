@@ -14,8 +14,7 @@
     bat
     efibootmgr
     # nvtopPackages.full
-    (inxi.override
-      { withRecommends = true; }) # inxi -Fazy
+    (inxi.override { withRecommends = true; }) # inxi -Fazy
     ripgrep # Faster grep
     ripgrep-all # Wrapper around ripgrep for convenience universal searching across a ton of filetypes
     fd # Better find

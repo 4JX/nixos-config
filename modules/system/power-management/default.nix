@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 # TODO: https://github.com/NotAShelf/nyx/tree/c182362cd0e848a9175d836289596860cfacb08f/modules/core/types/laptop/power
 # Adapt the concept of plugged in or not running scripts (plugged.nix) into configurable options via
@@ -35,7 +40,15 @@ in
     tlp = {
       enable = lib.mkEnableOption "TLP";
       settings = lib.mkOption {
-        type = with lib.types; attrsOf (oneOf [ bool int float str (listOf str) ]);
+        type =
+          with lib.types;
+          attrsOf (oneOf [
+            bool
+            int
+            float
+            str
+            (listOf str)
+          ]);
         default = { };
       };
     };
@@ -58,8 +71,12 @@ in
       # Record changes with: udevadm monitor --property
       # Show attributes with (no -a for env instead): udevadm -ap (device path starting at /devices)
       let
-        onPluggedScripts = builtins.map (script: ''SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="1", RUN+="${lib.getExe script}"'') cfg.onPlugged;
-        onUnpluggedScripts = builtins.map (script: ''SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="0", RUN+="${lib.getExe script}"'') cfg.onUnplugged;
+        onPluggedScripts = builtins.map (
+          script: ''SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="1", RUN+="${lib.getExe script}"''
+        ) cfg.onPlugged;
+        onUnpluggedScripts = builtins.map (
+          script: ''SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="0", RUN+="${lib.getExe script}"''
+        ) cfg.onUnplugged;
       in
       ''
         # On battery
@@ -77,16 +94,21 @@ in
     # powerManagement.powertop.enable = true;
 
     services.tlp = {
-      enable = cfg.tlp.enable;
-      settings = cfg.tlp.settings;
+      inherit (cfg.tlp) enable;
+      inherit (cfg.tlp) settings;
     };
 
     # https://github.com/AdnanHodzic/auto-cpufreq/issues/464
     services.auto-cpufreq.enable = cfg.auto-cpufreq.enable;
-    environment.etc."auto-cpufreq.conf" = lib.mkIf (cfg.auto-cpufreq.enable && cfg.auto-cpufreq.configPath != null) {
-      source = cfg.auto-cpufreq.configPath;
-    };
+    environment.etc."auto-cpufreq.conf" =
+      lib.mkIf (cfg.auto-cpufreq.enable && cfg.auto-cpufreq.configPath != null)
+        {
+          source = cfg.auto-cpufreq.configPath;
+        };
 
-    boot.kernelParams = lib.optionals cfg.blacklistAmdPstate [ "initcall_blacklist=amd_pstate_init" "amd_pstate.enable=0" ];
+    boot.kernelParams = lib.optionals cfg.blacklistAmdPstate [
+      "initcall_blacklist=amd_pstate_init"
+      "amd_pstate.enable=0"
+    ];
   };
 }

@@ -6,11 +6,9 @@ in
 {
   options.ncfg.system.flatpak.enable = lib.mkEnableOption "Flatpak";
 
-  config = lib.mkIf
-    cfg.enable
-    {
-      services.flatpak.enable = true;
+  config = lib.mkIf cfg.enable {
+    services.flatpak.enable = true;
 
-      xdg.portal.enable = true;
-    };
+    xdg.portal.enable = true;
+  };
 }

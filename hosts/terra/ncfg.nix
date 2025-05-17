@@ -1,4 +1,10 @@
-{ inputs, self, pkgs, config, ... }:
+{
+  inputs,
+  self,
+  pkgs,
+  config,
+  ...
+}:
 
 let
   p = self.packages.${pkgs.system};

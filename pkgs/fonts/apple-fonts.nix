@@ -2,10 +2,10 @@
 # https://github.com/Steven0351/nix-darwin-dotfiles/blob/d0ef9ecb05551ac74a7a70b58b321358473c3a91/derivations/otf-apple.nix#L12
 # https://github.com/wkj9893/dotfiles/blob/b20353b7d399dee89a4ae7cf6e5d77ee356ea496/overlays/apple-font.nix#L17
 
-{ stdenvNoCC
-, fetchurl
-, p7zip
-,
+{
+  stdenvNoCC,
+  fetchurl,
+  p7zip,
 }:
 
 stdenvNoCC.mkDerivation {

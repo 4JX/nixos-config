@@ -16,13 +16,12 @@ let
   cfg = conf.style;
 in
 {
-  home.packages = with pkgs;
-    [
-      libsForQt5.qt5ct
-      # Collision with tela icons
-      # kdePackages.breeze-icons
-      cfg.qt.theme.package
-    ];
+  home.packages = with pkgs; [
+    libsForQt5.qt5ct
+    # Collision with tela icons
+    # kdePackages.breeze-icons
+    cfg.qt.theme.package
+  ];
 
   qt = {
     enable = true;

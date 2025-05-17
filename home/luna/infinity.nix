@@ -22,7 +22,10 @@
       misc = {
         screenshot-ocr = {
           enable = true;
-          languages = [ "eng" "spa" ];
+          languages = [
+            "eng"
+            "spa"
+          ];
         };
       };
 

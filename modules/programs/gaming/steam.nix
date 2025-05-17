@@ -1,4 +1,10 @@
-{ lib, config, pkgs, inputs, self, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  self,
+  ...
+}:
 
 let
   cfg = config.ncfg.programs.gaming;

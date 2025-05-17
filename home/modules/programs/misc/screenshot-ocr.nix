@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # https://gist.github.com/numkem/904f98bbb09280cb8b15cbdaca37f267
 # https://github.com/WhiteBlackGoose/dotfiles/blob/b3e5229b6bb4e5a3a052a75a3dcb0bd2cc695ce0/nix-config/home.nix#L74-L107
@@ -8,14 +13,20 @@
 let
   cfg = config.ncfg.programs.misc.screenshot-ocr;
   # For wayland use: grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy
-  mkOcr = lang: pkgs.writeShellApplication {
-    name = "screen_copy_${lang}";
-    runtimeInputs = with pkgs; [ xfce.xfce4-screenshooter tesseract xclip ];
+  mkOcr =
+    lang:
+    pkgs.writeShellApplication {
+      name = "screen_copy_${lang}";
+      runtimeInputs = with pkgs; [
+        xfce.xfce4-screenshooter
+        tesseract
+        xclip
+      ];
 
-    text = ''
-      xfce4-screenshooter -r --save /dev/stdout | tesseract -l ${lang} stdin stdout | xclip -in -selection clipboard
-    '';
-  };
+      text = ''
+        xfce4-screenshooter -r --save /dev/stdout | tesseract -l ${lang} stdin stdout | xclip -in -selection clipboard
+      '';
+    };
 in
 {
   options.ncfg.programs.misc.screenshot-ocr = {
@@ -32,22 +43,21 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = map (lang: (mkOcr lang)) cfg.languages;
 
-    xdg.desktopEntries =
-      builtins.listToAttrs
-        (map
-          (lang:
-            let
-              ocr = mkOcr lang;
-              entry = {
-                name = "Image OCR: ${lang}";
-                exec = "${ocr}/bin/${ocr.name}";
-              };
-            in
-            {
-              name = "ocr-${lang}";
-              value = entry;
-            }
-          )
-          cfg.languages);
+    xdg.desktopEntries = builtins.listToAttrs (
+      map (
+        lang:
+        let
+          ocr = mkOcr lang;
+          entry = {
+            name = "Image OCR: ${lang}";
+            exec = "${ocr}/bin/${ocr.name}";
+          };
+        in
+        {
+          name = "ocr-${lang}";
+          value = entry;
+        }
+      ) cfg.languages
+    );
   };
 }

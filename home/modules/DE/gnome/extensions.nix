@@ -1,51 +1,57 @@
-{ lib, myLib, config, ... }:
+{
+  lib,
+  myLib,
+  config,
+  ...
+}:
 
 let
   cfg = config.ncfg.DE.gnome;
 
-  extensions = cfg.extensions;
+  inherit (cfg) extensions;
 
   # https://gjs.guide/extensions/overview/anatomy.html#settings-schema
-  dconfPathFromPackage = extension:
+  dconfPathFromPackage =
+    extension:
     let
       formatPath = p: (builtins.replaceStrings [ "." ] [ "/" ]) p;
     in
-    lib.pipe extension
-      [
-        (e: e.package)
-        (p: "${p}/share/gnome-shell/extensions/${p.extensionUuid}/metadata.json")
-        builtins.readFile
-        builtins.fromJSON
-        (
-          json:
-          if (builtins.hasAttr "settings-schema" json)
-          # This is specified by the developer
-          then (formatPath json.settings-schema)
-          # If that doesn't exist, guess the location based on the UUID
-          else (dconfPathFromUUID extension)
-        )
-      ];
+    lib.pipe extension [
+      (e: e.package)
+      (p: "${p}/share/gnome-shell/extensions/${p.extensionUuid}/metadata.json")
+      builtins.readFile
+      builtins.fromJSON
+      (
+        json:
+        if
+          (builtins.hasAttr "settings-schema" json)
+        # This is specified by the developer
+        then
+          (formatPath json.settings-schema)
+        # If that doesn't exist, guess the location based on the UUID
+        else
+          (dconfPathFromUUID extension)
+      )
+    ];
 
   # https://gjs.guide/extensions/overview/anatomy.html#uuid
-  dconfPathFromUUID = extension:
-    lib.pipe extension
-      [
-        (e: e.package)
-        (p: builtins.elemAt (builtins.split "@" p.extensionUuid) 0)
-        (u: "org/gnome/shell/extensions/${u}")
-      ];
+  dconfPathFromUUID =
+    extension:
+    lib.pipe extension [
+      (e: e.package)
+      (p: builtins.elemAt (builtins.split "@" p.extensionUuid) 0)
+      (u: "org/gnome/shell/extensions/${u}")
+    ];
 
-  mapDconfSettings =
-    builtins.map
-      (e:
-        let
-          dconfPath = e: e.dconfPath or (dconfPathFromPackage e);
-        in
-        {
-          "${dconfPath e}" = e.dconfSettings;
-        }
-      )
-      extensions;
+  mapDconfSettings = builtins.map (
+    e:
+    let
+      dconfPath = e: e.dconfPath or (dconfPathFromPackage e);
+    in
+    {
+      "${dconfPath e}" = e.dconfSettings;
+    }
+  ) extensions;
 in
 lib.mkIf cfg.enable {
   home.packages = builtins.map (e: e.package) extensions;

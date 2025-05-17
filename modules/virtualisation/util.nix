@@ -7,30 +7,35 @@ in
 {
   options.ncfg.virtualisation = {
     sharedMemoryFiles = mkOption {
-      type = types.attrsOf (types.submodule ({ name, ... }: {
-        options = {
-          name = mkOption {
-            visible = false;
-            default = name;
-            type = types.str;
-          };
-          user = mkOption {
-            type = types.str;
-            default = "root";
-            description = "Owner of the memory file";
-          };
-          group = mkOption {
-            type = types.str;
-            default = "root";
-            description = "Group of the memory file";
-          };
-          mode = mkOption {
-            type = types.str;
-            default = "0600";
-            description = "Permissions of the memory file";
-          };
-        };
-      }));
+      type = types.attrsOf (
+        types.submodule (
+          { name, ... }:
+          {
+            options = {
+              name = mkOption {
+                visible = false;
+                default = name;
+                type = types.str;
+              };
+              user = mkOption {
+                type = types.str;
+                default = "root";
+                description = "Owner of the memory file";
+              };
+              group = mkOption {
+                type = types.str;
+                default = "root";
+                description = "Group of the memory file";
+              };
+              mode = mkOption {
+                type = types.str;
+                default = "0600";
+                description = "Permissions of the memory file";
+              };
+            };
+          }
+        )
+      );
       default = { };
     };
 
@@ -40,14 +45,12 @@ in
       defaultPageSize = mkOption {
         type = types.strMatching "[0-9]*[kKmMgG]";
         default = "1M";
-        description =
-          "Default size of huge pages. You can use suffixes K, M, and G to specify KB, MB, and GB.";
+        description = "Default size of huge pages. You can use suffixes K, M, and G to specify KB, MB, and GB.";
       };
       pageSize = mkOption {
         type = types.strMatching "[0-9]*[kKmMgG]";
         default = "1M";
-        description =
-          "Size of huge pages that are allocated at boot. You can use suffixes K, M, and G to specify KB, MB, and GB.";
+        description = "Size of huge pages that are allocated at boot. You can use suffixes K, M, and G to specify KB, MB, and GB.";
       };
       numPages = mkOption {
         type = types.ints.positive;
@@ -64,8 +67,7 @@ in
   };
 
   config = {
-    systemd.tmpfiles.rules =
-      mapAttrsToList tmpfileEntry cfg.sharedMemoryFiles;
+    systemd.tmpfiles.rules = mapAttrsToList tmpfileEntry cfg.sharedMemoryFiles;
 
     boot.kernelParams = mkIf cfg.hugepages.enable [
       "default_hugepagesz=${cfg.hugepages.defaultPageSize}"

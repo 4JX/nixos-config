@@ -1,7 +1,12 @@
 # https://github.com/NotAShelf/nyx/blob/44ff2682f1df31bb84d0cbc6fe9be586f9cb8bb7/modules/extra/shared/nixos/comma/default.nix
 # nix-index is handled in home-manager
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.ncfg.programs.comma;

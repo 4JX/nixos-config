@@ -1,6 +1,5 @@
 { lib, pkgs, ... }:
 
-
 {
   time.timeZone = lib.mkDefault "Europe/Madrid";
 
@@ -11,7 +10,10 @@
     in
     {
       defaultLocale = lib.mkDefault enUS;
-      extraLocales = [ enUS esES ];
+      extraLocales = [
+        enUS
+        esES
+      ];
     };
 
   console =

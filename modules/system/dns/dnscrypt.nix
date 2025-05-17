@@ -2,7 +2,7 @@
 
 let
   cfg = config.ncfg.system.dns.dnscrypt;
-  configFile = cfg.configFile;
+  inherit (cfg) configFile;
   # https://search.nixos.org/options?channel=unstable&show=networking.dhcpcd.enable
   dhcpcdEnable = config.networking.dhcpcd.enable;
   # https://search.nixos.org/options?channel=unstable&show=networking.networkmanager.enable
@@ -21,7 +21,10 @@ in
 
   config = lib.mkIf cfg.enable {
     networking = {
-      nameservers = [ "127.0.0.1" "::1" ];
+      nameservers = [
+        "127.0.0.1"
+        "::1"
+      ];
       # If using dhcpcd:
       dhcpcd.extraConfig = lib.mkIf dhcpcdEnable "nohook resolv.conf";
       # If using NetworkManager:

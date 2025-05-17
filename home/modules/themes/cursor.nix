@@ -1,17 +1,6 @@
 { pkgs, self, ... }:
 
 # TODO: Surely this is part of stylix?
-let
-  p = self.packages.${pkgs.system};
-
-  conf.style.pointerCursor = {
-    name = "Vimix-cursors";
-    package = p.vimix-cursor-theme;
-    size = 24;
-  };
-
-  cfg = conf.style;
-in
 {
   # home = {
   #   pointerCursor = {

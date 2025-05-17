@@ -5,11 +5,10 @@ let
   inherit (self.inputs.nixpkgs) lib;
   inherit (lib) concatLists;
 
-
   hm = inputs.home-manager.nixosModules.home-manager;
   hw = inputs.nixos-hardware.nixosModules;
 
-  nixosSystem = inputs.nixpkgs.lib.nixosSystem;
+  inherit (inputs.nixpkgs.lib) nixosSystem;
 
   # Where the modules are located
   modulePath = ../modules;
@@ -21,41 +20,51 @@ let
   homesDir = ../home;
 
   shared = [ modulePath ];
-  homes = [ hm homesDir ];
+  homes = [
+    hm
+    homesDir
+  ];
 
   commonArgs = { inherit inputs self myLib; };
 
-  mkHosts = builtins.mapAttrs (hostName: config: nixosSystem {
-    specialArgs = commonArgs // config.specialArgs;
+  mkHosts = builtins.mapAttrs (
+    hostName: config:
+    nixosSystem {
+      specialArgs = commonArgs // config.specialArgs;
 
-    modules = config.modules ++ [
-      {
-        networking = { inherit hostName; };
-      }
-      ./${hostName}
-    ] ++ concatLists [ shared homes ];
-  });
+      modules =
+        config.modules
+        ++ [
+          {
+            networking = { inherit hostName; };
+          }
+          ./${hostName}
+        ]
+        ++ concatLists [
+          shared
+          homes
+        ];
+    }
+  );
 in
 mkHosts {
-  terra =
-    {
-      specialArgs = { };
+  terra = {
+    specialArgs = { };
 
-      modules = [
-        hw.lenovo-legion-16ach6h-hybrid
-        laptop
-      ];
-    };
+    modules = [
+      hw.lenovo-legion-16ach6h-hybrid
+      laptop
+    ];
+  };
 
-  luna =
-    {
-      specialArgs = { };
+  luna = {
+    specialArgs = { };
 
-      modules = [
-        {
-          # The open source driver does not support Pascal GPUs.
-          hardware.nvidia.open = false;
-        }
-      ];
-    };
+    modules = [
+      {
+        # The open source driver does not support Pascal GPUs.
+        hardware.nvidia.open = false;
+      }
+    ];
+  };
 }

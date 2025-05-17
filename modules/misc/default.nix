@@ -7,6 +7,7 @@
   };
 
   config = {
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.ncfg.allowedUnfree;
+    nixpkgs.config.allowUnfreePredicate =
+      pkg: builtins.elem (lib.getName pkg) config.ncfg.allowedUnfree;
   };
 }

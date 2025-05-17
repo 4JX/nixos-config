@@ -13,15 +13,15 @@ let
     (builtins.mapAttrs (dir: _: processProfile (./profiles + "/${dir}")))
   ];
 
-  processProfile = p:
+  processProfile =
+    p:
     let
-      mkImport = { name, attrs }:
+      mkImport =
+        { name, attrs }:
         let
           importPath = p + "/${name}.nix";
         in
-        if builtins.pathExists importPath
-        then import importPath attrs
-        else { };
+        if builtins.pathExists importPath then import importPath attrs else { };
     in
     {
       search = mkImport {
@@ -32,6 +32,7 @@ let
         name = "arkenfox";
         attrs = { };
       };
-    } // (import (p + /config.nix) { });
+    }
+    // (import (p + /config.nix) { });
 in
 profiles

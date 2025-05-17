@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 # Loosely based on https://gitlab.com/EikoTsukida/power-profiles-automation
 # Can also consider a "low battery" trigger https://superuser.com/questions/1500635/udev-rule-for-hibernate-on-low-battery-not-working
@@ -16,14 +21,16 @@ in
 
     ncfg.system.power-management =
       let
-        mkPPDCommand = profile: pkgs.writeShellApplication {
-          name = "power-profiles-daemon_${profile}";
-          runtimeInputs = with pkgs; [ power-profiles-daemon ];
+        mkPPDCommand =
+          profile:
+          pkgs.writeShellApplication {
+            name = "power-profiles-daemon_${profile}";
+            runtimeInputs = with pkgs; [ power-profiles-daemon ];
 
-          text = ''
-            powerprofilesctl set ${profile}
-          '';
-        };
+            text = ''
+              powerprofilesctl set ${profile}
+            '';
+          };
 
         powerSaver = mkPPDCommand "power-saver";
         balanced = mkPPDCommand "balanced";

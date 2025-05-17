@@ -17,7 +17,11 @@
           # 10de:24dd video
           # 10de:228b audio
           # 1c5c:174a storage
-          pciIds = [ "10de:24dd" "10de:228b" "1c5c:174a" ];
+          pciIds = [
+            "10de:24dd"
+            "10de:228b"
+            "1c5c:174a"
+          ];
         };
 
         looking-glass = {

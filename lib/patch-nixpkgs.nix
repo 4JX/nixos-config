@@ -1,4 +1,9 @@
-{ originPkgs, system, remoteNixpkgsPatches, localNixpkgsPatches }:
+{
+  originPkgs,
+  system,
+  remoteNixpkgsPatches,
+  localNixpkgsPatches,
+}:
 
 # Allow patching nixpkgs
 # https://github.com/NixOS/nixpkgs/pull/142273#issuecomment-948225922
@@ -13,8 +18,9 @@ let
     src = originPkgs;
     patches = map fetchpatch remoteNixpkgsPatches ++ localNixpkgsPatches;
     postPatch = ''
-      patch=$(printf '%s\n' ${builtins.concatStringsSep " "
-         (map (p: p.sha256) remoteNixpkgsPatches ++ localNixpkgsPatches)} |
+      patch=$(printf '%s\n' ${
+        builtins.concatStringsSep " " (map (p: p.sha256) remoteNixpkgsPatches ++ localNixpkgsPatches)
+      } |
         sort | sha256sum | cut -c -7)
       echo "_patch-$patch" >.version-suffix
     '';

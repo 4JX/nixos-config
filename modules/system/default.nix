@@ -18,14 +18,15 @@ in
     ./systemd.nix
   ];
 
-  config.assertions = [{
-    assertion = config.ncfg.system.users != [ ];
-    message =
-      ''
+  config.assertions = [
+    {
+      assertion = config.ncfg.system.users != [ ];
+      message = ''
         No users have been declared for the system.
         Consider setting `config.ncfg.system.users` in your configuration
       '';
-  }];
+    }
+  ];
 
   options.ncfg.system = {
     users = mkOption {

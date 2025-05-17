@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   # Use the grub bootloader.
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_6_13;

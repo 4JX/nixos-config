@@ -1,11 +1,13 @@
 {
   description = "Personal NixOS configuration";
 
-  outputs = inputs@{ self, treefmt-nix, ... }:
+  outputs =
+    inputs@{ self, treefmt-nix, ... }:
     let
       myLib = import ./lib inputs;
     in
-    myLib.initFlake [ "x86_64-linux" ] { allowUnfree = true; } ({ pkgs, system, ... }:
+    myLib.initFlake [ "x86_64-linux" ] { allowUnfree = true; } (
+      { pkgs, system, ... }:
       let
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./fmt.nix;
       in
@@ -21,7 +23,8 @@
         checks.${system} = {
           formatting = treefmtEval.config.build.check self;
         };
-      });
+      }
+    );
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -88,4 +91,3 @@
     };
   };
 }
-    

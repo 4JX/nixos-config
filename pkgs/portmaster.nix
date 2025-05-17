@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -16,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-qxI8GZHDq16vXj6AzDDY7oQ8/OJFcLj4IW+cKch3HoY=";
 
-  ldflags = let t = "github.com/safing/portbase/info"; in
+  ldflags =
+    let
+      t = "github.com/safing/portbase/info";
+    in
     [
       "-s"
       "-w"

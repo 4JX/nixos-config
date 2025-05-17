@@ -1,4 +1,10 @@
-{ lib, config, pkgs, inputs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 # https://github.com/schizofox/schizofox is nice but is pretty opinionated and uses its own preferences rather than arkenfox
 # though it can definitely be used as a base
@@ -9,9 +15,10 @@ let
 
   # Technically also in arkenfox.supportedVersions
   defaultArkenfoxVersion =
-    if inputs.arkenfox-nixos.lib.arkenfox.extracted ? ${firefoxVersion}
-    then firefoxVersion
-    else "master";
+    if inputs.arkenfox-nixos.lib.arkenfox.extracted ? ${firefoxVersion} then
+      firefoxVersion
+    else
+      "master";
 in
 {
   # https://github.com/dwarfmaster/arkenfox-nixos
@@ -34,4 +41,3 @@ in
     };
   };
 }
-

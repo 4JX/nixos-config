@@ -1,16 +1,15 @@
 keys:
-  - &users:
-    - &infinity age14cyrlharjqa44tul328cr5gxyj7pxut6zgz8e5el3x3s99f2xujspa0m9e
-  - &hosts:
-    - &terra age1au3829mlw3ppzfm0z5je0wcn0lwl4mcycz7ws5l0z3k7mgptv9vsazagrr
-    - &luna age10rfls3ea0mmytzfdffvzxt0yfka742cgzcrs4qygjfp5v5s9pc2s2mpvt6
+  - users:
+      - &infinity age14cyrlharjqa44tul328cr5gxyj7pxut6zgz8e5el3x3s99f2xujspa0m9e
+  - hosts:
+      - &terra age1au3829mlw3ppzfm0z5je0wcn0lwl4mcycz7ws5l0z3k7mgptv9vsazagrr
+      - &luna age10rfls3ea0mmytzfdffvzxt0yfka742cgzcrs4qygjfp5v5s9pc2s2mpvt6
 creation_rules:
   - path_regex: secrets/hosts/terra/[^/]+$
     key_groups:
       - age:
           - *infinity
           - *terra
-
   - path_regex: secrets/hosts/luna/[^/]+$
     key_groups:
       - age:

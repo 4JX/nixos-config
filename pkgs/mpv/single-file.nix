@@ -1,4 +1,11 @@
-{ pname, rev, filename, url, sha256, meta }:
+{
+  pname,
+  rev,
+  filename,
+  url,
+  sha256,
+  meta,
+}:
 
 { pkgs, stdenvNoCC, ... }:
 

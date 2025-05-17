@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 # To consider
 # https://extensions.gnome.org/extension/2992/ideapad/
@@ -36,7 +41,8 @@ let
   #     '';
   # }));
 in
-with pkgs.gnomeExtensions; [
+with pkgs.gnomeExtensions;
+[
   {
     # package = pkgs.gnome45Extensions."user-theme@gnome-shell-extensions.gcampax.github.com";
     package = user-themes;
@@ -48,22 +54,25 @@ with pkgs.gnomeExtensions; [
   {
     # package = pkgs.gnome45Extensions."dash-to-panel@jderose9.github.com";
     # package = dash-to-panel;
-    package = lib.warn "Using patched dash-to-panel https://github.com/home-sweet-gnome/dash-to-panel/issues/2278" dash-to-panel.overrideAttrs (old: {
-      src = pkgs.fetchzip {
-        url = "https://github.com/home-sweet-gnome/dash-to-panel/archive/ad8c3eac83a23846d5916330573fbc5b311ed715.zip";
-        # The working dir needs to be built first, can't rely on the existing metadata replacer
-        postFetch = "";
-        sha256 = "sha256-Ion4+NZcTKqvBqzHe7DwxqOXWFyoZi78H7S75XuL95A=";
-      };
+    package =
+      lib.warn "Using patched dash-to-panel https://github.com/home-sweet-gnome/dash-to-panel/issues/2278"
+        dash-to-panel.overrideAttrs
+        (_old: {
+          src = pkgs.fetchzip {
+            url = "https://github.com/home-sweet-gnome/dash-to-panel/archive/ad8c3eac83a23846d5916330573fbc5b311ed715.zip";
+            # The working dir needs to be built first, can't rely on the existing metadata replacer
+            postFetch = "";
+            sha256 = "sha256-Ion4+NZcTKqvBqzHe7DwxqOXWFyoZi78H7S75XuL95A=";
+          };
 
-      preBuild = ''
-        make _build
-        mv _build ..
-        rm -rf *
-        mv ../_build/* .
-        rmdir ../_build
-      '';
-    });
+          preBuild = ''
+            make _build
+            mv _build ..
+            rm -rf *
+            mv ../_build/* .
+            rmdir ../_build
+          '';
+        });
     dconfSettings =
       let
         fakePrimary = "AAA-0000000000";
@@ -92,7 +101,10 @@ with pkgs.gnomeExtensions; [
       position-in-panel = "CENTER";
       panel-location = "BOTTOM";
 
-      main-panel-height = mkTuple [ true 52 ];
+      main-panel-height = mkTuple [
+        true
+        52
+      ];
       icon-size = 40;
       indicator-location = "BOTTOM";
 
@@ -120,7 +132,26 @@ with pkgs.gnomeExtensions; [
       right-panel-width = 250;
 
       # Pinned apps
-      pinned-app-list = [ "Files" "org.gnome.Nautilus" "org.gnome.Nautilus.desktop" "Firefox" "firefox" "firefox.desktop" "kitty" "kitty" "kitty.desktop" "Discord" "com.discordapp.Discord" "com.discordapp.Discord.desktop" "VSCodium" "code" "codium.desktop" "ArcMenu Settings" "${pkgs.gnomeExtensions.arcmenu}/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/arcmenu-logo-symbolic.svg" "gnome-extensions prefs arcmenu@arcmenu.com" ];
+      pinned-app-list = [
+        "Files"
+        "org.gnome.Nautilus"
+        "org.gnome.Nautilus.desktop"
+        "Firefox"
+        "firefox"
+        "firefox.desktop"
+        "kitty"
+        "kitty"
+        "kitty.desktop"
+        "Discord"
+        "com.discordapp.Discord"
+        "com.discordapp.Discord.desktop"
+        "VSCodium"
+        "code"
+        "codium.desktop"
+        "ArcMenu Settings"
+        "${pkgs.gnomeExtensions.arcmenu}/share/gnome-shell/extensions/arcmenu@arcmenu.com/icons/arcmenu-logo-symbolic.svg"
+        "gnome-extensions prefs arcmenu@arcmenu.com"
+      ];
 
       # Search providers
       search-provider-open-windows = true; # Search for open windows
@@ -129,7 +160,36 @@ with pkgs.gnomeExtensions; [
 
       # Power buttons
       # Show suspend (sleep) and hibernate along with the other options
-      power-options = [ (mkTuple [ 0 true ]) (mkTuple [ 1 true ]) (mkTuple [ 2 true ]) (mkTuple [ 3 true ]) (mkTuple [ 4 true ]) (mkTuple [ 5 false ]) (mkTuple [ 6 true ]) ];
+      power-options = [
+        (mkTuple [
+          0
+          true
+        ])
+        (mkTuple [
+          1
+          true
+        ])
+        (mkTuple [
+          2
+          true
+        ])
+        (mkTuple [
+          3
+          true
+        ])
+        (mkTuple [
+          4
+          true
+        ])
+        (mkTuple [
+          5
+          false
+        ])
+        (mkTuple [
+          6
+          true
+        ])
+      ];
     };
   }
 
@@ -152,7 +212,6 @@ with pkgs.gnomeExtensions; [
     package = muteunmute;
     dconfSettings = { };
   }
-
 
   {
     package = ideapad-controls;
@@ -216,7 +275,14 @@ with pkgs.gnomeExtensions; [
       link-previews = false;
 
       # Window title(?) based excludes
-      exclusion-list = [ "Bitwarden" "1Password" "KeePassXC" "secrets" "org.gnome.World.Secrets" "Tor Browser" ];
+      exclusion-list = [
+        "Bitwarden"
+        "1Password"
+        "KeePassXC"
+        "secrets"
+        "org.gnome.World.Secrets"
+        "Tor Browser"
+      ];
     };
   }
 
@@ -291,16 +357,15 @@ with pkgs.gnomeExtensions; [
   {
     # package = systemd-manager;
     package = systemd-manager.overrideAttrs (old: {
-      src = pkgs.applyPatches
-        {
-          src = old.src;
-          patches = [
-            (pkgs.fetchpatch {
-              url = "https://github.com/hardpixel/systemd-manager/commit/7dcce7bc883bab0ba59fc63bb818385f60b159f9.patch";
-              sha256 = "sha256-YWLfOeCL9AGskr2yBbi3FCiWBRbBsJoX6eY/ZuS7r1w=";
-            })
-          ];
-        };
+      src = pkgs.applyPatches {
+        inherit (old) src;
+        patches = [
+          (pkgs.fetchpatch {
+            url = "https://github.com/hardpixel/systemd-manager/commit/7dcce7bc883bab0ba59fc63bb818385f60b159f9.patch";
+            sha256 = "sha256-YWLfOeCL9AGskr2yBbi3FCiWBRbBsJoX6eY/ZuS7r1w=";
+          })
+        ];
+      };
     });
 
     dconfSettings = { };

@@ -1,9 +1,13 @@
-{ config, pkgs, self, lib, ... }:
+{
+  config,
+  pkgs,
+  self,
+  ...
+}:
 
 # https://github.com/NotAShelf/nyx/blob/fac9b59c8239c573733f89e41b35f267ae19413d/homes/notashelf/themes/gtk.nix#L15C1-L18C1
 
 let
-  p = self.packages.${pkgs.system};
   # To be eventually fetched from home config with defaults
   conf.style.gtk = {
     iconTheme = {
@@ -54,7 +58,6 @@ in
   #     # "gtk-3.0/assets".source = "${themePath3}/assets";
   #   };
 
-
   home = {
     packages = with pkgs; [
       glib # gsettings
@@ -76,8 +79,8 @@ in
     enable = true;
 
     iconTheme = {
-      name = cfg.gtk.iconTheme.name;
-      package = cfg.gtk.iconTheme.package;
+      inherit (cfg.gtk.iconTheme) name;
+      inherit (cfg.gtk.iconTheme) package;
     };
 
     # theme = {

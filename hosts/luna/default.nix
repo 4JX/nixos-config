@@ -1,15 +1,14 @@
 { inputs, ... }:
 
 {
-  imports =
-    [
-      inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
-      ./boot.nix
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./ncfg.nix
-      ./users
-    ];
+  imports = [
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+    ./boot.nix
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./ncfg.nix
+    ./users
+  ];
 
   # TODO: Tailscale/OpenVPN?
   services.openssh = {
@@ -19,7 +18,10 @@
       # Only via keys
       PermitRootLogin = "prohibit-password";
       # PermitRootLogin = "no";
-      AllowUsers = [ "infinity" "root@192.168.1.*" ]; #! TODO: Restrict users to LAN/VPN
+      AllowUsers = [
+        "infinity"
+        "root@192.168.1.*"
+      ]; # ! TODO: Restrict users to LAN/VPN
       PasswordAuthentication = false;
     };
   };
