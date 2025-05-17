@@ -30,7 +30,8 @@
     # Nix stuffs
     nil # Nix language server
     nixd # Another nix language server
-    nixpkgs-fmt
+    # nixpkgs-fmt
+    nixfmt-rfc-style
     nixos-option
     deadnix
     statix

@@ -1,15 +1,27 @@
 {
   description = "Personal NixOS configuration";
 
-  outputs = inputs@{ self, ... }:
+  outputs = inputs@{ self, treefmt-nix, ... }:
     let
       myLib = import ./lib inputs;
     in
-    myLib.initFlake [ "x86_64-linux" ] { allowUnfree = true; } ({ pkgs, system, ... }: {
-      nixosConfigurations = import ./hosts { inherit self myLib; };
+    myLib.initFlake [ "x86_64-linux" ] { allowUnfree = true; } ({ pkgs, system, ... }:
+      let
+        treefmtEval = treefmt-nix.lib.evalModule pkgs ./fmt.nix;
+      in
+      {
+        nixosConfigurations = import ./hosts {
+          inherit self myLib;
+        };
 
-      packages.${system} = pkgs.callPackage ./pkgs { inherit myLib; };
-    });
+        formatter.${system} = treefmtEval.config.build.wrapper;
+
+        packages.${system} = pkgs.callPackage ./pkgs { inherit myLib; };
+
+        checks.${system} = {
+          formatting = treefmtEval.config.build.check self;
+        };
+      });
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -60,6 +72,9 @@
       url = "github:misterio77/nix-colors";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    # Project wide formatting
+    treefmt-nix.url = "github:numtide/treefmt-nix";
 
     # -- Extra packages --
     legion-kb-rgb = {
