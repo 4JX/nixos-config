@@ -24,10 +24,6 @@ The "`ncfg`" namespace name is eeh. `modules` or `local` should work better.
 
 Replace the current fanciness with better fanciness. Consider [`flake-parts`](https://github.com/hercules-ci/flake-parts)+[`nix-systems`](https://github.com/nix-systems) while we're at it
 
-### Formatting
-
-`nixpkgs-fmt` is dead, should either use `nixfmt-rfc-style` (classic is too clumped up) or `alejandra`. Also combine with `deadnix` and `statix` while we're at it.
-
 ### Docs
 
 Clean up README, get a docs folder for collecting documentation/links/snippets so that I don't have to remember it all, because something *will* get forgotten.
