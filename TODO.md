@@ -22,7 +22,7 @@ The "`ncfg`" namespace name is eeh. `modules` or `local` should work better.
 
 ### Host Init
 
-Replace the current fanciness with better fanciness. Consider `flake-parts` while we're at it
+Replace the current fanciness with better fanciness. Consider [`flake-parts`](https://github.com/hercules-ci/flake-parts)+[`nix-systems`](https://github.com/nix-systems) while we're at it
 
 ### Formatting
 
@@ -32,23 +32,13 @@ Replace the current fanciness with better fanciness. Consider `flake-parts` whil
 
 Clean up README, get a docs folder for collecting documentation/links/snippets so that I don't have to remember it all, because something *will* get forgotten.
 
-## Codeium
-
-Should not be using nix-ld as a hack, see about implementing this:
-
-<https://github.com/NixOS/nixpkgs/blob/963540ad3515e23fe5016eba9ad81235a1d229f0/pkgs/by-name/co/codeium/package.nix#L59>
-
-Though apparently there's some hash checking. Guessing one would need to patch the extension, but that's probably impossible since it's closed source. How does Copilot do it?
-
-## [Swag](https://docs.linuxserver.io/general/swag)
-
-Reverse proxy to avoid directly exposing services. Perhaps useful for when I expose homeserver things to the internet.
-
-Another option is traefik, but that's *probably* too complex for what I need.
-
 ## [Stylix](https://github.com/danth/stylix)
 
 Should probably explore it to better manage themes at some point
+
+## [Commitlint](https://commitlint.js.org/)
+
+Could help with ensuring commit messages are well made, since I'm going down this rabbit hole
 
 ## Low Priority
 
@@ -63,6 +53,10 @@ Blocked by:
 
 Or some fancier way of giving portmaster-core and co. perms to do stuff inside the wrapper
 
-## [Commitlint](https://commitlint.js.org/)
+## Codeium
 
-Could help with ensuring commit messages are well made, since I'm going down this rabbit hole
+Should not be using nix-ld as a hack, see about implementing this:
+
+<https://github.com/NixOS/nixpkgs/blob/963540ad3515e23fe5016eba9ad81235a1d229f0/pkgs/by-name/co/codeium/package.nix#L59>
+
+Though apparently there's some hash checking. Guessing one would need to patch the extension, but that's probably impossible since it's closed source. How does Copilot do it?
