@@ -36,6 +36,31 @@ Should probably explore it to better manage themes at some point
 
 Could help with ensuring commit messages are well made, since I'm going down this rabbit hole
 
+## Security
+
+Everything should be treated as a template, with adjustments made for personal use.
+
+Efforts are spread pretty thin, which doesn't really help when you need a "little of every layer" to truly secure things.
+
+There's some SELinux work out there, but it seems like that'll have to wait. AppArmor [might just work better](https://github.com/NixOS/nixpkgs/pull/396168#issuecomment-2783463970) ([Repo](https://git.grimmauld.de/Grimmauld/grimm-nixos-laptop/src/branch/main/hardening)).
+
+- [`pkgs/top-level/config.nix: add selinux support`](<https://github.com/NixOS/nixpkgs/pull/396168>) (supersedes [`Provide SELinux support for Nix`](https://github.com/NixOS/nix/pull/2670))
+- [`nixos/selinux: init`](https://github.com/NixOS/nixpkgs/pull/396177)
+
+There's also the [`hardened`](https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix) profile, but that's [being deprecated](https://github.com/NixOS/nixpkgs/pull/383438) and certainly has [its fair share of issues](https://discourse.nixos.org/t/proposal-to-deprecate-the-hardened-profile/63081/5).
+
+### Misc other sources
+
+- <https://xeiaso.net/blog/paranoid-nixos-2021-07-18/> (Probably outdated)
+- [`nix-mineral`](https://github.com/cynicsketch/nix-mineral/blob/main/nix-mineral.nix) - The `nix-mineral.nix` file has pretty good docs on more resources. Should eventually explicitly note them.
+- Plenty of work by other users in their personal configs.
+
+Many more NixOS agnostic manuals: Debian hardening, Kicksecure, that one NSA list, madaidans, etc.
+
+### Hardened things
+
+There's `linux_hardened` and `hardened_malloc`. The former is usually quite behind on updates in NixOS and the latter may just break the system.
+
 ## Low Priority
 
 ### Portmaster
