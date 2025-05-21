@@ -79,6 +79,13 @@
     # Project wide formatting
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
+    # Home server stuff
+    home-server = {
+      # git+ssh://git@[host]/[owner]/[repo]?ref=[branch]
+      url = "git+ssh://git@github.com/4JX/nixos-lab";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # -- Extra packages --
     legion-kb-rgb = {
       url = "github:4JX/L5P-Keyboard-RGB";
