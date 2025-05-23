@@ -16,10 +16,6 @@ Should also just reconsider, rename and reorganize in general.
 
 Using `myLib` feels awkward. There's a "lib" option built into the nixpkgs modules (`config.lib`) that might just do it. Or otherwise a namespace in `lib`.
 
-### ncfg
-
-The "`ncfg`" namespace name is eeh. `modules` or `local` should work better.
-
 ### Host Init
 
 Replace the current fanciness with better fanciness. Consider [`flake-parts`](https://github.com/hercules-ci/flake-parts)+[`nix-systems`](https://github.com/nix-systems) while we're at it

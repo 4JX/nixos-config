@@ -7,16 +7,16 @@
 
 # TODO: https://github.com/NotAShelf/nyx/tree/c182362cd0e848a9175d836289596860cfacb08f/modules/core/types/laptop/power
 # Adapt the concept of plugged in or not running scripts (plugged.nix) into configurable options via
-# ncfg.system.power-management.onPlugged/onUnplugged and mix the power profiles daemon scripts with the tlp part and co.
+# local.system.power-management.onPlugged/onUnplugged and mix the power profiles daemon scripts with the tlp part and co.
 # Also stop/start services like syncthing and other stuff if their modules are enabled with optionalString or similar using ^
 # Separate each power saving solution into its own file to make ^ easier
 let
-  cfg = config.ncfg.system.power-management;
+  cfg = config.local.system.power-management;
 in
 {
   imports = [ ./power-profiles-daemon.nix ];
 
-  options.ncfg.system.power-management = {
+  options.local.system.power-management = {
     enable = lib.mkEnableOption "power management";
 
     onPlugged = lib.mkOption {

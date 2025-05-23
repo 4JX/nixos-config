@@ -5,10 +5,10 @@ let
   kernelVersion = config.boot.kernelPackages.kernel.version;
   is612orLater = versionAtLeast kernelVersion "6.12";
 
-  cfg = config.ncfg.virtualisation.virtualbox;
+  cfg = config.local.virtualisation.virtualbox;
 in
 {
-  options.ncfg.virtualisation.virtualbox = {
+  options.local.virtualisation.virtualbox = {
     enable = mkEnableOption "VirtualBox";
     enableKvm = mkEnableOption "KVM support for VirtualBox";
   };

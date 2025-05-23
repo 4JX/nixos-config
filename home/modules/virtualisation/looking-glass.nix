@@ -1,7 +1,7 @@
 { osConfig, lib, ... }:
 
 let
-  cfg = osConfig.ncfg.virtualisation.looking-glass;
+  cfg = osConfig.local.virtualisation.looking-glass;
 in
 {
   config = lib.mkIf cfg.enable {

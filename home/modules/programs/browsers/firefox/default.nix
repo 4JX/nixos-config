@@ -9,7 +9,7 @@
 # https://github.com/schizofox/schizofox is nice but is pretty opinionated and uses its own preferences rather than arkenfox
 # though it can definitely be used as a base
 let
-  cfg = config.ncfg.programs.browsers.firefox;
+  cfg = config.local.programs.browsers.firefox;
 
   firefoxVersion = "${lib.versions.major config.programs.firefox.package.version}.0";
 
@@ -24,7 +24,7 @@ in
   # https://github.com/dwarfmaster/arkenfox-nixos
   imports = [ inputs.arkenfox-nixos.hmModules.arkenfox ];
 
-  options.ncfg.programs.browsers.firefox = {
+  options.local.programs.browsers.firefox = {
     enable = lib.mkEnableOption "Firefox";
   };
 

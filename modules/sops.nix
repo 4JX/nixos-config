@@ -11,12 +11,12 @@
 let
   # keyFile = config.sops.age.keyFile;
   # missingKeyFile = !(builtins.pathExists keyFile);
-  cfg = config.ncfg.sops;
+  cfg = config.local.sops;
 in
 {
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
-  options.ncfg.sops = {
+  options.local.sops = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;

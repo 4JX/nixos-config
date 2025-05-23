@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.ncfg.virtualisation.vfio;
+  cfg = config.local.virtualisation.vfio;
 in
 {
-  options.ncfg.virtualisation.vfio = {
+  options.local.virtualisation.vfio = {
     enable = lib.mkEnableOption "the vfio kernel parameters and modules";
 
     blacklistNvidia = lib.mkOption {

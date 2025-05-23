@@ -41,7 +41,7 @@ in
     };
 
   mkVersionAssertion = pkg: currentVersion: {
-      assertion = builtins.compareVersions pkg.version currentVersion == 0;
-      message = "Package ${pkg.name} (${pkg.version}) is no longer version ${currentVersion}.";
-    };
+    assertion = builtins.compareVersions pkg.version currentVersion == 0;
+    message = "Package ${pkg.name} (${pkg.version}) is no longer version ${currentVersion}.";
+  };
 }

@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
 let
-  cfg = config.ncfg.system.dns.dnscrypt;
+  cfg = config.local.system.dns.dnscrypt;
   inherit (cfg) configFile;
   # https://search.nixos.org/options?channel=unstable&show=networking.dhcpcd.enable
   dhcpcdEnable = config.networking.dhcpcd.enable;
@@ -9,7 +9,7 @@ let
   networkmanagerEnable = config.networking.networkmanager.enable;
 in
 {
-  options.ncfg.system.dns.dnscrypt = {
+  options.local.system.dns.dnscrypt = {
     enable = lib.mkEnableOption "DNSCrypt as the system DNS manager";
     configFile = lib.mkOption {
       type = lib.types.path;

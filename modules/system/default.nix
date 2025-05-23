@@ -20,15 +20,15 @@ in
 
   config.assertions = [
     {
-      assertion = config.ncfg.system.users != [ ];
+      assertion = config.local.system.users != [ ];
       message = ''
         No users have been declared for the system.
-        Consider setting `config.ncfg.system.users` in your configuration
+        Consider setting `config.local.system.users` in your configuration
       '';
     }
   ];
 
-  options.ncfg.system = {
+  options.local.system = {
     users = mkOption {
       type = with types; listOf str;
       default = [ "infinity" ];

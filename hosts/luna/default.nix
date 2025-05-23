@@ -7,7 +7,7 @@
     ./boot.nix
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./ncfg.nix
+    ./local.nix
     ./users
   ];
 

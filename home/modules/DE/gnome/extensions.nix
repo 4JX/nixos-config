@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg = config.ncfg.DE.gnome;
+  cfg = config.local.DE.gnome;
 
   inherit (cfg) extensions;
 

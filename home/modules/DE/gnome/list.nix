@@ -17,7 +17,7 @@
 let
   inherit (lib.hm.gvariant) mkTuple mkUint32;
 
-  cfg = config.ncfg.DE.gnome;
+  cfg = config.local.DE.gnome;
   # fixMetadata = pkg: sha256: (pkg.overrideAttrs (old: {
   #   # Replace the metadata back to its original one
   #   # To be used as

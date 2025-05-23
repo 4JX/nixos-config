@@ -15,7 +15,7 @@
 # https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/
 
 let
-  cfg = config.ncfg.programs.video.mpv;
+  cfg = config.local.programs.video.mpv;
 
   externalFiles = {
     "fonts/uosc_icons.otf" = {
@@ -73,12 +73,12 @@ let
       builtins.map (x: ''string.match(string.lower(p.filename), string.lower("${x}"))~=nil'') names
     );
   # HDR enabled on system?
-  hdrEnabled = osConfig.ncfg.system.hdr.enable;
+  hdrEnabled = osConfig.local.system.hdr.enable;
 in
 {
   imports = [ ./jellyfin-shim ];
 
-  options.ncfg.programs.video.mpv.enable = lib.mkEnableOption "MPV";
+  options.local.programs.video.mpv.enable = lib.mkEnableOption "MPV";
 
   config = lib.mkIf cfg.enable {
     programs.mpv = {
@@ -201,8 +201,8 @@ in
     };
 
     xdg.configFile = lib.mapAttrs' (name: value: {
-        name = "mpv/${name}";
-        inherit value;
-      }) externalFiles;
+      name = "mpv/${name}";
+      inherit value;
+    }) externalFiles;
   };
 }

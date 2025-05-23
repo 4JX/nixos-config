@@ -8,8 +8,8 @@
 # https://wiki.nixos.org/wiki/WireGuard
 
 let
-  serverEnable = config.ncfg.wireguard.server.enable;
-  clientEnable = config.ncfg.wireguard.client.enable;
+  serverEnable = config.local.wireguard.server.enable;
+  clientEnable = config.local.wireguard.client.enable;
   enable = serverEnable || clientEnable;
 in
 {

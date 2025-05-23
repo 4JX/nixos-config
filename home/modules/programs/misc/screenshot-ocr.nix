@@ -11,7 +11,7 @@
 # https://reddit.com/r/NixOS/comments/13uboa6/text_from_image_to_clipboard_nix_tip/
 
 let
-  cfg = config.ncfg.programs.misc.screenshot-ocr;
+  cfg = config.local.programs.misc.screenshot-ocr;
   # For wayland use: grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy
   mkOcr =
     lang:
@@ -29,7 +29,7 @@ let
     };
 in
 {
-  options.ncfg.programs.misc.screenshot-ocr = {
+  options.local.programs.misc.screenshot-ocr = {
     enable = lib.mkEnableOption "the screenshot OCR utility";
     languages = lib.mkOption {
       type = lib.types.listOf lib.types.str;

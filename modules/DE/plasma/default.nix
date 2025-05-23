@@ -6,10 +6,10 @@
 }:
 
 let
-  cfg = config.ncfg.DE.plasma;
+  cfg = config.local.DE.plasma;
 in
 {
-  options.ncfg.DE.plasma = {
+  options.local.DE.plasma = {
     enable = lib.mkEnableOption "the PLASMA desktop environment";
   };
 

@@ -2,10 +2,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.ncfg.system.dns.cloudflare-resolved;
+  cfg = config.local.system.dns.cloudflare-resolved;
 in
 {
-  options.ncfg.system.dns.cloudflare-resolved = {
+  options.local.system.dns.cloudflare-resolved = {
     enable = lib.mkEnableOption "Cloudflare as the system DNS resolver";
   };
 

@@ -6,13 +6,13 @@
 }:
 
 let
-  cfg = config.ncfg.wireguard.client;
+  cfg = config.local.wireguard.client;
   # This is ugly, ignore it
   originalTypes = options.networking.wireguard.interfaces.type.getSubOptions [ ];
   peerType = originalTypes.peers.type;
 in
 {
-  options.ncfg.wireguard.client = {
+  options.local.wireguard.client = {
     enable = lib.mkEnableOption "the wireguard client";
     interface = lib.mkOption {
       type = lib.types.str;

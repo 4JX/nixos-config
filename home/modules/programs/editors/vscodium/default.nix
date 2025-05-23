@@ -6,10 +6,10 @@
 }:
 
 let
-  cfg = config.ncfg.programs.editors.vscodium;
+  cfg = config.local.programs.editors.vscodium;
 in
 {
-  options.ncfg.programs.editors.vscodium = {
+  options.local.programs.editors.vscodium = {
     enable = lib.mkEnableOption "VSCodium";
 
     mutableExtensionsDir = lib.mkOption {

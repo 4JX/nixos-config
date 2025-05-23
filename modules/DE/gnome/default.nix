@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.ncfg.DE.gnome;
+  cfg = config.local.DE.gnome;
 in
 {
-  options.ncfg.DE.gnome = {
+  options.local.DE.gnome = {
     enable = lib.mkEnableOption "the GNOME desktop environment";
   };
 
@@ -22,18 +22,17 @@ in
     # https://hoverbear.org/blog/declarative-gnome-configuration-in-nixos/
     services.xserver.desktopManager.gnome.enable = true;
 
-    environment.gnome.excludePackages = with pkgs;
-      [
-        epiphany # Web
-        gnome-tour
-        gnome-console
-        yelp # Gnome help stuff
-        gnome-music
-        gnome-characters
-        gnome-contacts
-        gnome-shell-extensions # Superseded by gnome-extension-manager, not actually doing anything
-        gnome-software # Software store, useless in NixOS
-      ];
+    environment.gnome.excludePackages = with pkgs; [
+      epiphany # Web
+      gnome-tour
+      gnome-console
+      yelp # Gnome help stuff
+      gnome-music
+      gnome-characters
+      gnome-contacts
+      gnome-shell-extensions # Superseded by gnome-extension-manager, not actually doing anything
+      gnome-software # Software store, useless in NixOS
+    ];
 
     environment.systemPackages = with pkgs; [
       gnome-tweaks

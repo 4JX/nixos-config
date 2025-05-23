@@ -1,13 +1,13 @@
 { lib, config, ... }:
 
 {
-  options.ncfg.allowedUnfree = lib.mkOption {
+  options.local.allowedUnfree = lib.mkOption {
     type = lib.types.listOf lib.types.str;
     default = [ ];
   };
 
   config = {
     nixpkgs.config.allowUnfreePredicate =
-      pkg: builtins.elem (lib.getName pkg) config.ncfg.allowedUnfree;
+      pkg: builtins.elem (lib.getName pkg) config.local.allowedUnfree;
   };
 }

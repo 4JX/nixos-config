@@ -7,10 +7,10 @@
 }:
 
 let
-  cfg = config.ncfg.programs.audio.easyeffects;
+  cfg = config.local.programs.audio.easyeffects;
 in
 {
-  options.ncfg.programs.audio.easyeffects = {
+  options.local.programs.audio.easyeffects = {
     enable = lib.mkEnableOption "EasyEffects";
 
     outputPresets = lib.mkOption {

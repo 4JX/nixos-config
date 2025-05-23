@@ -4,7 +4,7 @@
 # If I ever get to using hyprland
 
 let
-  cfg = config.ncfg.programs.gaming;
+  cfg = config.local.programs.gaming;
 in
 {
   config = lib.mkIf cfg.enable {

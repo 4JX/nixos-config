@@ -1,11 +1,11 @@
 { lib, config, ... }:
 with lib;
 let
-  cfg = config.ncfg.virtualisation;
+  cfg = config.local.virtualisation;
   tmpfileEntry = name: f: "f /dev/shm/${name} ${f.mode} ${f.user} ${f.group} -";
 in
 {
-  options.ncfg.virtualisation = {
+  options.local.virtualisation = {
     sharedMemoryFiles = mkOption {
       type = types.attrsOf (
         types.submodule (

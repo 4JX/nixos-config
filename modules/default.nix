@@ -56,10 +56,10 @@ in
       users = builtins.attrNames config.home-manager.users;
 
       sourceForUser = user: ''
-          if [ "$(id -un)" = "${user}" ]; then
-            . "/etc/profiles/per-user/${user}/etc/profile.d/hm-session-vars.sh"
-          fi
-        '';
+        if [ "$(id -un)" = "${user}" ]; then
+          . "/etc/profiles/per-user/${user}/etc/profile.d/hm-session-vars.sh"
+        fi
+      '';
     in
     lib.concatLines (builtins.map sourceForUser users);
 }

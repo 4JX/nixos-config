@@ -6,10 +6,10 @@
 }:
 
 let
-  cfg = config.ncfg.programs.office.libreoffice;
+  cfg = config.local.programs.office.libreoffice;
 in
 {
-  options.ncfg.programs.office.libreoffice = {
+  options.local.programs.office.libreoffice = {
     enable = lib.mkEnableOption "LibreOffice";
   };
 

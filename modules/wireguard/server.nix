@@ -7,13 +7,13 @@
 }:
 
 let
-  cfg = config.ncfg.wireguard.server;
+  cfg = config.local.wireguard.server;
   # This is ugly, ignore it
   originalTypes = options.networking.wireguard.interfaces.type.getSubOptions [ ];
   peerType = originalTypes.peers.type;
 in
 {
-  options.ncfg.wireguard.server = {
+  options.local.wireguard.server = {
     enable = lib.mkEnableOption "the wireguard server";
     interfaces = {
       external = lib.mkOption {

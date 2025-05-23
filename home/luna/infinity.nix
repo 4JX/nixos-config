@@ -5,7 +5,7 @@
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "22.11";
 
-  ncfg = {
+  local = {
     programs = {
       browsers.firefox = {
         enable = true;

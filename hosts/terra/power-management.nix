@@ -5,7 +5,7 @@
   # https://linrunner.de/tlp/support/optimizing.html
   # https://linrunner.de/tlp/faq/powercon.html
   # Made for version 1.6
-  ncfg.system.power-management = {
+  local.system.power-management = {
     power-profiles-daemon.enable = true;
 
     tlp.enable = false;

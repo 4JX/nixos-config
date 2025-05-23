@@ -7,10 +7,10 @@
 
 # Config for looking-glass is handled on the home-manager side
 let
-  cfg = config.ncfg.virtualisation.looking-glass;
+  cfg = config.local.virtualisation.looking-glass;
 in
 {
-  options.ncfg.virtualisation.looking-glass = {
+  options.local.virtualisation.looking-glass = {
     enable = lib.mkEnableOption "the Looking Glass client";
 
     sharedMemoryFile = {
@@ -35,7 +35,7 @@ in
         assertion = (!cfg.enable) || cfg.sharedMemoryFile.user != "";
         message = ''
           The shared memory file for looking glass needs an user to be specified.
-          Consider setting `config.ncfg.virtualisation.looking-glass.sharedMemoryFile.user` in your configuration
+          Consider setting `config.local.virtualisation.looking-glass.sharedMemoryFile.user` in your configuration
         '';
       }
     ];
@@ -44,7 +44,7 @@ in
       looking-glass-client
     ];
 
-    ncfg.virtualisation.sharedMemoryFiles = lib.optionals cfg.sharedMemoryFile.create {
+    local.virtualisation.sharedMemoryFiles = lib.optionals cfg.sharedMemoryFile.create {
       looking-glass = {
         inherit (cfg.sharedMemoryFile) user;
         group = "qemu-libvirtd";

@@ -7,7 +7,7 @@
 }:
 
 let
-  cfg = config.ncfg.programs.gaming;
+  cfg = config.local.programs.gaming;
   p = self.packages.${pkgs.system};
 in
 {

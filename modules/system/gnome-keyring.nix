@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.ncfg.system.gnome-keyring;
+  cfg = config.local.system.gnome-keyring;
 in
 {
-  options.ncfg.system.gnome-keyring.enable = lib.mkEnableOption "gnome-keyring";
+  options.local.system.gnome-keyring.enable = lib.mkEnableOption "gnome-keyring";
 
   config = lib.mkIf cfg.enable {
     services.gnome.gnome-keyring.enable = true;

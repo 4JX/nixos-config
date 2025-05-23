@@ -9,10 +9,10 @@
 }:
 
 let
-  cfg = config.ncfg.programs.comma;
+  cfg = config.local.programs.comma;
 in
 {
-  options.ncfg.programs.comma = {
+  options.local.programs.comma = {
     enable = lib.mkEnableOption "comma";
 
     package = lib.mkOption {

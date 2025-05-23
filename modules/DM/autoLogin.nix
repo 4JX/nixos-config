@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.ncfg.DM;
+  cfg = config.local.DM;
 in
 {
-  options.ncfg.DM = {
+  options.local.DM = {
     autoLogin = lib.mkEnableOption "";
     loginUser = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -16,7 +16,7 @@ in
     services.xserver.displayManager = {
       autoLogin = {
         enable = true;
-        user = config.ncfg.DM.loginUser;
+        user = config.local.DM.loginUser;
       };
     };
   };

@@ -1,7 +1,7 @@
 { lib, ... }:
 
 {
-  ncfg.system.power-management = {
+  local.system.power-management = {
     enable = lib.mkDefault true;
 
     tlp = {

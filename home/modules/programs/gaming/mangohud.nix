@@ -2,7 +2,7 @@
 
 let
   # Tie mangohud to the os-level gaming setting
-  cfg = osConfig.ncfg.programs.gaming;
+  cfg = osConfig.local.programs.gaming;
 in
 {
   config = lib.mkIf cfg.enable {

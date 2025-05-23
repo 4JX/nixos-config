@@ -6,10 +6,10 @@
 }:
 
 let
-  cfg = config.ncfg.system.sound;
+  cfg = config.local.system.sound;
 in
 {
-  options.ncfg.system.sound = {
+  options.local.system.sound = {
     enable = lib.mkEnableOption "sound";
   };
 

@@ -12,10 +12,10 @@
 }:
 
 let
-  cfg = config.ncfg.system.hdr;
+  cfg = config.local.system.hdr;
 in
 {
-  options.ncfg.system.hdr = {
+  options.local.system.hdr = {
     enable = lib.mkEnableOption "HDR support";
   };
 

@@ -6,7 +6,7 @@
     ./steam.nix
   ];
 
-  options.ncfg.programs.gaming = {
+  options.local.programs.gaming = {
     enable = lib.mkEnableOption "the programs required for gaming support";
   };
 }

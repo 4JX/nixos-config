@@ -1,9 +1,9 @@
 { lib, config, ... }:
 let
-  cfg = config.ncfg.DE.xfce;
+  cfg = config.local.DE.xfce;
 in
 {
-  options.ncfg.DE.xfce = {
+  options.local.DE.xfce = {
     enable = lib.mkEnableOption "the XFCE desktop environment";
   };
 

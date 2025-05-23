@@ -16,7 +16,7 @@ in
     # These hinder evaluation times and I've found myself rarely using them
     # ./specialisations
     # ./monero.nix
-    ./ncfg.nix
+    ./local.nix
     ./DE.nix
     ./users
     ./power-management.nix

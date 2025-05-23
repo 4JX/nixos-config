@@ -7,7 +7,7 @@
     gpu-passthrough.configuration = {
       system.nixos.tags = [ "gpu-passthrough" ];
 
-      ncfg.virtualisation = {
+      local.virtualisation = {
         libvirtd.enable = true;
 
         vfio = {

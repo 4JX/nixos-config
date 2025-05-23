@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg = config.ncfg.system.fonts;
+  cfg = config.local.system.fonts;
   commonFonts = with pkgs; [
     # No tofu
     noto-fonts
@@ -37,7 +37,7 @@ let
   ];
 in
 {
-  options.ncfg.system.fonts = {
+  options.local.system.fonts = {
     enableCommonFonts = lib.mkOption {
       type = lib.types.bool;
       default = true;

@@ -10,8 +10,8 @@
 let
   inherit (lib) mkOption mkEnableOption types;
 
-  cfg = config.ncfg.DE.gnome;
-  osCfg = osConfig.ncfg.DE.gnome;
+  cfg = config.local.DE.gnome;
+  osCfg = osConfig.local.DE.gnome;
 
   backgrounds = homeFiles + "/backgrounds";
   defaultBackground = backgrounds + "/the-frontier-moewanders.jpg";
@@ -19,7 +19,7 @@ in
 {
   imports = [ ./extensions.nix ];
 
-  options.ncfg.DE.gnome = {
+  options.local.DE.gnome = {
     enable = mkEnableOption "GNOME" // {
       default = osCfg.enable;
     };

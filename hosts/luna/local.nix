@@ -4,7 +4,7 @@ let
   p = self.packages.${pkgs.system};
 in
 {
-  ncfg = {
+  local = {
     allowedUnfree = [
       "nvidia-x11"
       "nvidia-settings"

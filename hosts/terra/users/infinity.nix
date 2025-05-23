@@ -93,7 +93,7 @@
       };
     };
 
-  # ncfg.virtualisation = {
+  # local.virtualisation = {
   #   libvirtd.enable = true;
   # };
 

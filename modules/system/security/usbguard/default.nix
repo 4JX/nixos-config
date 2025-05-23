@@ -1,10 +1,10 @@
 { lib, config, ... }:
 
 let
-  cfg = config.ncfg.system.security.usbguard;
+  cfg = config.local.system.security.usbguard;
 in
 {
-  options.ncfg.system.security.usbguard = {
+  options.local.system.security.usbguard = {
     enable = lib.mkEnableOption "usbguard";
     rules = lib.mkOption {
       type = lib.types.nullOr lib.types.lines;

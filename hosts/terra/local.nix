@@ -18,7 +18,7 @@ in
     mode = "0444";
   };
 
-  ncfg = {
+  local = {
     allowedUnfree = [
       "spotify"
       "clion"

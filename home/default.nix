@@ -11,7 +11,7 @@
 let
   inherit (config.networking) hostName;
 
-  userHomes = lib.genAttrs config.ncfg.system.users (name: ./${hostName}/${name}.nix);
+  userHomes = lib.genAttrs config.local.system.users (name: ./${hostName}/${name}.nix);
 
   homeFiles = ./files;
 in

@@ -6,10 +6,10 @@
 }:
 
 let
-  cfg = config.ncfg.virtualisation.libvirtd;
+  cfg = config.local.virtualisation.libvirtd;
 in
 {
-  options.ncfg.virtualisation.libvirtd.enable = lib.mkEnableOption "libvirtd";
+  options.local.virtualisation.libvirtd.enable = lib.mkEnableOption "libvirtd";
 
   config = lib.mkIf cfg.enable {
     virtualisation = {
