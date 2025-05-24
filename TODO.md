@@ -2,10 +2,6 @@
 
 ## System config maintenance
 
-### pkgs
-
-Should probably automate the importing of packages based on the filename and sprinkle in some other fanciness. Gerg-L has a wonderful `mkPackages` for that.
-
 ### Modules
 
 Right now it's an open secret that all the modules have defaults ideal for the target `terra`. Should probably look into further distinction between options and defaults.

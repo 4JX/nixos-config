@@ -1,20 +1,19 @@
-{ pkgs, myLib }:
+{ inputs, system, ... }:
+let
+  inherit (inputs.nixpkgs) lib;
+  pkgs = inputs.nixpkgs.legacyPackages.${system};
 
-myLib.recursiveMergeAttrs [
-  {
-    # https://github.com/NixOS/nixpkgs/issues/73323
-    proton-ge-custom = pkgs.callPackage ./proton-ge-custom.nix { };
-    proton-ge-custom-621 = pkgs.callPackage ./proton-ge-custom-6.21-2.nix { };
-    vimix-cursor-theme = pkgs.callPackage ./vimix-cursors.nix { };
-    portmaster = pkgs.callPackage ./portmaster.nix { };
-    mono-gtk-theme = pkgs.callPackage ./mono-gtk-theme.nix { };
-    gnome-x11-gesture-daemon = pkgs.callPackage ./gnome-x11-gesture-daemon.nix { };
-    proton-mail-export = pkgs.callPackage ./proton-mail-export { };
-  }
+  callPackage =
+    let
+      defaultArgs = pkgs // {
+        inherit inputs;
+      };
+    in
+    lib.callPackageWith defaultArgs;
 
-  (pkgs.callPackage ./pull-requests { })
-
-  { mpv = pkgs.callPackage ./mpv { }; }
-
-  { fonts = pkgs.callPackage ./fonts { }; }
-]
+in
+# https://github.com/NixOS/nixpkgs/blob/374e6bcc403e02a35e07b650463c01a52b13a7c8/lib/filesystem.nix#L379
+lib.packagesFromDirectoryRecursive {
+  inherit callPackage;
+  directory = ./.;
+}

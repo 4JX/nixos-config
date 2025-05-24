@@ -3,28 +3,11 @@
 let
   inherit (nixpkgs) lib;
 
-  initFlake =
-    systems: config: f:
-    lib.foldr lib.recursiveUpdate { } (
-      map (
-        system:
-        f {
-          inherit system;
-
-          pkgs =
-            if config == { } then
-              nixpkgs.legacyPackages.${system}
-            else
-              import nixpkgs { inherit system config; };
-        }
-      ) systems
-    );
-
   homeOption = config: option: builtins.mapAttrs (_n: v: v.${option}) config.home-manager.users;
   homeOptionValues = config: option: builtins.attrValues homeOption config option;
 in
 {
-  inherit initFlake homeOption homeOptionValues;
+  inherit homeOption homeOptionValues;
 
   recursiveMergeAttrs = lib.fold lib.recursiveUpdate { };
 

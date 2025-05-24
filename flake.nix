@@ -4,27 +4,26 @@
   outputs =
     inputs@{ self, treefmt-nix, ... }:
     let
+      system = "x86_64-linux";
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
+
       myLib = import ./lib inputs;
+
+      treefmtEval = treefmt-nix.lib.evalModule pkgs ./fmt.nix;
     in
-    myLib.initFlake [ "x86_64-linux" ] { allowUnfree = true; } (
-      { pkgs, system, ... }:
-      let
-        treefmtEval = treefmt-nix.lib.evalModule pkgs ./fmt.nix;
-      in
-      {
-        nixosConfigurations = import ./hosts {
-          inherit self myLib;
-        };
+    {
+      nixosConfigurations = import ./hosts {
+        inherit self myLib;
+      };
 
-        formatter.${system} = treefmtEval.config.build.wrapper;
+      formatter.${system} = treefmtEval.config.build.wrapper;
 
-        packages.${system} = pkgs.callPackage ./pkgs { inherit myLib; };
+      packages.${system} = pkgs.callPackage ./pkgs { inherit inputs system; };
 
-        checks.${system} = {
-          formatting = treefmtEval.config.build.check self;
-        };
-      }
-    );
+      checks.${system} = {
+        formatting = treefmtEval.config.build.check self;
+      };
+    };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
