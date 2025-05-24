@@ -14,7 +14,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.xserver.desktopManager.plasma5.enable = cfg.enable;
+    services.desktopManager.plasma6.enable = cfg.enable;
 
     environment.systemPackages = with pkgs; [ colord-kde ];
 

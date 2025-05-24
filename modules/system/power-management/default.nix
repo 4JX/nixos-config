@@ -94,8 +94,7 @@ in
     # powerManagement.powertop.enable = true;
 
     services.tlp = {
-      inherit (cfg.tlp) enable;
-      inherit (cfg.tlp) settings;
+      inherit (cfg.tlp) enable settings;
     };
 
     # https://github.com/AdnanHodzic/auto-cpufreq/issues/464

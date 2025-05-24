@@ -10,10 +10,6 @@ in
       "nvidia-settings"
     ];
 
-    DM = {
-      autoLogin = false;
-      loginUser = "infinity";
-    };
     DE.xfce.enable = true;
 
     system = {

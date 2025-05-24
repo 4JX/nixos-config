@@ -8,9 +8,6 @@
       # Enable sudo for the user.
       "wheel"
       "networkmanager"
-      "wireshark"
-      # Needed for X11 gestures in tandem with the gesture improvements extension
-      "input"
     ];
   };
 

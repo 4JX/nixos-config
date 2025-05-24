@@ -31,12 +31,9 @@ in
       "steam-original"
       "steam-unwrapped"
       "steam-run"
-      "cups-brother-hl3140cw-1.1.4-0"
     ];
 
     DM = {
-      autoLogin = false;
-      loginUser = "infinity";
       gdm.enable = true;
     };
     DE.gnome.enable = true;

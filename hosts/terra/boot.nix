@@ -40,8 +40,4 @@
     # at the expense of power consumption.(?)
     # kernelParams = [ "nvidia.NVreg_EnableGpuFirmware=0" ];
   };
-
-  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/nvidia-x11/default.nix
-  # https://discussion.fedoraproject.org/t/gdk-message-error-71-protocol-error-dispatching-to-wayland-display/127927/36
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 }
