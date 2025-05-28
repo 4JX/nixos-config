@@ -64,7 +64,7 @@ When using enable = true in both nixpkgs and home-manager zsh slows down a bunch
 
 ### Command-not-found prompt + flakes
 
-<https://blog.nobbz.dev/2023-02-27-nixos-flakes-command-not-found/>
+<https://blog.nobbz.dev/blog/2023-02-27-nixos-flakes-command-not-found/>
 
 ### Microsoft fonts
 
