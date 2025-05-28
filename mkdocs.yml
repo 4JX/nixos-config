@@ -1,0 +1,106 @@
+site_name: Config Notes
+
+# theme:
+#   name: material
+#   scheme: slate
+#   primary: yellow
+
+# https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#code-actions-edit-this-page
+repo_url: https://github.com/4JX/nixos-config
+repo_name: 4JX/nixos-config
+
+theme:
+  name: material
+
+  # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/
+  language: en
+
+  # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
+
+  # https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/
+  font:
+    text: Roboto
+    code: JetBrains Mono
+
+  # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/
+  logo: assets/nix-logo.svg
+  favicon: assets/nix-logo.svg
+  icon:
+    repo: fontawesome/brands/github
+
+  features:
+    # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/
+    # - navigation.instant
+    # Interesting: https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-previews
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+
+    # https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/
+    - search.suggest
+    - search.highlight
+    # - search.share
+
+    # https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/
+    - header.autohide
+
+plugins:
+  # Yay to no external connections
+  # https://squidfunk.github.io/mkdocs-material/plugins/privacy/
+  - privacy:
+      enabled: true
+      concurrency: 2
+  - search
+  # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#document-dates
+  - git-revision-date-localized:
+      enable_creation_date: true
+# More things
+# https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
+
+markdown_extensions:
+  # Allows adding attributes to markdown objects
+  - attr_list
+  # Permalinks
+  - toc:
+      permalink: true
+  # https://facelessuser.github.io/pymdown-extensions/extensions/magiclink/
+  - pymdownx.magiclink:
+      hide_protocol: false
+      normalize_issue_symbols: true
+      user: 4JX
+      provider: github
+      repo: nixos-config
+      repo_url_shorthand: true
+      repo_url_shortener: true
+      social_url_shorthand: false
+      social_url_shortener: false
+  # File snippets
+  # https://facelessuser.github.io/pymdown-extensions/extensions/snippets/#options
+  - pymdownx.snippets:
+      check_paths: true
+      url_download: false
+      url_max_size: 33554432
+      url_timeout: 10
+  # Syntax highlighting
+  - pymdownx.highlight
+  - pymdownx.superfences

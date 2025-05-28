@@ -23,6 +23,8 @@
       checks.${system} = {
         formatting = treefmtEval.config.build.check self;
       };
+
+      devShells.${system}.docs = import ./mkDocs.nix { inherit pkgs; };
     };
 
   inputs = {
