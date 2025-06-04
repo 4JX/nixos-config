@@ -22,7 +22,6 @@ in
     allowedUnfree = [
       "spotify"
       "clion"
-      "android-studio-stable"
       "obsidian"
       "nvidia-x11"
       # "cudatoolkit"

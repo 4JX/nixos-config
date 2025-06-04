@@ -76,7 +76,7 @@ in
     kdePackages.ark
     gh # Github CLI
     # jetbrains.clion # FIXME: https://github.com/NixOS/nixpkgs/pull/304223
-    android-studio
+    android-studio-full
     # handbrake
     vokoscreen-ng
     peek
