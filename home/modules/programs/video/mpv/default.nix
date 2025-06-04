@@ -83,6 +83,26 @@ in
   config = lib.mkIf cfg.enable {
     programs.mpv = {
       inherit (cfg) enable;
+      # https://github.com/haasn/libplacebo/issues/333
+      package =
+        lib.warn "Using patched mpv https://github.com/haasn/libplacebo/issues/333"
+          pkgs.mpv-unwrapped.wrapper
+          {
+            inherit scripts;
+
+            mpv = pkgs.mpv-unwrapped.override {
+              libplacebo = pkgs.libplacebo.overrideAttrs (old: {
+                src = pkgs.applyPatches {
+                  inherit (old) src;
+                  patches = [
+                    ./revert.diff
+                  ];
+                };
+              });
+
+            };
+          };
+
       config = {
         #### UI
         fullscreen = "yes"; # Start in fullscreen by default
@@ -195,7 +215,8 @@ in
         };
       };
 
-      inherit scripts;
+      # TODO: Re-enable and remove package declaration
+      # inherit scripts;
 
       bindings = import ./bindings.nix { inherit p pkgs; };
     };
