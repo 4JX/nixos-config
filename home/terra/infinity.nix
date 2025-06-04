@@ -139,5 +139,7 @@ in
 
     # Diff viewer
     meld
+
+    jetbrains.idea-community
   ];
 }

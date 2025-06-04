@@ -3,18 +3,12 @@
 {
   time.timeZone = lib.mkDefault "Europe/Madrid";
 
-  i18n =
-    let
-      enUS = "en_US.UTF-8";
-      esES = "es_ES.UTF-8";
-    in
-    {
-      defaultLocale = lib.mkDefault enUS;
-      extraLocales = [
-        enUS
-        esES
-      ];
-    };
+  i18n = {
+    defaultLocale = lib.mkDefault "en_US.UTF-8";
+    extraLocales = [
+      "es_ES.UTF-8/UTF-8"
+    ];
+  };
 
   console =
     let

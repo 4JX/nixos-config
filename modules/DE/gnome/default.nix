@@ -20,7 +20,7 @@ in
     programs.dconf.enable = true;
 
     # https://hoverbear.org/blog/declarative-gnome-configuration-in-nixos/
-    services.xserver.desktopManager.gnome.enable = true;
+    services.desktopManager.gnome.enable = true;
 
     environment.gnome.excludePackages = with pkgs; [
       epiphany # Web

@@ -60,7 +60,7 @@
 
     # Are you paranoid enough yet?
     arkenfox-nixos = {
-      url = "github:dwarfmaster/arkenfox-nixos";
+      url = "github:dwarfmaster/arkenfox-nixos/fa5f54c5248e7404d17322b0f92d23f57a8aa661";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -83,7 +83,8 @@
     # Home server stuff
     home-server = {
       # git+ssh://git@[host]/[owner]/[repo]?ref=[branch]
-      url = "git+ssh://git@github.com/4JX/nixos-lab";
+      url = "/home/infinity/nixos-lab";
+      # url = "git+ssh://git@github.com/4JX/nixos-lab";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

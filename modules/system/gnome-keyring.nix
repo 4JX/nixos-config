@@ -9,6 +9,6 @@ in
   config = lib.mkIf cfg.enable {
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.sddm.enableGnomeKeyring = config.services.displayManager.sddm.enable;
-    security.pam.services.gdm.enableGnomeKeyring = config.services.xserver.displayManager.gdm.enable;
+    security.pam.services.gdm.enableGnomeKeyring = config.services.displayManager.gdm.enable;
   };
 }

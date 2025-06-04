@@ -8,8 +8,8 @@
     # Because home-manager needs it
     zsh.enable = true;
 
-    # Type "fuck" to fix the last command that made you go "fuck"
-    thefuck.enable = true;
+    # https://search.nixos.org/options?channel=unstable&show=programs.pay-respects.runtimeRules
+    pay-respects.enable = true;
 
     # Allows loading mini-envs on a per-directory basis
     direnv = {
