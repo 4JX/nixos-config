@@ -26,8 +26,9 @@ in
     };
 
     # ENABLE_HDR_WSI=1 mpv --hwdec=auto-safe --vo=gpu-next --target-colorspace-hint --gpu-api=vulkan --gpu-context=waylandvk file
-    hardware.graphics.extraPackages = [
-      pkgs.vulkan-hdr-layer-kwin6
-    ];
+    # https://github.com/Zamundaaa/VK_hdr_layer/commit/e1fd52100935482714ce6424ee48f175799bbc97
+    # hardware.graphics.extraPackages = [
+    #   pkgs.vulkan-hdr-layer-kwin6
+    # ];
   };
 }
