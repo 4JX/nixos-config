@@ -246,14 +246,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1748781978,
-        "narHash": "sha256-v902bo89Obyo42ivxwR2xY3HUojoFbXmQ0KBlErv1bQ=",
-        "path": "/home/infinity/nixos-lab",
-        "type": "path"
+        "lastModified": 1749414618,
+        "narHash": "sha256-mEseq9sfRQYWXOgv2JhC4WqIJOSYKNFKCAirBBRggVo=",
+        "ref": "refs/heads/main",
+        "rev": "bbdb194c2264845279e9155e4956a7894d714d0c",
+        "revCount": 3,
+        "type": "git",
+        "url": "ssh://git@github.com/4JX/nixos-lab"
       },
       "original": {
-        "path": "/home/infinity/nixos-lab",
-        "type": "path"
+        "type": "git",
+        "url": "ssh://git@github.com/4JX/nixos-lab"
       }
     },
     "legion-kb-rgb": {
