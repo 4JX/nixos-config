@@ -92,11 +92,11 @@ in
 
             mpv = pkgs.mpv-unwrapped.override {
               libplacebo = pkgs.libplacebo.overrideAttrs (old: {
-                src = pkgs.applyPatches {
-                  inherit (old) src;
-                  patches = [
-                    ./revert.diff
-                  ];
+                src = pkgs.fetchFromGitHub {
+                  owner = "haasn";
+                  repo = "libplacebo";
+                  rev = "3662b1f5d5a721f31cbf6c0ad090ac2345834cab";
+                  hash = "sha256-M9Z/Ip+pJYqEWA6BjptVdyX+tDZx8lb+EraqqzAhX6E=";
                 };
               });
 
