@@ -8,6 +8,8 @@ Right now it's an open secret that all the modules have defaults ideal for the t
 
 Should also just reconsider, rename and reorganize in general.
 
+A nice way of tackling "presets": https://github.com/diogotcorreia/dotfiles/tree/add670c4d5043a1f1ec33a4e6fa62d3f62ca46a0 (under "profiles")
+
 ### Lib
 
 Using `myLib` feels awkward. There's a "lib" option built into the nixpkgs modules (`config.lib`) that might just do it. Or otherwise a namespace in `lib`.
