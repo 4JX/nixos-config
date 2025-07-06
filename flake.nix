@@ -60,7 +60,7 @@
 
     # Are you paranoid enough yet?
     arkenfox-nixos = {
-      url = "github:dwarfmaster/arkenfox-nixos/fa5f54c5248e7404d17322b0f92d23f57a8aa661";
+      url = "github:dwarfmaster/arkenfox-nixos";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
