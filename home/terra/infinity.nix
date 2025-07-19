@@ -57,6 +57,7 @@ in
 
       office = {
         libreoffice.enable = true;
+        teams-for-linux.enable = false;
       };
 
       video = {
