@@ -12,7 +12,6 @@
     ./programs
     ./system
     ./virtualisation
-    ./wireguard
     ./command-not-found.nix
     ./nix.nix
     ./sops.nix
