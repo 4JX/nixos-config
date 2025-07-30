@@ -8,7 +8,10 @@ let
   p = self.packages.${pkgs.system};
 in
 {
-  imports = [ ../modules ];
+  imports = [
+    ../modules
+    # ../xdg.nix
+  ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "22.11";
@@ -57,7 +60,7 @@ in
 
       office = {
         libreoffice.enable = true;
-        teams-for-linux.enable = false;
+        teams-for-linux.enable = true;
       };
 
       video = {
