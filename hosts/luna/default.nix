@@ -11,7 +11,6 @@
     ./users
   ];
 
-  # TODO: Tailscale/OpenVPN?
   services.openssh = {
     enable = true;
     ports = [ 52000 ];
@@ -22,7 +21,7 @@
       AllowUsers = [
         "infinity"
         "root@192.168.1.*"
-      ]; # ! TODO: Restrict users to LAN/VPN
+      ];
       PasswordAuthentication = false;
     };
   };

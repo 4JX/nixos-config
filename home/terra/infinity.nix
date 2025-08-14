@@ -144,6 +144,6 @@ in
     # Diff viewer
     meld
 
-    # jetbrains.idea-community # FIXME: https://github.com/NixOS/nixpkgs/issues/425328
+    jetbrains.idea-community
   ];
 }

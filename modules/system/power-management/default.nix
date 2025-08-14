@@ -5,11 +5,6 @@
   ...
 }:
 
-# TODO: https://github.com/NotAShelf/nyx/tree/c182362cd0e848a9175d836289596860cfacb08f/modules/core/types/laptop/power
-# Adapt the concept of plugged in or not running scripts (plugged.nix) into configurable options via
-# local.system.power-management.onPlugged/onUnplugged and mix the power profiles daemon scripts with the tlp part and co.
-# Also stop/start services like syncthing and other stuff if their modules are enabled with optionalString or similar using ^
-# Separate each power saving solution into its own file to make ^ easier
 let
   cfg = config.local.system.power-management;
 in
