@@ -209,11 +209,6 @@ with pkgs.gnomeExtensions;
   }
 
   {
-    package = muteunmute;
-    dconfSettings = { };
-  }
-
-  {
     package = ideapad-controls;
 
     dconfSettings = {
@@ -235,21 +230,8 @@ with pkgs.gnomeExtensions;
   }
 
   {
-    package = just-perfection;
-    dconfSettings = {
-      # Wrap around workspaces
-      workspace-wrap-around = true;
-
-      # When starting GNOME, start in (0-Desktop, 1-Overview)
-      startup-status = 0;
-
-      # Remove "Window is ready" popups
-      window-demands-attention-focus = true;
-
-      # Move the clock stuff to a more classic opinion
-      # clock-menu-position = 1; # Right
-      # clock-menu-position-offset = 11; # After quick settings and power menu from Aylur's
-    };
+    package = no-overview;
+    dconfSettings = { };
   }
 
   {
@@ -347,11 +329,6 @@ with pkgs.gnomeExtensions;
     };
   }
 
-  {
-    package = task-widget;
-    dconfSettings = { };
-  }
-
   # Allow managing systemd targets too
   # https://github.com/hardpixel/systemd-manager/pull/22
   {
@@ -368,6 +345,11 @@ with pkgs.gnomeExtensions;
       };
     });
 
+    dconfSettings = { };
+  }
+
+  {
+    package = bluetooth-battery-meter;
     dconfSettings = { };
   }
 ]

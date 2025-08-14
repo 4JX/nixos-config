@@ -101,7 +101,6 @@ in
     # To be used along with the kernel module specified in the boot option
     # Adds legion_cli legion_gui to PATH
     lenovo-legion
-    endeavour # TODO app that integrates with the GNOME todo extension
 
     # JOSM
     josm
