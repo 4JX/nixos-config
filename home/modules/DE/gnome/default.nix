@@ -66,6 +66,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.sessionVariables = {
+      # GTK
+      # GNOME portals don't work if force-setting this
+      # GDK_BACKEND = "wayland,x11";
+      # QT
+      QT_QPA_PLATFORM = "wayland;xcb";
+      # SDL
+      SDL_VIDEODRIVER = "wayland,x11";
+
+      # Electron, similar to OZONE_PLATFORM
+      NIXOS_OZONE_WL = "1";
+      # Firefox
+      MOZ_ENABLE_WAYLAND = "1";
+    };
+
     home.file = {
       ".local/share/backgrounds" = {
         source = backgrounds;
