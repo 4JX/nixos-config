@@ -144,5 +144,13 @@ in
     meld
 
     jetbrains.idea-community
+
+    (pkgs.google-cloud-sdk.withExtraComponents (
+      # Autocomplete in nix repl for more options
+      with pkgs.google-cloud-sdk.components;
+      [
+        gke-gcloud-auth-plugin
+      ]
+    ))
   ];
 }

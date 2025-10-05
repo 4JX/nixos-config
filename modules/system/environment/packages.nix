@@ -35,5 +35,6 @@
     deadnix
     statix
     nix-tree # Scan current system / derivations for what-why-how depends
+    nixpkgs-review # For nixpkgs PRs
   ];
 }
