@@ -2,6 +2,7 @@
   pkgs,
   config,
   inputs,
+  lib,
   ...
 }:
 
@@ -52,7 +53,12 @@ in
     configFile = config.sops.secrets.wg-terra-lan.path;
   };
 
-  hardware.ckb-next.enable = true;
+  hardware.ckb-next = {
+    enable = true;
+    package = lib.warn "Using patched ckb-next https://github.com/NixOS/nixpkgs/issues/444209" (
+      inputs.nixpkgs-ckb-next-qt6.legacyPackages.${pkgs.system}.ckb-next
+    );
+  };
 
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTR{idVendor}=="048d", ATTR{idProduct}=="c965", MODE="0666"

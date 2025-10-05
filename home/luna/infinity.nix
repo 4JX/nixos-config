@@ -45,7 +45,7 @@
     gh # Github CLI
     tor-browser-bundle-bin
     arandr
-    libsForQt5.okular
+    kdePackages.okular
 
     fractal
     kdePackages.filelight

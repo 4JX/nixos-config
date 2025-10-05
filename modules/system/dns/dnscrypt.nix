@@ -34,15 +34,15 @@ in
     };
 
     # https://wiki.nixos.org/wiki/Encrypted_DNS
-    services.dnscrypt-proxy2 = {
+    services.dnscrypt-proxy = {
       enable = true;
       # https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Configuration
       inherit configFile;
     };
 
-    systemd.services.dnscrypt-proxy2.serviceConfig = {
-      # StateDirectory = "dnscrypt-proxy";
-      # ReadOnlyPaths = [ configFile ];
-    };
+    # systemd.services.dnscrypt-proxy2.serviceConfig = {
+    #   # StateDirectory = "dnscrypt-proxy";
+    #   # ReadOnlyPaths = [ configFile ];
+    # };
   };
 }

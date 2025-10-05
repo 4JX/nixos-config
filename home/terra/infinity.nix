@@ -95,7 +95,7 @@ in
     quassel
     p.portmaster
     dbeaver-bin
-    libsForQt5.okular
+    kdePackages.okular
     qbittorrent
     openrgb
     # To be used along with the kernel module specified in the boot option
