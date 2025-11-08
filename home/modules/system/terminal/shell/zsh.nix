@@ -32,18 +32,13 @@
     plugins = [
       {
         name = "fast-syntax-highlighting";
-        file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
+        file = "share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh";
         src = "${pkgs.zsh-fast-syntax-highlighting}";
       }
       {
         name = "zsh-nix-shell";
-        file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
+        file = "share/zsh/plugins/nix-shell.plugin.zsh";
         src = "${pkgs.zsh-nix-shell}";
-      }
-      {
-        name = "nix-zsh-shell-completions";
-        file = "share/zsh/plugins/nix/nix-zsh-completions.plugin.zsh";
-        src = "${pkgs.nix-zsh-completions}";
       }
       {
         name = "nix-zsh-shell-completions";
@@ -56,18 +51,18 @@
         src = pkgs.fetchFromGitHub {
           owner = "hlissner";
           repo = "zsh-autopair";
-          rev = "34a8bca0c18fcf3ab1561caef9790abffc1d3d49";
-          sha256 = "1h0vm2dgrmb8i2pvsgis3lshc5b0ad846836m62y8h3rdb3zmpy1";
+          rev = "449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d";
+          sha256 = "sha256-3zvOgIi+q7+sTXrT+r/4v98qjeiEL4Wh64rxBYnwJvQ=";
         };
       }
       {
-        name = "zsh-colored-man-pages";
+        name = "colored-man-pages";
         file = "colored-man-pages.plugin.zsh";
         src = pkgs.fetchFromGitHub {
           owner = "ohmyzsh";
           repo = "ohmyzsh";
-          rev = "d3bb52d7d825f2a6ce2e1c76ca472b05c6f27b40";
-          sha256 = "sha256-087bNmB5gDUKoSriHIjXOVZiUG5+Dy9qv3D69E8GBhs=";
+          rev = "6bc4c80c7db072a0d2d265eb3589bbe52e0d2737";
+          sha256 = "sha256-VJ1DM35d2fSs6CDyNFpq8fJ9gPHHG9kjgSnkX0m+3yc=";
         };
       }
       # {
