@@ -10,7 +10,6 @@ let
   commonFonts = with pkgs; [
     # No tofu
     noto-fonts
-    noto-fonts-extra
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
 
@@ -30,7 +29,6 @@ let
     gelasio # Georgia
     liberation-sans-narrow # Arial Narrow
     liberation_ttf # Arial, Helvetica, Times New Roman, Courier New
-    noto-fonts-extra # Arial, Times New Roman
     roboto
     open-sans
     font-awesome

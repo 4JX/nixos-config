@@ -85,7 +85,7 @@ in
     vokoscreen-ng
     peek
     scrcpy
-    tor-browser-bundle-bin
+    tor-browser
     arandr
     obsidian
     node2nix

@@ -43,7 +43,9 @@
 
     # Used for the pipewire low latency module
     nix-gaming = {
-      url = "github:fufexan/nix-gaming";
+      url = "github:4JX/nix-gaming/v2";
+      # url = "github:4JX/nix-gaming";
+      # url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -36,14 +36,14 @@ in
         # enable this module
         enable = true;
         # defaults (no need to be set unless modified)
-        quantum = 64;
+        # quantum = 64;
         # Rate is only really needed for pulseaudio compat, doesn't affect the extra rates
-        rate = 48000;
+        # rate = 48000;
       };
 
-      extraConfig.pipewire = {
-        "user.conf" = {
-          # 44100 48000 88200 96000 176400 192000 352800 384000
+      extraConfig = {
+        # User overrides module (loads last, low latency is "99-lowlatency")
+        pipewire."999-user" = {
           "context.properties" = {
             "default.clock.allowed-rates" = [
               44100
@@ -57,7 +57,15 @@ in
             ];
           };
         };
+
+        client."999-user" = {
+          "stream.properties" = {
+            # Override the low-latency setting (was 1)
+            "resample.quality" = 10;
+          };
+        };
       };
+
     };
   };
 }

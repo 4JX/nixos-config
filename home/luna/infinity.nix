@@ -43,7 +43,7 @@
     github-desktop
     kdePackages.ark
     gh # Github CLI
-    tor-browser-bundle-bin
+    tor-browser
     arandr
     kdePackages.okular
 
