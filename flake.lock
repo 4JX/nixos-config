@@ -59,28 +59,6 @@
         "type": "github"
       }
     },
-    "compose2nix_2": {
-      "inputs": {
-        "nixpkgs": [
-          "home-server",
-          "nixpkgs"
-        ],
-        "onchg": "onchg_2"
-      },
-      "locked": {
-        "lastModified": 1741059482,
-        "narHash": "sha256-584l9FkfHpvN11sX3UhC4ve/32XZ8da/aEJ+I3BCFH4=",
-        "owner": "aksiksi",
-        "repo": "compose2nix",
-        "rev": "10519ebbd0a47db8f332e1ee114b1df74d0eb45a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aksiksi",
-        "repo": "compose2nix",
-        "type": "github"
-      }
-    },
     "crane": {
       "locked": {
         "lastModified": 1759893430,
@@ -162,21 +140,6 @@
       }
     },
     "flake-utils_2": {
-      "locked": {
-        "lastModified": 1652776076,
-        "narHash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "04c1b180862888302ddfb2e3ad9eaa63afc60cf8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_3": {
       "inputs": {
         "systems": "systems"
       },
@@ -239,29 +202,28 @@
     },
     "home-server": {
       "inputs": {
-        "compose2nix": "compose2nix_2",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1756896481,
-        "narHash": "sha256-mpsDR653wJabHKWuPvBwX08sCILT67aqzXZYLFCnXd0=",
-        "ref": "refs/heads/main",
-        "rev": "d97c712c202ee325ba8e85908ad4b099601f2ef1",
-        "revCount": 12,
-        "type": "git",
-        "url": "ssh://git@github.com/4JX/nixos-lab"
+        "lastModified": 1762788367,
+        "narHash": "sha256-KQnB1WCg5Us9e4IVgDYGyCrA6EcLu7n9ZmcLjStw2KQ=",
+        "owner": "4JX",
+        "repo": "nixos-lab",
+        "rev": "7ccd8ef4f5acad630727ed7eb44584465d1c62f4",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/4JX/nixos-lab"
+        "owner": "4JX",
+        "repo": "nixos-lab",
+        "type": "github"
       }
     },
     "legion-kb-rgb": {
       "inputs": {
         "crane": "crane",
-        "flake-utils": "flake-utils_3",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -348,30 +310,6 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": [
-          "compose2nix",
-          "onchg",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1653259102,
-        "narHash": "sha256-XfCEu4zur/N2Dk4v8wFiQAgJ7bgNqPqwWp1vBXkeczM=",
-        "owner": "jmgilman",
-        "repo": "nix-pre-commit",
-        "rev": "6a99b2711c7eac9960939d8eb91e84322b22d50c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jmgilman",
-        "repo": "nix-pre-commit",
-        "type": "github"
-      }
-    },
-    "nix-pre-commit_2": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "home-server",
           "compose2nix",
           "onchg",
           "nixpkgs"
@@ -489,29 +427,6 @@
       "inputs": {
         "nix-pre-commit": "nix-pre-commit",
         "nixpkgs": [
-          "compose2nix",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1720368454,
-        "narHash": "sha256-NUSw3G2gsQX8/G64/pDBb1oitM+x13m7nFRvpiI4a+s=",
-        "owner": "aksiksi",
-        "repo": "onchg-rs",
-        "rev": "c42b693d10920874b3644ef1502e33318409d69c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aksiksi",
-        "repo": "onchg-rs",
-        "type": "github"
-      }
-    },
-    "onchg_2": {
-      "inputs": {
-        "nix-pre-commit": "nix-pre-commit_2",
-        "nixpkgs": [
-          "home-server",
           "compose2nix",
           "nixpkgs"
         ]

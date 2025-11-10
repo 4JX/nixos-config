@@ -86,7 +86,8 @@
     # Home server stuff
     home-server = {
       # git+ssh://git@[host]/[owner]/[repo]?ref=[branch]
-      url = "git+ssh://git@github.com/4JX/nixos-lab";
+      # url = "git+ssh://git@github.com/4JX/nixos-lab";
+      url = "github:4JX/nixos-lab";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
