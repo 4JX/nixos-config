@@ -49,8 +49,5 @@
 
     fractal
     kdePackages.filelight
-
-    # Filesharing but easy
-    localsend
   ];
 }

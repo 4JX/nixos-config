@@ -135,9 +135,6 @@ in
 
     pinta # paint.net but linux? Not as complex as GIMP
 
-    # Filesharing but easy
-    localsend
-
     p.proton-mail-export
 
     # Diff viewer
