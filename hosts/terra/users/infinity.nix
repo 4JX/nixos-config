@@ -106,4 +106,8 @@
 
   # Filesharing but easy
   programs.localsend.enable = true;
+
+  virtualisation.docker = {
+    enable = true;
+  };
 }
