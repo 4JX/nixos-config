@@ -53,26 +53,7 @@ with pkgs.gnomeExtensions;
 
   {
     # package = pkgs.gnome45Extensions."dash-to-panel@jderose9.github.com";
-    # package = dash-to-panel;
-    package =
-      lib.warn "Using patched dash-to-panel https://github.com/home-sweet-gnome/dash-to-panel/issues/2278"
-        dash-to-panel.overrideAttrs
-        (_old: {
-          src = pkgs.fetchzip {
-            url = "https://github.com/home-sweet-gnome/dash-to-panel/archive/ad8c3eac83a23846d5916330573fbc5b311ed715.zip";
-            # The working dir needs to be built first, can't rely on the existing metadata replacer
-            postFetch = "";
-            sha256 = "sha256-Ion4+NZcTKqvBqzHe7DwxqOXWFyoZi78H7S75XuL95A=";
-          };
-
-          preBuild = ''
-            make _build
-            mv _build ..
-            rm -rf *
-            mv ../_build/* .
-            rmdir ../_build
-          '';
-        });
+    package = dash-to-panel;
     dconfSettings =
       let
         fakePrimary = "AAA-0000000000";

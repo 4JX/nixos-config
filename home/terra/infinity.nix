@@ -135,7 +135,7 @@ in
 
     pinta # paint.net but linux? Not as complex as GIMP
 
-    p.proton-mail-export
+    # p.proton-mail-export
 
     # Diff viewer
     meld
