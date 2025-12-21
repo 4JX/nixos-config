@@ -35,7 +35,7 @@ let
     };
   };
 
-  p = self.packages.${pkgs.system};
+  p = self.packages.${pkgs.stdenv.hostPlatform.system};
 
   scriptsPkgs = with pkgs.mpvScripts; [
     uosc

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  p = self.packages.${pkgs.system};
+  p = self.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   imports = [
@@ -140,7 +140,7 @@ in
     # Diff viewer
     meld
 
-    jetbrains.idea-community
+    jetbrains.idea-oss
 
     (pkgs.google-cloud-sdk.withExtraComponents (
       # Autocomplete in nix repl for more options

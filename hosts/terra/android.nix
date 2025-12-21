@@ -43,6 +43,7 @@ in
     34
     35
     36
+    "36.1"
   ];
 
   nixpkgs.config = {

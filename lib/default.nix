@@ -9,7 +9,7 @@ in
 {
   inherit homeOption homeOptionValues;
 
-  recursiveMergeAttrs = lib.fold lib.recursiveUpdate { };
+  recursiveMergeAttrs = lib.foldr lib.recursiveUpdate { };
 
   patchNixpkgs =
     {

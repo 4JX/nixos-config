@@ -8,7 +8,7 @@
 
 let
   cfg = config.local.programs.gaming;
-  p = self.packages.${pkgs.system};
+  p = self.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   config = lib.mkIf cfg.enable {

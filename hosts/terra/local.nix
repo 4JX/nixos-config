@@ -7,8 +7,8 @@
 }:
 
 let
-  p = self.packages.${pkgs.system};
-  legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.system}.default;
+  p = self.packages.${pkgs.stdenv.hostPlatform.system};
+  legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   sops.secrets.dnscryptConfigFile = {

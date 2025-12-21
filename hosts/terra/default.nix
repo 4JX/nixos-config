@@ -7,7 +7,7 @@
 }:
 
 let
-  legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.system}.default;
+  legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   imports = [
@@ -56,7 +56,7 @@ in
   hardware.ckb-next = {
     enable = true;
     package = lib.warn "Using patched ckb-next https://github.com/NixOS/nixpkgs/issues/444209" (
-      inputs.nixpkgs-ckb-next-qt6.legacyPackages.${pkgs.system}.ckb-next
+      inputs.nixpkgs-ckb-next-qt6.legacyPackages.${pkgs.stdenv.hostPlatform.system}.ckb-next
     );
   };
 
