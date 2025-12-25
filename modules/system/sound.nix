@@ -37,6 +37,7 @@ in
         enable = true;
         # defaults (no need to be set unless modified)
         # quantum = 64;
+        quantum = 128;
         # Rate is only really needed for pulseaudio compat, doesn't affect the extra rates
         # rate = 48000;
       };
