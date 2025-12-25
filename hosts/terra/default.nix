@@ -22,6 +22,7 @@ in
     ./DE.nix
     ./users
     ./power-management.nix
+    ./yubi.nix
   ];
 
   # TODO: Should probably make an enhanced version of this that alerts when the offending package is upgraded...
