@@ -1,9 +1,7 @@
 { lib, config, ... }:
 
 let
-  inherit (lib) versionAtLeast optionals mkEnableOption;
-  kernelVersion = config.boot.kernelPackages.kernel.version;
-  is612orLater = versionAtLeast kernelVersion "6.12";
+  inherit (lib) mkEnableOption;
 
   cfg = config.local.virtualisation.virtualbox;
 in
@@ -19,8 +17,5 @@ in
       inherit (cfg) enable;
       inherit (cfg) enableKvm;
     };
-
-    # Workaround for https://github.com/NixOS/nixpkgs/issues/363887
-    boot.kernelParams = optionals (is612orLater && !cfg.enableKvm) [ "kvm.enable_virt_at_load=0" ];
   };
 }
