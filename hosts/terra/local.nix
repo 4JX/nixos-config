@@ -30,6 +30,7 @@ in
       "steam-original"
       "steam-unwrapped"
       "steam-run"
+      "Oracle_VirtualBox_Extension_Pack"
     ];
 
     DM = {
@@ -76,6 +77,7 @@ in
     virtualisation = {
       virtualbox = {
         enable = true;
+        enableExtensionPack = true;
         enableKvm = false;
       };
     };

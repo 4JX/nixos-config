@@ -8,14 +8,14 @@ in
 {
   options.local.virtualisation.virtualbox = {
     enable = mkEnableOption "VirtualBox";
+    enableExtensionPack = mkEnableOption "VirtualBox Extension Pack";
     enableKvm = mkEnableOption "KVM support for VirtualBox";
   };
 
   config = lib.mkIf cfg.enable {
     # Virtual machine stuff
     virtualisation.virtualbox.host = {
-      inherit (cfg) enable;
-      inherit (cfg) enableKvm;
+      inherit (cfg) enable enableExtensionPack enableKvm;
     };
   };
 }
