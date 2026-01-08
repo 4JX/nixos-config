@@ -1,12 +1,9 @@
 {
   pkgs,
   homeFiles,
-  self,
+  # inputs,
   ...
 }:
-let
-  p = self.packages.${pkgs.stdenv.hostPlatform.system};
-in
 {
   imports = [
     ../modules
@@ -93,7 +90,7 @@ in
     # element-desktop # fails via insecure jitsi-meet-1.0.8043
     figma-linux
     quassel
-    p.portmaster
+    # inputs.nixpkgs-portmaster.legacyPackages.${pkgs.stdenv.hostPlatform.system}.portmaster
     dbeaver-bin
     kdePackages.okular
     qbittorrent
@@ -142,12 +139,6 @@ in
 
     jetbrains.idea-oss
 
-    (pkgs.google-cloud-sdk.withExtraComponents (
-      # Autocomplete in nix repl for more options
-      with pkgs.google-cloud-sdk.components;
-      [
-        gke-gcloud-auth-plugin
-      ]
-    ))
+    android-tools
   ];
 }

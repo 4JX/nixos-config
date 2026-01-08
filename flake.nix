@@ -35,6 +35,8 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     # nixos-hardware.url = "github:4JX/nixos-hardware";
 
+    nixpkgs-portmaster.url = "github:WitteShadovv/nixpkgs/init-portmaster";
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       # url = "github:nix-community/home-manager/release-23.05";

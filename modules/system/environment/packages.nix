@@ -29,8 +29,8 @@
     # Nix stuffs
     nil # Nix language server
     nixd # Another nix language server
-    # nixpkgs-fmt
-    nixfmt-rfc-style
+    # nixpkgs-fmt EOL
+    nixfmt
     nixos-option
     deadnix
     statix

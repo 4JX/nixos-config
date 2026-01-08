@@ -83,25 +83,6 @@ in
   config = lib.mkIf cfg.enable {
     programs.mpv = {
       inherit (cfg) enable;
-      # https://github.com/haasn/libplacebo/issues/333
-      package =
-        lib.warn "Using patched mpv https://github.com/haasn/libplacebo/issues/333"
-          pkgs.mpv-unwrapped.wrapper
-          {
-            inherit scripts;
-
-            mpv = pkgs.mpv-unwrapped.override {
-              libplacebo = pkgs.libplacebo.overrideAttrs (old: {
-                src = pkgs.fetchFromGitHub {
-                  owner = "haasn";
-                  repo = "libplacebo";
-                  rev = "3662b1f5d5a721f31cbf6c0ad090ac2345834cab";
-                  hash = "sha256-M9Z/Ip+pJYqEWA6BjptVdyX+tDZx8lb+EraqqzAhX6E=";
-                };
-              });
-
-            };
-          };
 
       config = {
         #### UI
@@ -215,8 +196,7 @@ in
         };
       };
 
-      # TODO: Re-enable and remove package declaration
-      # inherit scripts;
+      inherit scripts;
 
       bindings = import ./bindings.nix { inherit p pkgs; };
     };

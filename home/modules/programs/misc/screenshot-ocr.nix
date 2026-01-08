@@ -18,7 +18,7 @@ let
     pkgs.writeShellApplication {
       name = "screen_copy_${lang}";
       runtimeInputs = with pkgs; [
-        xfce.xfce4-screenshooter
+        xfce4-screenshooter
         tesseract
         xclip
       ];

@@ -65,8 +65,6 @@ in
     SUBSYSTEM=="usb", ATTR{idVendor}=="048d", ATTR{idProduct}=="c965", MODE="0666"
   '';
 
-  programs.adb.enable = true;
-
   systemd.services.turn-off-keyboard = {
     serviceConfig = {
       Type = "oneshot";
