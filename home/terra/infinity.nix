@@ -1,7 +1,7 @@
 {
   pkgs,
   homeFiles,
-  # inputs,
+  inputs,
   ...
 }:
 {
@@ -90,7 +90,7 @@
     # element-desktop # fails via insecure jitsi-meet-1.0.8043
     figma-linux
     quassel
-    # inputs.nixpkgs-portmaster.legacyPackages.${pkgs.stdenv.hostPlatform.system}.portmaster
+    inputs.nixpkgs-portmaster.legacyPackages.${pkgs.stdenv.hostPlatform.system}.portmaster
     dbeaver-bin
     kdePackages.okular
     qbittorrent
