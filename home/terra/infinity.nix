@@ -11,7 +11,7 @@
   ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "22.11";
+  home.stateVersion = "26.05";
 
   local = {
     DE.gnome.dashMonitorElements = ''
@@ -77,7 +77,7 @@
     kdePackages.ark
     gh # Github CLI
     # jetbrains.clion # FIXME: https://github.com/NixOS/nixpkgs/pull/304223
-    android-studio-full
+    # android-studio-full
     # handbrake
     vokoscreen-ng
     peek
@@ -85,7 +85,7 @@
     tor-browser
     arandr
     obsidian
-    node2nix
+    # node2nix
     cyberchef
     # element-desktop # fails via insecure jitsi-meet-1.0.8043
     figma-linux

@@ -30,7 +30,7 @@ in
       "steam-original"
       "steam-unwrapped"
       "steam-run"
-      "Oracle_VirtualBox_Extension_Pack"
+      "virtualbox-extpack"
     ];
 
     DM = {

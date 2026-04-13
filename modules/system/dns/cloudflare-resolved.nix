@@ -17,13 +17,15 @@ in
 
     services.resolved = {
       enable = true;
-      dnsovertls = "true";
-      dnssec = "true";
-      domains = [ "~." ];
-      fallbackDns = [
-        "1.1.1.1#one.one.one.one"
-        "1.0.0.1#one.one.one.one"
-      ];
+      settings.Resolve = {
+        DNSOverTLS = true;
+        DNSSEC = true;
+        Domains = [ "~." ];
+        DNS = [
+          "1.1.1.1#one.one.one.one"
+          "1.0.0.1#one.one.one.one"
+        ];
+      };
     };
   };
 }
