@@ -29,6 +29,10 @@
     };
   };
 
+  nix.settings = {
+    trusted-users = [ "infinity" ];
+  };
+
   services.fail2ban = {
     enable = true;
   };
