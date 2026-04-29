@@ -6,25 +6,25 @@ in
 {
   local = {
     allowedUnfree = [
-      "nvidia-x11"
-      "nvidia-settings"
+      # "nvidia-x11"
+      # "nvidia-settings"
     ];
 
     DE.xfce.enable = true;
 
     home-server = {
       enable = true;
-      beszel-agent = {
-        # enable = true;
+      # beszel-agent = {
+      #   # enable = true;
 
-        # rootFs = "/";
-        # https://beszel.dev/guide/additional-disks
-        monitoredFilesystems = {
-          sdb__root = "/";
-          sda__mediaserver = "/containers/mediaserver";
-        };
-        gpuMode = "nvidia";
-      };
+      #   # rootFs = "/";
+      #   # https://beszel.dev/guide/additional-disks
+      #   monitoredFilesystems = {
+      #     # root = "/";
+      #     mediaserver = "/containers/mediaserver";
+      #   };
+      #   gpuMode = "nvidia";
+      # };
     };
 
     system = {

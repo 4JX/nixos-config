@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+    # inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     inputs.home-server.nixosModules.default
 
     ./users
