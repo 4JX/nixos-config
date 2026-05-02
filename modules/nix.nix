@@ -31,11 +31,11 @@ in
         # Needed for all configs to run on flakes
         "nix-command"
         "flakes"
-        # Outright prohibit unquoted URL literals
-        "no-url-literals"
       ];
       # Save some space without explicitly deleting
       auto-optimise-store = true;
+      # Outright prohibit unquoted URL literals
+      lint-url-literals = "fatal";
     };
   };
 }
