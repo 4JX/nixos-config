@@ -103,5 +103,10 @@
       url = "github:aksiksi/compose2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sem = {
+      url = "github:Ataraxy-Labs/sem";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

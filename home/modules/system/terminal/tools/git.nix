@@ -9,6 +9,7 @@ in
       enable = true;
     };
   };
+
   config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
