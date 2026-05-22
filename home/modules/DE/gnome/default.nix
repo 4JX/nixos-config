@@ -151,7 +151,8 @@ in
         night-light-schedule-automatic = false;
         night-light-schedule-from = 23.0; # 11PM
         night-light-schedule-to = 9.0; # 9AM
-        night-light-temperature = mkUint32 3700;
+        night-light-temperature = mkUint32 2700;
+        # night-light-temperature = mkUint32 3700;
       };
 
       "org/gnome/settings-daemon/plugins/power" = {
