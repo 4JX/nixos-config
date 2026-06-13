@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
@@ -26,9 +25,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.vscode = {
+    programs.vscodium = {
       enable = true;
-      package = pkgs.vscodium;
 
       # Extensions are managed through Settings Sync because it also syncs other stuff
       inherit (cfg) mutableExtensionsDir;

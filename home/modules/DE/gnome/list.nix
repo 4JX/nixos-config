@@ -104,8 +104,8 @@ with pkgs.gnomeExtensions;
     package = arcmenu;
     dconfSettings = {
       # Set icon as squares thing
-      arc-menu-icon = 71;
-      custom-menu-button-icon-size = 32.0;
+      menu-button-icon = "view-app-grid-symbolic";
+      menu-button-icon-size = 32;
 
       # Menu visual appearance
       menu-height = 800;

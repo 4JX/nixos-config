@@ -44,6 +44,7 @@ in
       dconf-editor
       gnome-extension-manager
       dconf2nix
+      wl-clipboard
       # (gnomeExtensions.gtk4-desktop-icons-ng-ding.overrideAttrs (_: {
       #   patches = [
       #     (substituteAll {

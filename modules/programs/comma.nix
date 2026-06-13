@@ -3,7 +3,6 @@
 {
   config,
   lib,
-  pkgs,
   inputs,
   ...
 }:
@@ -16,26 +15,14 @@ in
 
   options.local.programs.comma = {
     enable = lib.mkEnableOption "comma";
-
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.comma.override { nix-index-unwrapped = config.programs.nix-index.package; };
-      defaultText = lib.literalExpression "pkgs.comma.override { nix-index-unwrapped = config.programs.nix-index.package; }";
-      description = "Package providing the `comma` tool.";
-    };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-
     programs = {
-      # Keeps the comma database in check
+      # Installs comma wrapped with nix-index-database's small /bin index.
       nix-index-database.comma.enable = true;
 
-      # Depends on a nix-channel database, replace with
-      # nix-index instead, which mostly works the same
-      command-not-found.enable = lib.mkForce false;
-
+      # Provides nix-locate via nix-index-database's wrapped nix-index package.
       nix-index.enable = true;
     };
   };
