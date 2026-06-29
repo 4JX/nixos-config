@@ -174,5 +174,5 @@
   };
 
   force = true;
-  default = "SearXNG";
+  default = "ddg";
 }
