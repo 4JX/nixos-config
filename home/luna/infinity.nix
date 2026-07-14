@@ -44,7 +44,6 @@
     kdePackages.ark
     gh # Github CLI
     tor-browser
-    arandr
     kdePackages.okular
 
     fractal

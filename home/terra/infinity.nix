@@ -1,9 +1,14 @@
 {
   pkgs,
+  lib,
   homeFiles,
   inputs,
+  self,
   ...
 }:
+let
+  p = self.packages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   imports = [
     ../modules
@@ -83,7 +88,6 @@
     peek
     scrcpy
     tor-browser
-    arandr
     obsidian
     # node2nix
     cyberchef
@@ -93,7 +97,6 @@
     inputs.nixpkgs-portmaster.legacyPackages.${pkgs.stdenv.hostPlatform.system}.portmaster
     dbeaver-bin
     kdePackages.okular
-    qbittorrent
     openrgb
     # To be used along with the kernel module specified in the boot option
     # Adds legion_cli legion_gui to PATH
@@ -140,5 +143,20 @@
     jetbrains.idea-oss
 
     android-tools
+
+    p.jellyfin-desktop
+
+    (lib.warn
+      "modrinth-app: patching failing GApps wrapper: https://github.com/NixOS/nixpkgs/issues/541756"
+      (
+        modrinth-app.overrideAttrs (old: {
+          # FIXME: Remove after https://github.com/NixOS/nixpkgs/pull/542808 lands.
+          buildCommand =
+            builtins.replaceStrings [ "wrapGAppsHook" ] [ ''wrapGApp "$out/bin/ModrinthApp"'' ]
+              old.buildCommand;
+        })
+      )
+    )
+    pakku
   ];
 }

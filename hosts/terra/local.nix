@@ -31,6 +31,8 @@ in
       "steam-unwrapped"
       "steam-run"
       "virtualbox-extpack"
+      "modrinth-app"
+      "modrinth-app-unwrapped"
     ];
 
     DM = {
