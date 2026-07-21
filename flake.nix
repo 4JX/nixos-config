@@ -93,6 +93,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Home ops
+    home-ops = {
+      url = "github:4JX/home-ops";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # -- Extra packages --
     legion-kb-rgb = {
       url = "github:4JX/L5P-Keyboard-RGB";

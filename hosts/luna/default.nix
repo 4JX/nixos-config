@@ -4,6 +4,7 @@
   imports = [
     # inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     inputs.home-server.nixosModules.default
+    inputs.home-ops.nixosModules.home-ops
 
     ./users
 
@@ -13,6 +14,11 @@
     ./local.nix
     ./ups.nix
   ];
+
+  local.home-ops = {
+    enable = true;
+    kubeconfigUsers = [ "infinity" ];
+  };
 
   services.openssh = {
     enable = true;
