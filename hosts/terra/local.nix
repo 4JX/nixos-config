@@ -34,6 +34,9 @@ in
       "steam-unwrapped"
       "steam-run"
       "virtualbox-extpack"
+      "cccl"
+      "libnvvm"
+      "cuda_crt"
     ];
 
     DM = {
