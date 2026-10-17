@@ -1,4 +1,4 @@
-{ pkgs, self, ... }:
+{ ... }:
 
 # TODO: Surely this is part of stylix?
 {

@@ -5,7 +5,6 @@
 # https://discuss.whatever.social/r/linux_gaming/comments/1im9m57/how_to_do_hdr_in_gnome/
 # https://discuss.whatever.social/r/linux/comments/1im9l9r/how_to_do_hdr_in_gnome/
 {
-  pkgs,
   config,
   lib,
   ...

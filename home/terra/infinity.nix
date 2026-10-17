@@ -1,7 +1,6 @@
 {
   pkgs,
   homeFiles,
-  inputs,
   self,
   ...
 }:
@@ -122,10 +121,10 @@ in
               $out/share/applications/org.openstreetmap.josm-catastro.desktop -i
         '';
       })).override
-      {
-        # First two are from the package
-        extraJavaOpts = "-Djosm.restart=true -Djava.net.useSystemProxies=true -Djosm.home=JOSM-catastro";
-      }
+        {
+          # First two are from the package
+          extraJavaOpts = "-Djosm.restart=true -Djava.net.useSystemProxies=true -Djosm.home=JOSM-catastro";
+        }
     )
 
     fractal

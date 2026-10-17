@@ -71,5 +71,6 @@ lib.mkIf cfg.enable {
         in
         builtins.map (e: e.package.extensionUuid) enabled;
     };
-  } // myLib.recursiveMergeAttrs mapDconfSettings;
+  }
+  // myLib.recursiveMergeAttrs mapDconfSettings;
 }
