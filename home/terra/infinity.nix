@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   homeFiles,
   inputs,
   self,
@@ -94,7 +93,6 @@ in
     # element-desktop # fails via insecure jitsi-meet-1.0.8043
     figma-linux
     quassel
-    inputs.nixpkgs-portmaster.legacyPackages.${pkgs.stdenv.hostPlatform.system}.portmaster
     dbeaver-bin
     kdePackages.okular
     openrgb
@@ -140,23 +138,10 @@ in
     # Diff viewer
     meld
 
-    jetbrains.idea-oss
-
     android-tools
 
     p.jellyfin-desktop
 
-    (lib.warn
-      "modrinth-app: patching failing GApps wrapper: https://github.com/NixOS/nixpkgs/issues/541756"
-      (
-        modrinth-app.overrideAttrs (old: {
-          # FIXME: Remove after https://github.com/NixOS/nixpkgs/pull/542808 lands.
-          buildCommand =
-            builtins.replaceStrings [ "wrapGAppsHook" ] [ ''wrapGApp "$out/bin/ModrinthApp"'' ]
-              old.buildCommand;
-        })
-      )
-    )
     pakku
   ];
 }

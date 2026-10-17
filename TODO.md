@@ -57,17 +57,6 @@ There's `linux_hardened` and `hardened_malloc`. The former is usually quite behi
 
 ## Low Priority
 
-### Portmaster
-
-Find some way to package portmaster, most viable solution is probably an FHSEnv to let it do its auto-update shenanigans in peace
-
-Blocked by:
-
-- <https://github.com/NixOS/nixpkgs/issues/42117>
-- <https://github.com/NixOS/nixpkgs/pull/231673>
-
-Or some fancier way of giving portmaster-core and co. perms to do stuff inside the wrapper
-
 ## Codeium
 
 Should not be using nix-ld as a hack, see about implementing this:

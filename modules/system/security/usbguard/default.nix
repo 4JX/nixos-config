@@ -1,7 +1,13 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.local.system.security.usbguard;
+
 in
 {
   options.local.system.security.usbguard = {

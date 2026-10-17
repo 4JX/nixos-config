@@ -2,18 +2,14 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 let
   cfg = config.local.programs.lazygit;
 
-  sem = inputs.sem.packages.${pkgs.stdenv.hostPlatform.system}.default;
-
   delta = lib.getExe pkgs.delta;
   difft = lib.getExe pkgs.difftastic;
   less = lib.getExe pkgs.less;
-  semExe = lib.getExe sem;
 
   editor = "codium";
 
@@ -29,7 +25,7 @@ in
       pkgs.delta
       pkgs.difftastic
       pkgs.less
-      sem
+      pkgs.semgrep
     ];
 
     programs.lazygit = {
@@ -62,17 +58,14 @@ in
         git = {
           autoStageResolvedConflicts = true;
 
-          pagers = [
+          diffRenderers = [
             {
               colorArg = "always";
-              pager = ''${delta} --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'';
+              command = ''${delta} --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'';
             }
             {
-              pager = "${semExe} diff --patch --format terminal --color always";
-              colorArg = "never";
-            }
-            {
-              externalDiffCommand = "${difft} --color=always --display=inline";
+              type = "extDiff";
+              command = "${difft} --color=always --display=inline";
             }
           ];
         };

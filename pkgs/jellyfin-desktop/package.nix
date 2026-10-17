@@ -22,15 +22,15 @@
 
 let
   pname = "jellyfin-desktop";
-  version = "3.0.0-dev+225af09";
-  rev = "225af09b41e8aa98a13f2f03e7e50f471c15fd16";
+  version = "3.0.0-dev+28f2cf1";
+  rev = "28f2cf16a1f1b819884dd6a72919ca55bdf9bd73";
 
   cefBinary = cef-binary.override {
-    version = "149.0.6";
-    gitRevision = "0d0eeb6";
-    chromiumVersion = "149.0.7827.201";
+    version = "151.3.16";
+    gitRevision = "be1e15d";
+    chromiumVersion = "151.0.7922.109";
     srcHashes = {
-      x86_64-linux = "sha256-+Q3sTFxCp7vU8r2Ap6d+Csaqz8Zie7Q1ctgD538m37w=";
+      x86_64-linux = "sha256-6usxPmA53kZIVYk9KHxNXrTscSaXjqg8YWS/SiPcAXo=";
     };
   };
 
@@ -73,19 +73,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
   inherit pname version;
 
   src = fetchFromGitHub {
-    owner = "jellyfin";
-    repo = "jellyfin-desktop";
+    owner = "andrewrabert";
+    repo = "jellium-desktop";
     inherit rev;
-    hash = "sha256-Dvqz+3Miky9SQNB71o+SNal/zSi1x8q56rCuM3R8HFY=";
+    hash = "sha256-fMk5bZRMi6FgTGigu3/fYX9sj1HmKW5mp+Ipc+BO+tQ=";
   };
 
   cargoRoot = "src";
-  cargoHash = "sha256-dcgkX/j0c4nZ/75sYHNlIMuYhPf37LfBBe6jsD5i2QM=";
   cargoLock = {
     lockFile = "${finalAttrs.src}/src/Cargo.lock";
-    outputHashes = {
-      "wl-proxy-0.1.2" = "sha256-8NMNPhBSW2gLXc9bwyg2kmHb12XIaV6b4PjM62xLldQ=";
-    };
   };
 
   strictDeps = true;
@@ -127,18 +123,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
     install -dm755 $out/libexec/jellyfin-desktop
     cp -r build/. $out/libexec/jellyfin-desktop/
-    patchelf --shrink-rpath $out/libexec/jellyfin-desktop/jellyfin-desktop
+    patchelf --shrink-rpath $out/libexec/jellyfin-desktop/jellium-desktop
 
     install -dm755 $out/bin
-    makeWrapper $out/libexec/jellyfin-desktop/jellyfin-desktop $out/bin/jellyfin-desktop \
+    makeWrapper $out/libexec/jellyfin-desktop/jellium-desktop $out/bin/jellium-desktop \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}"
 
-    install -Dm644 resources/linux/org.jellyfin.JellyfinDesktop.desktop \
-      $out/share/applications/org.jellyfin.JellyfinDesktop.desktop
-    install -Dm644 resources/linux/org.jellyfin.JellyfinDesktop.metainfo.xml \
-      $out/share/metainfo/org.jellyfin.JellyfinDesktop.metainfo.xml
-    install -Dm644 resources/linux/org.jellyfin.JellyfinDesktop.svg \
-      $out/share/icons/hicolor/scalable/apps/org.jellyfin.JellyfinDesktop.svg
+    install -Dm644 resources/linux/net.nullsum.JelliumDesktop.desktop \
+      $out/share/applications/net.nullsum.JelliumDesktop.desktop
+    install -Dm644 resources/linux/net.nullsum.JelliumDesktop.metainfo.xml \
+      $out/share/metainfo/net.nullsum.JelliumDesktop.metainfo.xml
+    install -Dm644 resources/linux/net.nullsum.JelliumDesktop.svg \
+      $out/share/icons/hicolor/scalable/apps/net.nullsum.JelliumDesktop.svg
     install -Dm644 LICENSE $out/share/licenses/jellyfin-desktop/LICENSE
 
     runHook postInstall
@@ -151,10 +147,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   meta = {
-    description = "Jellyfin desktop client built on CEF and mpv";
-    homepage = "https://github.com/jellyfin/jellyfin-desktop";
-    license = lib.licenses.gpl2Only;
-    mainProgram = "jellyfin-desktop";
+    description = "Unofficial Jellyfin desktop client built on CEF and mpv";
+    homepage = "https://github.com/andrewrabert/jellium-desktop";
+    license = lib.licenses.gpl2Plus;
+    mainProgram = "jellium-desktop";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with lib.sourceTypes; [
       fromSource

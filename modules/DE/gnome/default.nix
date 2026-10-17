@@ -8,10 +8,6 @@ let
   cfg = config.local.DE.gnome;
 in
 {
-  imports = [
-    ./overlays.nix
-  ];
-
   options.local.DE.gnome = {
     enable = lib.mkEnableOption "the GNOME desktop environment";
   };

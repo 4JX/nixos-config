@@ -227,29 +227,6 @@ with pkgs.gnomeExtensions;
   }
 
   {
-    package = pano;
-    enable = false;
-    dconfSettings = {
-      # Remove audio and notification cues on copy
-      send-notification-on-copy = false;
-      play-audio-on-copy = false;
-
-      # Do not generate link previews for copied links
-      link-previews = false;
-
-      # Window title(?) based excludes
-      exclusion-list = [
-        "Bitwarden"
-        "1Password"
-        "KeePassXC"
-        "secrets"
-        "org.gnome.World.Secrets"
-        "Tor Browser"
-      ];
-    };
-  }
-
-  {
     # package = pkgs.gnome45Extensions."drive-menu@gnome-shell-extensions.gcampax.github.com";
     package = removable-drive-menu;
     dconfSettings = { };

@@ -60,7 +60,9 @@ in
     };
   };
 
-  config.fonts = {
-    packages = (lib.optionals cfg.enableCommonFonts commonFonts) ++ cfg.custom;
+  config = {
+    fonts = {
+      packages = (lib.optionals cfg.enableCommonFonts commonFonts) ++ cfg.custom;
+    };
   };
 }

@@ -11,6 +11,9 @@ let
   legion-kb-rgb = inputs.legion-kb-rgb.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
+  # Portmaster's package and NixOS service are provided by nixpkgs.
+  services.portmaster.enable = true;
+
   sops.secrets.dnscryptConfigFile = {
     format = "binary";
     sopsFile = config.lib.sops.mkHostPath "dnscrypt-proxy.toml";
@@ -31,8 +34,6 @@ in
       "steam-unwrapped"
       "steam-run"
       "virtualbox-extpack"
-      "modrinth-app"
-      "modrinth-app-unwrapped"
     ];
 
     DM = {
@@ -79,7 +80,7 @@ in
     virtualisation = {
       virtualbox = {
         enable = true;
-        enableExtensionPack = true;
+        # enableExtensionPack = true;
         enableKvm = false;
       };
     };
