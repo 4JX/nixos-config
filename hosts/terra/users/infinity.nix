@@ -14,6 +14,8 @@
       # Android
       "adbusers"
       "kvm"
+      # Legion thing
+      "input"
     ];
   };
 
