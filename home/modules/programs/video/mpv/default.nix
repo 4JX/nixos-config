@@ -44,7 +44,7 @@ let
   scriptsCustom = with p.mpv.mpvScripts; [
     betterChapters
     pauseWhenMinimize
-  ]; # evafast mpv-jellyfin
+  ]; # evafast
   scripts = scriptsPkgs ++ scriptsCustom;
 
   # Escape character is "%"
