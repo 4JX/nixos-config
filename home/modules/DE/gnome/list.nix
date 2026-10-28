@@ -18,6 +18,32 @@ let
   inherit (lib.hm.gvariant) mkTuple mkUint32;
 
   cfg = config.local.DE.gnome;
+
+  mediaShell =
+    (pkgs.gnomeExtensions.buildShellExtension {
+      uuid = "mediashell@wstxda.github.com";
+      name = "MediaShell";
+      pname = "mediashell";
+      description = "A GNOME extension that adds configurable MPRIS media controls to the top bar.";
+      link = "https://github.com/WSTxda/MediaShell";
+      version = "3.0.1";
+
+      # Required by the GNOME Extensions builder; the source is overridden below.
+      sha256 = "sha256-9OXJumrhpXbZHz9ABfzhGxvtsErafVKUT8/3cvJ1CNE=";
+      metadata = "";
+    }).overrideAttrs
+      (old: {
+        src = pkgs.fetchzip {
+          url = "https://github.com/WSTxda/MediaShell/releases/download/3.0.1/mediashell%40wstxda.github.com.shell-extension.zip";
+          hash = "sha256-9OXJumrhpXbZHz9ABfzhGxvtsErafVKUT8/3cvJ1CNE=";
+          stripRoot = false;
+        };
+
+        meta = old.meta // {
+          license = lib.licenses.gpl3Only;
+        };
+      });
+
   # fixMetadata = pkg: sha256: (pkg.overrideAttrs (old: {
   #   # Replace the metadata back to its original one
   #   # To be used as
@@ -270,20 +296,16 @@ with pkgs.gnomeExtensions;
   }
 
   {
-    package = media-controls;
+    # The previous extension here was media-controls.
+    package = mediaShell;
+
+    # Potential alternative: https://github.com/funinkina/medialine
     dconfSettings = {
-      label-width = mkUint32 200;
-      show-control-icons-seek-backward = false;
-      show-control-icons-seek-forward = false;
+      panel-position = "right";
 
-      extension-position = "Right";
-      # After tray icons, before whatever else(?)
-      extension-index = mkUint32 4;
-
-      # Double click to skip song
-      mouse-action-double = "NEXT_TRACK";
-      mouse-action-scroll-up = "NONE";
-      mouse-action-scroll-down = "NONE";
+      top-bar-artwork-show = true;
+      top-bar-track-information-scroll-enabled = true;
+      top-bar-track-information-scroll-speed = mkUint32 2;
     };
   }
 
