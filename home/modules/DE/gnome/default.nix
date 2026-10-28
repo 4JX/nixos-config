@@ -114,9 +114,7 @@ in
         cursor-theme = "Adwaita";
         # cursor-theme = "Vimix-cursors";
         # cursor-size = 28; # Default 24
-      };
 
-      "org/gnome/desktop/interface" = {
         # Dark mode
         color-scheme = "prefer-dark";
         show-battery-percentage = true;
