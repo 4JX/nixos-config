@@ -31,10 +31,11 @@ let
   };
 
   modelDir = "/srv/llm-models";
-  deepseekHarnessVersion = "0.1.7-rc.2";
-  deepseekHarnessImage = "deepseek-harness-workstation:${deepseekHarnessVersion}";
+  llamaCpp = pkgs.callPackage ./llama-cpp/package.nix { };
+  llamaModelsPreset = toString ./llama-cpp/models.ini;
 
-  llamaModelsPreset = toString ./llama-models.ini;
+  deepseekHarnessVersion = "0.2.0-rc.2";
+  deepseekHarnessImage = "deepseek-harness-workstation:${deepseekHarnessVersion}";
 in
 {
   local = {
@@ -46,6 +47,9 @@ in
       "open-webui"
       "cuda_nvml_dev"
       "cuda_nvrtc"
+      "cccl"
+      "libnvvm"
+      "cuda_crt"
     ];
   };
 
@@ -61,9 +65,7 @@ in
   services.llama-cpp = {
     enable = true;
 
-    package = pkgs.llama-cpp.override {
-      cudaSupport = true;
-    };
+    package = llamaCpp;
 
     settings = {
       host = "127.0.0.1";
@@ -76,6 +78,16 @@ in
       models-max = 1;
       models-autoload = true;
     };
+  };
+
+  systemd.services.llama-cpp.environment = {
+    # Linux 7.2 can disable file-backed mmap readahead after 100 sparse faults.
+    # Use sequential advice while loading and processing prompts.
+    LLAMA_MMAP_SEQUENTIAL = "1";
+
+    # Sparse MoE generation revisits expert pages non-sequentially, so restore
+    # adaptive readahead after prefill. MADV_RANDOM was substantially slower.
+    LLAMA_MMAP_GENERATION_ADVICE = "normal";
   };
 
   services.open-webui = {
@@ -179,9 +191,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    (llama-cpp.override {
-      cudaSupport = true;
-    })
+    llamaCpp
 
     hfdownloader
 

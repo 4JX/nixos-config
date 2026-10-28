@@ -1,0 +1,214 @@
+diff --git a/include/llama.h b/include/llama.h
+index 4ea2f13..6aa1b12 100644
+--- a/include/llama.h
++++ b/include/llama.h
+@@ -473,6 +473,12 @@ extern "C" {
+         LLAMA_MODEL_KV_OVERRIDE_TYPE_STR,
+     };
+ 
++    enum llama_mmap_advice {
++        LLAMA_MMAP_ADVICE_NORMAL,
++        LLAMA_MMAP_ADVICE_RANDOM,
++        LLAMA_MMAP_ADVICE_SEQUENTIAL,
++    };
++
+     // Helpers for getting default parameters
+     LLAMA_API struct llama_model_params          llama_model_default_params(void);
+     LLAMA_API struct llama_context_params        llama_context_default_params(void);
+@@ -545,6 +551,10 @@ extern "C" {
+ 
+     LLAMA_API void llama_model_free(struct llama_model * model);
+ 
++    // Change the kernel access-pattern advice for file-backed model mappings.
++    // Returns false when mmap advice is unsupported or any mapping update fails.
++    LLAMA_API bool llama_model_mmap_advise(struct llama_model * model, enum llama_mmap_advice advice);
++
+     LLAMA_API struct llama_context * llama_init_from_model(
+                      struct llama_model * model,
+             struct llama_context_params   params);
+diff --git a/src/llama-mmap.h b/src/llama-mmap.h
+index 4c1afcc..cb7bcdc 100644
+--- a/src/llama-mmap.h
++++ b/src/llama-mmap.h
+@@ -1,5 +1,7 @@
+ #pragma once
+ 
++#include "llama.h"
++
+ #include <cstdint>
+ #include <memory>
+ #include <utility>
+@@ -56,6 +58,7 @@ struct llama_mmap {
+     size_t size() const;
+     void * addr() const;
+ 
++    bool advise(enum llama_mmap_advice advice);
+     void unmap_fragment(size_t first, size_t last);
+ 
+     static const bool SUPPORTED;
+diff --git a/src/llama-mmap.cpp b/src/llama-mmap.cpp
+index 56df61d..14a49a3 100644
+--- a/src/llama-mmap.cpp
++++ b/src/llama-mmap.cpp
+@@ -683,6 +683,46 @@
+ size_t llama_mmap::size() const { return pimpl->size; }
+ void * llama_mmap::addr() const { return pimpl->addr; }
+ 
++bool llama_mmap::advise(enum llama_mmap_advice advice) {
++#ifdef _POSIX_MAPPED_FILES
++    int posix_advice;
++    const char * name;
++    switch (advice) {
++        case LLAMA_MMAP_ADVICE_NORMAL:
++            posix_advice = POSIX_MADV_NORMAL;
++            name = "POSIX_MADV_NORMAL";
++            break;
++        case LLAMA_MMAP_ADVICE_RANDOM:
++            posix_advice = POSIX_MADV_RANDOM;
++            name = "POSIX_MADV_RANDOM";
++            break;
++        case LLAMA_MMAP_ADVICE_SEQUENTIAL:
++            posix_advice = POSIX_MADV_SEQUENTIAL;
++            name = "POSIX_MADV_SEQUENTIAL";
++            break;
++        default:
++            return false;
++    }
++
++    bool ok = true;
++    for (const auto & frag : pimpl->mapped_fragments) {
++        const int err = posix_madvise(
++                (char *) pimpl->addr + frag.first,
++                frag.second - frag.first,
++                posix_advice);
++        if (err != 0) {
++            LLAMA_LOG_WARN("warning: posix_madvise(.., %s) failed for mapped fragment "
++                    "[%zu, %zu): %s\n", name, frag.first, frag.second, strerror(err));
++            ok = false;
++        }
++    }
++    return ok;
++#else
++    (void) advice;
++    return false;
++#endif
++}
++
+ void llama_mmap::unmap_fragment(size_t first, size_t last) { pimpl->unmap_fragment(first, last); }
+ 
+ #ifdef _POSIX_MAPPED_FILES
+diff --git a/src/llama-model.h b/src/llama-model.h
+index 8667af0..155055b 100644
+--- a/src/llama-model.h
++++ b/src/llama-model.h
+@@ -782,6 +782,8 @@ struct llama_model {
+ 
+     bool has_tensor_overrides() const;
+ 
++    bool mmap_advise(enum llama_mmap_advice advice);
++
+     const struct ggml_tensor * get_tensor(const char * name) const;
+ 
+     float get_rope_freq_base (const llama_cparams & cparams, int il) const;
+diff --git a/src/llama-model.cpp b/src/llama-model.cpp
+index 00c6d9a..ab8a145 100644
+--- a/src/llama-model.cpp
++++ b/src/llama-model.cpp
+@@ -2319,6 +2319,14 @@ bool llama_model::has_tensor_overrides() const {
+     return pimpl->has_tensor_overrides;
+ }
+ 
++bool llama_model::mmap_advise(enum llama_mmap_advice advice) {
++    bool ok = !pimpl->mappings.empty();
++    for (auto & mapping : pimpl->mappings) {
++        ok = mapping->advise(advice) && ok;
++    }
++    return ok;
++}
++
+ const ggml_tensor * llama_model::get_tensor(const char * name) const {
+     auto it = tensors_by_name.find(name);
+     if (it == tensors_by_name.end()) {
+@@ -2957,6 +2965,13 @@ void llama_model_free(llama_model * model) {
+     delete model;
+ }
+ 
++bool llama_model_mmap_advise(struct llama_model * model, enum llama_mmap_advice advice) {
++    if (model == nullptr) {
++        return false;
++    }
++    return model->mmap_advise(advice);
++}
++
+ int32_t llama_model_n_ctx_train(const llama_model * model) {
+     return model->hparams.n_ctx_train;
+ }
+diff --git a/tools/server/server-context.cpp b/tools/server/server-context.cpp
+index 614e2d8..c89d067 100644
+--- a/tools/server/server-context.cpp
++++ b/tools/server/server-context.cpp
+@@ -18,6 +18,8 @@
+ #include <algorithm>
+ #include <cstddef>
+ #include <cinttypes>
++#include <cstdlib>
++#include <cstring>
+ #include <exception>
+ #include <memory>
+ #include <filesystem>
+@@ -955,6 +957,15 @@ public:
+ 
+     server_context_impl() {
+         mtmd_helper_log_set(common_log_default_callback, nullptr);
++
++        const char * advice = std::getenv("LLAMA_MMAP_GENERATION_ADVICE");
++        if (advice != nullptr && std::strcmp(advice, "random") == 0) {
++            generation_mmap_advice = LLAMA_MMAP_ADVICE_RANDOM;
++            use_mmap_phase_advice = true;
++        } else if (advice != nullptr && std::strcmp(advice, "normal") == 0) {
++            generation_mmap_advice = LLAMA_MMAP_ADVICE_NORMAL;
++            use_mmap_phase_advice = true;
++        }
+     }
+ 
+     ~server_context_impl() {
+@@ -978,6 +989,9 @@ private:
+ 
+     common_params params_base;
+ 
++    bool use_mmap_phase_advice = false;
++    enum llama_mmap_advice generation_mmap_advice = LLAMA_MMAP_ADVICE_NORMAL;
++
+     // note: keep these alive - they determine the lifetime of the model, context, etc.
+     common_init_result_ptr llama_init;
+ 
+@@ -3352,6 +3366,14 @@ private:
+                     if (slot.state == SLOT_STATE_STARTED) {
+                         slot.stats.update_prompt_start();
+ 
++                        if (use_mmap_phase_advice && slot.prompt.n_tokens() < slot.task->n_tokens()) {
++                            if (llama_model_mmap_advise(model_tgt, LLAMA_MMAP_ADVICE_SEQUENTIAL)) {
++                                SLT_DBG(slot, "%s", "model mmap advice set to sequential for prompt processing\n");
++                            } else {
++                                SLT_WRN(slot, "%s", "failed to set sequential mmap advice for prompt processing\n");
++                            }
++                        }
++
+                         slot.state = SLOT_STATE_PROCESSING_PROMPT;
+ 
+                         SLT_TRC(slot, "new prompt, n_ctx_slot = %d, n_keep = %d, task.n_tokens = %d\n",
+@@ -4172,6 +4191,14 @@ private:
+                 GGML_ASSERT(slot.task->need_sampling());
+ 
+                 // prompt evaluated for next-token prediction
++                if (use_mmap_phase_advice) {
++                    if (llama_model_mmap_advise(model_tgt, generation_mmap_advice)) {
++                        SLT_DBG(slot, "%s", "model mmap advice switched for token generation\n");
++                    } else {
++                        SLT_WRN(slot, "%s", "failed to switch mmap advice for token generation\n");
++                    }
++                }
++
+                 slot.state = SLOT_STATE_GENERATING;
+ 
+                 if (slot.can_speculate()) {

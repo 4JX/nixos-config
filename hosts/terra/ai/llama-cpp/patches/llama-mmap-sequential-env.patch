@@ -1,0 +1,24 @@
+diff --git a/src/llama-mmap.cpp b/src/llama-mmap.cpp
+index 56df61d..e76f437 100644
+--- a/src/llama-mmap.cpp
++++ b/src/llama-mmap.cpp
+@@ -497,6 +497,19 @@ struct llama_mmap::impl {
+             throw std::runtime_error(format("mmap failed: %s", strerror(errno)));
+         }
+ 
++#ifdef __linux__
++        const char * mmap_sequential = std::getenv("LLAMA_MMAP_SEQUENTIAL");
++        if (!numa && mmap_sequential && strcmp(mmap_sequential, "1") == 0) {
++            if (madvise(addr, file->size(), MADV_SEQUENTIAL) != 0) {
++                LLAMA_LOG_WARN("warning: madvise(.., MADV_SEQUENTIAL) failed: %s\n",
++                        strerror(errno));
++            } else {
++                LLAMA_LOG_INFO("llama_mmap: MADV_SEQUENTIAL enabled by "
++                        "LLAMA_MMAP_SEQUENTIAL=1\n");
++            }
++        }
++#endif
++
+         // page-aligned madvise over [beg, end), clamped to the file
+         auto advise = [&](size_t beg, size_t end, int advice, const char * name) {
+             const size_t page_size = sysconf(_SC_PAGESIZE);
