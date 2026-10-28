@@ -33,11 +33,12 @@ let
   modelDir = "/srv/llm-models";
   llamaCpp = pkgs.callPackage ./llama-cpp/package.nix { };
   llamaModelsPreset = toString ./llama-cpp/models.ini;
-
-  deepseekHarnessVersion = "0.2.0-rc.2";
-  deepseekHarnessImage = "deepseek-harness-workstation:${deepseekHarnessVersion}";
 in
 {
+  imports = [
+    ./deepseek-harness
+  ];
+
   local = {
     allowedUnfree = [
       "cuda_cccl"
@@ -59,7 +60,6 @@ in
   # sandboxed service can read them.
   systemd.tmpfiles.rules = [
     "d ${modelDir} 1777 root root -"
-    "d /home/infinity/Documents/dsh 0750 infinity users -"
   ];
 
   services.llama-cpp = {
@@ -121,72 +121,6 @@ in
       ENABLE_OTEL_TRACES = "false";
       ENABLE_OTEL_METRICS = "false";
       ENABLE_OTEL_LOGS = "false";
-    };
-  };
-
-  # Build the conventional Debian image into the local Docker daemon before
-  # the generated OCI container service starts. Docker's layer cache keeps
-  # unchanged boots cheap while changes to the Dockerfile trigger a rebuild.
-  systemd.services.deepseek-harness-image = {
-    description = "Build the DeepSeek Harness workstation image";
-    requires = [ "docker.service" ];
-    after = [
-      "docker.service"
-      "docker.socket"
-      "network-online.target"
-    ];
-    wants = [ "network-online.target" ];
-    before = [ "docker-deepseek-harness.service" ];
-
-    path = [ pkgs.docker ];
-    script = ''
-      docker build \
-        --build-arg DSH_VERSION=${deepseekHarnessVersion} \
-        --tag ${deepseekHarnessImage} \
-        ${./deepseek-harness}
-    '';
-
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-  };
-
-  systemd.services.docker-deepseek-harness = {
-    requires = [ "deepseek-harness-image.service" ];
-    after = [ "deepseek-harness-image.service" ];
-  };
-
-  virtualisation.oci-containers = {
-    backend = "docker";
-
-    containers.deepseek-harness = {
-      image = deepseekHarnessImage;
-      pull = "never";
-      cmd = [
-        "dsh"
-        "web"
-        "--no-open"
-      ];
-
-      # dsh intentionally binds only to loopback. Host networking preserves
-      # that restriction while making the UI available at 127.0.0.1:3080.
-      extraOptions = [
-        "--network=host"
-        "--cap-drop=ALL"
-        "--security-opt=no-new-privileges"
-        "--init"
-      ];
-
-      user = "1000:100";
-      workdir = "/workspace";
-      environment = {
-        DSH_HOME = "/workspace/.dsh";
-        npm_config_cache = "/workspace/.dsh/npm-cache";
-      };
-      volumes = [
-        "/home/infinity/Documents/dsh:/workspace"
-      ];
     };
   };
 

@@ -2,16 +2,15 @@
 
 FROM docker.io/library/node:24-trixie-slim@sha256:8ec5d7557396cfe32d21c3f9c13072355ceab22b584578ca4bb28af31120cffe
 
-ARG DSH_VERSION=0.2.0-rc.2
+ARG DSH_VERSION
 ARG PNPM_VERSION=12.6.0
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# A broad, conventional Debian workstation baseline. Nix is the escape hatch
-# for project-specific versions and tools, not the source of these utilities.
+# A broad, conventional Debian workstation baseline.
 RUN set -eu; \
     shell_and_workflow_tools=" \
-      bash-completion direnv entr file less procps psmisc tree \
+      bash-completion entr file less procps psmisc tree \
     "; \
     network_and_transfer_tools=" \
       aria2 ca-certificates curl dnsutils iproute2 iputils-ping \
@@ -53,12 +52,13 @@ RUN set -eu; \
       $media_and_document_tools; \
     rm -rf /var/lib/apt/lists/*; \
     ln -s /usr/bin/fdfind /usr/local/bin/fd; \
-    mkdir -m 0755 /nix /workspace; \
-    chown node:node /nix /workspace
+    mkdir -m 0755 /workspace; \
+    chown node:node /workspace
 
 # Install the harness once while building instead of downloading and executing
 # it through npx on every service start.
-RUN npm install --global --omit=dev --no-audit --no-fund \
+RUN test -n "${DSH_VERSION}" \
+    && npm install --global --omit=dev --no-audit --no-fund \
       --allow-scripts=@deepseek-ai/dsh-subprocess-local,koffi,node-pty,@google/genai,protobufjs \
       "@deepseek-ai/dsh@${DSH_VERSION}" \
       "pnpm@${PNPM_VERSION}" \
@@ -68,38 +68,8 @@ RUN npm install --global --omit=dev --no-audit --no-fund \
 
 USER node
 ENV HOME=/home/node \
-    USER=node \
-    PATH=/home/node/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-    XDG_CONFIG_HOME=/home/node/.config \
-    NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+    USER=node
 
-# A normal single-user Nix installation. Docker is the outer sandbox, so the
-# nested Nix build sandbox is disabled; flakes remain enabled for dev shells.
-RUN mkdir -p /home/node/.config/nix \
-    && printf '%s\n' \
-      'experimental-features = nix-command flakes' \
-      'sandbox = false' \
-      'accept-flake-config = false' \
-      > /home/node/.config/nix/nix.conf \
-    && curl --proto '=https' --tlsv1.2 --fail --location https://nixos.org/nix/install \
-      | sh -s -- --no-daemon --yes \
-    && nix --version \
-    && nix profile add nixpkgs#nix-direnv \
-    && mkdir -p /home/node/.config/direnv \
-    && printf '%s\n' \
-      'source /home/node/.nix-profile/share/nix-direnv/direnvrc' \
-      > /home/node/.config/direnv/direnvrc \
-    && nix store optimise
-
-USER root
-# Debian's /etc/profile replaces PATH for login shells. Restore the Nix profile
-# there as well, since coding agents commonly launch commands via `bash -lc`.
-RUN printf '%s\n' \
-      'export PATH=/home/node/.nix-profile/bin:$PATH' \
-      'export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt' \
-      > /etc/profile.d/nix.sh
-
-USER node
 ENV DSH_TELEMETRY_DISABLED=1 \
     CHROME_BIN=/usr/bin/chromium \
     CHROME_PATH=/usr/bin/chromium \
