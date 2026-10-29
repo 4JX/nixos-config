@@ -12,10 +12,10 @@ in
 
   # The OCI module owns the runtime service. Build the local image in that
   # service's pre-start phase so a failed build follows its normal retry path.
-  systemd.services.docker-deepseek-harness = {
-    path = [ pkgs.docker ];
+  systemd.services.podman-deepseek-harness = {
+    path = [ pkgs.podman ];
     preStart = lib.mkBefore ''
-      docker build \
+      podman build \
         --build-arg DSH_VERSION=${version} \
         --tag ${image} \
         ${./.}
@@ -23,36 +23,30 @@ in
     serviceConfig.RestartSec = "10s";
   };
 
-  virtualisation.oci-containers = {
-    backend = "docker";
+  virtualisation.oci-containers.containers.deepseek-harness = {
+    image = image;
+    pull = "never";
+    cmd = [
+      "dsh"
+      "web"
+      "--no-open"
+    ];
 
-    containers.deepseek-harness = {
-      image = image;
-      pull = "never";
-      cmd = [
-        "dsh"
-        "web"
-        "--no-open"
-      ];
+    extraOptions = [
+      "--network=host"
+      "--cap-drop=ALL"
+      "--security-opt=no-new-privileges"
+      "--init"
+    ];
 
-      # dsh binds only to loopback. Host networking makes the UI available at
-      # 127.0.0.1:3080 without exposing it on another interface.
-      extraOptions = [
-        "--network=host"
-        "--cap-drop=ALL"
-        "--security-opt=no-new-privileges"
-        "--init"
-      ];
-
-      user = "1000:100";
-      workdir = "/workspace";
-      environment = {
-        DSH_HOME = "/workspace/.dsh";
-        npm_config_cache = "/workspace/.dsh/npm-cache";
-      };
-      volumes = [
-        "${workspace}:/workspace"
-      ];
+    user = "1000:100";
+    workdir = "/workspace";
+    environment = {
+      DSH_HOME = "/workspace/.dsh";
+      npm_config_cache = "/workspace/.dsh/npm-cache";
     };
+    volumes = [
+      "${workspace}:/workspace"
+    ];
   };
 }

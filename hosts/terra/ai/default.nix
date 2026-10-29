@@ -33,31 +33,40 @@ let
   modelDir = "/srv/llm-models";
   llamaCpp = pkgs.callPackage ./llama-cpp/package.nix { };
   llamaModelsPreset = toString ./llama-cpp/models.ini;
+
+  llamaCudaUnfree = [
+    "cuda_cccl"
+    "cuda_cudart"
+    "cuda_nvcc"
+    "libcublas"
+    "cuda_nvml_dev"
+    "cuda_nvrtc"
+    "cccl"
+    "libnvvm"
+    "cuda_crt"
+  ];
+
 in
 {
   imports = [
     ./deepseek-harness
+    ./comfyui.nix
   ];
+
+  # Should probably live elsewhere, but currently only the AI shenanigans use containers in Terra
+  virtualisation = {
+    podman.enable = true;
+    oci-containers.backend = "podman";
+  };
 
   local = {
     allowedUnfree = [
-      "cuda_cccl"
-      "cuda_cudart"
-      "cuda_nvcc"
-      "libcublas"
       "open-webui"
-      "cuda_nvml_dev"
-      "cuda_nvrtc"
-      "cccl"
-      "libnvvm"
-      "cuda_crt"
-    ];
+    ]
+    ++ llamaCudaUnfree;
   };
 
-  # Shared model directory.
-  #
-  # Your normal user can download models here and llama.cpp's
-  # sandboxed service can read them.
+  # Shared model directory
   systemd.tmpfiles.rules = [
     "d ${modelDir} 1777 root root -"
   ];
@@ -71,7 +80,7 @@ in
       host = "127.0.0.1";
       port = 8081;
 
-      # Router mode because no fixed `model` is specified.
+      # Router mode to hot swap models
       models-dir = modelDir;
       models-preset = llamaModelsPreset;
 

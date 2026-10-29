@@ -109,11 +109,4 @@
   # Filesharing but easy
   programs.localsend.enable = true;
 
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
 }
